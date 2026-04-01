@@ -26,9 +26,9 @@
 
 | Nombre | Rol | GitHub |
 |---|---|---|
-| [Villaverde Pacheco Fabiola Karina] | Scrum Master / Backend Lead | [@usuario1] |
-| [Chavez Apaza Marcos Alberto] | Frontend Lead / UI-UX | [@usuario2] |
-| [Baldeon Martinez David ] | Algoritmo CSP / QA Lead | [@usuario3] |
+| Villaverde Pacheco Fabiola Karina | Scrum Master / Backend Lead | https://github.com/FabiVP |
+| Chavez Apaza Marcos Alberto | Frontend Lead / UI-UX | https://github.com/Marcos409 |
+| Baldeon Martinez David  | Algoritmo CSP / QA Lead | https://github.com/JinDannyDavid |
 
 ---
 
