@@ -123,7 +123,51 @@ Basado en ISO/IEC 25010 y estructurado según la vista de requisitos de ARC42.
 | **RNF-03** | **Usabilidad (WCAG 2.1)** | La interfaz de visualización de horarios cumplirá con **nivel AA**: contraste mínimo 4.5:1, navegación por teclado (TAB, ENTER) y etiquetas ARIA en componentes interactivos. | Certificación automática con axe-core ≥ 90%. | Auditoría con WAVE o Lighthouse. |
 | **RNF-04** | **Mantenibilidad (ISO 25010)** | El código backend y frontend tendrá **cobertura de pruebas unitarias ≥ 70%** (Jest para backend, React Testing Library para frontend). | Informe de cobertura (línea/función). | Ejecutar `npm test -- --coverage`. |
 | **RNF-05** | **Fiabilidad** | El sistema no presentará errores no controlados (crash) durante la generación de horarios en condiciones normales. Tasa de fallos < 1% en 100 ejecuciones. | Tasa de fallos (crash) | Ejecutar CSP 100 veces con diferentes seeds. |
+---
+## Spec-Driven Development (Google Antigravity)
 
+📄 **Documentación:** [`docs/antigravity/evidencia.md`](docs/antigravity/evidencia.md)
+
+En este documento se detalla el uso conceptual de Google Antigravity para:
+- Modelado del problema como CSP
+- Validación de restricciones (RD-01 a RD-06)
+- Estimación de rendimiento del algoritmo
+
+### 2. Implementación con TDD (Pruebas unitarias)
+
+- **Resultado de pruebas:** [`docs/antigravity/pruebas_unitarias_resultado.txt`](docs/antigravity/pruebas_unitarias_resultado.txt)
+  - ✅ 12 pruebas pasadas
+  - ❌ 0 fallidas
+- **Reporte de cobertura HTML:** [`docs/antigravity/coverage-report/index.html`](docs/antigravity/coverage-report/index.html)
+  - 📊 Cobertura: **84.26%** (requerido ≥70%)
+
+### 3. Entregable funcional (Horario generado)
+
+- **Horario en JSON:** [`docs/antigravity/horario_generado.json`](docs/antigravity/horario_generado.json)
+- **Horario legible:** [`docs/antigravity/horario_evidencia.txt`](docs/antigravity/horario_evidencia.txt)
+
+### 4. Métricas de rendimiento
+
+| Métrica | Resultado | Requisito | Estado |
+|---------|-----------|-----------|--------|
+| Tiempo de generación | 0.597 segundos | < 30 segundos | ✅ CUMPLE |
+| Calidad del horario | 89% | - | ✅ |
+| Cobertura de pruebas | 84.26% | ≥ 70% | ✅ CUMPLE |
+| Pruebas exitosas | 12/12 | - | ✅ |
+
+### 5. Código fuente del algoritmo
+
+- **Motor CSP:** [`backend/engine/csp.js`](backend/engine/csp.js)
+- **Restricciones:** [`backend/engine/constraints.js`](backend/engine/constraints.js)
+- **Pruebas TDD:** [`backend/tests/csp.test.js`](backend/tests/csp.test.js)
+
+### 6. Cómo ejecutar las pruebas
+
+```bash
+cd backend
+npm test
+npm test -- --coverage
+```
 ---
 ## Tecnologías utilizadas
 
