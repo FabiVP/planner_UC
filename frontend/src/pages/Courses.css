@@ -1,0 +1,9 @@
+.page-content { padding: 0 32px; }
+.page-actions { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+.results-count { font-size: 14px; color: var(--text-secondary); font-weight: 500; }
+.code-badge { background: var(--primary-bg); color: var(--primary); padding: 4px 10px; border-radius: 6px; font-weight: 700; font-size: 13px; font-family: monospace; }
+.td-name { font-weight: 600; }
+.action-btns { display: flex; gap: 6px; }
+.modal-form { display: flex; flex-direction: column; gap: 16px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 768px) { .page-content { padding: 0 16px; } .form-row { grid-template-columns: 1fr; } }

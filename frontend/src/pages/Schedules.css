@@ -1,0 +1,24 @@
+.schedule-selector {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.schedule-selector label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+.schedule-info-bar {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 12px 0 16px;
+  font-size: 14px;
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 16px;
+}
+.quality-badge {
+  color: var(--success);
+}

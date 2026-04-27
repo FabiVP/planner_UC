@@ -1,0 +1,52 @@
+/* Classrooms page styles */
+.classrooms-page .page-content {
+  animation: fadeIn 0.4s ease forwards;
+}
+
+.capacity-bar-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.capacity-bar {
+  width: 60px;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--border);
+  overflow: hidden;
+}
+
+.capacity-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  background: var(--primary);
+  transition: width var(--transition);
+}
+
+.building-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+  background: var(--warning-bg);
+  color: #c98a00;
+}
+
+.equipment-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.equipment-chip {
+  display: inline-flex;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 500;
+  background: var(--info-bg);
+  color: var(--info);
+}

@@ -1,0 +1,38 @@
+/* Teachers page styles */
+.teachers-page .page-content {
+  animation: fadeIn 0.4s ease forwards;
+}
+
+.teacher-availability {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.availability-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 500;
+  background: var(--info-bg);
+  color: var(--info);
+}
+
+.specialization-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  max-width: 200px;
+}
+
+.specialization-chip {
+  display: inline-flex;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 500;
+  background: var(--primary-bg);
+  color: var(--primary);
+}

@@ -1,0 +1,28 @@
+/* Students page styles */
+.students-page .page-content {
+  animation: fadeIn 0.4s ease forwards;
+}
+
+.student-career {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+  background: var(--success-bg);
+  color: var(--success);
+}
+
+.approved-courses-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 700;
+  background: var(--primary-bg);
+  color: var(--primary);
+}

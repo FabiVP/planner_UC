@@ -1,0 +1,49 @@
+/* ScheduleCell component styles */
+.schedule-cell {
+  min-height: 60px;
+  padding: 4px;
+  transition: background var(--transition-fast);
+  cursor: default;
+}
+
+.schedule-cell.has-content {
+  cursor: pointer;
+}
+
+.schedule-cell.has-content:hover .cell-content {
+  transform: scale(1.02);
+  box-shadow: var(--shadow-sm);
+}
+
+.schedule-cell .cell-content {
+  padding: 6px 10px;
+  border-radius: var(--radius-sm);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.schedule-cell .cell-course {
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.schedule-cell .cell-detail {
+  font-size: 11px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.schedule-cell.empty-cell {
+  background: transparent;
+}
+
+/* Focus states for keyboard accessibility */
+.schedule-cell:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: -2px;
+  border-radius: var(--radius-sm);
+}
