@@ -36,7 +36,7 @@ A continuación, se lista cada artefacto del repositorio y se especifica su corr
 
 ## Enlace al Video Demostrativo
 
-**URL del video:** [INSERTAR AQUÍ EL ENLACE DE ONEDRIVE O GOOGLE DRIVE]
+**URL del video:** [https://continentaledupe-my.sharepoint.com/:f:/g/personal/76252483_continental_edu_pe/IgA5dGrvDww7RLybC144p7SoAbMk2UUpxIsqBVSByucQe18?e=4MZgAA]
 
 
 **Contenido del video:**
