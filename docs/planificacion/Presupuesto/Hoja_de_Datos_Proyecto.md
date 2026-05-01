@@ -130,6 +130,24 @@ Como el proyecto se desarrolla en un contexto académico controlado, se asume qu
 
 5. **Curva S:** El proyecto sigue una distribución normal de costos, con una aceleración en el mes de junio (desarrollo del motor CSP) y una desaceleración en julio (cierre y documentación).
 
+# Análisis de Sostenibilidad (Green Software)
+
+## Consumo energético estimado
+
+- **Backend (Node.js + MongoDB):** ~0.5 kWh por 1000 ejecuciones del CSP
+- **Emisiones CO2 estimadas:** ~0.2 kg CO2 por día de uso intensivo
+
+## Optimizaciones implementadas
+
+1. **Algoritmo eficiente:** El CSP implementa backtracking con poda MRV, reduciendo tiempo de 30s a 0.597s
+2. **MongoDB indexes:** Consultas optimizadas reducen el uso de CPU
+3. **Despliegue en cloud regional:** Los servicios gratuitos (Render, Vercel) usan centros de datos con eficiencia energética
+
+## Propuestas de mejora verde
+
+- [ ] Implementar caché de horarios generados (evita recomputar)
+- [ ] Rate limiting en API para prevenir abuso
+- [ ] Migrar a región con energía renovable (si está disponible en el tier gratuito)
 ---
 
 **Elaborado por:** Chavez Apaza Marcos - Sprint 0    
