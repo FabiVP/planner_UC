@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import Header from '../components/layout/Header';
+import { useNavigate } from 'react-router-dom';
 import ScheduleGrid from '../components/schedule/ScheduleGrid';
 import Modal from '../components/ui/Modal';
 import api from '../api/axios';
@@ -9,6 +9,7 @@ export default function Schedules() {
   const [schedules, setSchedules] = useState([]);
   const [selected, setSelected] = useState(null);
   const [selectedCell, setSelectedCell] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => { load(); }, []);
   const load = async () => {
@@ -20,9 +21,7 @@ export default function Schedules() {
   };
 
   return (
-    <>
-      <Header title="Horarios Generados" subtitle="Visualización de horarios académicos" />
-      <div className="page-content">
+    <div className="animate-fadeIn">
         {schedules.length > 0 && (
           <div className="schedule-selector">
             <label>Seleccionar generación:</label>
@@ -54,12 +53,11 @@ export default function Schedules() {
           <div className="card empty-state">
             <h3>No hay horarios generados</h3>
             <p>Ve a la sección de Generación para crear un nuevo horario.</p>
-            <button className="btn btn-primary" style={{marginTop:16}} onClick={() => window.location.href = '/generation'}>
+            <button className="btn btn-primary" style={{marginTop:16}} onClick={() => navigate('/generation')}>
               Ir a Generación
             </button>
           </div>
         )}
-      </div>
 
       <Modal isOpen={!!selectedCell} onClose={() => setSelectedCell(null)} title="Detalle de Asignación">
         {selectedCell && (
@@ -72,6 +70,6 @@ export default function Schedules() {
           </div>
         )}
       </Modal>
-    </>
+    </div>
   );
 }

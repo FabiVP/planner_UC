@@ -1,17 +1,25 @@
 const Course = require('../models/Course');
+const { validationResult } = require('express-validator');
 
 exports.getAll = async (req, res, next) => {
   try {
-    const { semester, type, active } = req.query;
+    const { semester, type, active, career, page = 1, limit = 50 } = req.query;
     const filter = {};
     if (semester) filter.semester = semester;
     if (type) filter.type = type;
     if (active !== undefined) filter.active = active === 'true';
+    if (career) filter.career = career;
     
-    const courses = await Course.find(filter)
-      .populate('prerequisites', 'code name')
-      .sort({ semester: 1, code: 1 });
-    res.json({ count: courses.length, courses });
+    const skip = (parseInt(page) - 1) * parseInt(limit);
+    const [courses, total] = await Promise.all([
+      Course.find(filter)
+        .populate('prerequisites', 'code name')
+        .populate('career', 'code name faculty')
+        .sort({ semester: 1, code: 1 })
+        .skip(skip).limit(parseInt(limit)),
+      Course.countDocuments(filter)
+    ]);
+    res.json({ count: courses.length, total, page: parseInt(page), pages: Math.ceil(total / parseInt(limit)), courses });
   } catch (error) {
     next(error);
   }
@@ -29,6 +37,8 @@ exports.getById = async (req, res, next) => {
 
 exports.create = async (req, res, next) => {
   try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) return res.status(400).json({ message: 'Error de validación', errors: errors.array() });
     const course = await Course.create(req.body);
     res.status(201).json({ message: 'Curso creado exitosamente.', course });
   } catch (error) {
@@ -38,6 +48,8 @@ exports.create = async (req, res, next) => {
 
 exports.update = async (req, res, next) => {
   try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) return res.status(400).json({ message: 'Error de validación', errors: errors.array() });
     const course = await Course.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
     if (!course) return res.status(404).json({ message: 'Curso no encontrado.' });
     res.json({ message: 'Curso actualizado.', course });

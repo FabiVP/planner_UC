@@ -1,10 +1,16 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const jwtConfig = require('../config/jwt');
+const { validationResult } = require('express-validator');
 
 // Register
 exports.register = async (req, res, next) => {
   try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ message: 'Error de validación', errors: errors.array() });
+    }
+
     const { name, email, password, role } = req.body;
 
     const existingUser = await User.findOne({ email });
@@ -28,6 +34,11 @@ exports.register = async (req, res, next) => {
 // Login
 exports.login = async (req, res, next) => {
   try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ message: 'Error de validación', errors: errors.array() });
+    }
+
     const { email, password } = req.body;
 
     const user = await User.findOne({ email });

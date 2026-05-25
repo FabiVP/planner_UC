@@ -18,7 +18,7 @@ const assignmentSchema = new mongoose.Schema({
   },
   day: {
     type: String,
-    enum: ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado'],
+    enum: ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'domingo'],
     required: true
   },
   startTime: {

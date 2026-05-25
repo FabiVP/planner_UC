@@ -1,0 +1,29 @@
+.reports-page { animation: fadeIn 0.4s ease; }
+.reports-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+/* Score display */
+.report-score-card .score-display { display: flex; align-items: center; gap: 32px; margin-top: 16px; }
+.score-circle-lg { position: relative; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.score-number { position: absolute; font-size: 32px; font-weight: 800; color: var(--text-heading); }
+.score-max { position: absolute; bottom: 22px; font-size: 12px; color: var(--text-secondary); }
+.score-stats { display: flex; flex-direction: column; gap: 8px; flex: 1; }
+.score-stat-row { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid var(--border-light); font-size: 13px; }
+.score-stat-row span { color: var(--text-secondary); }
+.score-stat-row strong { color: var(--text-heading); }
+
+/* Donut */
+.donut-container { display: flex; align-items: center; gap: 24px; margin-top: 16px; justify-content: center; }
+.donut-legend { display: flex; flex-direction: column; gap: 10px; }
+.legend-item { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-secondary); }
+.legend-dot { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+.legend-item strong { color: var(--text-heading); margin-left: 4px; }
+
+/* Bar chart */
+.bar-chart { display: flex; gap: 16px; align-items: flex-end; height: 180px; padding: 16px 0; justify-content: center; }
+.bar-col { display: flex; flex-direction: column; align-items: center; gap: 6px; flex: 1; max-width: 60px; }
+.bar-value { font-size: 13px; font-weight: 700; color: var(--text-heading); }
+.bar-track { width: 36px; height: 120px; background: var(--bg-main); border-radius: 6px; display: flex; align-items: flex-end; overflow: hidden; }
+.bar-fill { width: 100%; background: var(--primary-gradient); border-radius: 6px 6px 0 0; transition: height 0.6s ease; min-height: 4px; }
+.bar-label { font-size: 12px; font-weight: 600; color: var(--text-secondary); }
+
+@media (max-width: 768px) { .reports-grid { grid-template-columns: 1fr; } }

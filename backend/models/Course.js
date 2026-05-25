@@ -8,6 +8,10 @@ const courseSchema = new mongoose.Schema({
     uppercase: true,
     trim: true
   },
+  career: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Career'
+  },
   name: {
     type: String,
     required: [true, 'El nombre del curso es obligatorio'],
@@ -28,7 +32,7 @@ const courseSchema = new mongoose.Schema({
     type: Number,
     required: true,
     min: 1,
-    max: 10
+    max: 12
   },
   prerequisites: [{
     type: mongoose.Schema.Types.ObjectId,
@@ -46,6 +50,27 @@ const courseSchema = new mongoose.Schema({
     min: 1,
     max: 3
   },
+  mandatory: {
+    type: Boolean,
+    default: true
+  },
+  maxStudents: {
+    type: Number,
+    default: 40,
+    min: 5,
+    max: 200
+  },
+  minStudentsPerSection: {
+    type: Number,
+    default: 10,
+    min: 1,
+    max: 50
+  },
+  // ── Vinculación explícita: docentes asignados a este curso ──
+  assignedTeachers: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Teacher'
+  }],
   active: {
     type: Boolean,
     default: true
@@ -54,7 +79,6 @@ const courseSchema = new mongoose.Schema({
   timestamps: true
 });
 
-courseSchema.index({ code: 1 });
 courseSchema.index({ semester: 1 });
 
 module.exports = mongoose.model('Course', courseSchema);

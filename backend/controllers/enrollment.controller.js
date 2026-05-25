@@ -43,11 +43,17 @@ const validateEnrollment = async (studentId, courseIds) => {
 
 exports.getAll = async (req, res, next) => {
   try {
-    const enrollments = await Enrollment.find()
-      .populate('studentId', 'name studentCode')
-      .populate('selectedCourses', 'code name credits')
-      .sort({ createdAt: -1 });
-    res.json({ count: enrollments.length, enrollments });
+    const { page = 1, limit = 50 } = req.query;
+    const skip = (parseInt(page) - 1) * parseInt(limit);
+    const [enrollments, total] = await Promise.all([
+      Enrollment.find()
+        .populate('studentId', 'name studentCode')
+        .populate('selectedCourses', 'code name credits')
+        .sort({ createdAt: -1 })
+        .skip(skip).limit(parseInt(limit)),
+      Enrollment.countDocuments()
+    ]);
+    res.json({ count: enrollments.length, total, page: parseInt(page), pages: Math.ceil(total / parseInt(limit)), enrollments });
   } catch (error) {
     next(error);
   }

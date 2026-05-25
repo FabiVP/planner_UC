@@ -26,6 +26,24 @@ const userSchema = new mongoose.Schema({
     enum: ['coordinador', 'docente', 'estudiante'],
     default: 'estudiante'
   },
+  phone: {
+    type: String,
+    trim: true
+  },
+  career: {
+    type: String,
+    trim: true,
+    default: 'Ingeniería de Sistemas'
+  },
+  semester: {
+    type: Number,
+    min: 1,
+    max: 12
+  },
+  department: {
+    type: String,
+    trim: true
+  },
   active: {
     type: Boolean,
     default: true

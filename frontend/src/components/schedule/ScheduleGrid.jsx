@@ -1,15 +1,16 @@
 import './ScheduleGrid.css';
 
-const DAYS = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+const DAYS = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'];
 const TIME_SLOTS = [
-  '08:00 - 09:00', '09:00 - 10:00', '10:00 - 11:00',
-  '11:00 - 12:00', '12:00 - 13:00', '13:00 - 14:00',
+  '07:00 - 08:00', '08:00 - 09:00', '09:00 - 10:00', '10:00 - 11:00',
+  '11:00 - 12:00', '12:00 - 13:00', '13:00 - 14:00', '14:00 - 15:00',
+  '15:00 - 16:00', '16:00 - 17:00', '17:00 - 18:00'
 ];
 
 const COLORS = [
-  'var(--sched-blue)', 'var(--sched-green)', 'var(--sched-purple)',
+  'var(--sched-green)', 'var(--sched-blue)', 'var(--sched-purple)',
   'var(--sched-orange)', 'var(--sched-red)', 'var(--sched-teal)',
-  'var(--sched-pink)', 'var(--sched-indigo)',
+  'var(--sched-pink)', 'var(--sched-yellow)',
 ];
 
 function getColor(index) {
@@ -17,7 +18,6 @@ function getColor(index) {
 }
 
 export default function ScheduleGrid({ assignments = [], onCellClick }) {
-  // Build a lookup: grid[dayIndex][timeIndex] = assignment
   const grid = {};
   const courseColorMap = {};
   let colorIndex = 0;
@@ -36,12 +36,12 @@ export default function ScheduleGrid({ assignments = [], onCellClick }) {
       ...a,
       color: courseColorMap[courseId],
       courseName: a.courseId?.name || a.courseName || 'Curso',
-      classroomName: a.classroomId?.name || a.classroomName || '',
+      classroomName: a.classroomId?.code || a.classroomId?.name || a.classroomName || '',
       teacherName: a.teacherId?.name || a.teacherName || '',
     };
   });
 
-  const dayKeys = ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado'];
+  const dayKeys = ['lunes', 'martes', 'miercoles', 'jueves', 'viernes'];
 
   return (
     <div className="schedule-grid-wrapper">
@@ -53,12 +53,12 @@ export default function ScheduleGrid({ assignments = [], onCellClick }) {
           ))}
         </div>
 
-        {TIME_SLOTS.map((slot, ti) => {
+        {TIME_SLOTS.map(slot => {
           const timeKey = slot.split(' - ')[0];
           return (
             <div key={slot} className="schedule-row">
               <div className="schedule-time-cell">{slot}</div>
-              {dayKeys.map((dayKey, di) => {
+              {dayKeys.map(dayKey => {
                 const key = `${dayKey}_${timeKey}`;
                 const cell = grid[key];
                 return (
@@ -71,6 +71,7 @@ export default function ScheduleGrid({ assignments = [], onCellClick }) {
                       <div className="cell-content" style={{ background: cell.color + '18', borderLeft: `3px solid ${cell.color}` }}>
                         <span className="cell-course" style={{ color: cell.color }}>{cell.courseName}</span>
                         <span className="cell-detail">{cell.classroomName}</span>
+                        <span className="cell-detail">{cell.teacherName?.split(' ')[0]}</span>
                       </div>
                     )}
                   </div>

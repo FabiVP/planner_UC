@@ -3,8 +3,15 @@ const Schedule = require('../models/Schedule');
 const Course = require('../models/Course');
 const Teacher = require('../models/Teacher');
 const Classroom = require('../models/Classroom');
-const { runCSP } = require('../engine/csp');
+const Preference = require('../models/Preference');
+const InstitutionalPolicy = require('../models/InstitutionalPolicy');
+const { runCSPMultiple } = require('../engine/csp');
+const { createNotification } = require('./notification.controller');
 
+/**
+ * POST /api/generations/generate
+ * Genera horario usando CSP con múltiples soluciones y scoring.
+ */
 exports.generate = async (req, res, next) => {
   try {
     const { name, semester } = req.body;
@@ -19,9 +26,22 @@ exports.generate = async (req, res, next) => {
     });
 
     // Fetch all necessary data
-    const courses = await Course.find({ active: true }).populate('prerequisites');
+    const courses = await Course.find({ active: true }).populate('prerequisites').populate('assignedTeachers', 'name');
     const teachers = await Teacher.find({ active: true }).populate('specializations');
     const classrooms = await Classroom.find({ available: true });
+    const preferences = await Preference.find({});
+
+    // Load active institutional policy (if any)
+    const policy = await InstitutionalPolicy.findOne({ active: true }).sort({ updatedAt: -1 });
+
+    // ── Aplicar bloques horarios bloqueados por defecto (almuerzo) si no están configurados ──
+    if (policy && policy.allowedSchedule) {
+      if (!policy.allowedSchedule.blockedTimeSlots || policy.allowedSchedule.blockedTimeSlots.length === 0) {
+        policy.allowedSchedule.blockedTimeSlots = [
+          { start: '13:00', end: '14:00', reason: 'Horario de almuerzo' }
+        ];
+      }
+    }
 
     if (courses.length === 0) {
       generation.status = 'fallida';
@@ -44,19 +64,79 @@ exports.generate = async (req, res, next) => {
       return res.status(400).json({ message: 'No hay aulas disponibles.', generation });
     }
 
-    // Run CSP Engine
+    // ── VINCULACIÓN TRIPARTITA: Validar cursos con docente asignado ──
+    const teacherSpecCourseIds = new Set(
+      teachers.flatMap(t => (t.specializations || []).map(s => {
+        const sId = s._id ? s._id.toString() : s.toString();
+        return sId;
+      }))
+    );
+
+    const coursesWithTeacher = [];
+    const coursesWithoutTeacher = [];
+
+    for (const course of courses) {
+      const cId = course._id.toString();
+      const hasAssigned = (course.assignedTeachers && course.assignedTeachers.length > 0);
+      const hasSpecialist = teacherSpecCourseIds.has(cId);
+      if (hasAssigned || hasSpecialist) {
+        coursesWithTeacher.push(course);
+      } else {
+        coursesWithoutTeacher.push(course);
+      }
+    }
+
+    // Warn about unlinked courses but proceed with those that have teachers
+    const preWarnings = coursesWithoutTeacher.map(c => ({
+      type: 'docente',
+      description: `Curso "${c.name}" (${c.code}) no tiene docente asignado — excluido de la generación.`,
+      severity: 'media'
+    }));
+
+    const coursesToSchedule = coursesWithTeacher.length > 0 ? coursesWithTeacher : courses;
+
+    // Run CSP Engine with multiple solutions + institutional policy
     const startTime = Date.now();
-    const result = runCSP(courses, teachers, classrooms);
+    const result = runCSPMultiple(coursesToSchedule, teachers, classrooms, preferences, 4, policy);
     const executionTime = Date.now() - startTime;
 
+    // Merge pre-warnings into result conflicts
+    if (result.conflicts) {
+      result.conflicts = [...preWarnings, ...result.conflicts];
+    } else if (preWarnings.length > 0) {
+      result.conflicts = preWarnings;
+    }
+
     if (result.success) {
-      // Save schedule
+      // Save primary schedule
       const schedule = await Schedule.create({
         generationId: generation._id,
         semester,
         assignments: result.assignments,
         totalAssignments: result.assignments.length
       });
+
+      // Save alternative schedules
+      const alternativesData = [];
+      for (let i = 0; i < (result.alternatives || []).length; i++) {
+        const alt = result.alternatives[i];
+        const altSchedule = await Schedule.create({
+          generationId: generation._id,
+          semester,
+          assignments: alt.assignments,
+          totalAssignments: alt.assignments.length
+        });
+
+        alternativesData.push({
+          scheduleId: altSchedule._id,
+          qualityScore: alt.qualityScore,
+          preferencesScore: alt.preferencesScore,
+          constraintsFulfilled: alt.constraintsFulfilled,
+          resourceUsage: alt.resourceUsage,
+          optimization: alt.optimization,
+          label: alt.label || `Alternativa ${i + 1}`
+        });
+      }
 
       generation.status = 'completada';
       generation.completedAt = new Date();
@@ -68,7 +148,21 @@ exports.generate = async (req, res, next) => {
       generation.resourceUsage = result.resourceUsage || 85;
       generation.loadDistribution = result.loadDistribution || 95;
       generation.conflicts = result.conflicts || [];
+      generation.alternatives = alternativesData;
+      generation.unsatisfiedConditions = result.unsatisfiedConditions || [];
+      generation.scoringBreakdown = result.scoringBreakdown || {};
       await generation.save();
+
+      // Create notification
+      if (req.user?._id) {
+        await createNotification(req.user._id, {
+          title: 'Horario generado',
+          message: `Tu horario "${generation.name}" ha sido generado correctamente. Puntaje: ${result.qualityScore}/100`,
+          type: 'horario',
+          category: 'info',
+          relatedEntity: { entityType: 'generation', entityId: generation._id }
+        });
+      }
 
       const populatedSchedule = await Schedule.findById(schedule._id)
         .populate('assignments.courseId', 'code name credits type')
@@ -79,17 +173,31 @@ exports.generate = async (req, res, next) => {
         message: 'Horario generado exitosamente.',
         executionTimeMs: executionTime,
         generation,
-        schedule: populatedSchedule
+        schedule: populatedSchedule,
+        alternatives: alternativesData,
+        unsatisfiedConditions: result.unsatisfiedConditions || [],
+        scoringBreakdown: result.scoringBreakdown || {}
       });
     } else {
       generation.status = 'fallida';
       generation.completedAt = new Date();
       generation.executionTimeMs = executionTime;
-      generation.conflicts = result.conflicts || [{ type: 'docente', description: 'No se encontro solucion factible.', severity: 'alta' }];
+      generation.conflicts = result.conflicts || [{ type: 'docente', description: 'No se encontró solución factible.', severity: 'alta' }];
       await generation.save();
 
+      // Notify about failure
+      if (req.user?._id) {
+        await createNotification(req.user._id, {
+          title: 'Conflictos detectados',
+          message: 'No fue posible generar un horario que cumpla todas las restricciones.',
+          type: 'conflicto',
+          category: 'alerta',
+          relatedEntity: { entityType: 'generation', entityId: generation._id }
+        });
+      }
+
       res.status(400).json({
-        message: 'No se encontro solucion factible.',
+        message: 'No se encontró solución factible.',
         executionTimeMs: executionTime,
         generation,
         conflicts: result.conflicts
@@ -102,10 +210,16 @@ exports.generate = async (req, res, next) => {
 
 exports.getAll = async (req, res, next) => {
   try {
-    const generations = await Generation.find()
-      .populate('createdBy', 'name')
-      .sort({ createdAt: -1 });
-    res.json({ count: generations.length, generations });
+    const { page = 1, limit = 20 } = req.query;
+    const skip = (parseInt(page) - 1) * parseInt(limit);
+    const [generations, total] = await Promise.all([
+      Generation.find()
+        .populate('createdBy', 'name')
+        .sort({ createdAt: -1 })
+        .skip(skip).limit(parseInt(limit)),
+      Generation.countDocuments()
+    ]);
+    res.json({ count: generations.length, total, page: parseInt(page), pages: Math.ceil(total / parseInt(limit)), generations });
   } catch (error) {
     next(error);
   }
@@ -113,219 +227,104 @@ exports.getAll = async (req, res, next) => {
 
 exports.getById = async (req, res, next) => {
   try {
-    const generation = await Generation.findById(req.params.id).populate('createdBy', 'name');
-    if (!generation) return res.status(404).json({ message: 'Generacion no encontrada.' });
+    const generation = await Generation.findById(req.params.id)
+      .populate('createdBy', 'name')
+      .populate('alternatives.scheduleId');
+    if (!generation) return res.status(404).json({ message: 'Generación no encontrada.' });
     res.json(generation);
   } catch (error) {
     next(error);
   }
 };
 
-// Nuevo endpoint para generar horario sin autenticación (para pruebas)
-exports.generatePublic = async (req, res) => {
-  try {
-    const { semester = '2025-1' } = req.body;
-    
-    const courses = await Course.find({ active: true });
-    const teachers = await Teacher.find({ active: true });
-    const classrooms = await Classroom.find({ available: true });
-
-    if (courses.length === 0) {
-      return res.status(400).json({ 
-        success: false, 
-        error: 'No hay cursos disponibles' 
-      });
-    }
-
-    const startTime = Date.now();
-    const result = runCSP(courses, teachers, classrooms);
-    const executionTime = (Date.now() - startTime) / 1000;
-
-    if (result.success) {
-      // Transformar asignaciones a formato legible
-      const horario = {};
-      const dias = ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado'];
-      const turnos = ['manana', 'tarde', 'noche'];
-      
-      // Inicializar horario vacío
-      for (const dia of dias) {
-        horario[dia] = {};
-        for (const turno of turnos) {
-          horario[dia][turno] = null;
-        }
-      }
-      
-      // Llenar con asignaciones
-      for (const assignment of result.assignments) {
-        const dia = assignment.day;
-        // Determinar turno basado en hora
-        let turno = 'manana';
-        if (assignment.startTime >= '13:00' && assignment.startTime < '18:00') turno = 'tarde';
-        if (assignment.startTime >= '18:00') turno = 'noche';
-        
-        if (!horario[dia]) horario[dia] = {};
-        horario[dia][turno] = {
-          curso: await Course.findById(assignment.courseId).then(c => c?.name || 'Curso'),
-          codigo: await Course.findById(assignment.courseId).then(c => c?.code || 'N/A'),
-          docente: await Teacher.findById(assignment.teacherId).then(t => t?.name || 'Docente'),
-          aula: await Classroom.findById(assignment.classroomId).then(c => c?.name || 'Aula'),
-          hora: `${assignment.startTime} - ${assignment.endTime}`
-        };
-      }
-      
-      res.json({
-        success: true,
-        horario: horario,
-        executionTime: `${executionTime} segundos`,
-        cursosAsignados: result.assignments.length,
-        qualityScore: result.qualityScore
-      });
-    } else {
-      res.status(404).json({
-        success: false,
-        error: 'No se encontro solucion',
-        conflicts: result.conflicts
-      });
-    }
-  } catch (error) {
-    console.error('Error:', error);
-    res.status(500).json({ success: false, error: error.message });
-  }
-
-};
-
 /**
- * ENDPOINT PÚBLICO PARA PRUEBAS
- * No requiere autenticación - Solo para demostrar el funcionamiento del CSP
- * POST /api/generation/test/generate
+ * POST /api/generations/test/generate
+ * Endpoint público para pruebas (sin autenticación)
  */
 exports.generatePublic = async (req, res) => {
   try {
-    const { semester = '2025-1' } = req.body;
+    const { semester = '2025-2' } = req.body;
     
     console.log('🚀 Generando horario público (modo prueba)...');
     
-    // Obtener datos necesarios
     const courses = await Course.find({ active: true });
     const teachers = await Teacher.find({ active: true });
     const classrooms = await Classroom.find({ available: true });
+    const policy = await InstitutionalPolicy.findOne({ active: true }).sort({ updatedAt: -1 });
 
-    // Validar datos mínimos
+    // Apply default lunch break if not configured
+    if (policy && policy.allowedSchedule) {
+      if (!policy.allowedSchedule.blockedTimeSlots || policy.allowedSchedule.blockedTimeSlots.length === 0) {
+        policy.allowedSchedule.blockedTimeSlots = [
+          { start: '13:00', end: '14:00', reason: 'Horario de almuerzo' }
+        ];
+      }
+    }
+
     if (courses.length === 0) {
-      return res.status(400).json({ 
-        success: false, 
-        error: 'No hay cursos disponibles. Ejecuta el seed primero.'
-      });
+      return res.status(400).json({ success: false, error: 'No hay cursos disponibles. Ejecuta el seed primero.' });
     }
-
     if (teachers.length === 0) {
-      return res.status(400).json({ 
-        success: false, 
-        error: 'No hay docentes disponibles.'
-      });
+      return res.status(400).json({ success: false, error: 'No hay docentes disponibles.' });
     }
-
     if (classrooms.length === 0) {
-      return res.status(400).json({ 
-        success: false, 
-        error: 'No hay aulas disponibles.'
-      });
+      return res.status(400).json({ success: false, error: 'No hay aulas disponibles.' });
     }
 
-    console.log(`📚 Cursos: ${courses.length}`);
-    console.log(`👨‍🏫 Docentes: ${teachers.length}`);
-    console.log(`🏫 Aulas: ${classrooms.length}`);
+    console.log(`📚 Cursos: ${courses.length} | 👨‍🏫 Docentes: ${teachers.length} | 🏫 Aulas: ${classrooms.length}`);
 
-    // Ejecutar CSP
     const startTime = Date.now();
-    const result = runCSP(courses, teachers, classrooms);
+    const result = runCSPMultiple(courses, teachers, classrooms, [], 3, policy);
     const executionTime = (Date.now() - startTime) / 1000;
 
     if (result.success) {
-      // Transformar asignaciones a formato legible para la respuesta
+      // Build readable schedule — batch resolve references
+      const courseIds = [...new Set(result.assignments.map(a => a.courseId.toString()))];
+      const teacherIds = [...new Set(result.assignments.map(a => a.teacherId.toString()))];
+      const classroomIds = [...new Set(result.assignments.map(a => a.classroomId.toString()))];
+      const [courseDocs, teacherDocs, classroomDocs] = await Promise.all([
+        Course.find({ _id: { $in: courseIds } }).select('name code'),
+        Teacher.find({ _id: { $in: teacherIds } }).select('name'),
+        Classroom.find({ _id: { $in: classroomIds } }).select('name code')
+      ]);
+      const courseMap = Object.fromEntries(courseDocs.map(c => [c._id.toString(), c]));
+      const teacherMap = Object.fromEntries(teacherDocs.map(t => [t._id.toString(), t]));
+      const classroomMap = Object.fromEntries(classroomDocs.map(c => [c._id.toString(), c]));
+
       const horario = {};
-      const dias = ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado'];
-      const turnos = ['mañana', 'tarde', 'noche'];
-      
-      // Inicializar horario vacío
-      for (const dia of dias) {
-        horario[dia] = {};
-        for (const turno of turnos) {
-          horario[dia][turno] = null;
-        }
-      }
-      
-      // Llenar con asignaciones
       for (const assignment of result.assignments) {
-        const dia = assignment.day;
-        
-        // Determinar turno basado en hora
-        let turno = 'mañana';
-        if (assignment.startTime >= '13:00' && assignment.startTime < '18:00') turno = 'tarde';
-        if (assignment.startTime >= '18:00') turno = 'noche';
-        
-        // Obtener nombres (con manejo de errores)
-        let cursoNombre = 'Curso';
-        let cursoCodigo = 'N/A';
-        let docenteNombre = 'Docente';
-        let aulaNombre = 'Aula';
-        
-        try {
-          const curso = await Course.findById(assignment.courseId);
-          if (curso) {
-            cursoNombre = curso.name;
-            cursoCodigo = curso.code || curso._id.toString().slice(-4);
-          }
-        } catch (e) {}
-        
-        try {
-          const docente = await Teacher.findById(assignment.teacherId);
-          if (docente) docenteNombre = docente.name;
-        } catch (e) {}
-        
-        try {
-          const aula = await Classroom.findById(assignment.classroomId);
-          if (aula) aulaNombre = aula.name;
-        } catch (e) {}
-        
-        horario[dia][turno] = {
-          curso: cursoNombre,
-          codigo: cursoCodigo,
-          docente: docenteNombre,
-          aula: aulaNombre,
+        if (!horario[assignment.day]) horario[assignment.day] = [];
+        const curso = courseMap[assignment.courseId.toString()];
+        const docente = teacherMap[assignment.teacherId.toString()];
+        const aula = classroomMap[assignment.classroomId.toString()];
+        horario[assignment.day].push({
+          curso: curso?.name || 'Curso', codigo: curso?.code || 'N/A',
+          docente: docente?.name || 'Docente',
+          aula: aula?.name || 'Aula',
           hora: `${assignment.startTime} - ${assignment.endTime}`
-        };
+        });
       }
-      
-      // Contar cursos asignados
-      const cursosAsignados = result.assignments.length;
-      
+
       res.json({
         success: true,
         message: 'Horario generado exitosamente',
-        horario: horario,
+        horario,
         executionTime: `${executionTime} segundos`,
-        cursosAsignados: cursosAsignados,
+        cursosAsignados: result.assignments.length,
         qualityScore: result.qualityScore,
-        totalCursos: courses.length
+        alternatives: (result.alternatives || []).length,
+        scoringBreakdown: result.scoringBreakdown
       });
     } else {
-      res.status(404).json({
+      res.status(422).json({
         success: false,
         error: 'No se encontró una solución válida',
-        conflicts: result.conflicts || [{
-          type: 'general',
-          description: 'No fue posible generar un horario con las restricciones actuales'
-        }],
+        conflicts: result.conflicts,
         executionTime: `${executionTime} segundos`
       });
     }
   } catch (error) {
     console.error('❌ Error en generatePublic:', error);
-    res.status(500).json({ 
-      success: false, 
-      error: error.message,
-      stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
-    });
+    res.status(500).json({ success: false, error: error.message });
   }
 };

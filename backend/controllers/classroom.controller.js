@@ -2,13 +2,17 @@ const Classroom = require('../models/Classroom');
 
 exports.getAll = async (req, res, next) => {
   try {
-    const { type, available } = req.query;
+    const { type, available, page = 1, limit = 50 } = req.query;
     const filter = {};
     if (type) filter.type = type;
     if (available !== undefined) filter.available = available === 'true';
 
-    const classrooms = await Classroom.find(filter).sort({ code: 1 });
-    res.json({ count: classrooms.length, classrooms });
+    const skip = (parseInt(page) - 1) * parseInt(limit);
+    const [classrooms, total] = await Promise.all([
+      Classroom.find(filter).sort({ code: 1 }).skip(skip).limit(parseInt(limit)),
+      Classroom.countDocuments(filter)
+    ]);
+    res.json({ count: classrooms.length, total, page: parseInt(page), pages: Math.ceil(total / parseInt(limit)), classrooms });
   } catch (error) {
     next(error);
   }

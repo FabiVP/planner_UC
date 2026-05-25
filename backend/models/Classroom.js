@@ -1,5 +1,16 @@
 const mongoose = require('mongoose');
 
+// Schedule of when the classroom is available (not just boolean)
+const classroomAvailabilitySchema = new mongoose.Schema({
+  day: {
+    type: String,
+    enum: ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'domingo'],
+    required: true
+  },
+  startTime: { type: String, required: true },
+  endTime: { type: String, required: true }
+}, { _id: false });
+
 const classroomSchema = new mongoose.Schema({
   code: {
     type: String,
@@ -17,11 +28,11 @@ const classroomSchema = new mongoose.Schema({
     type: Number,
     required: [true, 'La capacidad es obligatoria'],
     min: [5, 'Mínimo 5 personas'],
-    max: [200, 'Máximo 200 personas']
+    max: [500, 'Máximo 500 personas']
   },
   type: {
     type: String,
-    enum: ['teorico', 'laboratorio'],
+    enum: ['teorico', 'laboratorio', 'aula_virtual'],
     default: 'teorico'
   },
   building: {
@@ -35,6 +46,9 @@ const classroomSchema = new mongoose.Schema({
   equipment: [{
     type: String
   }],
+  // ── Disponibilidad horaria del aula ──
+  // Si está vacío, se asume disponible siempre (mientras available=true)
+  availabilitySchedule: [classroomAvailabilitySchema],
   available: {
     type: Boolean,
     default: true

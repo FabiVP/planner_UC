@@ -14,17 +14,34 @@ const enrollmentSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Course'
   }],
+  // Section-based enrollment (new)
+  selectedSections: [{
+    sectionId: { type: mongoose.Schema.Types.ObjectId, ref: 'Section' },
+    courseId: { type: mongoose.Schema.Types.ObjectId, ref: 'Course' }
+  }],
   totalCredits: {
     type: Number,
     default: 0
   },
   status: {
     type: String,
-    enum: ['pendiente', 'validada', 'rechazada'],
+    enum: ['pendiente', 'validada', 'rechazada', 'confirmada'],
     default: 'pendiente'
   },
   validationErrors: [{
     type: String
+  }],
+  // Schedule snapshot: the student's confirmed timetable
+  scheduleSnapshot: [{
+    sectionId: { type: mongoose.Schema.Types.ObjectId, ref: 'Section' },
+    courseCode: String,
+    courseName: String,
+    sectionCode: String,
+    teacherName: String,
+    classroomCode: String,
+    day: String,
+    startTime: String,
+    endTime: String
   }],
   validatedAt: Date
 }, {

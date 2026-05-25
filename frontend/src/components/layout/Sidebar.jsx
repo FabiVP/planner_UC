@@ -1,45 +1,95 @@
 import { NavLink, useLocation } from 'react-router-dom';
-import { 
-  HiOutlineViewGrid, 
-  HiOutlineCalendar, 
-  HiOutlineBookOpen, 
-  HiOutlineCube,
+import { useAuth } from '../../context/AuthContext';
+import {
+  HiOutlineHome,
+  HiOutlineCalendar,
+  HiOutlineClipboardList,
+  HiOutlineAdjustments,
+  HiOutlineLockClosed,
+  HiOutlineChartBar,
+  HiOutlineBell,
+  HiOutlineQuestionMarkCircle,
+  HiOutlineBookOpen,
   HiOutlineUserGroup,
   HiOutlineOfficeBuilding,
-  HiOutlineLockClosed,
+  HiOutlineCube,
   HiOutlineLightningBolt,
-  HiOutlineClock,
-  HiOutlineChartBar,
   HiOutlineCog,
-  HiOutlineClipboardList,
-  HiOutlineAdjustments
+  HiOutlineAcademicCap,
+  HiOutlineCollection,
+  HiOutlineShieldCheck
 } from 'react-icons/hi';
 import './Sidebar.css';
 
-const navItems = [
-  { path: '/', icon: HiOutlineViewGrid, label: 'Dashboard' },
-  { path: '/generation', icon: HiOutlineClipboardList, label: 'Planificación' },
+// Base navigation for ALL roles
+const baseNav = [
+  { path: '/', icon: HiOutlineHome, label: 'Inicio' },
+];
+
+// Student-specific nav
+const studentNav = [
+  { path: '/enrollment', icon: HiOutlineBookOpen, label: 'Matrícula' },
+  { path: '/section-enrollment', icon: HiOutlineCalendar, label: 'Armar horario' },
+  { path: '/my-schedules', icon: HiOutlineClipboardList, label: 'Mi horario' },
+  { path: '/preferences', icon: HiOutlineAdjustments, label: 'Preferencias' },
+  { path: '/notifications', icon: HiOutlineBell, label: 'Notificaciones' },
+  { path: '/help', icon: HiOutlineQuestionMarkCircle, label: 'Ayuda' },
+];
+
+// Teacher-specific nav (read-only schedule view + preferences for availability)
+const docenteNav = [
+  { path: '/teacher-profile', icon: HiOutlineUserGroup, label: 'Mi perfil docente' },
+  { path: '/my-schedules', icon: HiOutlineClipboardList, label: 'Mi horario' },
+  { path: '/preferences', icon: HiOutlineAdjustments, label: 'Preferencias' },
+  { path: '/restrictions', icon: HiOutlineLockClosed, label: 'Restricciones' },
+  { path: '/notifications', icon: HiOutlineBell, label: 'Notificaciones' },
+  { path: '/help', icon: HiOutlineQuestionMarkCircle, label: 'Ayuda' },
+];
+
+// Coordinator gets everything
+const coordinadorNav = [
+  { path: '/planning', icon: HiOutlineCollection, label: 'Planificación' },
+  { path: '/generate', icon: HiOutlineCalendar, label: 'Generar horario' },
+  { path: '/my-schedules', icon: HiOutlineClipboardList, label: 'Mis horarios' },
+  { path: '/preferences', icon: HiOutlineAdjustments, label: 'Preferencias' },
+  { path: '/restrictions', icon: HiOutlineLockClosed, label: 'Restricciones' },
+  { path: '/reports', icon: HiOutlineChartBar, label: 'Reportes' },
+  { path: '/notifications', icon: HiOutlineBell, label: 'Notificaciones' },
+  { path: '/help', icon: HiOutlineQuestionMarkCircle, label: 'Ayuda' },
+];
+
+const coordinadorExtra = [
+  { type: 'divider', label: 'Administración' },
+  { path: '/careers', icon: HiOutlineAcademicCap, label: 'Carreras' },
   { path: '/courses', icon: HiOutlineBookOpen, label: 'Asignaturas' },
-  { 
-    label: 'Recursos', icon: HiOutlineCube, submenu: [
-      { path: '/teachers', label: 'Docentes' },
-      { path: '/classrooms', label: 'Aulas' },
-      { path: '/students', label: 'Estudiantes' },
-    ]
-  },
-  { path: '/schedules', icon: HiOutlineLockClosed, label: 'Restricciones' },
-  { path: '/generation', icon: HiOutlineLightningBolt, label: 'Generación' },
-  { 
-    label: 'Horarios', icon: HiOutlineClock, submenu: [
-      { path: '/schedules', label: 'Ver horarios' },
-    ]
-  },
-  { path: '/schedules', icon: HiOutlineChartBar, label: 'Reportes' },
-  { path: '/schedules', icon: HiOutlineCog, label: 'Configuración' },
+  { path: '/teachers', icon: HiOutlineUserGroup, label: 'Docentes' },
+  { path: '/students', icon: HiOutlineCube, label: 'Estudiantes' },
+  { path: '/classrooms', icon: HiOutlineOfficeBuilding, label: 'Aulas' },
+  { path: '/generation', icon: HiOutlineLightningBolt, label: 'Generaciones' },
+  { path: '/career-generation', icon: HiOutlineCalendar, label: 'Generar x Carrera' },
+  { path: '/policies', icon: HiOutlineShieldCheck, label: 'Políticas' },
+  { path: '/student-preferences', icon: HiOutlineAcademicCap, label: 'Pref. Estudiantes' },
 ];
 
 export default function Sidebar() {
+  const { user, role } = useAuth();
   const location = useLocation();
+
+  let navItems = [...baseNav];
+  if (role === 'estudiante') {
+    navItems.push(...studentNav);
+  } else if (role === 'docente') {
+    navItems.push(...docenteNav);
+  } else {
+    navItems.push(...coordinadorNav);
+    navItems.push(...coordinadorExtra);
+  }
+
+  const roleLabels = {
+    estudiante: 'Estudiante',
+    docente: 'Docente',
+    coordinador: 'Coordinador'
+  };
 
   return (
     <aside className="sidebar">
@@ -47,32 +97,15 @@ export default function Sidebar() {
         <div className="sidebar-logo">
           <HiOutlineCalendar />
         </div>
-        <div className="sidebar-brand-text">
-          <span className="brand-name">SISTEMA</span>
-          <span className="brand-sub">Generación Óptima<br/>de Horarios</span>
-        </div>
+        <span className="brand-name">UniScheduler</span>
       </div>
-
-      <div className="sidebar-divider"></div>
 
       <nav className="sidebar-nav">
         {navItems.map((item, idx) => {
-          if (item.submenu) {
+          if (item.type === 'divider') {
             return (
-              <div key={idx} className="sidebar-group">
-                <div className="sidebar-group-label">
-                  <span className="sidebar-icon"><item.icon /></span>
-                  <span className="sidebar-label">{item.label}</span>
-                </div>
-                {item.submenu.map(sub => (
-                  <NavLink
-                    key={sub.path + sub.label}
-                    to={sub.path}
-                    className={({ isActive }) => `sidebar-link sidebar-sublink ${isActive ? 'active' : ''}`}
-                  >
-                    <span className="sidebar-label">{sub.label}</span>
-                  </NavLink>
-                ))}
+              <div key={idx} className="sidebar-section-label">
+                {item.label}
               </div>
             );
           }
@@ -91,14 +124,16 @@ export default function Sidebar() {
       </nav>
 
       <div className="sidebar-footer">
-        <div className="sidebar-footer-card">
-          <div className="footer-illustration">
-            <HiOutlineClock />
+        <NavLink to="/profile" className="sidebar-user-card">
+          <div className="sidebar-avatar">
+            {user?.name?.charAt(0) || 'U'}
           </div>
-          <p className="footer-text">Optimiza tiempos, recursos y espacios con inteligencia.</p>
-        </div>
+          <div className="sidebar-user-info">
+            <span className="sidebar-user-name">{user?.name || 'Usuario'}</span>
+            <span className="sidebar-user-role">{roleLabels[role] || role}</span>
+          </div>
+        </NavLink>
       </div>
     </aside>
   );
 }
-

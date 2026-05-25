@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import Header from '../components/layout/Header';
 import Modal from '../components/ui/Modal';
 import api from '../api/axios';
 import { HiOutlinePlus, HiOutlinePencil, HiOutlineTrash } from 'react-icons/hi';
@@ -27,9 +26,7 @@ export default function Students() {
   const handleDelete = async (id) => { if(!confirm('¿Eliminar?')) return; await api.delete(`/students/${id}`); load(); };
 
   return (
-    <>
-      <Header title="Estudiantes" subtitle="Gestión de alumnos matriculados" />
-      <div className="page-content">
+    <div className="animate-fadeIn">
         <div className="page-actions">
           <span className="results-count">{students.length} estudiantes registrados</span>
           <button className="btn btn-primary" onClick={() => { setEditing(null); setForm({ name: '', email: '', studentCode: '', currentSemester: 1, career: 'Ingeniería de Sistemas' }); setModal(true); }}><HiOutlinePlus /> Nuevo Estudiante</button>
@@ -44,7 +41,6 @@ export default function Students() {
           ))}
           {students.length === 0 && <tr><td colSpan="6" className="empty-state">No hay estudiantes</td></tr>}
         </tbody></table></div></div>
-      </div>
       <Modal isOpen={modal} onClose={() => setModal(false)} title={editing ? 'Editar Estudiante' : 'Nuevo Estudiante'}>
         <form onSubmit={handleSubmit} className="modal-form">
           <div className="form-row">
@@ -59,6 +55,6 @@ export default function Students() {
           <button type="submit" className="btn btn-primary btn-lg" style={{width:'100%',justifyContent:'center',marginTop:8}}>{editing ? 'Actualizar' : 'Crear'}</button>
         </form>
       </Modal>
-    </>
+    </div>
   );
 }

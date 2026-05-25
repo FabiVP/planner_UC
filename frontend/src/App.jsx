@@ -2,14 +2,31 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import './App.css';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import MainLayout from './components/layout/MainLayout';
+import ErrorBoundary from './components/error/ErrorBoundary';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
+import GenerateSchedule from './pages/GenerateSchedule';
+import MySchedules from './pages/MySchedules';
+import Preferences from './pages/Preferences';
+import Restrictions from './pages/Restrictions';
+import Reports from './pages/Reports';
+import Notifications from './pages/Notifications';
+import Help from './pages/Help';
+import Profile from './pages/Profile';
 import Courses from './pages/Courses';
 import Teachers from './pages/Teachers';
 import Students from './pages/Students';
 import Classrooms from './pages/Classrooms';
 import Generation from './pages/Generation';
 import Schedules from './pages/Schedules';
+import Planning from './pages/Planning';
+import Careers from './pages/Careers';
+import InstitutionalPolicies from './pages/InstitutionalPolicies';
+import Enrollment from './pages/Enrollment';
+import TeacherProfile from './pages/TeacherProfile';
+import StudentPreferences from './pages/StudentPreferences';
+import CareerGeneration from './pages/CareerGeneration';
+import SectionEnrollment from './pages/SectionEnrollment';
 
 function ProtectedRoute({ children }) {
   const { isAuthenticated, loading } = useAuth();
@@ -18,19 +35,38 @@ function ProtectedRoute({ children }) {
 }
 
 function AppRoutes() {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, role } = useAuth();
 
   return (
     <Routes>
       <Route path="/login" element={isAuthenticated ? <Navigate to="/" /> : <Login />} />
       <Route element={<ProtectedRoute><MainLayout /></ProtectedRoute>}>
+        {/* Common routes for all roles */}
         <Route path="/" element={<Dashboard />} />
+        <Route path="/planning" element={<Planning />} />
+        <Route path="/generate" element={<GenerateSchedule />} />
+        <Route path="/my-schedules" element={<MySchedules />} />
+        <Route path="/preferences" element={<Preferences />} />
+        <Route path="/restrictions" element={<Restrictions />} />
+        <Route path="/reports" element={<Reports />} />
+        <Route path="/notifications" element={<Notifications />} />
+        <Route path="/help" element={<Help />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/enrollment" element={<Enrollment />} />
+        <Route path="/teacher-profile" element={<TeacherProfile />} />
+        
+        {/* Coordinator admin routes */}
+        <Route path="/careers" element={<Careers />} />
         <Route path="/courses" element={<Courses />} />
         <Route path="/teachers" element={<Teachers />} />
         <Route path="/students" element={<Students />} />
         <Route path="/classrooms" element={<Classrooms />} />
         <Route path="/generation" element={<Generation />} />
         <Route path="/schedules" element={<Schedules />} />
+        <Route path="/policies" element={<InstitutionalPolicies />} />
+        <Route path="/student-preferences" element={<StudentPreferences />} />
+        <Route path="/career-generation" element={<CareerGeneration />} />
+        <Route path="/section-enrollment" element={<SectionEnrollment />} />
       </Route>
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
@@ -41,7 +77,9 @@ export default function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
-        <AppRoutes />
+        <ErrorBoundary>
+          <AppRoutes />
+        </ErrorBoundary>
       </AuthProvider>
     </BrowserRouter>
   );

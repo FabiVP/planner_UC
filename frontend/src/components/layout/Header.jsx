@@ -1,40 +1,52 @@
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import { HiOutlineMenu, HiOutlineBell, HiOutlineQuestionMarkCircle } from 'react-icons/hi';
+import { HiOutlineBell, HiOutlineLogout, HiOutlineSearch } from 'react-icons/hi';
+import { useState, useEffect } from 'react';
+import api from '../../api/axios';
 import './Header.css';
 
-export default function Header({ title, subtitle }) {
+export default function Header() {
   const { user, logout } = useAuth();
+  const navigate = useNavigate();
+  const [unreadCount, setUnreadCount] = useState(0);
+
+  useEffect(() => {
+    api.get('/notifications?read=false')
+      .then(res => setUnreadCount(res.data.unreadCount || 0))
+      .catch(() => {});
+  }, []);
+
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
+  };
 
   return (
     <header className="header">
       <div className="header-left">
-        <button className="header-menu-btn">
-          <HiOutlineMenu />
-        </button>
-        <div className="header-title-area">
-          <h1 className="header-title">{title || 'Dashboard'}</h1>
-          {subtitle && <p className="header-subtitle">{subtitle}</p>}
+        <div className="header-search">
+          <HiOutlineSearch className="search-icon" />
+          <input type="text" placeholder="Buscar..." className="search-input" />
         </div>
       </div>
 
       <div className="header-right">
-        <button className="header-icon-btn" title="Notificaciones">
+        <button
+          className="header-icon-btn"
+          onClick={() => navigate('/notifications')}
+          title="Notificaciones"
+        >
           <HiOutlineBell />
-          <span className="notification-badge">3</span>
+          {unreadCount > 0 && (
+            <span className="notification-badge">{unreadCount > 9 ? '9+' : unreadCount}</span>
+          )}
         </button>
-        <button className="header-icon-btn" title="Ayuda">
-          <HiOutlineQuestionMarkCircle />
+
+        <div className="header-divider" />
+
+        <button className="header-icon-btn" onClick={handleLogout} title="Cerrar sesión">
+          <HiOutlineLogout />
         </button>
-        
-        <div className="header-user">
-          <div className="header-avatar">
-            {user?.name?.charAt(0) || 'A'}
-          </div>
-          <div className="header-user-info">
-            <span className="header-user-name">{user?.name || 'Administrador'}</span>
-            <button className="header-logout" onClick={logout}>Cerrar sesión</button>
-          </div>
-        </div>
       </div>
     </header>
   );

@@ -50,7 +50,18 @@ export const SCHEDULE_COLORS = [
 ];
 
 // Semester options
-export const SEMESTERS = ['2025-I', '2025-II', '2026-I', '2026-II'];
+const now = new Date();
+const year = now.getFullYear();
+const month = now.getMonth() + 1;
+const currentSemesterLabel = month >= 8 ? 'II' : 'I';
+export const CURRENT_SEMESTER = `${year}-${currentSemesterLabel}`;
+export const CURRENT_SEMESTER_DASH = `${year}-${currentSemesterLabel === 'I' ? '1' : '2'}`;
+const prevYear = year - 1;
+export const SEMESTERS = [
+  `${prevYear}-I`, `${prevYear}-II`,
+  `${year}-I`, `${year}-II`,
+  `${year + 1}-I`,
+];
 
 // Credit limits
 export const CREDITS = {

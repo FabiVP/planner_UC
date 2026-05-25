@@ -1,18 +1,21 @@
 import { useState, useEffect } from 'react';
-import Header from '../components/layout/Header';
 import Modal from '../components/ui/Modal';
 import api from '../api/axios';
 import { HiOutlinePlus, HiOutlinePencil, HiOutlineTrash } from 'react-icons/hi';
 import './Courses.css';
 
+const emptyForm = { code: '', name: '', credits: 4, type: 'teorico', semester: 1, sessionsPerWeek: 2, hoursPerSession: 1, career: '' };
+
 export default function Courses() {
   const [courses, setCourses] = useState([]);
+  const [careers, setCareers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [modal, setModal] = useState(false);
   const [editing, setEditing] = useState(null);
-  const [form, setForm] = useState({ code: '', name: '', credits: 4, type: 'teorico', semester: 1, sessionsPerWeek: 2, hoursPerSession: 1 });
+  const [form, setForm] = useState({ ...emptyForm });
+  const [filterCareer, setFilterCareer] = useState('all');
 
-  useEffect(() => { loadCourses(); }, []);
+  useEffect(() => { loadCourses(); loadCareers(); }, []);
 
   const loadCourses = async () => {
     try {
@@ -22,17 +25,26 @@ export default function Courses() {
     finally { setLoading(false); }
   };
 
+  const loadCareers = async () => {
+    try {
+      const res = await api.get('/careers');
+      setCareers(res.data.careers || []);
+    } catch (err) { console.error(err); }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      const payload = { ...form };
+      if (!payload.career) delete payload.career;
       if (editing) {
-        await api.put(`/courses/${editing._id}`, form);
+        await api.put(`/courses/${editing._id}`, payload);
       } else {
-        await api.post('/courses', form);
+        await api.post('/courses', payload);
       }
       setModal(false);
       setEditing(null);
-      setForm({ code: '', name: '', credits: 4, type: 'teorico', semester: 1, sessionsPerWeek: 2, hoursPerSession: 1 });
+      setForm({ ...emptyForm });
       loadCourses();
     } catch (err) {
       alert(err.response?.data?.message || 'Error');
@@ -41,7 +53,16 @@ export default function Courses() {
 
   const handleEdit = (course) => {
     setEditing(course);
-    setForm({ code: course.code, name: course.name, credits: course.credits, type: course.type, semester: course.semester, sessionsPerWeek: course.sessionsPerWeek, hoursPerSession: course.hoursPerSession });
+    setForm({
+      code: course.code,
+      name: course.name,
+      credits: course.credits,
+      type: course.type,
+      semester: course.semester,
+      sessionsPerWeek: course.sessionsPerWeek,
+      hoursPerSession: course.hoursPerSession,
+      career: course.career?._id || course.career || ''
+    });
     setModal(true);
   };
 
@@ -53,13 +74,34 @@ export default function Courses() {
     } catch (err) { alert('Error al eliminar'); }
   };
 
+  const getCareerName = (course) => {
+    if (!course.career) return '-';
+    if (typeof course.career === 'object') return course.career.name || course.career.code || '-';
+    const found = careers.find(c => c._id === course.career);
+    return found ? found.name : '-';
+  };
+
+  const filteredCourses = filterCareer === 'all'
+    ? courses
+    : courses.filter(c => {
+        const cId = c.career?._id || c.career;
+        return cId === filterCareer;
+      });
+
   return (
-    <>
-      <Header title="Asignaturas" subtitle="Gestión de cursos académicos" />
-      <div className="page-content">
+    <div className="animate-fadeIn">
         <div className="page-actions">
-          <span className="results-count">{courses.length} asignaturas registradas</span>
-          <button className="btn btn-primary" onClick={() => { setEditing(null); setForm({ code: '', name: '', credits: 4, type: 'teorico', semester: 1, sessionsPerWeek: 2, hoursPerSession: 1 }); setModal(true); }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
+            <span className="results-count">{filteredCourses.length} asignaturas</span>
+            {careers.length > 0 && (
+              <select className="form-select" value={filterCareer} onChange={e => setFilterCareer(e.target.value)}
+                style={{ padding: '0.35rem 0.75rem', fontSize: '0.82rem', width: 'auto', minWidth: '180px' }}>
+                <option value="all">Todas las carreras</option>
+                {careers.map(c => <option key={c._id} value={c._id}>{c.name}</option>)}
+              </select>
+            )}
+          </div>
+          <button className="btn btn-primary" onClick={() => { setEditing(null); setForm({ ...emptyForm }); setModal(true); }}>
             <HiOutlinePlus /> Nuevo Curso
           </button>
         </div>
@@ -71,6 +113,7 @@ export default function Courses() {
                 <tr>
                   <th>Código</th>
                   <th>Nombre</th>
+                  <th>Carrera</th>
                   <th>Créditos</th>
                   <th>Tipo</th>
                   <th>Semestre</th>
@@ -79,10 +122,11 @@ export default function Courses() {
                 </tr>
               </thead>
               <tbody>
-                {courses.map(c => (
+                {filteredCourses.map(c => (
                   <tr key={c._id}>
                     <td><span className="code-badge">{c.code}</span></td>
                     <td className="td-name">{c.name}</td>
+                    <td style={{ fontSize: '0.82rem', color: 'var(--text-muted)' }}>{getCareerName(c)}</td>
                     <td>{c.credits}</td>
                     <td><span className={`badge badge-${c.type === 'laboratorio' ? 'info' : 'success'}`}>{c.type}</span></td>
                     <td>{c.semester}</td>
@@ -95,20 +139,25 @@ export default function Courses() {
                     </td>
                   </tr>
                 ))}
-                {courses.length === 0 && (
-                  <tr><td colSpan="7" className="empty-state">No hay cursos registrados</td></tr>
+                {filteredCourses.length === 0 && (
+                  <tr><td colSpan="8" className="empty-state">No hay cursos registrados</td></tr>
                 )}
               </tbody>
             </table>
           </div>
         </div>
-      </div>
-
       <Modal isOpen={modal} onClose={() => setModal(false)} title={editing ? 'Editar Curso' : 'Nuevo Curso'}>
         <form onSubmit={handleSubmit} className="modal-form">
           <div className="form-row">
             <div className="form-group"><label>Código</label><input className="form-input" value={form.code} onChange={e => setForm({...form, code: e.target.value})} required /></div>
             <div className="form-group"><label>Nombre</label><input className="form-input" value={form.name} onChange={e => setForm({...form, name: e.target.value})} required /></div>
+          </div>
+          <div className="form-group">
+            <label>Carrera</label>
+            <select className="form-select" value={form.career} onChange={e => setForm({...form, career: e.target.value})}>
+              <option value="">— Sin carrera —</option>
+              {careers.map(c => <option key={c._id} value={c._id}>{c.name}</option>)}
+            </select>
           </div>
           <div className="form-row">
             <div className="form-group"><label>Créditos</label><input type="number" className="form-input" value={form.credits} onChange={e => setForm({...form, credits: +e.target.value})} min="1" max="6" required /></div>
@@ -121,6 +170,6 @@ export default function Courses() {
           <button type="submit" className="btn btn-primary btn-lg" style={{width:'100%',justifyContent:'center',marginTop:8}}>{editing ? 'Actualizar' : 'Crear Curso'}</button>
         </form>
       </Modal>
-    </>
+    </div>
   );
 }

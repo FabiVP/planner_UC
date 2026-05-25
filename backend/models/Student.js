@@ -41,13 +41,22 @@ const studentSchema = new mongoose.Schema({
     max: 10
   },
   career: {
-    type: String,
-    default: 'Ingeniería de Sistemas'
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Career'
   },
   approvedCourses: [approvedCourseSchema],
   totalCreditsApproved: {
     type: Number,
     default: 0
+  },
+  worksWhileStudying: {
+    type: Boolean,
+    default: false
+  },
+  preferredShift: {
+    type: String,
+    enum: ['manana', 'tarde', 'noche', 'indiferente'],
+    default: 'indiferente'
   },
   active: {
     type: Boolean,
@@ -57,6 +66,6 @@ const studentSchema = new mongoose.Schema({
   timestamps: true
 });
 
-studentSchema.index({ studentCode: 1 });
+
 
 module.exports = mongoose.model('Student', studentSchema);

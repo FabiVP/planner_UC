@@ -1,3 +1,5 @@
+const { timesOverlap } = require('./constraints');
+
 /**
  * Heuristics Module for CSP Solver
  * 
@@ -52,11 +54,12 @@ function countRemainingValues(variable, assignments) {
  * Check if a value is consistent with current assignments (simple check).
  */
 function isConsistent(variable, value, assignments) {
-  // Check teacher conflict (RD-01)
+  const end1 = value.endTime;
+  // Check teacher conflict (RD-01) — uses timesOverlap to handle overlapping sessions
   const teacherConflict = assignments.some(a =>
     a.teacherId.toString() === value.teacherId.toString() &&
     a.day === value.day &&
-    a.startTime === value.startTime
+    timesOverlap(a.startTime, a.endTime, value.startTime, end1)
   );
   if (teacherConflict) return false;
 
@@ -64,7 +67,7 @@ function isConsistent(variable, value, assignments) {
   const classroomConflict = assignments.some(a =>
     a.classroomId.toString() === value.classroomId.toString() &&
     a.day === value.day &&
-    a.startTime === value.startTime
+    timesOverlap(a.startTime, a.endTime, value.startTime, end1)
   );
   if (classroomConflict) return false;
 
@@ -92,12 +95,12 @@ function forwardCheck(assignedVariable, value, unassigned, assignments) {
       // Remove values that conflict with the new assignment
       if (v.teacherId.toString() === value.teacherId.toString() &&
           v.day === value.day &&
-          v.startTime === value.startTime) {
+          timesOverlap(v.startTime, v.endTime, value.startTime, value.endTime)) {
         return false;
       }
       if (v.classroomId.toString() === value.classroomId.toString() &&
           v.day === value.day &&
-          v.startTime === value.startTime) {
+          timesOverlap(v.startTime, v.endTime, value.startTime, value.endTime)) {
         return false;
       }
       return true;

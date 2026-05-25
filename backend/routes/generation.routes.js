@@ -5,7 +5,7 @@ const roleGuard = require('../middleware/roleGuard');
 
 router.get('/', auth, ctrl.getAll);
 router.get('/:id', auth, ctrl.getById);
-router.post('/generate', auth, roleGuard('coordinador'), ctrl.generate);
+router.post('/generate', auth, ctrl.generate);
 
 // ✅ NUEVA RUTA PÚBLICA PARA PRUEBAS (sin autenticación)
 // Esta ruta es solo para testing y demostración del CSP

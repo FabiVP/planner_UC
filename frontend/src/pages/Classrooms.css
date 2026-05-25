@@ -50,3 +50,116 @@
   background: var(--info-bg);
   color: var(--info);
 }
+
+/* Classroom type selector */
+.classroom-type-selector {
+  display: flex;
+  gap: 6px;
+}
+
+.type-option {
+  flex: 1;
+  padding: 8px 10px;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
+}
+
+.type-option:hover {
+  border-color: var(--primary);
+}
+
+.type-option.active.teorico {
+  border-color: #10b981;
+  background: rgba(16, 185, 129, 0.08);
+  color: #059669;
+}
+
+.type-option.active.laboratorio {
+  border-color: #3b82f6;
+  background: rgba(59, 130, 246, 0.08);
+  color: #2563eb;
+}
+
+.type-option.active.aula_virtual {
+  border-color: #f59e0b;
+  background: rgba(245, 158, 11, 0.08);
+  color: #d97706;
+}
+
+/* Mini badges for classroom types */
+.mini-badge.teorico {
+  background: rgba(16, 185, 129, 0.12);
+  color: #059669;
+}
+
+.mini-badge.laboratorio {
+  background: rgba(59, 130, 246, 0.12);
+  color: #2563eb;
+}
+
+.mini-badge.aula_virtual {
+  background: rgba(245, 158, 11, 0.12);
+  color: #d97706;
+}
+
+/* Availability toggle */
+.avail-toggle {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.toggle-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.toggle-label input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--primary);
+  cursor: pointer;
+}
+
+.toggle-text {
+  color: var(--text-heading);
+}
+
+.avail-section {
+  padding: 12px;
+  background: var(--bg-secondary);
+  border-radius: 10px;
+  border: 1px solid var(--border);
+}
+
+/* Availability rows (shared with Teachers) */
+.availability-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.availability-row .form-select,
+.availability-row .form-input {
+  flex: 1;
+  min-width: 0;
+}
+
+.avail-separator {
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-weight: 600;
+  flex-shrink: 0;
+}

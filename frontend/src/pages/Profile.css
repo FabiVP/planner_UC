@@ -1,0 +1,4 @@
+.profile-page { animation: fadeIn 0.4s ease; }
+.profile-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.profile-form { display: flex; flex-direction: column; gap: 14px; margin-top: 16px; }
+@media (max-width: 768px) { .profile-grid { grid-template-columns: 1fr; } }

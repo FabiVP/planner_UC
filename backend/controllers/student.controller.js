@@ -2,15 +2,20 @@ const Student = require('../models/Student');
 
 exports.getAll = async (req, res, next) => {
   try {
-    const { semester, career } = req.query;
+    const { semester, career, page = 1, limit = 50 } = req.query;
     const filter = { active: true };
     if (semester) filter.currentSemester = semester;
     if (career) filter.career = career;
 
-    const students = await Student.find(filter)
-      .populate('approvedCourses.courseId', 'code name credits')
-      .sort({ name: 1 });
-    res.json({ count: students.length, students });
+    const skip = (parseInt(page) - 1) * parseInt(limit);
+    const [students, total] = await Promise.all([
+      Student.find(filter)
+        .populate('approvedCourses.courseId', 'code name credits')
+        .sort({ name: 1 })
+        .skip(skip).limit(parseInt(limit)),
+      Student.countDocuments(filter)
+    ]);
+    res.json({ count: students.length, total, page: parseInt(page), pages: Math.ceil(total / parseInt(limit)), students });
   } catch (error) {
     next(error);
   }

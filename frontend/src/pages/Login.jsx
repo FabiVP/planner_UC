@@ -4,6 +4,12 @@ import { useAuth } from '../context/AuthContext';
 import { HiOutlineCalendar, HiOutlineMail, HiOutlineLockClosed } from 'react-icons/hi';
 import './Login.css';
 
+const PROFILES = [
+  { label: 'Coordinador', email: 'admin@uni.edu', pw: 'admin123', color: '#E53E3E' },
+  { label: 'Docente', email: 'ana.vargas@uni.edu', pw: 'docente123', color: '#38A169' },
+  { label: 'Estudiante', email: 'luis.ramirez@uni.edu', pw: 'estudiante123', color: '#3182CE' },
+];
+
 export default function Login() {
   const [email, setEmail] = useState('admin@uni.edu');
   const [password, setPassword] = useState('admin123');
@@ -26,6 +32,11 @@ export default function Login() {
     }
   };
 
+  const quickLogin = (profile) => {
+    setEmail(profile.email);
+    setPassword(profile.pw);
+  };
+
   return (
     <div className="login-page">
       <div className="login-bg-shapes">
@@ -40,7 +51,7 @@ export default function Login() {
             <HiOutlineCalendar />
           </div>
           <h1>UniScheduler</h1>
-          <p>Sistema de Generación Óptima de Horarios</p>
+          <p>Sistema Inteligente de Generación de Horarios</p>
         </div>
 
         <form onSubmit={handleSubmit} className="login-form">
@@ -82,6 +93,23 @@ export default function Login() {
             {loading ? <span className="spinner" style={{width:20,height:20,borderWidth:2}}></span> : 'Iniciar sesión'}
           </button>
         </form>
+
+        <div className="quick-login">
+          <span className="quick-login-label">Acceso rápido:</span>
+          <div className="quick-login-btns">
+            {PROFILES.map(p => (
+              <button
+                key={p.label}
+                type="button"
+                className="quick-login-btn"
+                style={{ '--accent': p.color }}
+                onClick={() => quickLogin(p)}
+              >
+                {p.label}
+              </button>
+            ))}
+          </div>
+        </div>
 
         <p className="login-footer">Universidad Continental · Taller de Proyectos 2</p>
       </div>

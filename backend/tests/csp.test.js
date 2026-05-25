@@ -1,6 +1,6 @@
 // tests/csp.test.js
 const { runCSP, generateSlots, DAYS, TIME_SLOTS } = require('../engine/csp');
-const { checkRD01, checkRD02, checkRD03, checkRD06, checkConstraints } = require('../engine/constraints');
+const { checkRD01, checkRD02, checkRD03, checkRD05 } = require('../engine/constraints');
 
 // Datos de prueba mock
 const mockCourse = (id, name, type = 'teorico', sessionsPerWeek = 2) => ({
@@ -100,62 +100,75 @@ describe('CSP Solver - Pruebas de Restricciones', () => {
     });
   });
   
-  describe('RD-03: No solapamiento de estudiante (mismo curso)', () => {
-    test('Debe permitir diferentes sesiones del mismo curso en diferentes horarios', () => {
-      const assignment = {
-        courseId: 'C001',
-        day: 'lunes',
-        startTime: '08:00'
-      };
-      const existingAssignments = [
-        {
-          courseId: 'C001',
-          day: 'martes',
-          startTime: '08:00'
-        }
-      ];
+  describe('RD-03: No solapamiento de estudiante (misma carrera/semestre)', () => {
+    test('Debe permitir diferentes cursos en diferentes horarios', () => {
+      const courses = [{ _id: 'C001', career: 'career1', semester: 3 }, { _id: 'C002', career: 'career1', semester: 3 }];
+      const assignment = { courseId: 'C002', day: 'martes', startTime: '09:00' };
+      const existingAssignments = [{ courseId: 'C001', day: 'lunes', startTime: '08:00' }];
       
-      expect(checkRD03(assignment, existingAssignments)).toBe(true);
+      expect(checkRD03(assignment, existingAssignments, courses)).toBe(true);
     });
     
-    test('Debe rechazar dos sesiones del mismo curso en mismo horario', () => {
-      const assignment = {
-        courseId: 'C001',
-        day: 'lunes',
-        startTime: '08:00'
-      };
-      const existingAssignments = [
-        {
-          courseId: 'C001',
-          day: 'lunes',
-          startTime: '08:00'
-        }
-      ];
+    test('Debe rechazar dos cursos misma carrera/semestre en mismo horario', () => {
+      const courses = [{ _id: 'C001', career: 'career1', semester: 3 }, { _id: 'C002', career: 'career1', semester: 3 }];
+      const assignment = { courseId: 'C002', day: 'lunes', startTime: '08:00' };
+      const existingAssignments = [{ courseId: 'C001', day: 'lunes', startTime: '08:00' }];
       
-      expect(checkRD03(assignment, existingAssignments)).toBe(false);
+      expect(checkRD03(assignment, existingAssignments, courses)).toBe(false);
+    });
+  });
+
+  describe('RD-11: Distribution de sesiones en dias diferentes', () => {
+    test('Debe rechazar dos sesiones del mismo curso en el mismo dia', () => {
+      const { checkRD11_DayDistribution } = require('../engine/constraints');
+      const assignment = { courseId: 'C001', day: 'lunes' };
+      const existingAssignments = [{ courseId: 'C001', day: 'lunes' }];
+      
+      expect(checkRD11_DayDistribution(assignment, existingAssignments, null)).toBe(false);
     });
   });
   
-  describe('RD-06: Tipo de aula debe coincidir con tipo de curso', () => {
+  describe('RD-05: Tipo de aula debe coincidir con tipo de curso', () => {
     test('Curso teorico debe ir a aula teorica', () => {
       const course = mockCourse('C001', 'Matematicas', 'teorico');
       const classroom = mockClassroom('A001', 'Aula 101', 'teorico');
       
-      expect(checkRD06(course, classroom)).toBe(true);
+      expect(checkRD05(course, classroom)).toBe(true);
     });
     
     test('Curso teorico NO debe ir a aula laboratorio', () => {
       const course = mockCourse('C001', 'Matematicas', 'teorico');
       const classroom = mockClassroom('A001', 'Lab 1', 'laboratorio');
       
-      expect(checkRD06(course, classroom)).toBe(false);
+      expect(checkRD05(course, classroom)).toBe(false);
     });
     
     test('Curso laboratorio debe ir a aula laboratorio', () => {
       const course = mockCourse('C002', 'Fisica Lab', 'laboratorio');
       const classroom = mockClassroom('A002', 'Lab Fisica', 'laboratorio');
       
-      expect(checkRD06(course, classroom)).toBe(true);
+      expect(checkRD05(course, classroom)).toBe(true);
+    });
+  });
+
+  describe('RD-06: Disponibilidad horaria del docente', () => {
+    test('Debe rechazar asignacion en dia libre del docente', () => {
+      const { checkRD06_TeacherAvailability } = require('../engine/constraints');
+      const assignment = { day: 'lunes', startTime: '08:00', endTime: '09:00' };
+      const teacher = { freeDays: ['lunes'], availability: [] };
+      
+      expect(checkRD06_TeacherAvailability(assignment, teacher)).toBe(false);
+    });
+
+    test('Debe permitir asignacion en dia disponible', () => {
+      const { checkRD06_TeacherAvailability } = require('../engine/constraints');
+      const assignment = { day: 'lunes', startTime: '08:00', endTime: '09:00' };
+      const teacher = {
+        freeDays: [],
+        availability: [{ day: 'lunes', startTime: '07:00', endTime: '18:00' }]
+      };
+      
+      expect(checkRD06_TeacherAvailability(assignment, teacher)).toBe(true);
     });
   });
   

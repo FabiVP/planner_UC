@@ -1,0 +1,271 @@
+/* Institutional Policies page styles */
+.policies-page {
+  animation: fadeIn 0.4s ease;
+}
+
+.policy-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.policy-card.full-width {
+  grid-column: 1 / -1;
+}
+
+/* Card header */
+.policy-card-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding-bottom: 16px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.policy-card-header h3 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-heading);
+  margin: 0;
+}
+
+.policy-card-header p {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin: 2px 0 0;
+}
+
+.policy-icon {
+  width: 40px;
+  height: 40px;
+  padding: 8px;
+  border-radius: 10px;
+  flex-shrink: 0;
+  font-size: 20px;
+}
+
+.policy-icon.schedule {
+  background: rgba(59, 130, 246, 0.10);
+  color: #3b82f6;
+}
+
+.policy-icon.teacher {
+  background: rgba(16, 185, 129, 0.10);
+  color: #10b981;
+}
+
+.policy-icon.classroom {
+  background: rgba(245, 158, 11, 0.10);
+  color: #f59e0b;
+}
+
+.policy-icon.distribution {
+  background: rgba(139, 92, 246, 0.10);
+  color: #8b5cf6;
+}
+
+.policy-icon.weights {
+  background: rgba(239, 68, 68, 0.10);
+  color: #ef4444;
+}
+
+.policy-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* Subsection */
+.subsection-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-heading);
+  margin: 14px 0 8px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+
+/* Shift rows */
+.shift-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.shift-label {
+  width: 60px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  flex-shrink: 0;
+}
+
+.shift-row .form-input {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Day selector */
+.day-selector {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.day-option {
+  min-width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  padding: 0 8px;
+}
+
+.day-option:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.day-option.active {
+  border-color: var(--primary);
+  background: var(--primary-bg);
+  color: var(--primary);
+}
+
+/* Contract limits */
+.contract-limits {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.limit-group {
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+}
+
+.limit-group.tc {
+  background: rgba(16, 185, 129, 0.04);
+  border-color: rgba(16, 185, 129, 0.20);
+}
+
+.limit-group.ph {
+  background: rgba(245, 158, 11, 0.04);
+  border-color: rgba(245, 158, 11, 0.20);
+}
+
+.limit-group h4 {
+  font-size: 13px;
+  font-weight: 700;
+  margin: 0 0 8px;
+}
+
+.limit-group.tc h4 { color: #059669; }
+.limit-group.ph h4 { color: #d97706; }
+
+/* Toggle rows */
+.toggle-row {
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.toggle-row:last-child {
+  border-bottom: none;
+}
+
+/* Range input */
+.form-range {
+  width: 100%;
+  height: 6px;
+  appearance: none;
+  border-radius: 3px;
+  background: var(--border);
+  outline: none;
+  margin: 8px 0;
+  accent-color: var(--primary);
+}
+
+.range-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+.range-labels strong {
+  color: var(--primary);
+  font-size: 14px;
+}
+
+/* Weights grid */
+.weights-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 16px;
+}
+
+.weight-item {
+  text-align: center;
+}
+
+.weight-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
+.weight-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.weight-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-heading);
+}
+
+.weight-value {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--text-heading);
+}
+
+.weight-item .form-range {
+  width: 100%;
+}
+
+/* Button success state */
+.btn-success {
+  background: #10b981 !important;
+  border-color: #10b981 !important;
+  color: white !important;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .policy-grid {
+    grid-template-columns: 1fr;
+  }
+  .contract-limits {
+    grid-template-columns: 1fr;
+  }
+  .weights-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}

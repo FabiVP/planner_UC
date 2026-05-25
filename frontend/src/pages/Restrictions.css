@@ -1,0 +1,19 @@
+.restrictions-page { max-width: 900px; }
+.restrictions-list { display: flex; flex-direction: column; gap: 12px; margin-top: 16px; }
+.restriction-card { transition: all 0.2s; cursor: pointer; }
+.restriction-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
+.restriction-card.expanded { border-left: 3px solid var(--primary); }
+.restriction-header { display: flex; align-items: flex-start; gap: 12px; }
+.restriction-info { flex: 1; }
+.restriction-title-row { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
+.restriction-title-row strong { font-size: 15px; }
+.restriction-desc { color: var(--text-secondary); font-size: 13px; margin: 0; }
+.expand-btn { flex-shrink: 0; }
+.restriction-detail { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border-light); }
+.detail-section { display: flex; gap: 12px; align-items: flex-start; }
+.detail-icon { font-size: 22px; color: var(--primary); flex-shrink: 0; margin-top: 2px; }
+.detail-section h4 { font-size: 14px; margin: 0 0 6px; color: var(--text-heading); }
+.detail-section p { font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin: 0; }
+.detail-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+.badge-active { background: #E8F5E9; color: #2E7D32; }
+.badge-inactive { background: #F5F5F5; color: #9E9E9E; }

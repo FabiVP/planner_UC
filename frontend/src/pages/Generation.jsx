@@ -1,12 +1,14 @@
 import { useState } from 'react';
-import Header from '../components/layout/Header';
+import { useNavigate } from 'react-router-dom';
 import api from '../api/axios';
+import { CURRENT_SEMESTER, SEMESTERS } from '../utils/constants';
 import { HiOutlineLightningBolt, HiOutlinePlay, HiOutlineCheckCircle, HiOutlineExclamationCircle } from 'react-icons/hi';
 import './Generation.css';
 
 export default function Generation() {
-  const [name, setName] = useState('Horario Semestre 2025-II');
-  const [semester, setSemester] = useState('2025-II');
+  const [name, setName] = useState(`Horario Semestre ${CURRENT_SEMESTER}`);
+  const [semester, setSemester] = useState(CURRENT_SEMESTER);
+  const navigate = useNavigate();
   const [running, setRunning] = useState(false);
   const [result, setResult] = useState(null);
 
@@ -34,9 +36,7 @@ export default function Generation() {
   };
 
   return (
-    <>
-      <Header title="Generación de Horarios" subtitle="Motor CSP — Satisfacción de Restricciones" />
-      <div className="page-content">
+    <div className="animate-fadeIn">
         <div className="generation-layout">
           <div className="card gen-config-card">
             <h3><HiOutlineLightningBolt /> Configuración de Generación</h3>
@@ -48,9 +48,7 @@ export default function Generation() {
               <div className="form-group">
                 <label>Semestre</label>
                 <select className="form-select" value={semester} onChange={e => setSemester(e.target.value)}>
-                  <option>2025-I</option>
-                  <option>2025-II</option>
-                  <option>2026-I</option>
+                  {SEMESTERS.map(s => <option key={s}>{s}</option>)}
                 </select>
               </div>
 
@@ -124,7 +122,7 @@ export default function Generation() {
                   <p className="result-assignments">Total de asignaciones: <strong>{result.schedule.totalAssignments}</strong></p>
                 )}
                 {result.success && (
-                  <button className="btn btn-success" style={{marginTop:16}} onClick={() => window.location.href = '/schedules'}>
+                  <button className="btn btn-success" style={{marginTop:16}} onClick={() => navigate('/schedules')}>
                     Ver Horario Generado
                   </button>
                 )}
@@ -151,7 +149,6 @@ export default function Generation() {
             )}
           </div>
         </div>
-      </div>
-    </>
+    </div>
   );
 }

@@ -1,0 +1,60 @@
+.career-gen-page .page-header h1 { display: flex; align-items: center; gap: 10px; }
+
+/* Controls */
+.gen-controls { margin-bottom: 20px; }
+.gen-controls-row { display: flex; gap: 16px; align-items: flex-end; flex-wrap: wrap; }
+.gen-controls-row .form-group { min-width: 180px; }
+.btn-lg { padding: 10px 24px; font-size: 0.95rem; }
+.spinner-sm { display: inline-block; width: 16px; height: 16px; border: 2px solid rgba(255,255,255,.3); border-top-color: #fff; border-radius: 50%; animation: spin .6s linear infinite; margin-right: 8px; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Result card */
+.gen-result { margin-bottom: 20px; border-left: 4px solid var(--primary); }
+.gen-result.success { border-left-color: var(--success, #10b981); background: rgba(16, 185, 129, 0.04); }
+.gen-result.error { border-left-color: var(--danger, #ef4444); background: rgba(239, 68, 68, 0.04); }
+.gen-result-header { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
+.result-icon { font-size: 2rem; flex-shrink: 0; }
+.result-icon.success { color: var(--success, #10b981); }
+.result-icon.error { color: var(--danger, #ef4444); }
+.gen-result-header h3 { margin: 0 0 4px; }
+.gen-result-header p { margin: 0; color: var(--text-secondary); font-size: 0.9rem; }
+
+/* Stats */
+.gen-stats { display: flex; gap: 24px; padding: 16px 0; border-top: 1px solid var(--border); }
+.gen-stat { text-align: center; }
+.gen-stat-value { display: block; font-size: 1.5rem; font-weight: 700; color: var(--primary); }
+.gen-stat-label { font-size: 0.78rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px; }
+
+/* Warnings */
+.gen-warnings { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border); }
+.gen-warnings h4 { display: flex; align-items: center; gap: 6px; margin: 0 0 10px; font-size: 0.9rem; color: var(--text-secondary); }
+.gen-warning-item { padding: 8px 12px; border-radius: 6px; font-size: 0.85rem; margin-bottom: 6px; background: rgba(245, 158, 11, 0.06); border-left: 3px solid #f59e0b; }
+.gen-warning-item.error { background: rgba(239, 68, 68, 0.06); border-left-color: #ef4444; }
+.gen-warning-item.info { background: rgba(59, 130, 246, 0.06); border-left-color: #3b82f6; }
+
+/* Sections view */
+.sections-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+.sections-header h3 { margin: 0; }
+
+/* Semester tabs */
+.semester-tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+.semester-tab { padding: 6px 16px; border-radius: 20px; border: 1px solid var(--border); background: transparent; cursor: pointer; font-size: 0.82rem; font-weight: 500; color: var(--text-secondary); transition: all 0.2s; }
+.semester-tab:hover { border-color: var(--primary); color: var(--primary); }
+.semester-tab.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+/* Section cards grid */
+.sections-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; }
+.section-card { padding: 16px; border-radius: 10px; border: 1px solid var(--border); background: var(--bg-card, #fff); transition: all 0.2s; }
+.section-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.08); transform: translateY(-2px); }
+.section-card.status-pendiente { border-left: 3px solid #f59e0b; }
+.section-card.status-activa { border-left: 3px solid #10b981; }
+.section-card.status-cancelada { border-left: 3px solid #ef4444; opacity: 0.7; }
+
+.section-card-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+.section-code { font-weight: 700; font-size: 0.95rem; color: var(--primary); font-family: 'JetBrains Mono', monospace; }
+.section-status { font-size: 0.72rem; }
+
+.section-card h4 { margin: 0 0 10px; font-size: 0.92rem; }
+.section-meta { display: flex; flex-wrap: wrap; gap: 12px; font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 10px; }
+.section-slots { display: flex; flex-wrap: wrap; gap: 6px; }
+.slot-badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 12px; background: var(--bg-hover, #f1f5f9); font-size: 0.75rem; font-weight: 500; color: var(--text-secondary); }

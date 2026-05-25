@@ -1,0 +1,35 @@
+.help-page { animation: fadeIn 0.4s ease; }
+.help-grid { display: grid; grid-template-columns: 1fr 320px; gap: 20px; }
+.help-sidebar { display: flex; flex-direction: column; gap: 16px; }
+.faq-list { display: flex; flex-direction: column; gap: 4px; margin-top: 12px; }
+.faq-item { border: 1px solid var(--border-light); border-radius: 10px; overflow: hidden; }
+.faq-item.open { border-color: var(--primary); background: var(--primary-bg); }
+.faq-question { display: flex; align-items: center; gap: 10px; width: 100%; padding: 14px 16px; background: none; border: none; cursor: pointer; font-size: 14px; font-weight: 500; color: var(--text-heading); text-align: left; font-family: inherit; }
+.faq-question svg:first-child { color: var(--primary); font-size: 18px; flex-shrink: 0; }
+.faq-question svg:last-child { margin-left: auto; color: var(--text-secondary); flex-shrink: 0; }
+.faq-question span { flex: 1; }
+.faq-answer { padding: 0 16px 14px 44px; font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+.resource-list { display: flex; flex-direction: column; gap: 4px; margin-top: 12px; }
+.resource-item { display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-radius: 8px; text-decoration: none; color: var(--text-primary); font-size: 13px; font-weight: 500; border: none; background: none; cursor: pointer; width: 100%; text-align: left; font-family: inherit; border: 1px solid var(--border-light); transition: all 0.2s; }
+.resource-item:hover { background: var(--primary-bg); border-color: var(--primary); }
+.resource-item svg { font-size: 18px; color: var(--primary); flex-shrink: 0; }
+.resource-item span { flex: 1; }
+.resource-arrow { color: var(--text-light) !important; }
+
+/* Guide modal */
+.guide-modal-content { font-size: 14px; line-height: 1.7; color: var(--text-primary); }
+.guide-modal-content h2 { font-size: 18px; font-weight: 800; color: var(--text-heading); margin-bottom: 12px; }
+.guide-modal-content h3 { font-size: 15px; font-weight: 700; color: var(--text-heading); }
+.guide-modal-content p { margin-bottom: 4px; }
+.guide-modal-content li { font-size: 13px; }
+
+/* Contact modal */
+.contact-modal { display: flex; flex-direction: column; gap: 16px; }
+.contact-modal textarea { resize: vertical; font-family: inherit; }
+
+/* Version card */
+.help-version-card { text-align: center; }
+.help-version-card h4 { font-size: 15px; font-weight: 700; color: var(--primary); margin-bottom: 4px; }
+.help-version-card p { font-size: 12px; margin: 2px 0; }
+
+@media (max-width: 768px) { .help-grid { grid-template-columns: 1fr; } }

@@ -12,6 +12,8 @@ exports.getStats = async (req, res, next) => {
       activeCourses,
       totalTeachers,
       teachersWithRestrictions,
+      teachersFullTime,
+      teachersPartTime,
       totalClassrooms,
       availableClassrooms,
       maintenanceClassrooms,
@@ -24,6 +26,8 @@ exports.getStats = async (req, res, next) => {
       Course.countDocuments({ active: true }),
       Teacher.countDocuments({ active: true }),
       Teacher.countDocuments({ active: true, 'availability.0': { $exists: true } }),
+      Teacher.countDocuments({ active: true, contractType: 'tiempo_completo' }),
+      Teacher.countDocuments({ active: true, contractType: 'por_horas' }),
       Classroom.countDocuments(),
       Classroom.countDocuments({ available: true }),
       Classroom.countDocuments({ available: false }),
@@ -67,7 +71,7 @@ exports.getStats = async (req, res, next) => {
     res.json({
       stats: {
         courses: { total: totalCourses, active: activeCourses, newThisWeek: newCoursesThisWeek },
-        teachers: { total: totalTeachers, withRestrictions: teachersWithRestrictions },
+        teachers: { total: totalTeachers, withRestrictions: teachersWithRestrictions, fullTime: teachersFullTime, partTime: teachersPartTime },
         classrooms: { total: totalClassrooms, available: availableClassrooms, maintenance: maintenanceClassrooms },
         students: { total: totalStudents },
         generations: { 

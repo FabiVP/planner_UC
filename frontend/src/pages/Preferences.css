@@ -1,0 +1,25 @@
+.preferences-page { animation: fadeIn 0.4s ease; }
+.pref-avail-grid { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin-top: 16px; }
+.pref-avail-header { display: grid; grid-template-columns: 120px repeat(5, 1fr); background: var(--bg-main); padding: 10px 0; font-size: 13px; font-weight: 600; color: var(--text-secondary); text-align: center; }
+.pref-avail-row { display: grid; grid-template-columns: 120px repeat(5, 1fr); align-items: center; border-top: 1px solid var(--border-light); padding: 8px 0; }
+.pref-shift-label { padding-left: 14px; }
+.pref-shift-label strong { font-size: 13px; display: block; }
+.pref-shift-label small { font-size: 11px; color: var(--text-secondary); }
+.pref-check-cell { display: flex; justify-content: center; cursor: pointer; }
+.pref-check-cell input[type="checkbox"] { width: 22px; height: 22px; accent-color: var(--primary); cursor: pointer; border-radius: 4px; }
+
+.pref-additional-grid { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
+.pref-toggle-item { display: flex; align-items: center; gap: 12px; padding: 12px 16px; background: var(--bg-main); border-radius: 10px; cursor: pointer; transition: background 0.2s; border: 1px solid var(--border-light); }
+.pref-toggle-item:hover { background: var(--bg-hover); }
+.pref-toggle-item span:first-child { font-size: 18px; }
+.pref-toggle-item input[type="checkbox"] { margin-left: auto; width: 20px; height: 20px; accent-color: var(--primary); cursor: pointer; }
+.pref-toggle-icon { flex-shrink: 0; }
+
+.pref-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--border-light); }
+
+.pref-shift-options { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-top: 16px; }
+.pref-shift-option { display: flex; align-items: center; gap: 12px; padding: 16px; border: 2px solid var(--border); border-radius: 12px; cursor: pointer; transition: all 0.2s; }
+.pref-shift-option.active { border-color: var(--primary); background: var(--primary-bg); }
+.pref-shift-option input[type="radio"] { accent-color: var(--primary); width: 18px; height: 18px; }
+.pref-shift-option strong { font-size: 14px; display: block; }
+.pref-shift-option small { font-size: 12px; color: var(--text-secondary); }
