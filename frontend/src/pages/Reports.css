@@ -26,4 +26,8 @@
 .bar-fill { width: 100%; background: var(--primary-gradient); border-radius: 6px 6px 0 0; transition: height 0.6s ease; min-height: 4px; }
 .bar-label { font-size: 12px; font-weight: 600; color: var(--text-secondary); }
 
-@media (max-width: 768px) { .reports-grid { grid-template-columns: 1fr; } }
+/* Excel export group */
+.excel-export-group { display: flex; gap: 0.35rem; }
+.excel-export-group .btn { font-size: 0.8rem; padding: 0.4rem 0.7rem; }
+
+@media (max-width: 768px) { .reports-grid { grid-template-columns: 1fr; } .excel-export-group { flex-direction: column; } }

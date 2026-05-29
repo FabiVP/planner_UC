@@ -37,6 +37,18 @@ const teacherSchema = new mongoose.Schema({
     enum: ['tiempo_completo', 'por_horas'],
     default: 'tiempo_completo'
   },
+  // ── Desempeño docente: criterio de asignación ──
+  performanceLevel: {
+    type: String,
+    enum: ['alto', 'regular', 'bajo'],
+    default: 'regular'
+  },
+  performanceScore: {
+    type: Number,
+    default: 80,
+    min: 0,
+    max: 100
+  },
   specializations: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Course'

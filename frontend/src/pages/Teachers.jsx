@@ -26,10 +26,18 @@ const CONTRACT_TYPES = [
   { value: 'por_horas', label: 'Por Horas', abbr: 'PH' }
 ];
 
+const PERFORMANCE_LEVELS = [
+  { value: 'alto', label: 'Alto', color: '#10b981' },
+  { value: 'regular', label: 'Regular', color: '#f59e0b' },
+  { value: 'bajo', label: 'Bajo', color: '#ef4444' }
+];
+
 const defaultForm = {
   name: '',
   email: '',
   contractType: 'tiempo_completo',
+  performanceLevel: 'regular',
+  performanceScore: 80,
   maxCourses: 4,
   maxWeeklyHours: 40,
   preferredShift: 'indiferente',
@@ -126,6 +134,8 @@ export default function Teachers() {
       name: t.name || '',
       email: t.email || '',
       contractType: t.contractType || 'tiempo_completo',
+      performanceLevel: t.performanceLevel || 'regular',
+      performanceScore: t.performanceScore || 80,
       maxCourses: t.maxCourses || 3,
       maxWeeklyHours: t.maxWeeklyHours || 40,
       preferredShift: t.preferredShift || 'indiferente',
@@ -176,7 +186,7 @@ export default function Teachers() {
         <button className="btn btn-primary" onClick={openNew}><HiOutlinePlus /> Nuevo Docente</button>
       </div>
       <div className="card"><div className="table-wrapper"><table><thead><tr>
-        <th>Nombre</th><th>Email</th><th>Contrato</th><th>Hrs/Sem</th><th>Turno</th><th>Especialidades</th><th>Días libres</th><th>Acciones</th>
+      <th>Nombre</th><th>Email</th><th>Contrato</th><th>Desempeño</th><th>Hrs/Sem</th><th>Turno</th><th>Especialidades</th><th>Días libres</th><th>Acciones</th>
       </tr></thead><tbody>
         {teachers.map(t => (
           <tr key={t._id}>
@@ -185,6 +195,12 @@ export default function Teachers() {
             <td>
               <span className={`badge ${t.contractType === 'tiempo_completo' ? 'badge-success' : 'badge-warning'}`}>
                 {getContractBadge(t.contractType)}
+              </span>
+            </td>
+            <td>
+              <span className="perf-badge" style={{ color: PERFORMANCE_LEVELS.find(p => p.value === t.performanceLevel)?.color || '#f59e0b' }}>
+                ● {PERFORMANCE_LEVELS.find(p => p.value === t.performanceLevel)?.label || 'Regular'}
+                <small style={{ marginLeft: 4, opacity: 0.7 }}>{t.performanceScore || 80}</small>
               </span>
             </td>
             <td>{t.maxWeeklyHours || '-'}h</td>
@@ -217,7 +233,7 @@ export default function Teachers() {
             </td>
           </tr>
         ))}
-        {teachers.length === 0 && <tr><td colSpan="8" className="empty-state">No hay docentes registrados</td></tr>}
+        {teachers.length === 0 && <tr><td colSpan="9" className="empty-state">No hay docentes registrados</td></tr>}
       </tbody></table></div></div>
 
       {/* ═══ TEACHER DETAIL MODAL (read-only for admin) ═══ */}
@@ -338,6 +354,28 @@ export default function Teachers() {
                       {s.label}
                     </button>
                   ))}
+                </div>
+              </div>
+
+              <div className="form-row">
+                <div className="form-group">
+                  <label>Desempeño docente</label>
+                  <div className="shift-selector">
+                    {PERFORMANCE_LEVELS.map(p => (
+                      <button key={p.value} type="button"
+                        className={`shift-option ${form.performanceLevel === p.value ? 'active' : ''}`}
+                        style={form.performanceLevel === p.value ? { background: p.color, borderColor: p.color } : {}}
+                        onClick={() => setForm({ ...form, performanceLevel: p.value })}>
+                        {p.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                <div className="form-group">
+                  <label>Puntaje de desempeño (0-100)</label>
+                  <input type="number" className="form-input" value={form.performanceScore}
+                    onChange={e => setForm({ ...form, performanceScore: +e.target.value })}
+                    min="0" max="100" />
                 </div>
               </div>
             </>

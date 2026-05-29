@@ -52,3 +52,20 @@
 .gen-empty-card p { font-size: 14px; color: var(--text-secondary); }
 
 @media (max-width: 1024px) { .generation-layout { grid-template-columns: 1fr; } }
+
+/* ═══ GENERATION HISTORY ═══ */
+.gen-history-card { margin-top: 16px; }
+.gen-history-list { display: flex; flex-direction: column; gap: 8px; max-height: 50vh; overflow-y: auto; padding-right: 4px; }
+.gen-history-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; border-radius: var(--radius-md); border: 1px solid var(--border); background: var(--bg-main); transition: all 0.2s; }
+.gen-history-item:hover { border-color: var(--primary); }
+.gen-history-item.completada { border-left: 3px solid var(--success); }
+.gen-history-item.fallida { border-left: 3px solid var(--error); }
+.gen-history-item.en_progreso { border-left: 3px solid var(--warning); }
+.gen-hist-left { flex: 1; min-width: 0; }
+.gen-hist-name { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+.gen-hist-name strong { font-size: 0.9rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.gen-hist-meta { display: flex; flex-wrap: wrap; gap: 10px; font-size: 0.75rem; color: var(--text-secondary); }
+.gen-hist-meta span { display: flex; align-items: center; gap: 3px; }
+.gen-hist-scores { display: flex; gap: 8px; margin-top: 4px; font-size: 0.7rem; color: var(--text-secondary); }
+.gen-hist-scores span { background: rgba(99,102,241,0.06); padding: 1px 6px; border-radius: 4px; }
+.gen-hist-actions { display: flex; gap: 6px; flex-shrink: 0; margin-left: 12px; }

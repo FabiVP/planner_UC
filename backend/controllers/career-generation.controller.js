@@ -212,6 +212,11 @@ exports.generateByCareer = async (req, res, next) => {
         day: a.day, startTime: a.startTime, endTime: a.endTime
       }));
 
+      if (sectionAssignments.length === 0) {
+        warnings.push(`No se pudieron asignar horarios para ${sp.course.name} (sección ${sp.sectionCode})`);
+        continue;
+      }
+
       const classroom = sectionAssignments[0];
       const section = await Section.create({
         courseId: sp.course._id,
@@ -247,7 +252,7 @@ exports.generateByCareer = async (req, res, next) => {
       warnings,
       suggestions,
       hasSuggestions: suggestions.length > 0,
-      sectionsBySmester: groupSectionsBySemester(createdSections, allCourses)
+      sectionsBySemester: groupSectionsBySemester(createdSections, allCourses)
     });
   } catch (error) {
     console.error('❌ Error generando por carrera:', error);

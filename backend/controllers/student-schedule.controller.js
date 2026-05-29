@@ -169,6 +169,7 @@ exports.getEligibleCourses = async (req, res, next) => {
 /**
  * POST /api/student-schedule/validate
  * Body: { courseIds: [id1, id2, ...] }
+ * Valida prerrequisitos, correquisitos, créditos (12-22), dificultad y sobrecarga.
  */
 exports.validateSelection = async (req, res, next) => {
   try {
@@ -183,12 +184,20 @@ exports.validateSelection = async (req, res, next) => {
       .filter(ac => ac.grade >= 11)
       .map(ac => ac.courseId?.toString());
 
+    const failedCourseIds = (student.approvedCourses || [])
+      .filter(ac => ac.grade != null && ac.grade < 11)
+      .map(ac => ac.courseId?.toString());
+
     const selectedCourses = await Course.find({ _id: { $in: courseIds } })
       .populate('prerequisites', 'code name')
+      .populate('corequisites', 'code name')
       .populate('career', 'code name');
+
+    const selectedCourseIdSet = new Set(courseIds.map(id => id.toString()));
 
     const validations = [];
     let totalCredits = 0;
+    let totalDifficulty = 0;
     const errors = [];
     const warnings = [];
 
@@ -196,7 +205,8 @@ exports.validateSelection = async (req, res, next) => {
       const courseId = course._id.toString();
       const validation = {
         courseId, code: course.code, name: course.name,
-        credits: course.credits, status: 'ok', issues: []
+        credits: course.credits, difficulty: course.difficulty || 3,
+        status: 'ok', issues: []
       };
 
       // Already approved?
@@ -213,6 +223,22 @@ exports.validateSelection = async (req, res, next) => {
           validation.status = 'error';
           validation.issues.push({ type: 'prerequisite', message: `Prerrequisito(s) faltante(s): ${unmet.map(p => p.code).join(', ')}` });
           errors.push(`${course.code}: Falta prerrequisito ${unmet.map(p => p.code).join(', ')}`);
+        }
+      }
+
+      // Corequisites check: must be in selection or already approved
+      if (course.corequisites?.length) {
+        const unmetCoreqs = course.corequisites.filter(c => {
+          const cId = c._id.toString();
+          return !approvedCourseIds.includes(cId) && !selectedCourseIdSet.has(cId);
+        });
+        if (unmetCoreqs.length > 0) {
+          validation.status = 'warning';
+          validation.issues.push({
+            type: 'corequisite',
+            message: `Correquisito(s) no incluido(s): ${unmetCoreqs.map(c => c.code).join(', ')}. Debes llevarlos simultáneamente.`
+          });
+          warnings.push(`${course.code}: Correquisito faltante ${unmetCoreqs.map(c => c.code).join(', ')}`);
         }
       }
 
@@ -235,13 +261,52 @@ exports.validateSelection = async (req, res, next) => {
       }
 
       totalCredits += course.credits;
+      totalDifficulty += (course.difficulty || 3);
       validations.push(validation);
     }
 
+    // ── Credit limits (12-22) ──
+    const minCredits = 12;
     const maxCredits = 22;
-    if (totalCredits > maxCredits) {
+    // Reducción de créditos si tiene cursos desaprobados (regla institucional)
+    const effectiveMaxCredits = failedCourseIds.length > 2 ? 18 : maxCredits;
+
+    if (totalCredits < minCredits) {
+      warnings.push(`Total de créditos (${totalCredits}) es menor al mínimo recomendado (${minCredits})`);
+    }
+    if (totalCredits > effectiveMaxCredits) {
+      errors.push(`Total de créditos (${totalCredits}) excede el máximo permitido (${effectiveMaxCredits}${failedCourseIds.length > 2 ? ' — reducido por cursos desaprobados' : ''})`);
+    } else if (totalCredits > maxCredits) {
       warnings.push(`Total de créditos (${totalCredits}) excede el máximo recomendado (${maxCredits})`);
     }
+
+    // ── Overload / difficulty analysis ──
+    const avgDifficulty = selectedCourses.length > 0 ? totalDifficulty / selectedCourses.length : 0;
+    const hardCourses = selectedCourses.filter(c => (c.difficulty || 3) >= 4);
+    const easyCourses = selectedCourses.filter(c => (c.difficulty || 3) <= 2);
+
+    let overloadLevel = 'normal';
+    if (avgDifficulty >= 4 && totalCredits >= 20) overloadLevel = 'alta';
+    else if (avgDifficulty >= 3.5 || totalCredits >= 21) overloadLevel = 'media';
+
+    if (overloadLevel === 'alta') {
+      warnings.push(`Sobrecarga académica ALTA detectada: ${hardCourses.length} curso(s) difícil(es) con ${totalCredits} créditos`);
+    } else if (overloadLevel === 'media') {
+      warnings.push(`Carga académica MEDIA-ALTA: considera equilibrar cursos difíciles y ligeros`);
+    }
+
+    const difficultyAnalysis = {
+      average: Math.round(avgDifficulty * 10) / 10,
+      overloadLevel,
+      hardCourses: hardCourses.map(c => ({ code: c.code, name: c.name, difficulty: c.difficulty })),
+      easyCourses: easyCourses.map(c => ({ code: c.code, name: c.name, difficulty: c.difficulty })),
+      recommendation: overloadLevel === 'alta'
+        ? 'Recomendación: Reduce la cantidad de cursos difíciles o baja la carga crediticia.'
+        : overloadLevel === 'media'
+        ? 'Recomendación: Intenta balancear con cursos más ligeros.'
+        : 'La carga académica está equilibrada.',
+      balance: hardCourses.length > 0 && easyCourses.length > 0 ? 'equilibrado' : (hardCourses.length > 2 ? 'desequilibrado' : 'aceptable')
+    };
 
     // Schedule conflicts
     const latestGen = await Generation.findOne({ status: 'completada' }).sort({ createdAt: -1 });
@@ -270,8 +335,13 @@ exports.validateSelection = async (req, res, next) => {
     if (conflictsFound.length > 0) warnings.push(`${conflictsFound.length} cruce(s) de horario detectado(s)`);
     const isValid = errors.length === 0;
 
+    // GPA info
+    const gpa = student.gpa || 0;
+
     res.json({
-      valid: isValid, totalCredits, maxCredits, validations, errors, warnings,
+      valid: isValid, totalCredits, minCredits, maxCredits: effectiveMaxCredits,
+      gpa, validations, errors, warnings,
+      difficultyAnalysis,
       conflicts: conflictsFound,
       message: isValid ? (warnings.length > 0 ? 'Selección válida con advertencias' : 'Selección válida') : 'Selección con errores — corrige antes de continuar'
     });

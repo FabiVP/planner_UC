@@ -38,6 +38,18 @@ const courseSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Course'
   }],
+  // ── Correquisitos: cursos que deben llevarse simultáneamente ──
+  corequisites: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Course'
+  }],
+  // ── Nivel de dificultad estimado (1=fácil, 5=muy difícil) ──
+  difficulty: {
+    type: Number,
+    default: 3,
+    min: 1,
+    max: 5
+  },
   sessionsPerWeek: {
     type: Number,
     default: 2,
@@ -80,5 +92,6 @@ const courseSchema = new mongoose.Schema({
 });
 
 courseSchema.index({ semester: 1 });
+courseSchema.index({ career: 1, semester: 1 });
 
 module.exports = mongoose.model('Course', courseSchema);

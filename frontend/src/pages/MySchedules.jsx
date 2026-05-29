@@ -3,7 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import api from '../api/axios';
 import Modal from '../components/ui/Modal';
-import { HiOutlineCalendar, HiOutlineStar, HiOutlineExclamationCircle, HiOutlineEye, HiOutlineLightningBolt } from 'react-icons/hi';
+import {
+  HiOutlineCalendar, HiOutlineStar, HiOutlineExclamationCircle,
+  HiOutlineEye, HiOutlineLightningBolt, HiOutlineSaveAs,
+  HiOutlineDocumentDuplicate
+} from 'react-icons/hi';
 import './MySchedules.css';
 
 const DAYS = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
@@ -43,6 +47,7 @@ export default function MySchedules() {
   // Student state
   const [studentData, setStudentData] = useState(null);
   const [generatingStudent, setGeneratingStudent] = useState(false);
+  const [savingSimulation, setSavingSimulation] = useState(false);
 
   useEffect(() => {
     if (role === 'docente') loadTeacherSchedule();
@@ -99,6 +104,38 @@ export default function MySchedules() {
       alert(e.response?.data?.message || 'Error al generar horario');
     }
     setGeneratingStudent(false);
+  };
+
+  // ───── SAVE AS SIMULATION ─────
+  const saveAsSimulation = async (assignments, stats, label = 'personalizado') => {
+    const simName = prompt('Nombre para esta simulación:', `Horario ${new Date().toLocaleDateString('es-PE')}`);
+    if (!simName) return;
+    setSavingSimulation(true);
+    try {
+      const simAssignments = assignments.map(a => ({
+        courseId: a.courseId?._id || a.courseId,
+        courseName: a.courseId?.name || 'Curso',
+        courseCode: a.courseId?.code || '',
+        teacherId: a.teacherId?._id || a.teacherId,
+        teacherName: a.teacherId?.name || '',
+        classroomId: a.classroomId?._id || a.classroomId,
+        classroomCode: a.classroomId?.code || '',
+        day: a.day,
+        startTime: a.startTime,
+        endTime: a.endTime
+      }));
+      await api.post('/simulations', {
+        name: simName,
+        label,
+        semester: studentData?.student?.currentSemester ? `2026-${studentData.student.currentSemester % 2 === 0 ? 2 : 1}` : '2026-1',
+        assignments: simAssignments,
+        stats: stats || {}
+      });
+      alert('✓ Simulación guardada exitosamente.');
+    } catch (err) {
+      alert(err.response?.data?.message || 'Error al guardar simulación');
+    }
+    setSavingSimulation(false);
   };
 
   // ───── HELPERS ─────
@@ -272,6 +309,9 @@ export default function MySchedules() {
                 <h3 className="card-title">Mi Horario Sugerido — Sem {studentData.student?.currentSemester}</h3>
                 <button className="btn btn-outline btn-sm" onClick={generateStudentSchedule} disabled={generatingStudent}>
                   {generatingStudent ? 'Regenerando...' : 'Regenerar'}
+                </button>
+                <button className="btn btn-outline btn-sm" onClick={() => saveAsSimulation(studentData.schedule.assignments, studentData.stats, 'ideal')} disabled={savingSimulation}>
+                  <HiOutlineSaveAs /> {savingSimulation ? 'Guardando...' : 'Guardar simulación'}
                 </button>
               </div>
               {renderScheduleTable(studentData.schedule.assignments)}

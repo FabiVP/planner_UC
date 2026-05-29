@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import Modal from '../components/ui/Modal';
 import api from '../api/axios';
-import { HiOutlinePlus, HiOutlinePencil, HiOutlineTrash } from 'react-icons/hi';
+import { HiOutlinePlus, HiOutlinePencil, HiOutlineTrash, HiOutlineEye } from 'react-icons/hi';
 import './Courses.css';
 
-const emptyForm = { code: '', name: '', credits: 4, type: 'teorico', semester: 1, sessionsPerWeek: 2, hoursPerSession: 1, career: '' };
+const emptyForm = { code: '', name: '', credits: 4, type: 'teorico', semester: 1, sessionsPerWeek: 2, hoursPerSession: 1, career: '', difficulty: 3, corequisites: [] };
 
 export default function Courses() {
   const [courses, setCourses] = useState([]);
@@ -14,6 +14,7 @@ export default function Courses() {
   const [editing, setEditing] = useState(null);
   const [form, setForm] = useState({ ...emptyForm });
   const [filterCareer, setFilterCareer] = useState('all');
+  const [detailItem, setDetailItem] = useState(null);
 
   useEffect(() => { loadCourses(); loadCareers(); }, []);
 
@@ -61,7 +62,9 @@ export default function Courses() {
       semester: course.semester,
       sessionsPerWeek: course.sessionsPerWeek,
       hoursPerSession: course.hoursPerSession,
-      career: course.career?._id || course.career || ''
+      career: course.career?._id || course.career || '',
+      difficulty: course.difficulty || 3,
+      corequisites: (course.corequisites || []).map(c => c._id || c)
     });
     setModal(true);
   };
@@ -118,6 +121,7 @@ export default function Courses() {
                   <th>Tipo</th>
                   <th>Semestre</th>
                   <th>Sesiones/sem</th>
+                  <th>Dificultad</th>
                   <th>Acciones</th>
                 </tr>
               </thead>
@@ -132,7 +136,13 @@ export default function Courses() {
                     <td>{c.semester}</td>
                     <td>{c.sessionsPerWeek}</td>
                     <td>
+                      <span className="diff-stars" title={`Dificultad: ${c.difficulty || 3}/5`}>
+                        {'★'.repeat(c.difficulty || 3)}{'☆'.repeat(5 - (c.difficulty || 3))}
+                      </span>
+                    </td>
+                    <td>
                       <div className="action-btns">
+                        <button className="btn btn-outline btn-sm" title="Ver detalle" onClick={() => setDetailItem(c)}><HiOutlineEye /></button>
                         <button className="btn btn-outline btn-sm" onClick={() => handleEdit(c)}><HiOutlinePencil /></button>
                         <button className="btn btn-danger btn-sm" onClick={() => handleDelete(c._id)}><HiOutlineTrash /></button>
                       </div>
@@ -140,7 +150,7 @@ export default function Courses() {
                   </tr>
                 ))}
                 {filteredCourses.length === 0 && (
-                  <tr><td colSpan="8" className="empty-state">No hay cursos registrados</td></tr>
+                  <tr><td colSpan="9" className="empty-state">No hay cursos registrados</td></tr>
                 )}
               </tbody>
             </table>
@@ -167,8 +177,47 @@ export default function Courses() {
             <div className="form-group"><label>Semestre</label><input type="number" className="form-input" value={form.semester} onChange={e => setForm({...form, semester: +e.target.value})} min="1" max="10" required /></div>
             <div className="form-group"><label>Sesiones/semana</label><input type="number" className="form-input" value={form.sessionsPerWeek} onChange={e => setForm({...form, sessionsPerWeek: +e.target.value})} min="1" max="5" required /></div>
           </div>
+          <div className="form-row">
+            <div className="form-group">
+              <label>Dificultad (1-5)</label>
+              <div className="difficulty-selector">
+                {[1,2,3,4,5].map(d => (
+                  <button key={d} type="button" className={`diff-btn ${form.difficulty >= d ? 'active' : ''}`}
+                    onClick={() => setForm({...form, difficulty: d})} title={`Nivel ${d}`}>
+                    ★
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+          <div className="form-group">
+            <label>Correquisitos (cursos simultáneos)</label>
+            <select className="form-select" multiple value={form.corequisites}
+              onChange={e => setForm({...form, corequisites: Array.from(e.target.selectedOptions, o => o.value)})}
+              style={{ minHeight: '80px' }}>
+              {courses.filter(c => c._id !== editing?._id).map(c => (
+                <option key={c._id} value={c._id}>{c.code} — {c.name}</option>
+              ))}
+            </select>
+            <span className="form-hint">Ctrl+click para seleccionar múltiples. {form.corequisites.length} seleccionados.</span>
+          </div>
           <button type="submit" className="btn btn-primary btn-lg" style={{width:'100%',justifyContent:'center',marginTop:8}}>{editing ? 'Actualizar' : 'Crear Curso'}</button>
         </form>
+      </Modal>
+
+      <Modal isOpen={!!detailItem} onClose={() => setDetailItem(null)} title={`Asignatura: ${detailItem?.code || ''}`}>
+        {detailItem && (
+          <div className="detail-modal-body">
+            <div className="detail-row"><span className="detail-label">Código</span><span className="detail-value"><span className="code-badge">{detailItem.code}</span></span></div>
+            <div className="detail-row"><span className="detail-label">Nombre</span><span className="detail-value">{detailItem.name}</span></div>
+            <div className="detail-row"><span className="detail-label">Carrera</span><span className="detail-value">{getCareerName(detailItem)}</span></div>
+            <div className="detail-row"><span className="detail-label">Tipo</span><span className="detail-value"><span className={`badge badge-${detailItem.type === 'laboratorio' ? 'info' : 'success'}`}>{detailItem.type}</span></span></div>
+            <div className="detail-row"><span className="detail-label">Créditos</span><span className="detail-value">{detailItem.credits}</span></div>
+            <div className="detail-row"><span className="detail-label">Semestre</span><span className="detail-value">{detailItem.semester}</span></div>
+            <div className="detail-row"><span className="detail-label">Sesiones/semana</span><span className="detail-value">{detailItem.sessionsPerWeek} × {detailItem.hoursPerSession}h</span></div>
+            <div className="detail-row"><span className="detail-label">Dificultad</span><span className="detail-value">{'★'.repeat(detailItem.difficulty || 3)}{'☆'.repeat(5 - (detailItem.difficulty || 3))}</span></div>
+          </div>
+        )}
       </Modal>
     </div>
   );

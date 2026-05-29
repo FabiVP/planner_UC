@@ -91,9 +91,15 @@ Estas restricciones condicionan el diseño del motor de horarios. Se clasifican 
 | **Alta** | RD-01 | Docente único por franja (Dura) | `∀ c1, c2: if horario(c1) = horario(c2) then docente(c1) ≠ docente(c2)` | Reduce dominio de variables compartidas. |
 | **Alta** | RD-02 | Aula única por franja (Dura) | `∀ c1, c2: if horario(c1) = horario(c2) then aula(c1) ≠ aula(c2)` | Genera conflictos de asignación de recursos físicos. |
 | **Alta** | RD-03 | Estudiante sin solapamiento (Dura) | `∀ estudiante e, cursos c1, c2 en su matrícula: horario(c1) ≠ horario(c2)` | **Restricción más costosa** (valida por cada estudiante). |
-| **Alta** | RD-04 | Límite de créditos (Dura) | `20 ≤ Σ créditos(cursos_matriculados(e)) ≤ 22` | Validación previa al CSP. |
-| **Alta** | RD-05 | Prerrequisitos (Dura) | `∀ curso c tomado por e: todos los prerrequisitos de c están aprobados en semestres previos` | Validación previa al CSP. |
-| **Media** | RD-06 | Tipo de aula (Dura) | `tipo_aula(curso) = tipo_aula(asignada)` | Similar a restricción unaria. |
+| **Alta** | RD-04 | Capacidad aula ≥ alumnos (Dura) | `∀ aula a: capacidad(a) >= total_alumnos_asignados(a)` | Aforo — validación por recurso físico. |
+| **Alta** | RD-05 | Tipo aula = tipo curso (Dura) | `tipo_aula(curso) = tipo_aula(asignada)` | Laboratorio solo en aula de laboratorio. |
+| **Alta** | RD-06 | Disponibilidad docente (Dura) | `∀ docente d, ∀ franja f: si d no disponible en f, no se le asigna curso en f` | Horaria + días libres. |
+| **Alta** | RD-07 | Disponibilidad aula (Dura) | `∀ aula a, ∀ franja f: si a no disponible en f, no se asigna curso en f` | `availabilitySchedule` del aula. |
+| **Alta** | RD-08 | Carga máxima docente (Dura) | `∀ docente d: horas_asignadas(d) ≤ maxWeeklyHours(d) ∧ cursos_asignados(d) ≤ maxCourses(d)` | TC=40h/4 cursos, PH=20h/2 cursos. |
+| **Alta** | RD-09 | Ventana institucional (Dura) | `∀ curso: horario(curso) dentro de [policy.startTime, policy.endTime]` | Definido en `InstitutionalPolicy`. |
+| **Media** | RD-10 | Horas continuas docente (Dura) | `∀ docente d: horas_continuas(d) ≤ policy.maxContinuousHours` | Evita jornadas extenuantes. |
+| **Media** | RD-11 | Distribución de sesiones (Blanda) | `∀ curso c: sesiones(c) en días diferentes, no consecutivos` | Mejora calidad pedagógica. |
+| **Media** | RD-12 | Bloques bloqueados (Dura) | `∀ curso c: horario(c) ∉ policy.blockedTimeSlots` | Ej: bloque de almuerzo. |
 | **Baja** | RS-01 | Preferencias de horario (Blanda) | Minimizar conflictos con franjas preferidas por estudiantes/docentes. | Función de costo, no validez. |
 
 **Factores técnicos que condicionan la implementación:**
@@ -176,7 +182,7 @@ npm test -- --coverage
 | Frontend | React.js | 18+ |
 | Backend | Node.js + Express.js | 20+ / 4+ |
 | Base de datos | MongoDB |- |
-| ORM | Prisma | 5+ |
+| ORM | Mongoose | 8+ |
 | Autenticación | JWT + bcrypt | — |
 | Testing | Jest + Supertest | — |
 | Control de versiones | Git (Trunk-Based Development) | — |
@@ -227,7 +233,10 @@ npm test -- --coverage
 │                                                                              │
 │  ┌──────────────────────────────────────────────────────────────────────┐  │
 │  │                      API ROUTES                                       │  │
-│  │  /api/auth │ /api/users │ /api/cursos │ /api/matricula │ /api/horarios│  │
+│  │  /api/auth │ /api/courses │ /api/teachers │ /api/students │ /api/classrooms│  │
+  │  /api/careers │ /api/enrollments │ /api/generations │ /api/schedule│  │
+  │  /api/preferences │ /api/notifications │ /api/reports │ /api/sections│  │
+  │  /api/policies │ /api/projections │ /api/simulations │ /api/campuses│  │
 │  └──────────────────────────────────────────────────────────────────────┘  │
 │                                    │                                       │
 │  ┌──────────────────────────────────────────────────────────────────────┐  │
@@ -235,16 +244,17 @@ npm test -- --coverage
 │  │  ┌────────────────────────────────────────────────────────────────┐  │  │
 │  │  │  Backtracking + MRV + Forward Checking                         │  │  │
 │  │  │  • Ordenamiento dinámico de variables                          │  │  │
-│  │  │  • Propagación de restricciones (RD-01 a RD-06)                │  │  │
+│  │  │  • Propagación de restricciones (RD-01 a RD-12)                │  │  │
 │  │  │  • Manejo de timeout (30s)                                     │  │  │
 │  │  └────────────────────────────────────────────────────────────────┘  │  │
 │  └──────────────────────────────────────────────────────────────────────┘  │
 │                                    │                                       │
-│  ┌──────────────────────────────────────────────────────────────────────┐  │
-│  │                      MODELOS (Mongoose ODM)                          │  │
-│  │  Usuario │ Curso │ Estudiante │ Docente │ Aula │ Matricula │ Horario │  │
-│  └──────────────────────────────────────────────────────────────────────┘  │
-└────────────────────────────────────│────────────────────────────────────────┘
+  │  ┌──────────────────────────────────────────────────────────────────────┐  │
+  │  │                      MODELOS (Mongoose ODM)                          │  │
+  │  │  Usuario │ Curso │ Estudiante │ Docente │ Aula │ Seccion │ Matricula│  │
+  │  │  Horario │ Generacion │ Preferencia │ Notificacion │ Policy │ Campus │  │
+  │  └──────────────────────────────────────────────────────────────────────┘  │
+  └────────────────────────────────────│────────────────────────────────────────┘
                                      │
                                      │ MongoDB Wire Protocol
                                      ▼
@@ -291,8 +301,7 @@ npm test -- --coverage
 cd backend
 npm install
 cp .env.example .env   # configurar variables de entorno
-npx prisma migrate dev
-npm run dev
+npm run dev            # usa mongodb-memory-server automáticamente si no hay MongoDB local
 ```
 ---
 ### Frontend

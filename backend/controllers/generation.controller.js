@@ -238,6 +238,92 @@ exports.getById = async (req, res, next) => {
 };
 
 /**
+ * POST /api/generations/:id/restore
+ * Restaura una generación previa como la activa.
+ * Crea una copia del schedule asociado como nuevo "principal".
+ */
+exports.restore = async (req, res, next) => {
+  try {
+    const generation = await Generation.findById(req.params.id);
+    if (!generation) return res.status(404).json({ message: 'Generación no encontrada.' });
+    if (generation.status !== 'completada') {
+      return res.status(400).json({ message: 'Solo se pueden restaurar generaciones completadas.' });
+    }
+    if (!generation.scheduleId) {
+      return res.status(400).json({ message: 'Esta generación no tiene horario asociado.' });
+    }
+
+    // Get the original schedule
+    const originalSchedule = await Schedule.findById(generation.scheduleId);
+    if (!originalSchedule) {
+      return res.status(404).json({ message: 'Horario original no encontrado.' });
+    }
+
+    // Create a new generation as a restored copy
+    const restored = await Generation.create({
+      name: `${generation.name} (restaurado)`,
+      semester: generation.semester,
+      status: 'completada',
+      executedAt: new Date(),
+      completedAt: new Date(),
+      executionTimeMs: 0,
+      qualityScore: generation.qualityScore,
+      constraintsFulfilled: generation.constraintsFulfilled,
+      preferencesScore: generation.preferencesScore,
+      resourceUsage: generation.resourceUsage,
+      loadDistribution: generation.loadDistribution,
+      conflicts: generation.conflicts || [],
+      unsatisfiedConditions: generation.unsatisfiedConditions || [],
+      scoringBreakdown: generation.scoringBreakdown || {},
+      createdBy: req.user._id
+    });
+
+    // Copy the schedule
+    const newSchedule = await Schedule.create({
+      generationId: restored._id,
+      semester: originalSchedule.semester,
+      assignments: originalSchedule.assignments,
+      totalAssignments: originalSchedule.totalAssignments
+    });
+
+    restored.scheduleId = newSchedule._id;
+    await restored.save();
+
+    res.json({
+      message: 'Generación restaurada exitosamente.',
+      generation: restored
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+/**
+ * DELETE /api/generations/:id
+ * Elimina una generación y sus schedules asociados.
+ */
+exports.remove = async (req, res, next) => {
+  try {
+    const generation = await Generation.findById(req.params.id);
+    if (!generation) return res.status(404).json({ message: 'Generación no encontrada.' });
+
+    // Delete associated schedules
+    if (generation.scheduleId) {
+      await Schedule.deleteOne({ _id: generation.scheduleId });
+    }
+    for (const alt of (generation.alternatives || [])) {
+      if (alt.scheduleId) await Schedule.deleteOne({ _id: alt.scheduleId });
+    }
+
+    await Generation.deleteOne({ _id: generation._id });
+
+    res.json({ message: 'Generación eliminada.' });
+  } catch (error) {
+    next(error);
+  }
+};
+
+/**
  * POST /api/generations/test/generate
  * Endpoint público para pruebas (sin autenticación)
  */

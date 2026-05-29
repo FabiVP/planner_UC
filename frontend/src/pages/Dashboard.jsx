@@ -23,12 +23,13 @@ export default function Dashboard() {
 
   // Student-specific
   const [studentProgress, setStudentProgress] = useState(null);
+  const [loadError, setLoadError] = useState(null);
 
   // Admin-specific
   const [adminOverview, setAdminOverview] = useState(null);
 
   useEffect(() => {
-    api.get('/dashboard/stats').then(r => setStats(r.data?.stats || r.data)).catch(() => {});
+    api.get('/dashboard/stats').then(r => setStats(r.data?.stats || r.data)).catch(e => setLoadError(e.response?.data?.message || 'Error al cargar estadísticas'));
     api.get('/notifications').then(r => setNotifications((r.data.notifications || []).slice(0, 4))).catch(() => {});
     api.get('/generations').then(r => {
       const g = (r.data.generations || []).find(g => g.status === 'completada');
@@ -66,6 +67,7 @@ export default function Dashboard() {
 
   return (
     <div className="dashboard-page animate-fadeIn">
+      {loadError && <div className="alert alert-error">{loadError}</div>}
       <div className="dash-welcome">
         <div>
           <h1>¡Hola, {user?.name?.split(' ')[0] || 'Usuario'}!</h1>
@@ -235,7 +237,33 @@ export default function Dashboard() {
                 <span className="dash-stat-label">Créditos aprobados</span>
               </div>
             </div>
+            <div className="dash-stat-card card">
+              <div className="dash-stat-icon" style={{ background: '#0ea5e9' }}>
+                <HiOutlineAcademicCap />
+              </div>
+              <div>
+                <span className="dash-stat-value">{studentProgress.student?.gpa || '—'}</span>
+                <span className="dash-stat-label">Promedio (GPA)</span>
+              </div>
+            </div>
           </div>
+
+          {/* Career info */}
+          {studentProgress.student?.career && (
+            <div className="card" style={{ marginBottom: 12, padding: '12px 20px', borderLeft: '4px solid var(--primary)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10, justifyContent: 'space-between' }}>
+                <div>
+                  <strong>{studentProgress.student.career.name}</strong>
+                  <span style={{ marginLeft: 8, fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
+                    Semestre {studentProgress.student.currentSemester}
+                  </span>
+                </div>
+                <button className="btn btn-ghost btn-sm" onClick={() => navigate('/simulations')}>
+                  📋 Mis simulaciones <HiOutlineArrowRight />
+                </button>
+              </div>
+            </div>
+          )}
 
           {/* Enrollment summary */}
           <div className="card" style={{ marginBottom: 16 }}>

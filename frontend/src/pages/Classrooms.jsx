@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import Modal from '../components/ui/Modal';
 import api from '../api/axios';
-import { HiOutlinePlus, HiOutlinePencil, HiOutlineTrash, HiOutlineClock } from 'react-icons/hi';
+import { HiOutlinePlus, HiOutlinePencil, HiOutlineTrash, HiOutlineClock, HiOutlineOfficeBuilding, HiOutlineEye } from 'react-icons/hi';
 import './Classrooms.css';
 
 const DAYS = [
@@ -22,26 +22,39 @@ const CLASSROOM_TYPES = [
 
 const defaultForm = {
   code: '', name: '', capacity: 30, type: 'teorico',
-  building: 'Principal', floor: 1, availabilitySchedule: []
+  campus: '', building: 'Principal', floor: 1, availabilitySchedule: []
 };
 
 export default function Classrooms() {
   const [classrooms, setClassrooms] = useState([]);
+  const [campuses, setCampuses] = useState([]);
+  const [campusFilter, setCampusFilter] = useState('');
   const [modal, setModal] = useState(false);
   const [editing, setEditing] = useState(null);
   const [form, setForm] = useState({ ...defaultForm });
   const [showAvailability, setShowAvailability] = useState(false);
+  const [loadError, setLoadError] = useState(null);
+  const [detailItem, setDetailItem] = useState(null);
 
-  useEffect(() => { load(); }, []);
+  useEffect(() => { load(); loadCampuses(); }, []);
   const load = async () => {
-    try { const r = await api.get('/classrooms'); setClassrooms(r.data.classrooms || []); } catch(e) {}
+    try { const r = await api.get('/classrooms'); setClassrooms(r.data.classrooms || []); setLoadError(null); } catch(e) { setLoadError('Error al cargar aulas'); }
   };
+  const loadCampuses = async () => {
+    try { const r = await api.get('/campuses'); setCampuses(r.data.campuses || []); } catch(e) {}
+  };
+
+  const filteredClassrooms = campusFilter
+    ? classrooms.filter(c => (c.campus?._id || c.campus) === campusFilter)
+    : classrooms;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      if (editing) { await api.put(`/classrooms/${editing._id}`, form); }
-      else { await api.post('/classrooms', form); }
+      const payload = { ...form };
+      if (!payload.campus) delete payload.campus;
+      if (editing) { await api.put(`/classrooms/${editing._id}`, payload); }
+      else { await api.post('/classrooms', payload); }
       setModal(false); setEditing(null); load();
     } catch (err) { alert(err.response?.data?.message || 'Error'); }
   };
@@ -50,6 +63,7 @@ export default function Classrooms() {
     setEditing(c);
     setForm({
       code: c.code, name: c.name, capacity: c.capacity, type: c.type,
+      campus: c.campus?._id || c.campus || '',
       building: c.building, floor: c.floor,
       availabilitySchedule: c.availabilitySchedule || []
     });
@@ -104,27 +118,41 @@ export default function Classrooms() {
 
   return (
     <div className="animate-fadeIn">
-      <div className="page-actions">
+      {loadError && <div className="alert alert-error">{loadError}</div>}
+
+      {/* Campus filter */}
+      <div className="page-actions" style={{ flexWrap: 'wrap', gap: '0.75rem' }}>
         <div className="results-info">
-          <span className="results-count">{classrooms.length} aulas registradas</span>
+          <span className="results-count">{filteredClassrooms.length} aulas{ campuses.length > 0 && <> de {campuses.find(c => (c._id) === campusFilter)?.name || 'todas las sedes'}</>}</span>
           <div className="teacher-type-badges">
-            {typeStats.map(t => (
-              t.count > 0 && <span key={t.value} className={`mini-badge ${t.value}`}>{t.count} {t.label}</span>
+            {typeStats.filter(t => t.count > 0).map(t => (
+              <span key={t.value} className={`mini-badge ${t.value}`}>{t.count} {t.label}</span>
             ))}
           </div>
         </div>
-        <button className="btn btn-primary" onClick={openNew}><HiOutlinePlus /> Nueva Aula</button>
+        <div className="filter-group" style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+          <select className="form-input" style={{ padding: '0.4rem', fontSize: '0.85rem' }}
+            value={campusFilter} onChange={e => setCampusFilter(e.target.value)}>
+            <option value="">Todas las sedes</option>
+            {campuses.map(c => (
+              <option key={c._id} value={c._id}>{c.code} — {c.name}</option>
+            ))}
+          </select>
+          <button className="btn btn-primary" onClick={openNew}><HiOutlinePlus /> Nueva Aula</button>
+        </div>
       </div>
 
       <div className="card"><div className="table-wrapper"><table><thead><tr>
-        <th>Código</th><th>Nombre</th><th>Capacidad</th><th>Tipo</th><th>Edificio</th><th>Piso</th><th>Disponibilidad</th><th>Acciones</th>
+        <th>Código</th><th>Nombre</th><th>Sede</th><th>Capacidad</th><th>Tipo</th><th>Edificio</th><th>Piso</th><th>Disponibilidad</th><th>Acciones</th>
       </tr></thead><tbody>
-        {classrooms.map(c => {
+        {filteredClassrooms.map(c => {
           const tb = getTypeBadge(c.type);
+          const campusName = c.campus?.name || (campuses.find(cp => cp._id === c.campus)?.name) || '—';
           return (
             <tr key={c._id}>
               <td><span className="code-badge">{c.code}</span></td>
               <td className="td-name">{c.name}</td>
+              <td><span className="campus-badge"><HiOutlineOfficeBuilding style={{ marginRight: 4 }} />{campusName}</span></td>
               <td>
                 <div className="capacity-bar-wrapper">
                   <span>{c.capacity}</span>
@@ -148,6 +176,7 @@ export default function Classrooms() {
               </td>
               <td>
                 <div className="action-btns">
+                  <button className="btn btn-outline btn-sm" title="Ver detalle" onClick={() => setDetailItem(c)}><HiOutlineEye /></button>
                   <button className="btn btn-outline btn-sm" onClick={() => handleEdit(c)}><HiOutlinePencil /></button>
                   <button className="btn btn-danger btn-sm" onClick={() => handleDelete(c._id)}><HiOutlineTrash /></button>
                 </div>
@@ -155,7 +184,7 @@ export default function Classrooms() {
             </tr>
           );
         })}
-        {classrooms.length === 0 && <tr><td colSpan="8" className="empty-state">No hay aulas registradas</td></tr>}
+        {filteredClassrooms.length === 0 && <tr><td colSpan="9" className="empty-state">No hay aulas registradas{ campusFilter ? ' para esta sede' : '' }</td></tr>}
       </tbody></table></div></div>
 
       <Modal isOpen={modal} onClose={() => setModal(false)} title={editing ? 'Editar Aula' : 'Nueva Aula'}>
@@ -192,9 +221,19 @@ export default function Classrooms() {
             </div>
           </div>
 
+          <div className="form-group">
+            <label>Sede / Campus</label>
+            <select className="form-input" value={form.campus} onChange={e => setForm({ ...form, campus: e.target.value })}>
+              <option value="">— Sin sede —</option>
+              {campuses.map(c => (
+                <option key={c._id} value={c._id}>{c.code} — {c.name}</option>
+              ))}
+            </select>
+          </div>
+
           <div className="form-row">
             <div className="form-group">
-              <label>Edificio</label>
+              <label>Edificio / Pabellón</label>
               <input className="form-input" value={form.building} onChange={e => setForm({ ...form, building: e.target.value })} />
             </div>
             <div className="form-group">
@@ -244,6 +283,20 @@ export default function Classrooms() {
             {editing ? 'Actualizar' : 'Crear'}
           </button>
         </form>
+      </Modal>
+
+      <Modal isOpen={!!detailItem} onClose={() => setDetailItem(null)} title={`Aula: ${detailItem?.code || ''}`}>
+        {detailItem && (
+          <div className="detail-modal-body">
+            <div className="detail-row"><span className="detail-label">Código</span><span className="detail-value"><span className="code-badge">{detailItem.code}</span></span></div>
+            <div className="detail-row"><span className="detail-label">Nombre</span><span className="detail-value">{detailItem.name}</span></div>
+            <div className="detail-row"><span className="detail-label">Capacidad</span><span className="detail-value">{detailItem.capacity} personas</span></div>
+            <div className="detail-row"><span className="detail-label">Tipo</span><span className="detail-value"><span className={`badge badge-${getTypeBadge(detailItem.type).color}`}>{getTypeBadge(detailItem.type).label}</span></span></div>
+            <div className="detail-row"><span className="detail-label">Sede</span><span className="detail-value">{detailItem.campus?.name || (campuses.find(cp => cp._id === detailItem.campus)?.name) || '—'}</span></div>
+            <div className="detail-row"><span className="detail-label">Edificio</span><span className="detail-value">{detailItem.building}</span></div>
+            <div className="detail-row"><span className="detail-label">Piso</span><span className="detail-value">{detailItem.floor}</span></div>
+          </div>
+        )}
       </Modal>
     </div>
   );

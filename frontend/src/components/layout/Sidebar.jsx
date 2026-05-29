@@ -17,7 +17,9 @@ import {
   HiOutlineCog,
   HiOutlineAcademicCap,
   HiOutlineCollection,
-  HiOutlineShieldCheck
+  HiOutlineShieldCheck,
+  HiOutlineDocumentDuplicate,
+  HiOutlineGlobe
 } from 'react-icons/hi';
 import './Sidebar.css';
 
@@ -31,6 +33,7 @@ const studentNav = [
   { path: '/enrollment', icon: HiOutlineBookOpen, label: 'Matrícula' },
   { path: '/section-enrollment', icon: HiOutlineCalendar, label: 'Armar horario' },
   { path: '/my-schedules', icon: HiOutlineClipboardList, label: 'Mi horario' },
+  { path: '/simulations', icon: HiOutlineDocumentDuplicate, label: 'Simulaciones' },
   { path: '/preferences', icon: HiOutlineAdjustments, label: 'Preferencias' },
   { path: '/notifications', icon: HiOutlineBell, label: 'Notificaciones' },
   { path: '/help', icon: HiOutlineQuestionMarkCircle, label: 'Ayuda' },
@@ -40,6 +43,7 @@ const studentNav = [
 const docenteNav = [
   { path: '/teacher-profile', icon: HiOutlineUserGroup, label: 'Mi perfil docente' },
   { path: '/my-schedules', icon: HiOutlineClipboardList, label: 'Mi horario' },
+  { path: '/simulations', icon: HiOutlineDocumentDuplicate, label: 'Simulaciones' },
   { path: '/preferences', icon: HiOutlineAdjustments, label: 'Preferencias' },
   { path: '/restrictions', icon: HiOutlineLockClosed, label: 'Restricciones' },
   { path: '/notifications', icon: HiOutlineBell, label: 'Notificaciones' },
@@ -49,7 +53,6 @@ const docenteNav = [
 // Coordinator gets everything
 const coordinadorNav = [
   { path: '/planning', icon: HiOutlineCollection, label: 'Planificación' },
-  { path: '/generate', icon: HiOutlineCalendar, label: 'Generar horario' },
   { path: '/my-schedules', icon: HiOutlineClipboardList, label: 'Mis horarios' },
   { path: '/preferences', icon: HiOutlineAdjustments, label: 'Preferencias' },
   { path: '/restrictions', icon: HiOutlineLockClosed, label: 'Restricciones' },
@@ -65,6 +68,7 @@ const coordinadorExtra = [
   { path: '/teachers', icon: HiOutlineUserGroup, label: 'Docentes' },
   { path: '/students', icon: HiOutlineCube, label: 'Estudiantes' },
   { path: '/classrooms', icon: HiOutlineOfficeBuilding, label: 'Aulas' },
+  { path: '/campus', icon: HiOutlineGlobe, label: 'Campus / Sedes' },
   { path: '/generation', icon: HiOutlineLightningBolt, label: 'Generaciones' },
   { path: '/career-generation', icon: HiOutlineCalendar, label: 'Generar x Carrera' },
   { path: '/policies', icon: HiOutlineShieldCheck, label: 'Políticas' },

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import Modal from '../components/ui/Modal';
 import api from '../api/axios';
-import { HiOutlinePlus, HiOutlinePencil, HiOutlineTrash } from 'react-icons/hi';
+import { HiOutlinePlus, HiOutlinePencil, HiOutlineTrash, HiOutlineEye } from 'react-icons/hi';
 import './Careers.css';
 
 const emptyForm = { code: '', name: '', faculty: 'Ingeniería', totalSemesters: 10, totalCredits: 200, director: '', description: '' };
@@ -12,6 +12,7 @@ export default function Careers() {
   const [modal, setModal] = useState(false);
   const [editing, setEditing] = useState(null);
   const [form, setForm] = useState({ ...emptyForm });
+  const [detailItem, setDetailItem] = useState(null);
 
   useEffect(() => { loadCareers(); }, []);
 
@@ -98,6 +99,7 @@ export default function Careers() {
                   <td><span className="badge badge-info">{c.courseCount ?? 0}</span></td>
                   <td>
                     <div className="action-btns">
+                      <button className="btn btn-outline btn-sm" title="Ver detalle" onClick={() => setDetailItem(c)}><HiOutlineEye /></button>
                       <button className="btn btn-outline btn-sm" onClick={() => handleEdit(c)}><HiOutlinePencil /></button>
                       <button className="btn btn-danger btn-sm" onClick={() => handleDelete(c._id)}><HiOutlineTrash /></button>
                     </div>
@@ -148,6 +150,20 @@ export default function Careers() {
             {editing ? 'Actualizar' : 'Crear Carrera'}
           </button>
         </form>
+      </Modal>
+
+      <Modal isOpen={!!detailItem} onClose={() => setDetailItem(null)} title={`Carrera: ${detailItem?.name || ''}`}>
+        {detailItem && (
+          <div className="detail-modal-body">
+            <div className="detail-row"><span className="detail-label">Código</span><span className="detail-value"><span className="code-badge">{detailItem.code}</span></span></div>
+            <div className="detail-row"><span className="detail-label">Nombre</span><span className="detail-value">{detailItem.name}</span></div>
+            <div className="detail-row"><span className="detail-label">Facultad</span><span className="detail-value">{detailItem.faculty || '-'}</span></div>
+            <div className="detail-row"><span className="detail-label">Semestres</span><span className="detail-value">{detailItem.totalSemesters}</span></div>
+            <div className="detail-row"><span className="detail-label">Créditos totales</span><span className="detail-value">{detailItem.totalCredits}</span></div>
+            <div className="detail-row"><span className="detail-label">Director</span><span className="detail-value">{detailItem.director || '-'}</span></div>
+            <div className="detail-row"><span className="detail-label">Descripción</span><span className="detail-value">{detailItem.description || '-'}</span></div>
+          </div>
+        )}
       </Modal>
     </div>
   );

@@ -27,6 +27,8 @@ import TeacherProfile from './pages/TeacherProfile';
 import StudentPreferences from './pages/StudentPreferences';
 import CareerGeneration from './pages/CareerGeneration';
 import SectionEnrollment from './pages/SectionEnrollment';
+import Simulations from './pages/Simulations';
+import CampusPage from './pages/Campus';
 
 function ProtectedRoute({ children }) {
   const { isAuthenticated, loading } = useAuth();
@@ -67,6 +69,8 @@ function AppRoutes() {
         <Route path="/student-preferences" element={<StudentPreferences />} />
         <Route path="/career-generation" element={<CareerGeneration />} />
         <Route path="/section-enrollment" element={<SectionEnrollment />} />
+        <Route path="/simulations" element={<Simulations />} />
+        <Route path="/campus" element={<CampusPage />} />
       </Route>
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>

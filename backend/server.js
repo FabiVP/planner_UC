@@ -36,6 +36,8 @@ app.use('/api/careers', require('./routes/career.routes'));
 app.use('/api/policies', require('./routes/policy.routes'));
 app.use('/api/projections', require('./routes/projection.routes'));
 app.use('/api/student-schedule', require('./routes/student-schedule.routes'));
+app.use('/api/simulations', require('./routes/simulation.routes'));
+app.use('/api/campuses', require('./routes/campus.routes'));
 app.use('/api', require('./routes/section.routes'));
 
 // Health check — incluye estado de la base de datos

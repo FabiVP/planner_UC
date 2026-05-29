@@ -108,7 +108,7 @@ export default function Enrollment() {
       <div className="enrollment-progress card">
         <div className="ep-info">
           <h3>{student.name}</h3>
-          <span className="ep-meta">{student.career?.name || student.career} · Semestre {student.currentSemester} · {student.code}</span>
+          <span className="ep-meta">{student.career?.name || student.career} · Semestre {student.currentSemester} · {student.studentCode || student.code}</span>
         </div>
         <div className="ep-stats">
           <div className="ep-stat">
@@ -221,6 +221,51 @@ export default function Enrollment() {
           )}
           {validation.valid && validation.warnings?.length === 0 && (
             <p className="val-ok">✓ Todos los prerrequisitos cumplidos. {validation.totalCredits} créditos totales.</p>
+          )}
+
+          {/* ── Difficulty Analysis ── */}
+          {validation.difficultyAnalysis && (
+            <div className="diff-analysis-panel" style={{ marginTop: 12 }}>
+              <h4 style={{ marginBottom: 8, fontSize: '0.9rem' }}>📊 Análisis de carga académica</h4>
+              <div className="diff-analysis-grid">
+                <div className="da-stat">
+                  <span className="da-label">Dificultad promedio</span>
+                  <strong className="da-value">
+                    {'★'.repeat(Math.round(validation.difficultyAnalysis.average))}{'☆'.repeat(5 - Math.round(validation.difficultyAnalysis.average))}
+                    <small style={{ marginLeft: 4 }}>{validation.difficultyAnalysis.average}/5</small>
+                  </strong>
+                </div>
+                <div className="da-stat">
+                  <span className="da-label">Nivel de carga</span>
+                  <strong className="da-value" style={{
+                    color: validation.difficultyAnalysis.overloadLevel === 'alta' ? '#dc2626'
+                      : validation.difficultyAnalysis.overloadLevel === 'media' ? '#f59e0b' : '#10b981'
+                  }}>
+                    {validation.difficultyAnalysis.overloadLevel === 'alta' ? '🔴 Alta'
+                      : validation.difficultyAnalysis.overloadLevel === 'media' ? '🟡 Media' : '🟢 Normal'}
+                  </strong>
+                </div>
+                <div className="da-stat">
+                  <span className="da-label">Balance</span>
+                  <strong className="da-value">{validation.difficultyAnalysis.balance}</strong>
+                </div>
+                {validation.gpa > 0 && (
+                  <div className="da-stat">
+                    <span className="da-label">Tu GPA</span>
+                    <strong className="da-value">{validation.gpa}</strong>
+                  </div>
+                )}
+              </div>
+              {validation.difficultyAnalysis.hardCourses?.length > 0 && (
+                <div style={{ marginTop: 8, fontSize: '0.8rem' }}>
+                  <span style={{ color: '#dc2626' }}>Cursos difíciles: </span>
+                  {validation.difficultyAnalysis.hardCourses.map(c => c.code).join(', ')}
+                </div>
+              )}
+              <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginTop: 6, fontStyle: 'italic' }}>
+                {validation.difficultyAnalysis.recommendation}
+              </p>
+            </div>
           )}
         </div>
       )}

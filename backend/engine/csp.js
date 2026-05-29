@@ -335,7 +335,9 @@ function runCSPMultiple(courses, teachers, classrooms, preferences = [], numSolu
           day: a.day,
           startTime: a.startTime,
           endTime: a.endTime,
-          hoursPerSession: a.hoursPerSession || 1
+          hoursPerSession: a.hoursPerSession || 1,
+          _realCourseId: a._realCourseId || null,
+          _sectionCode: a._sectionCode || null
         }));
 
         // Check if this solution is sufficiently different from existing ones

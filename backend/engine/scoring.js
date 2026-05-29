@@ -176,7 +176,11 @@ function calculatePreferencesScore(assignments, teachers, preferences) {
         const gap = curr - prev - 1;
         if (gap >= 2) {
           totalPoints += SCORES.LONG_GAP;
-          maxPoints += Math.abs(SCORES.NO_GAPS);
+          details.push({
+            type: 'gap',
+            description: `Docente con hueco de ${gap} horas el ${day}`,
+            impact: 'Bajo'
+          });
         }
       }
     }

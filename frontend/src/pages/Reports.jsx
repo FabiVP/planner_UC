@@ -273,6 +273,24 @@ export default function Reports() {
     setExporting(false);
   };
 
+  const handleExportExcel = async (type = 'schedule') => {
+    try {
+      const response = await api.get(`/reports/export/excel?type=${type}`, { responseType: 'blob' });
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      const ext = type === 'full' ? 'reporte_completo' : type;
+      link.setAttribute('download', `${ext}_export.csv`);
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.URL.revokeObjectURL(url);
+    } catch (e) {
+      console.error(e);
+      alert('Error al exportar Excel');
+    }
+  };
+
   if (loading) return <div className="loading-container"><div className="spinner"></div></div>;
 
   const days = ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'domingo'];
@@ -286,19 +304,32 @@ export default function Reports() {
           <h1>Reportes</h1>
           <p>Resumen general de tu carga académica y distribución de horarios.</p>
         </div>
-        <button
-          className={`btn ${exported ? 'btn-success' : 'btn-primary'}`}
-          onClick={handleExport}
-          disabled={exporting}
-        >
-          {exporting ? (
-            <><span className="spinner" style={{width:16,height:16,borderWidth:2}}></span> Exportando...</>
-          ) : exported ? (
-            <><HiOutlineCheckCircle /> Descargado ✓</>
-          ) : (
-            <><HiOutlineDownload /> Exportar reporte PDF</>
-          )}
-        </button>
+        <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+          <button
+            className={`btn ${exported ? 'btn-success' : 'btn-primary'}`}
+            onClick={handleExport}
+            disabled={exporting}
+          >
+            {exporting ? (
+              <><span className="spinner" style={{width:16,height:16,borderWidth:2}}></span> Exportando...</>
+            ) : exported ? (
+              <><HiOutlineCheckCircle /> Descargado ✓</>
+            ) : (
+              <><HiOutlineDownload /> Exportar PDF</>
+            )}
+          </button>
+          <div className="excel-export-group">
+            <button className="btn btn-outline" onClick={() => handleExportExcel('schedule')} title="Exportar horario">
+              📊 Excel: Horario
+            </button>
+            <button className="btn btn-outline" onClick={() => handleExportExcel('teachers')} title="Exportar docentes">
+              📊 Excel: Docentes
+            </button>
+            <button className="btn btn-outline" onClick={() => handleExportExcel('full')} title="Exportar todo">
+              📊 Excel: Completo
+            </button>
+          </div>
+        </div>
       </div>
 
       <div className="reports-grid">

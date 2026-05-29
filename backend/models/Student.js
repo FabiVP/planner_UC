@@ -63,9 +63,21 @@ const studentSchema = new mongoose.Schema({
     default: true
   }
 }, {
-  timestamps: true
+  timestamps: true,
+  toJSON: { virtuals: true },
+  toObject: { virtuals: true }
 });
 
+// ── Promedio ponderado (GPA) calculado automáticamente ──
+studentSchema.virtual('gpa').get(function() {
+  const grades = (this.approvedCourses || []).filter(ac => ac.grade != null && ac.grade !== undefined);
+  if (grades.length === 0) return 0;
+  return Math.round((grades.reduce((sum, ac) => sum + ac.grade, 0) / grades.length) * 100) / 100;
+});
 
+// ── Cursos desaprobados count ──
+studentSchema.virtual('failedCoursesCount').get(function() {
+  return (this.approvedCourses || []).filter(ac => ac.grade != null && ac.grade < 11).length;
+});
 
 module.exports = mongoose.model('Student', studentSchema);

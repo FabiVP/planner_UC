@@ -92,3 +92,102 @@ exports.getSummary = async (req, res, next) => {
     next(error);
   }
 };
+
+/**
+ * GET /api/reports/export/excel
+ * Exporta horario y datos académicos en formato CSV (compatible con Excel).
+ * Query: ?type=schedule|teachers|classrooms|students|full
+ */
+exports.exportExcel = async (req, res, next) => {
+  try {
+    const { type = 'schedule' } = req.query;
+    let csvContent = '';
+    let filename = '';
+
+    if (type === 'schedule' || type === 'full') {
+      // Export latest schedule
+      const latestGen = await Generation.findOne({ status: 'completada' }).sort({ createdAt: -1 });
+      if (!latestGen?.scheduleId) {
+        return res.status(400).json({ message: 'No hay horario generado para exportar.' });
+      }
+
+      const schedule = await Schedule.findById(latestGen.scheduleId)
+        .populate('assignments.courseId', 'code name credits type semester')
+        .populate('assignments.teacherId', 'name email')
+        .populate('assignments.classroomId', 'code name type capacity');
+
+      csvContent = 'Día,Hora Inicio,Hora Fin,Código Curso,Nombre Curso,Créditos,Tipo,Semestre,Docente,Aula,Capacidad Aula\n';
+      const dayOrder = ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado'];
+
+      const sorted = [...schedule.assignments].sort((a, b) => {
+        const dayDiff = dayOrder.indexOf(a.day) - dayOrder.indexOf(b.day);
+        if (dayDiff !== 0) return dayDiff;
+        return a.startTime.localeCompare(b.startTime);
+      });
+
+      for (const a of sorted) {
+        const c = a.courseId;
+        const t = a.teacherId;
+        const cl = a.classroomId;
+        csvContent += `${a.day},${a.startTime},${a.endTime},${c?.code || ''},${esc(c?.name)},${c?.credits || ''},${c?.type || ''},${c?.semester || ''},${esc(t?.name)},${cl?.code || ''},${cl?.capacity || ''}\n`;
+      }
+      filename = `horario_${latestGen.semester || 'export'}.csv`;
+    }
+
+    if (type === 'teachers' || type === 'full') {
+      const teachers = await Teacher.find({ active: true }).populate('specializations', 'code name');
+      const header = 'Nombre,Email,Contrato,Desempeño,Puntaje,Horas Semanales Max,Cursos Max,Turno Preferido,Especialidades\n';
+      let rows = '';
+      for (const t of teachers) {
+        const specs = (t.specializations || []).map(s => s.code).join('; ');
+        rows += `${esc(t.name)},${t.email || ''},${t.contractType},${t.performanceLevel || 'regular'},${t.performanceScore || 80},${t.maxWeeklyHours},${t.maxCourses},${t.preferredShift},${esc(specs)}\n`;
+      }
+      if (type === 'full') { csvContent += '\n--- DOCENTES ---\n' + header + rows; }
+      else { csvContent = header + rows; filename = 'docentes_export.csv'; }
+    }
+
+    if (type === 'classrooms' || type === 'full') {
+      const classrooms = await Classroom.find({ available: true });
+      const header = 'Código,Nombre,Capacidad,Tipo,Edificio,Piso,Disponible\n';
+      let rows = '';
+      for (const cl of classrooms) {
+        rows += `${cl.code},${esc(cl.name)},${cl.capacity},${cl.type},${cl.building || ''},${cl.floor || 1},${cl.available ? 'Sí' : 'No'}\n`;
+      }
+      if (type === 'full') { csvContent += '\n--- AULAS ---\n' + header + rows; }
+      else { csvContent = header + rows; filename = 'aulas_export.csv'; }
+    }
+
+    if (type === 'students' || type === 'full') {
+      const students = await Student.find({ active: true }).populate('career', 'code name');
+      const header = 'Código,Nombre,Carrera,Semestre,Créditos Aprobados,Promedio,Cursos Aprobados,Cursos Desaprobados\n';
+      let rows = '';
+      for (const s of students) {
+        const approved = (s.approvedCourses || []).filter(ac => ac.grade >= 11).length;
+        const failed = (s.approvedCourses || []).filter(ac => ac.grade != null && ac.grade < 11).length;
+        rows += `${s.studentCode},${esc(s.name)},${s.career?.code || ''},${s.currentSemester},${s.totalCreditsApproved},${s.gpa || 0},${approved},${failed}\n`;
+      }
+      if (type === 'full') { csvContent += '\n--- ESTUDIANTES ---\n' + header + rows; }
+      else { csvContent = header + rows; filename = 'estudiantes_export.csv'; }
+    }
+
+    if (!filename) filename = 'reporte_completo.csv';
+
+    // Add BOM for Excel UTF-8 compatibility
+    const bom = '\uFEFF';
+    res.setHeader('Content-Type', 'text/csv; charset=utf-8');
+    res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
+    res.send(bom + csvContent);
+  } catch (error) {
+    next(error);
+  }
+};
+
+// Helper to escape CSV values
+function esc(val) {
+  if (!val) return '';
+  const str = String(val);
+  if (str.includes(',') || str.includes('"') || str.includes('\n')) {
+    return '"' + str.replace(/"/g, '""') + '"';
+  }
+  return str;
+}

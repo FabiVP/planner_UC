@@ -6,10 +6,41 @@ const Career = require('../models/Career');
 const Enrollment = require('../models/Enrollment');
 
 /**
+ * Construye un mapa { studentId → Set<courseId> } de cursos aprobados (nota >= 11).
+ */
+const buildPassedMap = (students) => {
+  const map = {};
+  for (const s of students) {
+    map[s._id.toString()] = new Set(
+      (s.approvedCourses || [])
+        .filter(ac => ac.grade != null && ac.grade >= 11)
+        .map(ac => ac.courseId.toString())
+    );
+  }
+  return map;
+};
+
+/**
+ * Agrupa estudiantes por currentSemester.
+ */
+const groupBySemester = (students) => {
+  const map = {};
+  for (const s of students) {
+    const sem = s.currentSemester || 1;
+    if (!map[sem]) map[sem] = [];
+    map[sem].push(s);
+  }
+  return map;
+};
+
+/**
  * GET /api/projections/:careerId
- * Proyección académica para una carrera específica.
- * Estima cuántos alumnos pasarán al siguiente semestre,
- * calcula secciones necesarias, aulas requeridas y horas docentes.
+ * Proyección académica basada en datos históricos de alumnos.
+ * 
+ * Para semestre 1: aplica tasa de crecimiento sobre alumnos actuales.
+ * Para semestres N > 1: cuenta alumnos que aprobaron TODOS los prerrequisitos
+ * de los cursos del semestre (histórico). Si no hay prerrequisitos ni datos
+ * históricos, usa la tasa de aprobación como fallback.
  */
 exports.getProjection = async (req, res, next) => {
   try {
@@ -19,67 +50,102 @@ exports.getProjection = async (req, res, next) => {
     const career = await Career.findById(careerId);
     if (!career) return res.status(404).json({ message: 'Carrera no encontrada.' });
 
-    // Get all active courses for this career, sorted by semester
     const courses = await Course.find({ career: careerId, active: true })
-      .sort({ semester: 1, name: 1 });
+      .sort({ semester: 1, name: 1 })
+      .populate('prerequisites', 'code name semester');
 
-    // Count current students by semester
-    const students = await Student.find({ active: true });
-    const studentsBySemester = {};
-    for (const s of students) {
-      const sem = s.currentSemester || 1;
-      studentsBySemester[sem] = (studentsBySemester[sem] || 0) + 1;
-    }
+    const allStudents = await Student.find({ career: careerId, active: true });
+    const studentsBySemester = groupBySemester(allStudents);
+    const passedMap = buildPassedMap(allStudents);
 
-    // Get available classrooms
     const classrooms = await Classroom.find({ available: true });
-    const totalClassroomCapacity = classrooms.reduce((sum, c) => sum + c.capacity, 0);
     const classroomsByType = {
       teorico: classrooms.filter(c => c.type === 'teorico'),
       laboratorio: classrooms.filter(c => c.type === 'laboratorio'),
       aula_virtual: classrooms.filter(c => c.type === 'aula_virtual')
     };
 
-    // Get active teachers
     const teachers = await Teacher.find({ active: true });
 
     const rate = Math.min(100, Math.max(0, Number(passRate))) / 100;
     const growth = Number(growthRate) / 100;
 
-    // Build projection per semester
     const projection = [];
     const maxSemester = Math.max(...courses.map(c => c.semester), 1);
+    const projectedBySem = {};
 
     for (let sem = 1; sem <= maxSemester; sem++) {
       const semCourses = courses.filter(c => c.semester === sem);
       if (semCourses.length === 0) continue;
 
-      // Estimate students for this semester
-      let currentStudents = studentsBySemester[sem] || 0;
+      const currentStudents = studentsBySemester[sem]?.length || 0;
       let projectedStudents;
+      let projectionBasis = 'rate';
+      let eligibleStudentCount = 0;
+      let prerequisiteCourseCodes = [];
 
       if (sem === 1) {
-        // Semester 1: current + growth for new intake
+        // Semestre 1: alumnos actuales + crecimiento
         projectedStudents = Math.max(currentStudents, 30);
         projectedStudents = Math.ceil(projectedStudents * (1 + growth));
+        projectionBasis = 'rate';
       } else {
-        // Subsequent semesters: students from previous semester × pass rate
-        const prevStudents = studentsBySemester[sem - 1] || currentStudents || 30;
-        projectedStudents = Math.ceil(prevStudents * rate);
+        // Semestres N > 1: usar datos históricos de approvedCourses
+        const prereqIds = new Set();
+        const prereqCodes = new Set();
+        for (const course of semCourses) {
+          if (course.prerequisites && course.prerequisites.length > 0) {
+            for (const prereq of course.prerequisites) {
+              const pId = prereq._id ? prereq._id.toString() : prereq.toString();
+              prereqIds.add(pId);
+              prereqCodes.add((prereq.code || '?'));
+            }
+          }
+        }
+
+        prerequisiteCourseCodes = [...prereqCodes];
+
+        if (prereqIds.size > 0 && allStudents.length > 0) {
+          // Contar alumnos que aprobaron TODOS los prerrequisitos
+          for (const s of allStudents) {
+            const passed = passedMap[s._id.toString()] || new Set();
+            let allPassed = true;
+            for (const pId of prereqIds) {
+              if (!passed.has(pId)) {
+                allPassed = false;
+                break;
+              }
+            }
+            if (allPassed) eligibleStudentCount++;
+          }
+        }
+
+        if (eligibleStudentCount > 0) {
+          projectedStudents = eligibleStudentCount;
+          projectionBasis = 'historical';
+        } else {
+          // Fallback: tasa de aprobación
+          const prevProjected = projectedBySem[sem - 1]
+            || Math.max(studentsBySemester[sem - 1]?.length || 20, 20);
+          projectedStudents = Math.max(1, Math.ceil(prevProjected * rate));
+          projectionBasis = 'rate';
+        }
       }
 
-      // Calculate sections needed per course
+      projectedBySem[sem] = projectedStudents;
+
       const coursesProjection = semCourses.map(course => {
         const maxPerSection = course.maxStudents || 40;
         const sectionsNeeded = Math.max(1, Math.ceil(projectedStudents / maxPerSection));
         const totalSessions = sectionsNeeded * (course.sessionsPerWeek || 2);
         const totalHours = totalSessions * (course.hoursPerSession || 1);
-
-        // Required classroom type
         const requiredType = course.type || 'teorico';
-        const availableOfType = classroomsByType[requiredType]?.length || 0;
-
-        // Teachers needed (1 per section)
+        const studentsPerSection = Math.ceil(projectedStudents / sectionsNeeded);
+        // Filtrar aulas cuya capacidad sea suficiente para los alumnos por sección
+        const adequateClassrooms = (classroomsByType[requiredType] || [])
+          .filter(c => c.capacity >= studentsPerSection);
+        const adequateCount = adequateClassrooms.length;
+        const totalCount = classroomsByType[requiredType]?.length || 0;
         const teachersNeeded = sectionsNeeded;
 
         return {
@@ -96,13 +162,14 @@ exports.getProjection = async (req, res, next) => {
           totalSessions,
           totalHours,
           requiredClassroomType: requiredType,
-          classroomsAvailable: availableOfType,
-          classroomSufficient: availableOfType >= sectionsNeeded,
+          studentsPerSection,
+          classroomsAvailable: totalCount,
+          classroomsAdequate: adequateCount,
+          classroomSufficient: adequateCount >= sectionsNeeded,
           teachersNeeded
         };
       });
 
-      // Semester totals
       const totalSections = coursesProjection.reduce((s, c) => s + c.sectionsNeeded, 0);
       const totalHours = coursesProjection.reduce((s, c) => s + c.totalHours, 0);
       const totalTeachersNeeded = coursesProjection.reduce((s, c) => s + c.teachersNeeded, 0);
@@ -112,6 +179,9 @@ exports.getProjection = async (req, res, next) => {
         semester: sem,
         currentStudents,
         projectedStudents,
+        projectionBasis,
+        eligibleStudentCount,
+        prerequisiteCourseCodes,
         totalCourses: semCourses.length,
         totalSections,
         totalHours,
@@ -121,7 +191,6 @@ exports.getProjection = async (req, res, next) => {
       });
     }
 
-    // Global summary
     const totalProjectedStudents = projection.reduce((s, p) => s + p.projectedStudents, 0);
     const totalSectionsNeeded = projection.reduce((s, p) => s + p.totalSections, 0);
     const totalHoursNeeded = projection.reduce((s, p) => s + p.totalHours, 0);
@@ -139,7 +208,7 @@ exports.getProjection = async (req, res, next) => {
         totalTeachersAvailable: teachers.length,
         teacherDeficit: Math.max(0, totalTeachersRequired - teachers.length),
         totalClassrooms: classrooms.length,
-        totalClassroomCapacity,
+        totalClassroomCapacity: classrooms.reduce((s, c) => s + c.capacity, 0),
         semestersWithClassroomDeficit
       },
       infrastructure: {
@@ -169,29 +238,65 @@ exports.getProjection = async (req, res, next) => {
 exports.getSummaryAll = async (req, res, next) => {
   try {
     const careers = await Career.find({ active: true });
-    const students = await Student.find({ active: true });
+    const allStudents = await Student.find({ active: true });
     const teachers = await Teacher.find({ active: true });
     const classrooms = await Classroom.find({ available: true });
 
-    const passRate = 0.75;
-
     const summaries = await Promise.all(careers.map(async (career) => {
-      const courses = await Course.find({ career: career._id, active: true });
-      const careerStudents = students.filter(s =>
-        s.career === career.name || s.career === career.code
+      const courses = await Course.find({ career: career._id, active: true })
+        .populate('prerequisites', 'code name semester');
+      const careerStudents = allStudents.filter(s =>
+        s.career?.toString() === career._id.toString()
       );
+      const passedMap = buildPassedMap(careerStudents);
 
       let totalProjectedStudents = 0;
       let totalSections = 0;
       let totalHours = 0;
 
       const maxSem = Math.max(...courses.map(c => c.semester), 1);
+      const projectedBySem = {};
+
       for (let sem = 1; sem <= maxSem; sem++) {
         const semCourses = courses.filter(c => c.semester === sem);
-        const projStudents = sem === 1
-          ? Math.max(careerStudents.filter(s => s.currentSemester === 1).length, 30)
-          : Math.ceil(Math.max(careerStudents.filter(s => s.currentSemester === sem - 1).length, 20) * passRate);
+        if (semCourses.length === 0) continue;
 
+        let projStudents;
+
+        if (sem === 1) {
+          projStudents = Math.max(
+            careerStudents.filter(s => s.currentSemester === 1).length,
+            30
+          );
+        } else {
+          const prereqIds = new Set();
+          for (const course of semCourses) {
+            if (course.prerequisites && course.prerequisites.length > 0) {
+              for (const prereq of course.prerequisites) {
+                prereqIds.add(prereq._id ? prereq._id.toString() : prereq.toString());
+              }
+            }
+          }
+
+          if (prereqIds.size > 0 && careerStudents.length > 0) {
+            let eligibleCount = 0;
+            for (const s of careerStudents) {
+              const passed = passedMap[s._id.toString()] || new Set();
+              let allPassed = true;
+              for (const pId of prereqIds) {
+                if (!passed.has(pId)) { allPassed = false; break; }
+              }
+              if (allPassed) eligibleCount++;
+            }
+            projStudents = Math.max(eligibleCount, 1);
+          } else {
+            const prevProj = projectedBySem[sem - 1]
+              || Math.max(careerStudents.filter(s => s.currentSemester === sem - 1).length, 20);
+            projStudents = Math.ceil(prevProj * 0.75);
+          }
+        }
+
+        projectedBySem[sem] = projStudents;
         totalProjectedStudents += projStudents;
 
         for (const course of semCourses) {

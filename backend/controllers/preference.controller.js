@@ -1,4 +1,6 @@
 const Preference = require('../models/Preference');
+const Teacher = require('../models/Teacher');
+const Student = require('../models/Student');
 
 // GET /api/preferences — Obtener preferencias del usuario logueado
 exports.getMyPreferences = async (req, res, next) => {
@@ -69,7 +71,6 @@ exports.updateMyPreferences = async (req, res, next) => {
 // GET /api/preferences/availability/teachers — Disponibilidad de todos los docentes
 exports.getTeacherAvailability = async (req, res, next) => {
   try {
-    const Teacher = require('../models/Teacher');
     const teachers = await Teacher.find({ active: true })
       .select('name email department availability preferredShift specializations')
       .populate('specializations', 'name code');
@@ -102,7 +103,6 @@ exports.getTeacherAvailability = async (req, res, next) => {
 // GET /api/preferences/availability/students — Estadísticas de disponibilidad de alumnos
 exports.getStudentAvailability = async (req, res, next) => {
   try {
-    const Student = require('../models/Student');
     const totalStudents = await Student.countDocuments({ active: true });
     const preferences = await Preference.find({ role: 'estudiante' })
       .populate('userId', 'name email');

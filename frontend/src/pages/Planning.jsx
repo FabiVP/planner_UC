@@ -40,11 +40,12 @@ export default function Planning() {
     setLoading(false);
   };
 
-  const selectCareer = async (career) => {
+  const selectCareer = async (career, forceMode) => {
     setSelectedCareer(career);
     setSemesterFilter('all');
     setExpandedCourse(null);
-    if (mode === 'demand') {
+    const activeMode = forceMode || mode;
+    if (activeMode === 'demand') {
       setLoadingDemand(true);
       try { const res = await api.get(`/careers/${career._id}/demand`); setDemand(res.data); }
       catch (err) { console.error(err); }
@@ -73,8 +74,10 @@ export default function Planning() {
 
   const switchMode = (newMode) => {
     setMode(newMode);
-    if (selectedCareer && newMode === 'projection') loadProjection(selectedCareer._id);
-    if (selectedCareer && newMode === 'demand') selectCareer(selectedCareer);
+    if (selectedCareer) {
+      if (newMode === 'projection') loadProjection(selectedCareer._id);
+      else selectCareer(selectedCareer, newMode);
+    }
   };
 
   // Stats
@@ -355,13 +358,21 @@ export default function Planning() {
                 {filteredProjection.map(sem => (
                   <div key={sem.semester} className="card projection-card">
                     <div className="projection-card-header">
-                      <h3>Semestre {sem.semester}</h3>
-                      <div className="projection-badges">
-                        <span className="proj-badge students">{sem.projectedStudents} alumnos</span>
-                        <span className="proj-badge sections">{sem.totalSections} secciones</span>
-                        {sem.classroomDeficit > 0 && <span className="proj-badge deficit">⚠ {sem.classroomDeficit} aulas faltantes</span>}
+                        <h3>Semestre {sem.semester}</h3>
+                        <div className="projection-badges">
+                          <span className={`proj-badge ${sem.projectionBasis === 'historical' ? 'basis-historical' : 'basis-rate'}`}
+                            title={sem.projectionBasis === 'historical'
+                              ? `Basado en ${sem.eligibleStudentCount} alumnos que aprobaron los prerrequisitos`
+                              : sem.semester === 1
+                                ? 'Estimado por tasa de crecimiento'
+                                : 'Estimado por tasa de aprobación (sin datos históricos de prerrequisitos)'}>
+                            {sem.projectionBasis === 'historical' ? `📊 ${sem.eligibleStudentCount} aptos` : '📈 estimado'}
+                          </span>
+                          <span className="proj-badge students">{sem.projectedStudents} alumnos</span>
+                          <span className="proj-badge sections">{sem.totalSections} secciones</span>
+                          {sem.classroomDeficit > 0 && <span className="proj-badge deficit">⚠ {sem.classroomDeficit} aulas faltantes</span>}
+                        </div>
                       </div>
-                    </div>
                     <div className="projection-stats">
                       <div className="proj-stat"><span className="proj-stat-val">{sem.currentStudents}</span><span className="proj-stat-lbl">Actuales</span></div>
                       <div className="proj-stat highlight"><span className="proj-stat-val">{sem.projectedStudents}</span><span className="proj-stat-lbl">Proyectados</span></div>
@@ -379,8 +390,8 @@ export default function Planning() {
                           </div>
                           <div className="proj-course-stats">
                             <span>{c.sectionsNeeded} secc.</span>
-                            <span className={c.classroomSufficient ? 'text-success' : 'text-danger'}>
-                              {c.classroomsAvailable} {c.requiredClassroomType === 'laboratorio' ? 'labs' : 'aulas'}
+                            <span className={c.classroomSufficient ? 'text-success' : 'text-danger'} title={`${c.classroomsAdequate} aulas con capacidad >= ${c.studentsPerSection} alumnos`}>
+                              {c.classroomsAdequate} {c.requiredClassroomType === 'laboratorio' ? 'labs' : 'aulas'} aptas
                             </span>
                             <span>{c.totalHours}h</span>
                           </div>

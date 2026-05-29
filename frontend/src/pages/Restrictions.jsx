@@ -76,13 +76,19 @@ export default function Restrictions() {
   const [restrictions, setRestrictions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [expandedId, setExpandedId] = useState(null);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     api.get('/restrictions').then(res => {
       setRestrictions(res.data.restrictions || []);
       setLoading(false);
-    }).catch(() => setLoading(false));
+    }).catch(e => {
+      setError(e.response?.data?.message || 'Error al cargar restricciones');
+      setLoading(false);
+    });
   }, []);
+
+  const getKey = (r) => r._id || r.id;
 
   const filtered = restrictions.filter(r =>
     tab === 'institucionales' ? r.type === 'dura' : r.type === 'blanda'
@@ -108,6 +114,8 @@ export default function Restrictions() {
         </button>
       </div>
 
+      {error && <div className="alert alert-error">{error}</div>}
+
       {loading ? <div className="loading-container"><div className="spinner"></div></div> : (
         <div className="restrictions-list">
           {filtered.length === 0 ? (
@@ -117,10 +125,10 @@ export default function Restrictions() {
             </div>
           ) : filtered.map(r => {
             const details = RESTRICTION_DETAILS[r.rule] || {};
-            const isExpanded = expandedId === r.id;
+            const isExpanded = expandedId === getKey(r);
             return (
-              <div key={r.id} className={`restriction-card card ${isExpanded ? 'expanded' : ''}`}>
-                <div className="restriction-header" onClick={() => toggleExpand(r.id)}>
+              <div key={getKey(r)} className={`restriction-card card ${isExpanded ? 'expanded' : ''}`}>
+                <div className="restriction-header" onClick={() => toggleExpand(getKey(r))}>
                   <div className="restriction-info">
                     <div className="restriction-title-row">
                       <strong>{r.rule}</strong>

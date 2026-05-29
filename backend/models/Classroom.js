@@ -35,6 +35,11 @@ const classroomSchema = new mongoose.Schema({
     enum: ['teorico', 'laboratorio', 'aula_virtual'],
     default: 'teorico'
   },
+  // ── Campus/Sede ──
+  campus: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Campus'
+  },
   building: {
     type: String,
     default: 'Principal'

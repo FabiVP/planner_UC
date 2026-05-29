@@ -15,6 +15,8 @@ const Preference = require('../models/Preference');
 const Notification = require('../models/Notification');
 const Career = require('../models/Career');
 const InstitutionalPolicy = require('../models/InstitutionalPolicy');
+const Campus = require('../models/Campus');
+const Simulation = require('../models/Simulation');
 
 async function seedInline() {
   // Clear existing data
@@ -27,7 +29,9 @@ async function seedInline() {
     Preference.deleteMany({}),
     Notification.deleteMany({}),
     Career.deleteMany({}),
-    InstitutionalPolicy.deleteMany({})
+    InstitutionalPolicy.deleteMany({}),
+    Campus.deleteMany({}),
+    Simulation.deleteMany({})
   ]);
   console.log('🗑️  Datos anteriores eliminados.');
 
@@ -99,16 +103,16 @@ async function seedInline() {
   // ═══════════════════════════════════════════
   const courses = await Course.create([
     // --- Ingeniería de Sistemas ---
-    { code: 'ALG01', name: 'Algoritmos', credits: 4, type: 'teorico', semester: 3, sessionsPerWeek: 3, hoursPerSession: 1, mandatory: true, maxStudents: 40, career: careerSistemas._id },
-    { code: 'BD01', name: 'Base de Datos', credits: 4, type: 'teorico', semester: 4, sessionsPerWeek: 3, hoursPerSession: 1, mandatory: true, maxStudents: 40, career: careerSistemas._id },
-    { code: 'MD01', name: 'Matemáticas Discretas', credits: 3, type: 'teorico', semester: 3, sessionsPerWeek: 3, hoursPerSession: 1, mandatory: true, maxStudents: 45, career: careerSistemas._id },
-    { code: 'IS01', name: 'Ingeniería de Software', credits: 4, type: 'teorico', semester: 5, sessionsPerWeek: 2, hoursPerSession: 2, mandatory: true, maxStudents: 35, career: careerSistemas._id },
-    { code: 'PA01', name: 'Programación Avanzada', credits: 4, type: 'laboratorio', semester: 5, sessionsPerWeek: 2, hoursPerSession: 2, mandatory: true, maxStudents: 30, career: careerSistemas._id },
-    { code: 'RED01', name: 'Redes', credits: 3, type: 'laboratorio', semester: 6, sessionsPerWeek: 2, hoursPerSession: 1, mandatory: true, maxStudents: 30, career: careerSistemas._id },
-    { code: 'SO01', name: 'Sistemas Operativos', credits: 4, type: 'laboratorio', semester: 5, sessionsPerWeek: 2, hoursPerSession: 1, mandatory: true, maxStudents: 35, career: careerSistemas._id },
-    { code: 'IA01', name: 'Inteligencia Artificial', credits: 3, type: 'teorico', semester: 7, sessionsPerWeek: 2, hoursPerSession: 1, mandatory: false, maxStudents: 30, career: careerSistemas._id },
-    { code: 'SEC01', name: 'Seguridad Informática', credits: 3, type: 'teorico', semester: 7, sessionsPerWeek: 2, hoursPerSession: 1, mandatory: false, maxStudents: 30, career: careerSistemas._id },
-    { code: 'EMP01', name: 'Emprendimiento Digital', credits: 2, type: 'teorico', semester: 8, sessionsPerWeek: 1, hoursPerSession: 2, mandatory: false, maxStudents: 40, career: careerSistemas._id },
+    { code: 'ALG01', name: 'Algoritmos', credits: 4, type: 'teorico', semester: 3, sessionsPerWeek: 3, hoursPerSession: 1, mandatory: true, maxStudents: 40, career: careerSistemas._id, difficulty: 4 },
+    { code: 'BD01', name: 'Base de Datos', credits: 4, type: 'teorico', semester: 4, sessionsPerWeek: 3, hoursPerSession: 1, mandatory: true, maxStudents: 40, career: careerSistemas._id, difficulty: 3 },
+    { code: 'MD01', name: 'Matemáticas Discretas', credits: 3, type: 'teorico', semester: 3, sessionsPerWeek: 3, hoursPerSession: 1, mandatory: true, maxStudents: 45, career: careerSistemas._id, difficulty: 5 },
+    { code: 'IS01', name: 'Ingeniería de Software', credits: 4, type: 'teorico', semester: 5, sessionsPerWeek: 2, hoursPerSession: 2, mandatory: true, maxStudents: 35, career: careerSistemas._id, difficulty: 3 },
+    { code: 'PA01', name: 'Programación Avanzada', credits: 4, type: 'laboratorio', semester: 5, sessionsPerWeek: 2, hoursPerSession: 2, mandatory: true, maxStudents: 30, career: careerSistemas._id, difficulty: 4 },
+    { code: 'RED01', name: 'Redes', credits: 3, type: 'laboratorio', semester: 6, sessionsPerWeek: 2, hoursPerSession: 1, mandatory: true, maxStudents: 30, career: careerSistemas._id, difficulty: 3 },
+    { code: 'SO01', name: 'Sistemas Operativos', credits: 4, type: 'laboratorio', semester: 5, sessionsPerWeek: 2, hoursPerSession: 1, mandatory: true, maxStudents: 35, career: careerSistemas._id, difficulty: 4 },
+    { code: 'IA01', name: 'Inteligencia Artificial', credits: 3, type: 'teorico', semester: 7, sessionsPerWeek: 2, hoursPerSession: 1, mandatory: false, maxStudents: 30, career: careerSistemas._id, difficulty: 5 },
+    { code: 'SEC01', name: 'Seguridad Informática', credits: 3, type: 'teorico', semester: 7, sessionsPerWeek: 2, hoursPerSession: 1, mandatory: false, maxStudents: 30, career: careerSistemas._id, difficulty: 3 },
+    { code: 'EMP01', name: 'Emprendimiento Digital', credits: 2, type: 'teorico', semester: 8, sessionsPerWeek: 1, hoursPerSession: 2, mandatory: false, maxStudents: 40, career: careerSistemas._id, difficulty: 1 },
     // --- Ingeniería Civil ---
     { code: 'EST01', name: 'Estática', credits: 4, type: 'teorico', semester: 3, sessionsPerWeek: 3, hoursPerSession: 1, mandatory: true, maxStudents: 40, career: careerCivil._id },
     { code: 'RES01', name: 'Resistencia de Materiales', credits: 4, type: 'laboratorio', semester: 4, sessionsPerWeek: 2, hoursPerSession: 2, mandatory: true, maxStudents: 35, career: careerCivil._id },
@@ -129,8 +133,14 @@ async function seedInline() {
   await courses[4].save();
   courses[5].prerequisites = [courses[6]._id];
   await courses[5].save();
+  // Set corequisites: IS01 <-> PA01 (same semester, should be taken together)
+  courses[3].corequisites = [courses[4]._id]; // IS -> PA
+  courses[4].corequisites = [courses[3]._id]; // PA -> IS
+  // Set corequisites: RED01 <-> SO01 (related lab courses)
+  courses[5].corequisites = [courses[6]._id];
 
-  console.log(`📚 ${courses.length} cursos creados.`);
+  await Promise.all([courses[3].save(), courses[4].save(), courses[5].save()]);
+  console.log(`📚 ${courses.length} cursos creados (con dificultad y correquisitos).`);
 
   // ═══════════════════════════════════════════
   // DOCENTES (5 docentes)
@@ -145,6 +155,8 @@ async function seedInline() {
       maxCourses: 3,
       preferredShift: 'manana',
       contractType: 'tiempo_completo',
+      performanceLevel: 'alto',
+      performanceScore: 92,
       availability: [
         { day: 'lunes', startTime: '07:00', endTime: '14:00' },
         { day: 'martes', startTime: '07:00', endTime: '14:00' },
@@ -161,6 +173,8 @@ async function seedInline() {
       maxCourses: 3,
       preferredShift: 'manana',
       contractType: 'tiempo_completo',
+      performanceLevel: 'regular',
+      performanceScore: 78,
       availability: [
         { day: 'lunes', startTime: '08:00', endTime: '13:00' },
         { day: 'martes', startTime: '08:00', endTime: '13:00' },
@@ -178,6 +192,8 @@ async function seedInline() {
       maxCourses: 3,
       preferredShift: 'tarde',
       contractType: 'tiempo_completo',
+      performanceLevel: 'alto',
+      performanceScore: 88,
       availability: [
         { day: 'lunes', startTime: '14:00', endTime: '19:00' },
         { day: 'martes', startTime: '14:00', endTime: '19:00' },
@@ -194,6 +210,8 @@ async function seedInline() {
       maxCourses: 3,
       preferredShift: 'tarde',
       contractType: 'por_horas',
+      performanceLevel: 'regular',
+      performanceScore: 72,
       availability: [
         { day: 'lunes', startTime: '14:00', endTime: '22:00' },
         { day: 'martes', startTime: '14:00', endTime: '22:00' },
@@ -210,6 +228,8 @@ async function seedInline() {
       maxCourses: 2,
       preferredShift: 'noche',
       contractType: 'por_horas',
+      performanceLevel: 'bajo',
+      performanceScore: 60,
       availability: [
         { day: 'lunes', startTime: '17:00', endTime: '22:00' },
         { day: 'miercoles', startTime: '17:00', endTime: '22:00' },
@@ -297,7 +317,39 @@ async function seedInline() {
     { code: 'LAB1', name: 'Laboratorio 1', capacity: 30, type: 'laboratorio', building: 'Lab Building', floor: 1, equipment: ['computadoras', 'proyector'] },
     { code: 'LAB2', name: 'Laboratorio 2', capacity: 25, type: 'laboratorio', building: 'Lab Building', floor: 1, equipment: ['computadoras', 'proyector', 'servidores'] }
   ]);
-  console.log(`🏫 ${classrooms.length} aulas creadas.`);
+  console.log(`🏠 ${classrooms.length} aulas creadas.`);
+
+  // ═══════════════════════════════════════════
+  // CAMPUS / SEDES
+  // ═══════════════════════════════════════════
+  const campuses = await Campus.create([
+    {
+      code: 'HYO',
+      name: 'Campus Huancayo',
+      address: 'Av. San Carlos 1980, Huancayo',
+      city: 'Huancayo',
+      operatingHours: { startTime: '07:00', endTime: '22:00' },
+      buildings: [
+        { code: 'PA', name: 'Pabellón A', floors: 3 },
+        { code: 'PB', name: 'Pabellón B', floors: 3 },
+        { code: 'PC', name: 'Pabellón C', floors: 4 },
+        { code: 'LAB', name: 'Edificio de Laboratorios', floors: 2 }
+      ]
+    },
+    {
+      code: 'LIM',
+      name: 'Campus Lima',
+      address: 'Calle Los Alamos 456, Lima',
+      city: 'Lima',
+      operatingHours: { startTime: '08:00', endTime: '22:00' },
+      buildings: [
+        { code: 'T1', name: 'Torre 1', floors: 6 },
+        { code: 'T2', name: 'Torre 2', floors: 4 }
+      ],
+      travelTimes: [{ toCampus: 'HYO', minutes: 360 }]
+    }
+  ]);
+  console.log(`🌍 ${campuses.length} campus creados.`);
 
   // ═══════════════════════════════════════════
   // ESTUDIANTES (15 estudiantes)

@@ -1,0 +1,80 @@
+.simulations-page { padding: 0; }
+.sim-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
+.sim-header h1 { font-size: 1.6rem; margin: 0; }
+.sim-subtitle { color: var(--text-secondary); margin-top: 0.25rem; font-size: 0.9rem; }
+.sim-header-actions { display: flex; gap: 0.75rem; }
+.btn-compare { display: flex; align-items: center; gap: 0.5rem; padding: 0.6rem 1.2rem; border-radius: 10px; border: 2px solid var(--border); background: var(--card-bg); color: var(--text-primary); cursor: pointer; font-weight: 600; transition: all 0.2s; }
+.btn-compare:hover, .btn-compare.active { background: var(--accent); color: white; border-color: var(--accent); }
+.compare-bar { display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 1.25rem; background: rgba(99, 102, 241, 0.1); border: 1px solid rgba(99, 102, 241, 0.3); border-radius: 12px; margin-bottom: 1.5rem; font-size: 0.9rem; }
+.btn-run-compare { padding: 0.5rem 1rem; background: var(--accent); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; }
+.btn-run-compare:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.sim-content { display: grid; grid-template-columns: 320px 1fr; gap: 1.5rem; }
+.sim-list { display: flex; flex-direction: column; gap: 0.75rem; max-height: 70vh; overflow-y: auto; padding-right: 0.5rem; }
+.sim-card { background: var(--card-bg); border: 2px solid var(--border); border-radius: 14px; padding: 1rem; cursor: pointer; transition: all 0.25s; }
+.sim-card:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+.sim-card.selected { border-color: var(--accent); background: rgba(99, 102, 241, 0.05); }
+.sim-card.compare-selected { border-color: #f59e0b; background: rgba(245, 158, 11, 0.05); }
+.sim-card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; }
+.sim-label { padding: 0.2rem 0.6rem; border-radius: 6px; color: white; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+.btn-star { background: none; border: none; cursor: pointer; color: #f59e0b; font-size: 1.2rem; }
+.star-filled { color: #f59e0b; }
+.sim-card-name { font-size: 1rem; font-weight: 700; margin: 0 0 0.25rem; }
+.sim-card-desc { font-size: 0.8rem; color: var(--text-secondary); margin: 0 0 0.5rem; }
+.sim-card-meta { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-secondary); margin-bottom: 0.5rem; }
+.sim-card-actions { display: flex; gap: 0.5rem; }
+.btn-icon { background: none; border: 1px solid var(--border); border-radius: 8px; padding: 0.3rem 0.5rem; cursor: pointer; color: var(--text-secondary); transition: all 0.2s; }
+.btn-icon:hover { background: var(--accent); color: white; border-color: var(--accent); }
+.btn-icon.btn-danger:hover { background: #ef4444; border-color: #ef4444; }
+
+.sim-empty { text-align: center; padding: 3rem; color: var(--text-secondary); }
+.sim-empty-icon { font-size: 3rem; color: var(--accent); margin-bottom: 1rem; }
+.sim-empty-hint { font-size: 0.85rem; opacity: 0.7; }
+.sim-loading { display: flex; justify-content: center; align-items: center; min-height: 300px; }
+
+.sim-detail { background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; padding: 1.5rem; }
+.sim-detail h2 { margin: 0 0 1rem; }
+.sim-detail-stats { display: grid; grid-template-columns: repeat(6, 1fr); gap: 0.75rem; margin-bottom: 1.5rem; }
+.sd-stat { text-align: center; padding: 0.75rem; background: rgba(99, 102, 241, 0.08); border-radius: 10px; }
+.sd-stat span { display: block; font-size: 0.75rem; color: var(--text-secondary); }
+.sd-stat strong { font-size: 1.2rem; color: var(--accent); }
+
+.sim-detail-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 0.5rem; }
+.sd-day-col { min-height: 200px; }
+.sd-day-header { font-weight: 700; text-align: center; padding: 0.5rem; background: var(--accent); color: white; border-radius: 8px 8px 0 0; font-size: 0.8rem; }
+.sd-empty { text-align: center; padding: 1rem; color: var(--text-secondary); font-size: 0.8rem; font-style: italic; }
+.sd-slot { padding: 0.5rem; margin: 0.25rem 0; background: rgba(99, 102, 241, 0.1); border-radius: 8px; border-left: 3px solid var(--accent); }
+.sd-slot-time { font-size: 0.7rem; color: var(--text-secondary); }
+.sd-slot-course { font-size: 0.8rem; font-weight: 600; }
+.sd-slot-info { font-size: 0.7rem; color: var(--text-secondary); }
+
+/* Comparison */
+.comparison-panel { background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; padding: 1.5rem; margin-bottom: 1.5rem; }
+.comparison-panel h2 { margin: 0 0 1rem; }
+.comparison-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+.comparison-card { background: rgba(99, 102, 241, 0.05); border: 1px solid var(--border); border-radius: 12px; padding: 1rem; }
+.comparison-card h3 { margin: 0 0 0.5rem; font-size: 1rem; }
+.comparison-label { display: inline-block; padding: 0.2rem 0.5rem; border-radius: 4px; color: white; font-size: 0.7rem; font-weight: 700; margin-bottom: 0.75rem; }
+.comparison-stats { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.5rem; margin-bottom: 0.75rem; }
+.cstat { text-align: center; }
+.cstat span { display: block; font-size: 0.65rem; color: var(--text-secondary); }
+.cstat strong { font-size: 0.95rem; }
+.comparison-schedule-mini { display: flex; gap: 0.3rem; }
+.mini-day { flex: 1; text-align: center; }
+.mini-day-name { display: block; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; color: var(--text-secondary); }
+.mini-day-slots { display: flex; flex-direction: column; gap: 2px; margin-top: 0.25rem; }
+.mini-slot { background: var(--accent); color: white; border-radius: 3px; font-size: 0.6rem; padding: 1px 2px; }
+.mini-empty { font-size: 0.6rem; color: var(--text-secondary); }
+
+.comparison-metrics h3 { margin: 0 0 0.75rem; font-size: 1rem; }
+.metrics-table { width: 100%; border-collapse: collapse; }
+.metrics-table th, .metrics-table td { padding: 0.5rem 0.75rem; text-align: center; border-bottom: 1px solid var(--border); font-size: 0.85rem; }
+.metrics-table th { background: rgba(99, 102, 241, 0.1); font-weight: 700; }
+.metrics-table td:first-child { text-align: left; font-weight: 600; }
+.metric-best { color: #10b981; font-weight: 700; }
+
+@media (max-width: 900px) {
+  .sim-content { grid-template-columns: 1fr; }
+  .sim-detail-stats { grid-template-columns: repeat(3, 1fr); }
+  .sim-detail-grid { grid-template-columns: repeat(3, 1fr); }
+}
