@@ -5,9 +5,7 @@ import MainLayout from './components/layout/MainLayout';
 import ErrorBoundary from './components/error/ErrorBoundary';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
-import GenerateSchedule from './pages/GenerateSchedule';
 import MySchedules from './pages/MySchedules';
-import Preferences from './pages/Preferences';
 import Restrictions from './pages/Restrictions';
 import Reports from './pages/Reports';
 import Notifications from './pages/Notifications';
@@ -17,7 +15,6 @@ import Courses from './pages/Courses';
 import Teachers from './pages/Teachers';
 import Students from './pages/Students';
 import Classrooms from './pages/Classrooms';
-import Generation from './pages/Generation';
 import Schedules from './pages/Schedules';
 import Planning from './pages/Planning';
 import Careers from './pages/Careers';
@@ -26,9 +23,10 @@ import Enrollment from './pages/Enrollment';
 import TeacherProfile from './pages/TeacherProfile';
 import StudentPreferences from './pages/StudentPreferences';
 import CareerGeneration from './pages/CareerGeneration';
-import SectionEnrollment from './pages/SectionEnrollment';
 import Simulations from './pages/Simulations';
 import CampusPage from './pages/Campus';
+import TeacherPreferences from './pages/TeacherPreferences';
+import MyPreferences from './pages/MyPreferences';
 
 function ProtectedRoute({ children }) {
   const { isAuthenticated, loading } = useAuth();
@@ -37,7 +35,7 @@ function ProtectedRoute({ children }) {
 }
 
 function AppRoutes() {
-  const { isAuthenticated, role } = useAuth();
+  const { isAuthenticated } = useAuth();
 
   return (
     <Routes>
@@ -46,9 +44,8 @@ function AppRoutes() {
         {/* Common routes for all roles */}
         <Route path="/" element={<Dashboard />} />
         <Route path="/planning" element={<Planning />} />
-        <Route path="/generate" element={<GenerateSchedule />} />
+        <Route path="/generate" element={<Navigate to="/career-generation" />} />
         <Route path="/my-schedules" element={<MySchedules />} />
-        <Route path="/preferences" element={<Preferences />} />
         <Route path="/restrictions" element={<Restrictions />} />
         <Route path="/reports" element={<Reports />} />
         <Route path="/notifications" element={<Notifications />} />
@@ -63,13 +60,14 @@ function AppRoutes() {
         <Route path="/teachers" element={<Teachers />} />
         <Route path="/students" element={<Students />} />
         <Route path="/classrooms" element={<Classrooms />} />
-        <Route path="/generation" element={<Generation />} />
+        <Route path="/generation" element={<Navigate to="/career-generation" />} />
         <Route path="/schedules" element={<Schedules />} />
         <Route path="/policies" element={<InstitutionalPolicies />} />
         <Route path="/student-preferences" element={<StudentPreferences />} />
+        <Route path="/teacher-preferences" element={<TeacherPreferences />} />
         <Route path="/career-generation" element={<CareerGeneration />} />
-        <Route path="/section-enrollment" element={<SectionEnrollment />} />
         <Route path="/simulations" element={<Simulations />} />
+        <Route path="/mis-preferencias" element={<MyPreferences />} />
         <Route path="/campus" element={<CampusPage />} />
       </Route>
       <Route path="*" element={<Navigate to="/" />} />

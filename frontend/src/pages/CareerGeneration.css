@@ -58,3 +58,28 @@
 .section-meta { display: flex; flex-wrap: wrap; gap: 12px; font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 10px; }
 .section-slots { display: flex; flex-wrap: wrap; gap: 6px; }
 .slot-badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 12px; background: var(--bg-hover, #f1f5f9); font-size: 0.75rem; font-weight: 500; color: var(--text-secondary); }
+
+/* Evaluation modal */
+.eval-modal-content { padding: 8px 0; }
+.eval-score-big { display: flex; justify-content: center; position: relative; margin-bottom: 24px; }
+.eval-score-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; }
+.eval-score-num { font-size: 32px; font-weight: 800; color: var(--primary); display: block; }
+.eval-score-label { font-size: 12px; color: var(--text-secondary); }
+.eval-metrics { display: flex; flex-direction: column; gap: 14px; }
+.eval-metric-row { display: flex; flex-direction: column; gap: 6px; }
+.eval-metric-header { display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 13px; }
+.eval-metric-val { font-weight: 700; }
+.eval-metric-val small { font-weight: 400; color: var(--text-secondary); }
+.eval-progress-bar { height: 8px; background: var(--bg-main); border-radius: 4px; overflow: hidden; }
+.eval-progress-fill { height: 100%; border-radius: 4px; transition: width 0.6s ease; }
+
+/* Tabs */
+.career-gen-page .tabs { border-bottom: 1px solid var(--border); }
+.career-gen-page .tab { padding: 10px 20px; background: transparent; border: none; border-bottom: 2px solid transparent; cursor: pointer; font-size: 0.85rem; color: var(--text-secondary); transition: all .2s; display: inline-flex; align-items: center; gap: 6px; }
+.career-gen-page .tab:hover { color: var(--primary); }
+.career-gen-page .tab.active { color: var(--primary); border-bottom-color: var(--primary); font-weight: 600; }
+
+/* Data table */
+.data-table { border-collapse: collapse; font-size: 0.82rem; }
+.data-table th { text-align: left; padding: 10px 12px; background: var(--bg-hover); font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px; font-size: 0.72rem; }
+.data-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); }

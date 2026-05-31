@@ -28,7 +28,7 @@ A continuación, se mapea cada punto de la rúbrica de la consigna **"Desarrollo
 
 | # | Impacto | Componente Afectado | Justificación Técnica |
 |---|---------|---------------------|----------------------|
-| 1 | Alto consumo de CPU | Motor CSP (`csp.js`) | Backtracking con MRV ejecuta miles de iteraciones por generación |
+| 1 | Alto consumo de CPU | Motor CSP (`csp.js`) | Backtracking con MRV ejecuta miles de iteraciones por generación (~2-5s para 50 cursos) |
 | 2 | Transferencia de datos pesados | API REST (`/api/horarios`) | Respuestas JSON con estructura completa de horarios (50+ cursos) |
 | 3 | Renderizado innecesario | Frontend React | Componentes que se re-renderizan sin cambios de estado |
 | 4 | Consultas MongoDB sin paginación | Listados de cursos/estudiantes | Traer todos los documentos de una colección sin límite |

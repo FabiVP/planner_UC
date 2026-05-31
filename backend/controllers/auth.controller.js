@@ -1,5 +1,7 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+const Teacher = require('../models/Teacher');
+const Student = require('../models/Student');
 const jwtConfig = require('../config/jwt');
 const { validationResult } = require('express-validator');
 
@@ -20,6 +22,35 @@ exports.register = async (req, res, next) => {
 
     const user = await User.create({ name, email, password, role: role || 'estudiante' });
     const token = jwt.sign({ id: user._id, role: user.role }, jwtConfig.secret, { expiresIn: jwtConfig.expiresIn });
+
+    // Link or create Teacher profile if role is docente
+    if (user.role === 'docente') {
+      const existingTeacher = await Teacher.findOne({ email: user.email });
+      if (existingTeacher) {
+        await Teacher.findByIdAndUpdate(existingTeacher._id, { userId: user._id });
+      } else {
+        await Teacher.create({
+          userId: user._id,
+          name: user.name,
+          email: user.email
+        });
+      }
+    }
+
+    // Auto-create Student profile for estudiante role
+    if (user.role === 'estudiante') {
+      const existingStudent = await Student.findOne({ email: user.email });
+      if (!existingStudent) {
+        const count = await Student.countDocuments();
+        await Student.create({
+          userId: user._id,
+          name: user.name,
+          email: user.email,
+          studentCode: `AUTO-${String(count + 1).padStart(5, '0')}`,
+          currentSemester: 1
+        });
+      }
+    }
 
     res.status(201).json({
       message: 'Usuario registrado exitosamente.',

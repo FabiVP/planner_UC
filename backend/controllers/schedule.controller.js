@@ -85,9 +85,10 @@ exports.getMyTeaching = async (req, res, next) => {
     }
 
     // Filter assignments for this teacher
-    const myAssignments = schedule.assignments.filter(a =>
-      a.teacherId?._id?.toString() === teacher._id.toString()
-    );
+    const myAssignments = schedule.assignments.filter(a => {
+      const id = a.teacherId?._id || a.teacherId;
+      return id?.toString() === teacher._id.toString();
+    });
 
     // Calculate stats
     const uniqueCourses = new Set(myAssignments.map(a =>

@@ -4,7 +4,7 @@ import {
   HiOutlineUserGroup, HiOutlineChartBar, HiOutlineClock,
   HiOutlineExclamationCircle, HiOutlineInformationCircle,
   HiOutlineCheckCircle, HiOutlineBriefcase, HiOutlineSun,
-  HiOutlineMoon, HiOutlineEye
+  HiOutlineEye
 } from 'react-icons/hi';
 import './StudentPreferences.css';
 
@@ -15,7 +15,7 @@ const DAY_LABELS = {
 
 const SHIFT_LABELS = { manana: 'Mañana', tarde: 'Tarde', noche: 'Noche' };
 const SHIFT_EMOJIS = { manana: '☀️', tarde: '🌤️', noche: '🌙' };
-const SHIFT_TIMES = { manana: '7:00 - 13:00', tarde: '14:00 - 19:00', noche: '19:00 - 22:00' };
+
 
 export default function StudentPreferences() {
   const [data, setData] = useState(null);
@@ -26,7 +26,7 @@ export default function StudentPreferences() {
   useEffect(() => {
     api.get('/preferences/availability/students')
       .then(r => { setData(r.data); setLoading(false); })
-      .catch(err => { setError('No se pudieron cargar las preferencias.'); setLoading(false); });
+      .catch(() => { setError('No se pudieron cargar las preferencias.'); setLoading(false); });
   }, []);
 
   if (loading) return <div className="loading-container"><div className="spinner"></div></div>;

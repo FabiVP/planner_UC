@@ -48,10 +48,10 @@ function validateSolution(assignments) {
  * Calculate quality scores for a solution.
  */
 function calculateQualityScore(assignments, courses, teachers, classrooms) {
-  // Constraints fulfilled (based on violation count)
+  // Constraints fulfilled (based on violation count) — deterministic
   const validation = validateSolution(assignments);
   const constraintsFulfilled = validation.valid ? 
-    Math.min(100, 95 + Math.floor(Math.random() * 5)) : 
+    100 : 
     Math.max(0, 100 - validation.totalViolations * 10);
 
   // Resource usage: how well classrooms are utilized
@@ -69,8 +69,13 @@ function calculateQualityScore(assignments, courses, teachers, classrooms) {
   const variance = loads.reduce((s, l) => s + Math.pow(l - avgLoad, 2), 0) / Math.max(1, loads.length);
   const loadDistribution = Math.max(0, Math.min(100, 100 - Math.round(variance * 5)));
 
-  // Preferences score (simplified)
-  const preferencesScore = Math.min(100, 85 + Math.floor(Math.random() * 10));
+  // Preferences score (simplified) — deterministic based on shift match ratio
+  const totalSlots = assignments.length;
+  const matchedShifts = assignments.filter(a => {
+    const t = teachers.find(tc => (tc._id || tc).toString() === a.teacherId.toString());
+    return t && t.preferredShift;
+  }).length;
+  const preferencesScore = totalSlots > 0 ? Math.round((matchedShifts / totalSlots) * 100) : 85;
 
   // Overall score (weighted average)
   const overall = Math.round(

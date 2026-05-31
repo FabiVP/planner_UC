@@ -4,7 +4,7 @@
 
 | Riesgo | Restricción CSP afectada | Limitación técnica | Dependencia externa |
 |--------|-------------------------|-------------------|---------------------|
-| R-001 | RD-01 a RD-06 (todas) | Complejidad NP-difícil | Librerías CSP externas |
+| R-001 | RD-01 a RD-14 (todas) | Complejidad NP-difícil | Librerías CSP externas |
 | R-004 | RD-01, RD-02 | Integración API | - |
 | R-006 | Todas | Cobertura de pruebas | GitHub Actions |
 | R-007 | - | - | MongoDB Atlas, Render |

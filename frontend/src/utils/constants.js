@@ -31,7 +31,7 @@ export const COURSE_TYPES = {
 
 // Generation statuses
 export const GENERATION_STATUS = {
-  PENDIENTE: 'pendiente',
+  PROGRAMADA: 'programada',
   EJECUTANDO: 'ejecutando',
   COMPLETADA: 'completada',
   FALLIDA: 'fallida',
@@ -58,25 +58,30 @@ export const CURRENT_SEMESTER = `${year}-${currentSemesterLabel}`;
 export const CURRENT_SEMESTER_DASH = `${year}-${currentSemesterLabel === 'I' ? '1' : '2'}`;
 const prevYear = year - 1;
 export const SEMESTERS = [
-  `${prevYear}-I`, `${prevYear}-II`,
-  `${year}-I`, `${year}-II`,
-  `${year + 1}-I`,
+  `${prevYear}-1`, `${prevYear}-2`,
+  `${year}-1`, `${year}-2`,
+  `${year + 1}-1`,
 ];
 
-// Credit limits
-export const CREDITS = {
-  MIN: 20,
-  MAX: 22,
-};
+// Los límites de créditos vienen del backend: GET /api/policies/active -> enrollmentRules
+// { minCreditsPerSemester, maxCreditsPerSemester }
 
 // CSP constraint labels (for display in UI)
 export const CONSTRAINTS = [
   { id: 'RD-01', label: 'No solapamiento de docente', active: true },
   { id: 'RD-02', label: 'No solapamiento de aula', active: true },
-  { id: 'RD-03', label: 'No solapamiento de estudiante', active: true },
-  { id: 'RD-04', label: 'Límite de créditos (20-22)', active: true },
-  { id: 'RD-05', label: 'Prerrequisitos aprobados', active: true },
-  { id: 'RD-06', label: 'Tipo de infraestructura', active: true },
+  { id: 'RD-03', label: 'No solapamiento de estudiantes del mismo semestre/carrera', active: true },
+  { id: 'RD-04', label: 'Capacidad de aula (aforo)', active: true },
+  { id: 'RD-05', label: 'Tipo de infraestructura', active: true },
+  { id: 'RD-06', label: 'Disponibilidad horaria del docente', active: true },
+  { id: 'RD-07', label: 'Disponibilidad del aula', active: true },
+  { id: 'RD-08', label: 'Carga máxima del docente (cursos y horas)', active: true },
+  { id: 'RD-09', label: 'Horario dentro de ventana institucional', active: true },
+  { id: 'RD-10', label: 'Máximo de horas continuas por docente', active: true },
+  { id: 'RD-11', label: 'Distribución de sesiones en días diferentes', active: true },
+  { id: 'RD-12', label: 'Bloques horarios bloqueados (almuerzo, etc.)', active: true },
+  { id: 'RD-13', label: 'Preferencia de turno para docentes PH', active: true },
+  { id: 'RD-14', label: 'Límite de créditos por semestre (12-25)', active: true },
 ];
 
 // API base URL

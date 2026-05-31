@@ -55,9 +55,6 @@ export default function Dashboard() {
   const getTeacherCount = () => stats?.teachers?.total || stats?.totalTeachers || 0;
   const getClassroomCount = () => stats?.classrooms?.available || stats?.classrooms?.total || stats?.totalClassrooms || 0;
   const getGenCount = () => stats?.generations?.total || stats?.totalGenerations || 0;
-  const getTCCount = () => stats?.teachers?.fullTime || 0;
-  const getPHCount = () => stats?.teachers?.partTime || 0;
-
   const statCards = [
     { label: 'Asignaturas', value: getCourseCount(), icon: HiOutlineAcademicCap, color: 'var(--primary)' },
     { label: 'Docentes', value: getTeacherCount(), icon: HiOutlineUserGroup, color: 'var(--success)' },

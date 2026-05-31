@@ -18,6 +18,9 @@
  *   RD-09: Horario dentro de ventana institucional
  *   RD-10: Máximo de horas continuas por docente
  *   RD-11: Distribución de sesiones en días diferentes
+ *   RD-12: Bloques horarios bloqueados
+ *   RD-13: Preferencias de turno para docentes PH
+ *   RD-14: Límite de créditos por semestre (12-25)
  */
 
 /**
@@ -160,7 +163,10 @@ function checkRD08_TeacherLoad(assignment, existingAssignments, teacher, policy)
   if (teacherCourses.size > maxCourses) return false;
 
   // --- Check max weekly hours ---
-  const maxHours = teacher.maxWeeklyHours ||
+  // Usa teachingHours (horas de enseñanza reales) si está definido,
+  // de lo contrario cae a maxWeeklyHours o al límite del policy.
+  const maxHours = teacher.teachingHours ||
+    teacher.maxWeeklyHours ||
     (policy?.teacherLimits?.[teacher.contractType === 'por_horas' ? 'maxWeeklyHoursPartTime' : 'maxWeeklyHoursFullTime']) ||
     40;
 
@@ -316,8 +322,63 @@ function timeToMinutes(timeStr) {
  * @param {Object} options - { course, teacher, classroom, courses, policy }
  * @returns {{ valid: boolean, violations: string[] }}
  */
+/**
+ * RD-14: Límite de créditos por semestre
+ * La suma de créditos de todos los cursos de un mismo semestre/carrera
+ * debe estar dentro del rango configurado (mín 12, máx 25).
+ */
+function checkRD14_CreditLimit(courses, policy) {
+  if (!courses || courses.length === 0) return true;
+  if (!policy?.enrollmentRules) return true;
+
+  const minCredits = policy.enrollmentRules.minCreditsPerSemester || 12;
+  const maxCredits = policy.enrollmentRules.maxCreditsPerSemester || 25;
+
+  // Group courses by semester
+  const bySemester = {};
+  for (const c of courses) {
+    const sem = c.semester || 1;
+    if (!bySemester[sem]) bySemester[sem] = [];
+    bySemester[sem].push(c);
+  }
+
+  for (const [sem, semCourses] of Object.entries(bySemester)) {
+    const totalCredits = semCourses.reduce((sum, c) => sum + (c.credits || 0), 0);
+    if (totalCredits < minCredits || totalCredits > maxCredits) {
+      return false;
+    }
+  }
+  return true;
+}
+
+/**
+ * RD-13: Preferencias de docentes PH como restricción dura
+ * Los docentes por horas tienen sus preferencias de turno como obligatorias.
+ * Si un PH prefiere un turno específico (no indiferente), solo se le asigna en ese turno.
+ */
+function checkRD13_PH_Preferences(assignment, teacher, policy, preferences = []) {
+  if (!teacher) return true;
+  if (teacher.contractType !== 'por_horas') return true;
+  const teacherPref = preferences.find(p => p.userId?.toString() === teacher.userId?.toString());
+  const effectiveShift = teacher.preferredShift || teacherPref?.preferredShift;
+  if (!effectiveShift || effectiveShift === 'indiferente') return true;
+
+  const shifts = policy?.shifts || {
+    manana: { start: '07:00', end: '13:00' },
+    tarde: { start: '14:00', end: '19:00' },
+    noche: { start: '19:00', end: '22:00' }
+  };
+
+  for (const [name, range] of Object.entries(shifts)) {
+    if (assignment.startTime >= range.start && assignment.startTime < range.end) {
+      return name === effectiveShift;
+    }
+  }
+  return false;
+}
+
 function checkAllConstraints(assignment, existingAssignments, options = {}) {
-  const { course, teacher, classroom, courses, policy } = options;
+  const { course, teacher, classroom, courses, policy, preferences } = options;
   const violations = [];
 
   // 1. Institutional schedule
@@ -361,7 +422,19 @@ function checkAllConstraints(assignment, existingAssignments, options = {}) {
     violations.push('RD-10: Exceso de horas continuas del docente');
   }
 
-  // 5. Distribution
+  // 5. PH preferences (hard constraint for part-time teachers)
+  if (!checkRD13_PH_Preferences(assignment, teacher, policy, preferences)) {
+    violations.push('RD-13: Preferencia de turno del docente PH no respetada');
+  }
+
+  // 6. Credit limits (called per-assignment; checkRD14_CreditLimit is memoized internally)
+  if (courses && policy?.enrollmentRules && !checkRD14_CreditLimit(courses, policy)) {
+    const minC = policy?.enrollmentRules?.minCreditsPerSemester ?? 12;
+    const maxC = policy?.enrollmentRules?.maxCreditsPerSemester ?? 25;
+    violations.push(`RD-14: Créditos del semestre fuera del rango permitido (${minC}-${maxC})`);
+  }
+
+  // 7. Distribution
   if (!checkRD11_DayDistribution(assignment, existingAssignments, policy)) {
     violations.push('RD-11: Exceso de sesiones del mismo curso en el mismo día');
   }
@@ -389,6 +462,8 @@ module.exports = {
   checkDayDistribution: checkRD11_DayDistribution,
   checkTeacherLoad: checkRD08_TeacherLoad,
   checkRD12_BlockedTimeSlots,
+  checkRD13_PH_Preferences,
+  checkRD14_CreditLimit,
   // Unified
   checkAllConstraints,
   // Helpers

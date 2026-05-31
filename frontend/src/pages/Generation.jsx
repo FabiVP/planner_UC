@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, startTransition } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../api/axios';
 import { CURRENT_SEMESTER, SEMESTERS } from '../utils/constants';
@@ -18,15 +18,15 @@ export default function Generation() {
   const [history, setHistory] = useState([]);
   const [loadingHistory, setLoadingHistory] = useState(true);
 
-  useEffect(() => { loadHistory(); }, []);
-
   const loadHistory = async () => {
     try {
       const { data } = await api.get('/generations?limit=50');
-      setHistory(data.generations || []);
-    } catch (e) {}
-    setLoadingHistory(false);
+      startTransition(() => setHistory(data.generations || []));
+    } catch { /* ignore */ }
+    startTransition(() => setLoadingHistory(false));
   };
+
+  useEffect(() => { loadHistory(); }, []);
 
   const handleGenerate = async () => {
     setRunning(true);
@@ -77,8 +77,8 @@ export default function Generation() {
     const map = {
       completada: { class: 'badge-success', label: '✓ Completada' },
       fallida: { class: 'badge-error', label: '✗ Fallida' },
-      en_progreso: { class: 'badge-warning', label: '⟳ En progreso' },
-      pendiente: { class: 'badge-info', label: '… Pendiente' }
+      ejecutando: { class: 'badge-warning', label: '⟳ Ejecutando...' },
+      programada: { class: 'badge-info', label: '… Programada' }
     };
     return map[status] || { class: 'badge-info', label: status };
   };

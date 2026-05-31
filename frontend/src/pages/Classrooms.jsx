@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, startTransition } from 'react';
 import Modal from '../components/ui/Modal';
 import api from '../api/axios';
 import { HiOutlinePlus, HiOutlinePencil, HiOutlineTrash, HiOutlineClock, HiOutlineOfficeBuilding, HiOutlineEye } from 'react-icons/hi';
@@ -36,13 +36,14 @@ export default function Classrooms() {
   const [loadError, setLoadError] = useState(null);
   const [detailItem, setDetailItem] = useState(null);
 
-  useEffect(() => { load(); loadCampuses(); }, []);
   const load = async () => {
-    try { const r = await api.get('/classrooms'); setClassrooms(r.data.classrooms || []); setLoadError(null); } catch(e) { setLoadError('Error al cargar aulas'); }
+    try { const r = await api.get('/classrooms'); startTransition(() => { setClassrooms(r.data.classrooms || []); setLoadError(null); }); } catch { startTransition(() => setLoadError('Error al cargar aulas')); }
   };
   const loadCampuses = async () => {
-    try { const r = await api.get('/campuses'); setCampuses(r.data.campuses || []); } catch(e) {}
+    try { const r = await api.get('/campuses'); startTransition(() => setCampuses(r.data.campuses || [])); } catch { /* ignore */ }
   };
+
+  useEffect(() => { load(); loadCampuses(); }, []);
 
   const filteredClassrooms = campusFilter
     ? classrooms.filter(c => (c.campus?._id || c.campus) === campusFilter)

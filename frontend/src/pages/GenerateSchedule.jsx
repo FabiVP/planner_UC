@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, startTransition } from 'react';
 import { useAuth } from '../context/AuthContext';
 import api from '../api/axios';
 import Modal from '../components/ui/Modal';
@@ -34,15 +34,16 @@ export default function GenerateSchedule() {
   const [restrictions, setRestrictions] = useState([]);
   const [preferences, setPreferences] = useState(null);
   const [unsatisfied, setUnsatisfied] = useState([]);
-  const [alternatives, setAlternatives] = useState([]);
+  const [, setAlternatives] = useState([]);
   const [colorMap, setColorMap] = useState({});
   const [showEval, setShowEval] = useState(false);
 
-  useEffect(() => {
-    loadLatestSchedule();
-    loadRestrictions();
-    loadPreferences();
-  }, []);
+  const buildColorMap = (assignments) => {
+    const courses = [...new Set(assignments.map(a => a.courseId?.name || a.courseId))];
+    const map = {};
+    courses.forEach((c, i) => { map[c] = CELL_COLORS[i % CELL_COLORS.length]; });
+    setColorMap(map);
+  };
 
   const loadLatestSchedule = async () => {
     try {
@@ -50,13 +51,17 @@ export default function GenerateSchedule() {
       const gens = res.data.generations || [];
       const completed = gens.find(g => g.status === 'completada');
       if (completed) {
-        setGeneration(completed);
-        setUnsatisfied(completed.unsatisfiedConditions || []);
-        setAlternatives(completed.alternatives || []);
+        startTransition(() => {
+          setGeneration(completed);
+          setUnsatisfied(completed.unsatisfiedConditions || []);
+          setAlternatives(completed.alternatives || []);
+        });
         if (completed.scheduleId) {
           const sRes = await api.get(`/schedule/${completed.scheduleId._id || completed.scheduleId}`);
-          setSchedule(sRes.data);
-          buildColorMap(sRes.data.assignments || []);
+          startTransition(() => {
+            setSchedule(sRes.data);
+            buildColorMap(sRes.data.assignments || []);
+          });
         }
       }
     } catch (e) { console.error(e); }
@@ -65,23 +70,22 @@ export default function GenerateSchedule() {
   const loadRestrictions = async () => {
     try {
       const res = await api.get('/restrictions');
-      setRestrictions(res.data.restrictions || []);
-    } catch (e) {}
+      startTransition(() => setRestrictions(res.data.restrictions || []));
+    } catch { /* ignore */ }
   };
 
   const loadPreferences = async () => {
     try {
       const res = await api.get('/preferences');
-      setPreferences(res.data);
-    } catch (e) {}
+      startTransition(() => setPreferences(res.data));
+    } catch { /* ignore */ }
   };
 
-  const buildColorMap = (assignments) => {
-    const courses = [...new Set(assignments.map(a => a.courseId?.name || a.courseId))];
-    const map = {};
-    courses.forEach((c, i) => { map[c] = CELL_COLORS[i % CELL_COLORS.length]; });
-    setColorMap(map);
-  };
+  useEffect(() => {
+    loadLatestSchedule();
+      loadRestrictions();
+    loadPreferences();
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleGenerate = async () => {
     setLoading(true);
@@ -241,7 +245,7 @@ export default function GenerateSchedule() {
                       <div className="avail-shift"><strong>{shift.label}</strong><small>{shift.sub}</small></div>
                       {['lun','mar','mie','jue','vie'].map(day => (
                         <label key={day} className="avail-check">
-                          <input type="checkbox" checked={preferences.availability?.[shift.key]?.[day] !== false} readOnly />
+                          <input type="checkbox" checked={preferences.availability?.[shift.key]?.[day] !== false} disabled />
                         </label>
                       ))}
                     </div>
@@ -257,7 +261,7 @@ export default function GenerateSchedule() {
                     { key: 'groupSameSubjectConsecutive', label: 'Agrupar clases de la misma materia en días consecutivos' },
                   ].map(p => (
                     <div key={p.key} className="checkbox-item">
-                      <input type="checkbox" id={p.key} checked={preferences.additionalPreferences?.[p.key] || false} readOnly />
+                      <input type="checkbox" id={p.key} checked={preferences.additionalPreferences?.[p.key] || false} disabled />
                       <label htmlFor={p.key}>{p.label}</label>
                     </div>
                   ))}

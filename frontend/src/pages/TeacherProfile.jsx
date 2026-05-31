@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, startTransition } from 'react';
 import api from '../api/axios';
 import { useAuth } from '../context/AuthContext';
 import {
@@ -40,34 +40,40 @@ export default function TeacherProfile() {
   const [availability, setAvailability] = useState([]);
   const [preferredShift, setPreferredShift] = useState('indiferente');
   const [specializations, setSpecializations] = useState([]);
-
-  useEffect(() => {
-    loadProfile();
-    loadCourses();
-  }, []);
+  const [teachingHours, setTeachingHours] = useState(24);
+  const [administrativeLoad, setAdministrativeLoad] = useState(false);
 
   const loadProfile = async () => {
     try {
       const res = await api.get('/teachers/my-profile');
       const { teacher, summary: s } = res.data;
-      setProfile(teacher);
-      setSummary(s);
-      setFreeDays(teacher.freeDays || []);
-      setAvailability(teacher.availability || []);
-      setPreferredShift(teacher.preferredShift || 'indiferente');
-      setSpecializations((teacher.specializations || []).map(sp => sp._id || sp));
+      startTransition(() => {
+        setProfile(teacher);
+        setSummary(s);
+        setFreeDays(teacher.freeDays || []);
+        setAvailability(teacher.availability || []);
+        setPreferredShift(teacher.preferredShift || 'indiferente');
+        setSpecializations((teacher.specializations || []).map(sp => sp._id || sp));
+        setTeachingHours(teacher.teachingHours || 24);
+        setAdministrativeLoad(teacher.administrativeLoad || false);
+      });
     } catch (e) {
       console.error(e);
     }
-    setLoading(false);
+    startTransition(() => setLoading(false));
   };
 
   const loadCourses = async () => {
     try {
       const res = await api.get('/courses');
-      setCourses(res.data.courses || []);
-    } catch (e) {}
+      startTransition(() => setCourses(res.data.courses || []));
+    } catch { /* ignore */ }
   };
+
+  useEffect(() => {
+    loadProfile();
+    loadCourses();
+  }, []);
 
   const toggleFreeDay = (day) => {
     setFreeDays(prev =>
@@ -104,7 +110,9 @@ export default function TeacherProfile() {
         freeDays,
         availability,
         preferredShift,
-        specializations
+        specializations,
+        teachingHours,
+        administrativeLoad
       });
       setSaved(true);
       setTimeout(() => setSaved(false), 3000);
@@ -147,6 +155,12 @@ export default function TeacherProfile() {
               <HiOutlineBriefcase />
               {summary?.contractLabel || (profile.contractType === 'tiempo_completo' ? 'Tiempo Completo' : 'Por Horas')}
             </span>
+            {profile.contractType === 'tiempo_completo' && (
+              <span className={`tp-contract-badge-lg ${summary?.administrativeLoad ? 'admin' : 'no-admin'}`}
+                style={{ background: summary?.administrativeLoad ? 'var(--warning)' : 'var(--success)', fontSize: '0.75rem' }}>
+                {summary?.adminLoadLabel || (summary?.administrativeLoad ? 'Con carga admin' : 'Sin carga admin')}
+              </span>
+            )}
           </div>
         </div>
 
@@ -156,8 +170,12 @@ export default function TeacherProfile() {
             <span className="tp-sc-label">Máx. cursos</span>
           </div>
           <div className="card tp-summary-card">
+            <span className="tp-sc-value">{summary?.teachingHours || profile.teachingHours || summary?.maxWeeklyHours || profile.maxWeeklyHours}h</span>
+            <span className="tp-sc-label">Horas enseñanza</span>
+          </div>
+          <div className="card tp-summary-card">
             <span className="tp-sc-value">{summary?.maxWeeklyHours || profile.maxWeeklyHours}h</span>
-            <span className="tp-sc-label">Hrs/semana</span>
+            <span className="tp-sc-label">Hrs totales/sem</span>
           </div>
           <div className="card tp-summary-card">
             <span className="tp-sc-value">{summary?.totalSpecializations || 0}</span>
@@ -191,6 +209,45 @@ export default function TeacherProfile() {
       {/* ═══ TAB: Disponibilidad ═══ */}
       {activeTab === 'availability' && (
         <div className="card">
+          {/* Teaching Hours (solo TC) */}
+          {profile.contractType === 'tiempo_completo' && (
+            <>
+              <h3 className="card-title">Carga docente</h3>
+              <p className="card-subtitle">Define tu modalidad de trabajo como docente tiempo completo.</p>
+              <div className="tp-admin-load-options">
+                <label className={`tp-shift-option ${!administrativeLoad ? 'active' : ''}`}
+                  onClick={() => { setAdministrativeLoad(false); setTeachingHours(36); }}>
+                  <span style={{ fontSize: 24 }}>📚</span>
+                  <strong>Sin carga administrativa</strong>
+                  <small>36 horas semanales de enseñanza</small>
+                </label>
+                <label className={`tp-shift-option ${administrativeLoad ? 'active' : ''}`}
+                  onClick={() => { setAdministrativeLoad(true); setTeachingHours(24); }}>
+                  <span style={{ fontSize: 24 }}>📋</span>
+                  <strong>Con carga administrativa</strong>
+                  <small>40h totales (8h admin + enseñanza variable)</small>
+                </label>
+              </div>
+
+              {administrativeLoad && (
+                <div className="form-group" style={{ marginTop: 16 }}>
+                  <label>Horas de enseñanza semanales</label>
+                  <div className="tp-shift-options">
+                    {[8, 12, 24, 36].map(h => (
+                      <label key={h} className={`tp-shift-option ${teachingHours === h ? 'active' : ''}`}>
+                        <input type="radio" name="teachingHours" value={h}
+                          checked={teachingHours === h}
+                          onChange={() => setTeachingHours(h)} />
+                        <strong>{h} horas</strong>
+                        <small>{h === 8 ? 'Mínima carga' : h === 12 ? 'Media carga' : h === 24 ? 'Carga normal' : 'Carga completa'}</small>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </>
+          )}
+
           {/* Preferred Shift */}
           <h3 className="card-title">Turno preferido</h3>
           <p className="card-subtitle">Selecciona el turno en el que prefieres dictar clases.</p>

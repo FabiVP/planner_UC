@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import api from '../api/axios';
-import { HiOutlineChartPie, HiOutlineDocumentReport, HiOutlineDownload, HiOutlineCheckCircle } from 'react-icons/hi';
+import { HiOutlineDownload, HiOutlineCheckCircle } from 'react-icons/hi';
 import './Reports.css';
 
 export default function Reports() {
@@ -29,7 +29,6 @@ export default function Reports() {
       const primaryLight = [238, 242, 255]; // Light indigo bg
       const textDark = [30, 30, 46];
       const textMuted = [120, 120, 140];
-      const success = [16, 185, 129];
       const white = [255, 255, 255];
       const borderColor = [226, 232, 240];
 
@@ -189,7 +188,7 @@ export default function Reports() {
           const schedRes = await api.get(`/schedule/${schedId}`);
           assignments = schedRes.data.assignments || [];
         }
-      } catch (e) { /* schedule detail is optional */ }
+      } catch { /* schedule detail is optional */ }
 
       if (assignments.length > 0) {
         doc.setTextColor(...textDark);
@@ -243,7 +242,7 @@ export default function Reports() {
             4: { cellWidth: 20 },
             5: { cellWidth: 'auto' },
           },
-          didDrawPage: (data) => {
+          didDrawPage: () => {
             // Footer on each page
             const pageH = doc.internal.pageSize.getHeight();
             doc.setFontSize(7);

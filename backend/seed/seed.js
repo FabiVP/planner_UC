@@ -156,6 +156,8 @@ async function seed() {
         maxCourses: 3,
         preferredShift: 'manana',
         contractType: 'tiempo_completo',
+        administrativeLoad: true,
+        teachingHours: 24,
         availability: [
           { day: 'lunes', startTime: '07:00', endTime: '14:00' },
           { day: 'martes', startTime: '07:00', endTime: '14:00' },
@@ -172,6 +174,8 @@ async function seed() {
         maxCourses: 3,
         preferredShift: 'manana',
         contractType: 'tiempo_completo',
+        administrativeLoad: false,
+        teachingHours: 36,
         availability: [
           { day: 'lunes', startTime: '08:00', endTime: '13:00' },
           { day: 'martes', startTime: '08:00', endTime: '13:00' },
@@ -189,6 +193,8 @@ async function seed() {
         maxCourses: 3,
         preferredShift: 'tarde',
         contractType: 'tiempo_completo',
+        administrativeLoad: true,
+        teachingHours: 12,
         availability: [
           { day: 'lunes', startTime: '14:00', endTime: '19:00' },
           { day: 'martes', startTime: '14:00', endTime: '19:00' },
@@ -272,6 +278,13 @@ async function seed() {
         minBreakBetweenClasses: 0,
         maxContinuousHours: 4
       },
+      partTimePreferences: {
+        allowedShifts: ['manana', 'tarde'],
+        allowMultiShift: false,
+        allowedCourseTypes: ['teorico', 'laboratorio'],
+        prioritizeAfterFullTime: true,
+        maxDaysPerWeek: 5
+      },
       classroomRules: {
         maxCapacityUsagePercent: 100,
         strictTypeMatch: true,
@@ -280,6 +293,11 @@ async function seed() {
       courseDistribution: {
         preferNonConsecutiveDays: true,
         maxSessionsPerCoursePerDay: 1
+      },
+      enrollmentRules: {
+        minCreditsPerSemester: 12,
+        maxCreditsPerSemester: 25,
+        minStudentsPerSection: 15
       },
       priorityWeights: {
         institutional: 0.30,
@@ -300,8 +318,8 @@ async function seed() {
       { code: 'B204', name: 'Aula B204', capacity: 50, type: 'teorico', building: 'Pabellón B', floor: 2 },
       { code: 'C201', name: 'Aula C201', capacity: 30, type: 'teorico', building: 'Pabellón C', floor: 2 },
       { code: 'C301', name: 'Aula C301', capacity: 35, type: 'teorico', building: 'Pabellón C', floor: 3 },
-      { code: 'LAB1', name: 'Laboratorio 1', capacity: 30, type: 'laboratorio', building: 'Lab Building', floor: 1, equipment: ['computadoras', 'proyector'] },
-      { code: 'LAB2', name: 'Laboratorio 2', capacity: 25, type: 'laboratorio', building: 'Lab Building', floor: 1, equipment: ['computadoras', 'proyector', 'servidores'] }
+      { code: 'LAB1', name: 'Laboratorio 1', capacity: 40, type: 'laboratorio', building: 'Lab Building', floor: 1, equipment: ['computadoras', 'proyector'] },
+      { code: 'LAB2', name: 'Laboratorio 2', capacity: 40, type: 'laboratorio', building: 'Lab Building', floor: 1, equipment: ['computadoras', 'proyector', 'servidores'] }
     ]);
     console.log(`🏫 ${classrooms.length} aulas creadas.`);
 
@@ -434,7 +452,7 @@ async function seed() {
       {
         userId: userEstudiante1._id,
         title: 'Recordatorio',
-        message: 'Tienes hasta el 20/05/2025 de matrícula habilitada hasta el período 2025-2.',
+        message: 'Tienes hasta el 20/05/2026 de matrícula habilitada hasta el período 2026-1.',
         type: 'sistema',
         category: 'info',
         read: true
@@ -450,7 +468,7 @@ async function seed() {
       {
         userId: userEstudiante1._id,
         title: 'Actualización de restricciones',
-        message: 'Se han actualizado las restricciones institucionales para el período 2025-2.',
+        message: 'Se han actualizado las restricciones institucionales para el período 2026-1.',
         type: 'restriccion',
         category: 'aviso',
         read: true
@@ -458,7 +476,7 @@ async function seed() {
       {
         userId: userDocente1._id,
         title: 'Horario actualizado',
-        message: 'Se ha actualizado tu horario de clases para el semestre 2025-2.',
+        message: 'Se ha actualizado tu horario de clases para el semestre 2026-1.',
         type: 'horario',
         category: 'info',
         read: false
@@ -466,7 +484,7 @@ async function seed() {
       {
         userId: userCoord._id,
         title: 'Generación completada',
-        message: 'La generación de horarios para el semestre 2025-2 se completó exitosamente. Puntaje: 92/100',
+        message: 'La generación de horarios para el semestre 2026-1 se completó exitosamente. Puntaje: 92/100',
         type: 'horario',
         category: 'info',
         read: false

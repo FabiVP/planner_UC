@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, startTransition } from 'react';
+
 import Modal from '../components/ui/Modal';
 import api from '../api/axios';
 import { HiOutlinePlus, HiOutlinePencil, HiOutlineTrash, HiOutlineEye } from 'react-icons/hi';
@@ -8,21 +9,21 @@ const emptyForm = { code: '', name: '', faculty: 'Ingeniería', totalSemesters: 
 
 export default function Careers() {
   const [careers, setCareers] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [, setLoading] = useState(true);
   const [modal, setModal] = useState(false);
   const [editing, setEditing] = useState(null);
   const [form, setForm] = useState({ ...emptyForm });
   const [detailItem, setDetailItem] = useState(null);
 
-  useEffect(() => { loadCareers(); }, []);
-
   const loadCareers = async () => {
     try {
       const res = await api.get('/careers');
-      setCareers(res.data.careers || []);
-    } catch (err) { console.error(err); }
-    finally { setLoading(false); }
+      startTransition(() => setCareers(res.data.careers || []));
+    } catch { console.error('Error cargando carreras'); }
+    finally { startTransition(() => setLoading(false)); }
   };
+
+  useEffect(() => { loadCareers(); }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -60,7 +61,7 @@ export default function Careers() {
     try {
       await api.delete(`/careers/${id}`);
       loadCareers();
-    } catch (err) { alert('Error al eliminar'); }
+    } catch { alert('Error al eliminar'); }
   };
 
   return (

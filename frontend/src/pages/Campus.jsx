@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, startTransition } from 'react';
 import { HiOutlineOfficeBuilding, HiOutlinePlus, HiOutlinePencil, HiOutlineTrash, HiOutlineClock, HiOutlineEye } from 'react-icons/hi';
 import api from '../api/axios';
 import Modal from '../components/ui/Modal';
@@ -9,8 +9,6 @@ const EMPTY_FLOOR = { floorNumber: 1, rooms: [] };
 const EMPTY_BUILDING = { code: '', name: '', floors: [] };
 
 const emptyCampus = { code: '', name: '', address: '', city: 'Huancayo', operatingHours: { startTime: '07:00', endTime: '22:00' }, buildings: [] };
-
-const TYPE_LABELS = { teorico: 'Teoría', laboratorio_computo: 'Lab. Cómputo', laboratorio_practica: 'Lab. Práctica' };
 
 export default function Campus() {
   const [campuses, setCampuses] = useState([]);
@@ -24,15 +22,15 @@ export default function Campus() {
   const [expandedCampus, setExpandedCampus] = useState(null);
   const [campusClassrooms, setCampusClassrooms] = useState({});
 
-  useEffect(() => { fetchCampuses(); }, []);
-
   const fetchCampuses = async () => {
     try {
       const { data } = await api.get('/campuses');
-      setCampuses(data.campuses || []);
-    } catch (err) { console.error(err); }
-    finally { setLoading(false); }
+      startTransition(() => setCampuses(data.campuses || []));
+    } catch { console.error('Error al cargar campus'); }
+    finally { startTransition(() => setLoading(false)); }
   };
+
+  useEffect(() => { fetchCampuses(); }, []);
 
   const openCreate = () => { setEditing(null); setForm({ ...emptyCampus, buildings: [] }); setShowModal(true); };
   const openEdit = async (c) => {
@@ -84,7 +82,7 @@ export default function Campus() {
         return { ...b, floors: merged };
       });
       setForm({ ...c, buildings: updatedBuildings });
-    } catch (e) {
+    } catch {
       setForm({ ...c, buildings });
     }
     setShowModal(true);
@@ -261,8 +259,8 @@ export default function Campus() {
                     );
                   }
 
-                  const roomTypeClass = { teorico: 'teorico', laboratorio: 'laboratorio_computo', aula_virtual: 'aula_virtual' };
-                  const roomTypeLabel = { teorico: 'Teoría', laboratorio: 'Laboratorio', aula_virtual: 'Virtual' };
+                  const roomTypeClass = { teorico: 'teorico', laboratorio: 'laboratorio_computo', laboratorio_practica: 'laboratorio_practica', aula_virtual: 'aula_virtual' };
+                  const roomTypeLabel = { teorico: 'Teoría', laboratorio: 'Laboratorio Cómputo', laboratorio_practica: 'Laboratorio Práctica', aula_virtual: 'Virtual' };
 
                   return Object.entries(grouped).sort().map(([bCode, floors]) => (
                     <div key={bCode} className="cd-building">

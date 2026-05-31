@@ -44,7 +44,7 @@ const sectionSchema = new mongoose.Schema({
   },
   minStudents: {
     type: Number,
-    default: 10
+    default: 15
   },
   currentEnrolled: {
     type: Number,

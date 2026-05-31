@@ -43,6 +43,23 @@ exports.generateByCareer = async (req, res, next) => {
     if (!teachers.length) return res.status(400).json({ message: 'No hay docentes disponibles.' });
     if (!classrooms.length) return res.status(400).json({ message: 'No hay aulas disponibles.' });
 
+    // Calculate sections needed per course
+    const sectionPlan = [];
+    const warnings = [];
+
+    // ── Validar RD-14: Límite de créditos por semestre ──
+    const { checkRD14_CreditLimit } = require('../engine/constraints');
+    if (!checkRD14_CreditLimit(allCourses, policy)) {
+      const minC = policy?.enrollmentRules?.minCreditsPerSemester ?? 12;
+      const maxC = policy?.enrollmentRules?.maxCreditsPerSemester ?? 25;
+      warnings.push({
+        courseCode: 'N/A',
+        courseName: 'Plan de estudios',
+        warning: `RD-14: La suma de créditos de algún semestre está fuera del rango ${minC}-${maxC}. Revise el plan de estudios.`,
+        severity: 'error'
+      });
+    }
+
     // Apply default lunch block
     if (policy?.allowedSchedule && (!policy.allowedSchedule.blockedTimeSlots?.length)) {
       policy.allowedSchedule.blockedTimeSlots = [{ start: '13:00', end: '14:00', reason: 'Almuerzo' }];
@@ -55,10 +72,6 @@ exports.generateByCareer = async (req, res, next) => {
     ]);
     const demandBySemester = {};
     enrolledStudents.forEach(e => { demandBySemester[e._id] = e.count; });
-
-    // Calculate sections needed per course
-    const sectionPlan = [];
-    const warnings = [];
 
     for (const course of allCourses) {
       const demand = demandBySemester[course.semester] || 0;
@@ -75,7 +88,9 @@ exports.generateByCareer = async (req, res, next) => {
 
       // Calculate how many sections are needed
       const maxPerSection = course.maxStudents || 40;
-      const minPerSection = course.minStudentsPerSection || 10;
+      const minPerSection = course.minStudentsPerSection
+        || policy?.enrollmentRules?.minStudentsPerSection
+        || 15;
       let numSections = Math.max(1, Math.ceil(demand / maxPerSection));
 
       // Cap by available teachers
@@ -105,34 +120,66 @@ exports.generateByCareer = async (req, res, next) => {
 
     console.log(`📊 Plan: ${sectionPlan.length} secciones para ${allCourses.length} cursos`);
 
-    // Build "virtual courses" for the CSP — one per section
-    const virtualCourses = sectionPlan.map((sp, idx) => ({
-      _id: `${sp.course._id}_sec_${sp.sectionCode}`,
-      _realCourseId: sp.course._id,
-      code: `${sp.course.code}-${sp.sectionCode}`,
-      name: sp.course.name,
-      credits: sp.course.credits,
-      type: sp.course.type,
-      semester: sp.course.semester,
-      sessionsPerWeek: sp.course.sessionsPerWeek,
-      hoursPerSession: sp.course.hoursPerSession,
-      maxStudents: sp.course.maxStudents,
-      career: sp.course.career,
-      _forcedTeacherId: sp.teacher._id.toString(),
-      _sectionCode: sp.sectionCode,
-      _sectionIndex: idx
-    }));
+    // ─── Run CSP per-semester (each semester is independent) ───
+    const semesterGroups = {};
+    for (const sp of sectionPlan) {
+      const sem = sp.course.semester;
+      if (!semesterGroups[sem]) semesterGroups[sem] = [];
+      semesterGroups[sem].push(sp);
+    }
 
-    // Run CSP with section-aware courses and teacher preferences
-    const startTime = Date.now();
-    const result = runCSPMultiple(virtualCourses, teachers, classrooms, teacherPrefs, 3, policy);
-    const executionTime = Date.now() - startTime;
+    const totalStart = Date.now();
+    const allAssignments = [];
+    const semesterResults = [];
+    let cspFailed = null;
 
-    if (!result.success) {
+    for (const [sem, group] of Object.entries(semesterGroups).sort(([a], [b]) => +a - +b)) {
+      const virtualCourses = group.map((sp, idx) => ({
+        _id: `${sp.course._id}_sec_${sp.sectionCode}`,
+        _realCourseId: sp.course._id,
+        code: `${sp.course.code}-${sp.sectionCode}`,
+        name: sp.course.name,
+        credits: sp.course.credits,
+        type: sp.course.type,
+        semester: sp.course.semester,
+        sessionsPerWeek: sp.course.sessionsPerWeek,
+        hoursPerSession: sp.course.hoursPerSession,
+        maxStudents: sp.course.maxStudents,
+        career: sp.course.career,
+        _forcedTeacherId: sp.teacher._id.toString(),
+        _sectionCode: sp.sectionCode,
+        _sectionIndex: idx
+      }));
+
+      console.log(`  🎯 Semestre ${sem}: ${virtualCourses.length} secciones`);
+      const result = runCSPMultiple(virtualCourses, teachers, classrooms, teacherPrefs, 2, policy);
+
+      if (!result.success) {
+        const desc = result.conflicts?.[0]?.description || 'No se encontró solución factible';
+        cspFailed = { sem, desc, warnings };
+        break;
+      }
+
+      allAssignments.push(...result.assignments);
+      semesterResults.push({
+        sem,
+        qualityScore: result.qualityScore,
+        constraintsFulfilled: result.constraintsFulfilled,
+        preferencesScore: result.preferencesScore,
+        resourceUsage: result.resourceUsage,
+        optimization: result.optimization,
+        count: result.assignments.length
+      });
+      console.log(`    ✅ ${result.assignments.length} asignaciones (score: ${result.qualityScore})`);
+    }
+
+    const executionTime = Date.now() - totalStart;
+
+    if (cspFailed) {
       return res.status(422).json({
         success: false,
-        message: 'No se pudo generar un horario válido.',
-        warnings,
+        message: `Semestre ${cspFailed.sem}: No se pudo generar un horario válido. ${cspFailed.desc}`,
+        warnings: cspFailed.warnings,
         executionTime: executionTime / 1000
       });
     }
@@ -140,7 +187,7 @@ exports.generateByCareer = async (req, res, next) => {
     // Build actionable suggestions for low-enrollment sections
     const suggestions = [];
     for (const sp of sectionPlan) {
-      if (sp.expectedStudents < (sp.course.minStudentsPerSection || 10)) {
+      if (sp.expectedStudents < (sp.course.minStudentsPerSection || 15)) {
         const otherSections = sectionPlan.filter(o =>
           o.course._id.toString() === sp.course._id.toString() &&
           o.sectionCode !== sp.sectionCode
@@ -153,7 +200,7 @@ exports.generateByCareer = async (req, res, next) => {
           courseName: sp.course.name,
           sectionCode: sp.sectionCode,
           expectedStudents: sp.expectedStudents,
-          minimumRequired: sp.course.minStudentsPerSection || 10,
+          minimumRequired: sp.course.minStudentsPerSection || 15,
           alternativeSections: otherSections.length,
           canMergeIntoExisting: canAbsorb,
           action: canAbsorb
@@ -164,6 +211,8 @@ exports.generateByCareer = async (req, res, next) => {
       }
     }
 
+    const avgQuality = semesterResults.reduce((s, r) => s + r.qualityScore, 0) / semesterResults.length;
+
     // Create Generation record
     const generation = await Generation.create({
       name: `Horario ${career.code} — ${semester}`,
@@ -173,14 +222,14 @@ exports.generateByCareer = async (req, res, next) => {
       executedAt: new Date(),
       completedAt: new Date(),
       executionTimeMs: executionTime,
-      qualityScore: result.qualityScore || 0,
+      qualityScore: avgQuality || 0,
       sectionsGenerated: sectionPlan.length,
       sectionWarnings: warnings,
       createdBy: req.user?._id
     });
 
     // Create Schedule record
-    const assignments = result.assignments.map(a => ({
+    const assignments = allAssignments.map(a => ({
       courseId: a._realCourseId || a.courseId,
       teacherId: a.teacherId,
       classroomId: a.classroomId,
@@ -202,7 +251,7 @@ exports.generateByCareer = async (req, res, next) => {
     // Create Section records in DB
     const createdSections = [];
     for (const sp of sectionPlan) {
-      const sectionAssignments = result.assignments.filter(a => {
+      const sectionAssignments = allAssignments.filter(a => {
         const cid = a._realCourseId?.toString() || a.courseId?.toString();
         return cid === sp.course._id.toString() &&
                (a._sectionCode === sp.sectionCode || a.teacherId?.toString() === sp.teacher._id.toString());
@@ -225,8 +274,8 @@ exports.generateByCareer = async (req, res, next) => {
         classroomId: classroom?.classroomId,
         scheduleSlots,
         maxCapacity: sp.course.maxStudents,
-        minStudents: sp.course.minStudentsPerSection || 10,
-        status: sp.expectedStudents >= (sp.course.minStudentsPerSection || 10) ? 'activa' : 'pendiente',
+        minStudents: sp.course.minStudentsPerSection || 15,
+        status: sp.expectedStudents >= (sp.course.minStudentsPerSection || 15) ? 'activa' : 'pendiente',
         generationId: generation._id,
         semester,
         career: career._id,
@@ -235,7 +284,12 @@ exports.generateByCareer = async (req, res, next) => {
       createdSections.push(section);
     }
 
-    console.log(`✅ ${createdSections.length} secciones creadas para ${career.code}`);
+    console.log(`✅ ${createdSections.length} secciones creadas para ${career.code} en ${executionTime}ms`);
+
+    const avgConstraints = semesterResults.reduce((s, r) => s + (r.constraintsFulfilled || 95), 0) / semesterResults.length;
+    const avgPrefs = semesterResults.reduce((s, r) => s + (r.preferencesScore || 80), 0) / semesterResults.length;
+    const avgResources = semesterResults.reduce((s, r) => s + (r.resourceUsage || 85), 0) / semesterResults.length;
+    const avgOptim = semesterResults.reduce((s, r) => s + (r.optimization || 75), 0) / semesterResults.length;
 
     res.json({
       success: true,
@@ -245,6 +299,10 @@ exports.generateByCareer = async (req, res, next) => {
         career: { code: career.code, name: career.name },
         semester,
         qualityScore: generation.qualityScore,
+        constraintsFulfilled: Math.round(avgConstraints),
+        preferencesScore: Math.round(avgPrefs),
+        resourceUsage: Math.round(avgResources),
+        optimization: Math.round(avgOptim),
         sectionsGenerated: createdSections.length,
         executionTime: executionTime / 1000
       },
@@ -252,6 +310,7 @@ exports.generateByCareer = async (req, res, next) => {
       warnings,
       suggestions,
       hasSuggestions: suggestions.length > 0,
+      semesterResults,
       sectionsBySemester: groupSectionsBySemester(createdSections, allCourses)
     });
   } catch (error) {
@@ -476,14 +535,28 @@ exports.enrollInSections = async (req, res, next) => {
       { upsert: true, new: true }
     );
 
-    // Update section enrollment counts (batch)
+    // Update section enrollment counts (batch) — idempotent: only inc if student not already enrolled
     await Section.bulkWrite(sections.map(s => ({
       updateOne: {
         filter: { _id: s._id },
-        update: {
-          $addToSet: { enrolledStudents: student._id },
-          $inc: { currentEnrolled: 1 }
-        }
+        update: [
+          { $set: {
+              enrolledStudents: {
+                $cond: {
+                  if: { $in: [student._id, "$enrolledStudents"] },
+                  then: "$enrolledStudents",
+                  else: { $concatArrays: ["$enrolledStudents", [student._id]] }
+                }
+              },
+              currentEnrolled: {
+                $cond: {
+                  if: { $in: [student._id, "$enrolledStudents"] },
+                  then: "$currentEnrolled",
+                  else: { $add: ["$currentEnrolled", 1] }
+                }
+              }
+          }}
+        ]
       }
     })));
 
@@ -603,7 +676,7 @@ exports.getPendingReview = async (req, res, next) => {
 
     const review = [];
     for (const section of sections) {
-      const minRequired = section.minStudents || section.courseId?.minStudentsPerSection || 10;
+      const minRequired = section.minStudents || section.courseId?.minStudentsPerSection || 15;
       const belowMinimum = section.currentEnrolled < minRequired;
       if (!belowMinimum && section.status === 'activa') continue;
 

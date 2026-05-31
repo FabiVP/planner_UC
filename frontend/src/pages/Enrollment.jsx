@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, startTransition, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import api from '../api/axios';
 import {
   HiOutlineBookOpen, HiOutlineCheckCircle, HiOutlineExclamationCircle,
@@ -20,31 +21,38 @@ const DAY_LABELS = {
 };
 
 export default function Enrollment() {
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState(null);
+  const [error, setError] = useState(null);
   const [selectedIds, setSelectedIds] = useState(new Set());
   const [validation, setValidation] = useState(null);
   const [validating, setValidating] = useState(false);
   const [generating, setGenerating] = useState(false);
   const [generatedSchedule, setGeneratedSchedule] = useState(null);
+  const [generateError, setGenerateError] = useState(null);
   const [availability, setAvailability] = useState(null);
   const [loadingAvail, setLoadingAvail] = useState(false);
 
-  useEffect(() => { loadEligible(); }, []);
-
   const loadEligible = async () => {
-    setLoading(true);
+    startTransition(() => { setLoading(true); setError(null); });
     try {
       const res = await api.get('/student-schedule/eligible-courses');
-      setData(res.data);
-      // Auto-select: failed courses + current semester courses
       const autoSelect = new Set();
       (res.data.categories.failedToRetake || []).forEach(c => autoSelect.add(c._id));
       (res.data.categories.currentSemester || []).forEach(c => autoSelect.add(c._id));
-      setSelectedIds(autoSelect);
-    } catch (e) { console.error(e); }
-    setLoading(false);
+      startTransition(() => {
+        setData(res.data);
+        setSelectedIds(autoSelect);
+      });
+    } catch (err) {
+      const msg = err.response?.data?.message || 'No se pudo cargar la información académica.';
+      startTransition(() => setError(msg));
+    }
+    startTransition(() => setLoading(false));
   };
+
+  useEffect(() => { loadEligible(); }, []);
 
   const toggleCourse = (id) => {
     setSelectedIds(prev => {
@@ -54,6 +62,7 @@ export default function Enrollment() {
     });
     setValidation(null);
     setGeneratedSchedule(null);
+    setGenerateError(null);
     setAvailability(null);
   };
 
@@ -71,35 +80,43 @@ export default function Enrollment() {
     try {
       const res = await api.post('/student-schedule/course-availability', { courseIds: [...selectedIds] });
       setAvailability(res.data);
-    } catch (e) { console.error(e); }
+    } catch { console.error('Error al cargar disponibilidad'); }
     setLoadingAvail(false);
   };
 
   const handleGenerate = async () => {
     setGenerating(true);
+    setGenerateError(null);
     try {
-      const res = await api.post('/student-schedule/generate', { courseIds: [...selectedIds] });
+      const courseIds = [...selectedIds];
+      const res = await api.post('/student-schedule/generate', { courseIds });
       setGeneratedSchedule(res.data);
-    } catch (e) { alert(e.response?.data?.message || 'Error al generar'); }
+      localStorage.setItem('lastStudentScheduleCourseIds', JSON.stringify(courseIds));
+      localStorage.setItem('lastStudentSchedule', JSON.stringify(res.data));
+    } catch (e) {
+      const msg = e.response?.data?.message || 'Error al generar horario.';
+      startTransition(() => setGenerateError(msg));
+    }
     setGenerating(false);
   };
 
   const selectedCredits = () => {
-    if (!data) return 0;
+    if (!data?.categories) return 0;
     const all = [...(data.categories.failedToRetake || []), ...(data.categories.currentSemester || []), ...(data.categories.previousPending || [])];
-    return all.filter(c => selectedIds.has(c._id)).reduce((s, c) => s + c.credits, 0);
+    return all.filter(c => selectedIds.has(c._id)).reduce((s, c) => s + (c.credits || 0), 0);
   };
 
   if (loading) return <div className="loading-container"><div className="spinner"></div></div>;
+  if (error) return <div className="card" style={{ padding: 32, textAlign: 'center' }}><p style={{ color: 'var(--danger)' }}>{error}</p></div>;
   if (!data) return <div className="card" style={{ padding: 32, textAlign: 'center' }}><p>No se pudo cargar la información académica.</p></div>;
 
-  const { student, academicProgress, categories, summary } = data;
+  const { student, academicProgress, categories } = data;
 
   return (
     <div className="enrollment-page animate-fadeIn">
       <div className="page-header">
         <div>
-          <h1><HiOutlineAcademicCap /> Matrícula Académica</h1>
+          <h1><HiOutlineAcademicCap /> Planificación Académica</h1>
           <p>Selecciona los cursos que llevarás este semestre. El sistema validará tu avance y generará tu horario.</p>
         </div>
       </div>
@@ -146,7 +163,7 @@ export default function Enrollment() {
         <div className="sb-info">
           <strong>{selectedIds.size}</strong> curso(s) seleccionado(s)
           <span className="sb-credits">{selectedCredits()} créditos</span>
-          {selectedCredits() > 22 && <span className="sb-warning"><HiOutlineExclamationCircle /> Excede 22 créditos</span>}
+          {selectedCredits() > (data?.summary?.maxCredits || 22) && <span className="sb-warning"><HiOutlineExclamationCircle /> Excede {data?.summary?.maxCredits || 22} créditos</span>}
         </div>
         <div className="sb-actions">
           <button className="btn btn-outline btn-sm" onClick={handlePreviewAvailability} disabled={loadingAvail || selectedIds.size === 0}>
@@ -156,11 +173,18 @@ export default function Enrollment() {
             <HiOutlineCheckCircle /> {validating ? 'Validando...' : 'Validar'}
           </button>
           <button className="btn btn-primary btn-sm" onClick={handleGenerate}
-            disabled={generating || selectedIds.size === 0 || (validation && !validation.valid)}>
+            disabled={generating || selectedIds.size === 0}>
             <HiOutlineLightningBolt /> {generating ? 'Generando...' : 'Generar horario'}
           </button>
         </div>
       </div>
+
+      {/* Generate Error */}
+      {generateError && (
+        <div className="card" style={{ padding: 16, marginBottom: 16, borderLeft: '4px solid var(--danger)' }}>
+          <p style={{ color: 'var(--danger)', margin: 0 }}><HiOutlineExclamationCircle /> {generateError}</p>
+        </div>
+      )}
 
       {/* Availability Preview */}
       {availability && availability.available && (
@@ -325,42 +349,98 @@ export default function Enrollment() {
         )}
       </div>
 
-      {/* Generated schedule summary */}
-      {generatedSchedule && (
+      {/* Generated schedule with grid */}
+      {generatedSchedule?.schedule?.assignments && (
         <div className="generated-result card">
-          <h3><HiOutlineCheckCircle style={{ color: 'var(--success)' }} /> Horario generado</h3>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <h3 style={{ margin: 0 }}><HiOutlineCheckCircle style={{ color: 'var(--success)' }} /> Horario generado</h3>
+            <button className="btn btn-primary btn-sm" onClick={() => {
+              const data = { ...generatedSchedule, alternatives: [] };
+              localStorage.setItem('lastStudentSchedule', JSON.stringify(data));
+              navigate('/my-schedules');
+            }}>
+              Usar esta alternativa → Mi Horario
+            </button>
+          </div>
           <p>{generatedSchedule.message}</p>
           <div className="gr-stats">
             <span><strong>{generatedSchedule.stats.totalCourses}</strong> cursos</span>
             <span><strong>{generatedSchedule.stats.totalCredits}</strong> créditos</span>
             <span><strong>{generatedSchedule.stats.totalSessions}</strong> sesiones</span>
             <span><strong>{generatedSchedule.stats.shiftMatchPercent}%</strong> turno preferido</span>
+            <span><strong>{generatedSchedule.stats.totalGaps || 0}</strong> huecos</span>
           </div>
+
+          <ScheduleTable assignments={generatedSchedule.schedule.assignments} />
+
+          {/* Observations */}
+          {generatedSchedule.observations?.length > 0 && (
+            <div className="uncovered-section" style={{ marginTop: 16, padding: 12, background: '#FFF8E1', borderRadius: 8, border: '1px solid #FDD835' }}>
+              <h4 style={{ fontSize: '0.9rem', color: '#F57F17', margin: '0 0 8px' }}>Observaciones</h4>
+              {generatedSchedule.observations.map((o, i) => (
+                <div key={i} style={{ fontSize: 12, color: '#795548', marginBottom: 4 }}>
+                  ⚠ <strong>{o.courseCode}</strong> — {o.courseName}: {o.message}
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* Uncovered courses */}
+          {generatedSchedule.uncoveredCourses?.length > 0 && (
+            <div className="uncovered-section" style={{ marginTop: 16, padding: 12, background: 'var(--warning-bg)', borderRadius: 8 }}>
+              <h4 style={{ fontSize: '0.9rem', color: 'var(--warning)' }}>Cursos sin horario disponible</h4>
+              {generatedSchedule.uncoveredCourses.map((c, i) => (
+                <span key={i} className="badge badge-warning" style={{ marginRight: 6 }}>{c.code} — {c.name}</span>
+              ))}
+            </div>
+          )}
 
           {/* Schedule Alternatives */}
           {generatedSchedule.alternatives?.length > 0 && (
-            <div className="alternatives-section">
+            <div className="alternatives-section" style={{ marginTop: 16 }}>
               <h4><HiOutlineLightningBolt /> Alternativas de horario</h4>
               <div className="alternatives-grid">
-                {generatedSchedule.alternatives.map((alt, i) => (
-                  <div key={i} className="alt-card">
-                    <div className="alt-card-header">
-                      <h5>{alt.label}</h5>
-                      <span className="alt-card-score">Score: {alt.score}</span>
+                  {generatedSchedule.alternatives.map((alt, i) => (
+                    <div key={i} className="alt-card">
+                      <div className="alt-card-header">
+                        <h5>{alt.label}</h5>
+                        <span className="alt-card-score">Score: {alt.score}</span>
+                      </div>
+                      <div className="alt-card-stats">
+                        <span><strong>{alt.stats.totalCourses}</strong> cursos</span>
+                        <span><strong>{alt.stats.totalCredits}</strong> créd</span>
+                        <span><strong>{alt.stats.shiftMatchPercent}%</strong> turno</span>
+                        <span><strong>{alt.stats.totalGaps || 0}</strong> huecos</span>
+                      </div>
+                      <ScheduleTable assignments={alt.assignments} />
+                      {alt.observations?.length > 0 && (
+                        <div style={{ marginTop: 8, padding: 8, background: '#FFF8E1', borderRadius: 6, border: '1px solid #FDD835', fontSize: 11, color: '#795548' }}>
+                          {alt.observations.map((o, j) => (
+                            <div key={j}>⚠ <strong>{o.courseCode}</strong> — {o.message}</div>
+                          ))}
+                        </div>
+                      )}
+                      <button className="btn btn-primary btn-sm" style={{ marginTop: 8 }} onClick={() => {
+                        const updated = {
+                          ...generatedSchedule,
+                          schedule: { ...generatedSchedule.schedule, assignments: alt.assignments },
+                          stats: alt.stats,
+                          observations: alt.observations || [],
+                          uncoveredCourses: alt.uncoveredCourses || [],
+                          message: `Alternativa: ${alt.label}`,
+                          alternatives: []
+                        };
+                        setGeneratedSchedule(updated);
+                        localStorage.setItem('lastStudentSchedule', JSON.stringify(updated));
+                        navigate('/my-schedules');
+                      }}>
+                        Usar esta alternativa → Mi Horario
+                      </button>
                     </div>
-                    <div className="alt-card-stats">
-                      <span><strong>{alt.stats.totalCourses}</strong> cursos</span>
-                      <span><strong>{alt.stats.totalCredits}</strong> créd</span>
-                      <span><strong>{alt.stats.shiftMatchPercent}%</strong> turno</span>
-                      <span><strong>{alt.stats.totalGaps || 0}</strong> huecos</span>
-                    </div>
-                  </div>
                 ))}
               </div>
             </div>
           )}
-
-          <p className="gr-hint">Ve a "Mi horario" para ver tu horario completo en formato tabla.</p>
         </div>
       )}
     </div>
@@ -401,4 +481,99 @@ export default function Enrollment() {
       </label>
     );
   }
+}
+
+function ScheduleTable({ assignments }) {
+  const DAY_CONFIG = [
+    { key: 'lunes', label: 'Lunes' },
+    { key: 'martes', label: 'Martes' },
+    { key: 'miercoles', label: 'Miércoles' },
+    { key: 'jueves', label: 'Jueves' },
+    { key: 'viernes', label: 'Viernes' },
+    { key: 'sabado', label: 'Sábado' },
+    { key: 'domingo', label: 'Domingo' },
+  ];
+  const TIME_SLOTS = [
+    '07:00 - 08:00', '08:00 - 09:00', '09:00 - 10:00', '10:00 - 11:00',
+    '11:00 - 12:00', '12:00 - 13:00', '13:00 - 14:00', '14:00 - 15:00',
+    '15:00 - 16:00', '16:00 - 17:00', '17:00 - 18:00', '18:00 - 19:00',
+    '19:00 - 20:00', '20:00 - 21:00', '21:00 - 22:00'
+  ];
+  const CELL_COLORS = [
+    { bg: '#E8F5E9', border: '#43A047', text: '#2E7D32' },
+    { bg: '#E3F2FD', border: '#1E88E5', text: '#1565C0' },
+    { bg: '#FFF8E1', border: '#FDD835', text: '#F57F17' },
+    { bg: '#F3E5F5', border: '#AB47BC', text: '#7B1FA2' },
+    { bg: '#FFEBEE', border: '#EF5350', text: '#C62828' },
+    { bg: '#E0F2F1', border: '#26A69A', text: '#00695C' },
+    { bg: '#FCE4EC', border: '#EC407A', text: '#AD1457' },
+    { bg: '#FFF3E0', border: '#FF7043', text: '#D84315' },
+  ];
+
+  const colorMap = useMemo(() => {
+    const courses = [...new Set(assignments.map(a => a.courseId?.name || a.courseId?.code || a.courseId))];
+    const map = {};
+    courses.forEach((c, i) => { map[c] = CELL_COLORS[i % CELL_COLORS.length]; });
+    return map;
+  }, [assignments]);
+
+  const getAssignment = (day, slot) => {
+    const start = slot.split(' - ')[0];
+    return assignments.find(a => a.day === day && a.startTime === start);
+  };
+
+  const slotsToShow = TIME_SLOTS;
+
+  const dayLabel = { lunes: 'Lun', martes: 'Mar', miercoles: 'Mié', jueves: 'Jue', viernes: 'Vie', sabado: 'Sáb', domingo: 'Dom' };
+
+  return (
+    <div className="schedule-grid-container" style={{ overflowX: 'auto', marginTop: 16 }}>
+      <div style={{ marginBottom: 8, display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+        {assignments.map((a, i) => {
+          const c = CELL_COLORS[i % CELL_COLORS.length];
+          return (
+            <span key={i} style={{
+              padding: '2px 8px', borderRadius: 12, fontSize: 11, fontWeight: 600,
+              background: c.bg, color: c.text, border: `1px solid ${c.border}`
+            }}>
+              {a.courseId?.code || '?'} — {dayLabel[a.day] || a.day} {a.startTime}
+            </span>
+          );
+        })}
+      </div>
+      <table className="schedule-table compact" style={{ width: '100%', borderCollapse: 'collapse', fontSize: 12 }}>
+        <thead>
+          <tr>
+            <th className="time-col" style={{ padding: 8, border: '1px solid var(--border)', background: 'var(--bg-main)' }}>Hora</th>
+            {DAY_CONFIG.map(d => <th key={d.key} style={{ padding: 8, border: '1px solid var(--border)', background: 'var(--bg-main)', textAlign: 'center' }}>{d.label}</th>)}
+          </tr>
+        </thead>
+        <tbody>
+          {slotsToShow.map(slot => (
+            <tr key={slot}>
+              <td className="time-cell" style={{ padding: '4px 8px', border: '1px solid var(--border)', fontWeight: 600, fontSize: 11, whiteSpace: 'nowrap' }}>{slot}</td>
+              {DAY_CONFIG.map(d => {
+                const a = getAssignment(d.key, slot);
+                if (!a) return <td key={d.key} style={{ border: '1px solid var(--border)' }}></td>;
+                const name = a.courseId?.name || a.courseId?.code || 'Curso';
+                const code = a.courseId?.code || '';
+                const c = colorMap[name] || CELL_COLORS[0];
+                return (
+                  <td key={d.key} style={{ border: '1px solid var(--border)' }}>
+                    <div style={{
+                      background: c.bg, borderLeft: `3px solid ${c.border}`, color: c.text,
+                      padding: '4px 6px', borderRadius: 4, fontSize: 11, minHeight: 40
+                    }}>
+                      <strong>{name}</strong><br />
+                      <span style={{ fontSize: 10 }}>{code}{a.classroomId?.code ? ` · ${a.classroomId.code}` : ''}</span>
+                    </div>
+                  </td>
+                );
+              })}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
 }

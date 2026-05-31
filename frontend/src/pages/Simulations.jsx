@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, startTransition } from 'react';
 import { HiOutlineStar, HiStar, HiOutlineTrash, HiOutlineEye, HiOutlineDuplicate, HiOutlinePlus } from 'react-icons/hi';
 import api from '../api/axios';
 import './Simulations.css';
@@ -8,7 +8,8 @@ const LABEL_MAP = {
   alternativo: { text: 'Alternativo', color: '#3b82f6' },
   secundario: { text: 'Secundario', color: '#f59e0b' },
   sin_vacantes: { text: 'Si no alcanzo', color: '#ef4444' },
-  personalizado: { text: 'Personalizado', color: '#8b5cf6' }
+  personalizado: { text: 'Personalizado', color: '#8b5cf6' },
+  asignado: { text: 'Asignado', color: '#6366f1' }
 };
 
 export default function Simulations() {
@@ -19,15 +20,15 @@ export default function Simulations() {
   const [comparison, setComparison] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => { fetchSimulations(); }, []);
-
   const fetchSimulations = async () => {
     try {
       const { data } = await api.get('/simulations');
-      setSimulations(data.simulations || []);
+      startTransition(() => setSimulations(data.simulations || []));
     } catch (err) { console.error(err); }
-    finally { setLoading(false); }
+    finally { startTransition(() => setLoading(false)); }
   };
+
+  useEffect(() => { fetchSimulations(); }, []);
 
   const viewSimulation = async (id) => {
     try {

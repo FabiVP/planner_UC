@@ -1,12 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, startTransition } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import api from '../api/axios';
-import Modal from '../components/ui/Modal';
 import {
-  HiOutlineCalendar, HiOutlineStar, HiOutlineExclamationCircle,
-  HiOutlineEye, HiOutlineLightningBolt, HiOutlineSaveAs,
-  HiOutlineDocumentDuplicate
+  HiOutlineCalendar, HiOutlineExclamationCircle,
+  HiOutlineLightningBolt, HiOutlineSaveAs
 } from 'react-icons/hi';
 import './MySchedules.css';
 
@@ -37,9 +35,6 @@ export default function MySchedules() {
   const [tab, setTab] = useState('generados');
   const [generations, setGenerations] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [viewSchedule, setViewSchedule] = useState(null);
-  const [scheduleData, setScheduleData] = useState(null);
-  const [loadingSchedule, setLoadingSchedule] = useState(false);
 
   // Teacher state
   const [teacherData, setTeacherData] = useState(null);
@@ -49,57 +44,61 @@ export default function MySchedules() {
   const [generatingStudent, setGeneratingStudent] = useState(false);
   const [savingSimulation, setSavingSimulation] = useState(false);
 
-  useEffect(() => {
-    if (role === 'docente') loadTeacherSchedule();
-    else if (role === 'estudiante') loadStudentSchedule();
-    else loadGenerations();
-  }, [role]);
+  // Coordinator sections state
+  const [sectionData, setSectionData] = useState([]);
+  const [loadingSections, setLoadingSections] = useState(false);
+  const [viewSemester, setViewSemester] = useState(null);
+  const [selectedGen, setSelectedGen] = useState(null);
 
   // ───── COORDINATOR ─────
   const loadGenerations = async () => {
     try {
       const res = await api.get('/generations');
-      setGenerations(res.data.generations || []);
-    } catch (e) {}
-    setLoading(false);
-  };
-
-  const handleViewSchedule = async (gen) => {
-    setViewSchedule(gen);
-    setLoadingSchedule(true);
-    try {
-      const schedId = gen.scheduleId?._id || gen.scheduleId;
-      if (schedId) {
-        const res = await api.get(`/schedule/${schedId}`);
-        setScheduleData(res.data);
-      }
-    } catch (e) {}
-    setLoadingSchedule(false);
+      startTransition(() => setGenerations(res.data.generations || []));
+    } catch { /* ignore */ }
+    startTransition(() => setLoading(false));
   };
 
   // ───── TEACHER ─────
   const loadTeacherSchedule = async () => {
     try {
       const res = await api.get('/schedule/my-teaching');
-      setTeacherData(res.data);
+      startTransition(() => setTeacherData(res.data));
     } catch (e) { console.error(e); }
-    setLoading(false);
+    startTransition(() => setLoading(false));
   };
 
   // ───── STUDENT ─────
   const loadStudentSchedule = async () => {
     try {
-      const res = await api.get('/student-schedule/my-schedule');
+      const savedCourseIds = localStorage.getItem('lastStudentScheduleCourseIds');
+      const savedData = localStorage.getItem('lastStudentSchedule');
+      if (savedData) {
+        setStudentData(JSON.parse(savedData));
+        setLoading(false);
+        return;
+      }
+      const params = savedCourseIds ? `?courseIds=${encodeURIComponent(savedCourseIds)}` : '';
+      const res = await api.get(`/student-schedule/my-schedule${params}`);
       setStudentData(res.data);
     } catch (e) { console.error(e); }
     setLoading(false);
   };
 
+  useEffect(() => {
+    if (role === 'docente') loadTeacherSchedule();
+    else if (role === 'estudiante') loadStudentSchedule();
+    else loadGenerations();
+  }, [role]);
+
   const generateStudentSchedule = async () => {
     setGeneratingStudent(true);
     try {
-      const res = await api.post('/student-schedule/generate');
+      const savedCourseIds = localStorage.getItem('lastStudentScheduleCourseIds');
+      const courseIds = savedCourseIds ? JSON.parse(savedCourseIds) : undefined;
+      const res = await api.post('/student-schedule/generate', courseIds ? { courseIds } : {});
       setStudentData(res.data);
+      localStorage.setItem('lastStudentSchedule', JSON.stringify(res.data));
     } catch (e) {
       alert(e.response?.data?.message || 'Error al generar horario');
     }
@@ -107,7 +106,13 @@ export default function MySchedules() {
   };
 
   // ───── SAVE AS SIMULATION ─────
-  const saveAsSimulation = async (assignments, stats, label = 'personalizado') => {
+  const getSemester = () => {
+    if (teacherData?.semester) return teacherData.semester;
+    if (studentData?.student?.currentSemester) return `2026-${studentData.student.currentSemester % 2 === 0 ? 2 : 1}`;
+    return '2026-1';
+  };
+
+  const saveAsSimulation = async (assignments, stats, label = 'personalizado', navigateToSims = false) => {
     const simName = prompt('Nombre para esta simulación:', `Horario ${new Date().toLocaleDateString('es-PE')}`);
     if (!simName) return;
     setSavingSimulation(true);
@@ -127,13 +132,17 @@ export default function MySchedules() {
       await api.post('/simulations', {
         name: simName,
         label,
-        semester: studentData?.student?.currentSemester ? `2026-${studentData.student.currentSemester % 2 === 0 ? 2 : 1}` : '2026-1',
+        semester: getSemester(),
         assignments: simAssignments,
         stats: stats || {}
       });
-      alert('✓ Simulación guardada exitosamente.');
+      if (navigateToSims) {
+        navigate('/simulations');
+      } else {
+        alert('✓ Simulación guardada exitosamente.');
+      }
     } catch (err) {
-      alert(err.response?.data?.message || 'Error al guardar simulación');
+      alert(err.response?.data?.errors?.join('\n') || err.response?.data?.message || 'Error al guardar simulación');
     }
     setSavingSimulation(false);
   };
@@ -153,11 +162,7 @@ export default function MySchedules() {
 
   const renderScheduleTable = (assignments) => {
     const colorMap = buildColorMap(assignments);
-    // Filter time slots that have at least one assignment
-    const usedSlots = TIME_SLOTS.filter(slot =>
-      DAYS.some(day => getAssignment(assignments, day, slot))
-    );
-    const slotsToShow = usedSlots.length > 0 ? usedSlots : TIME_SLOTS.slice(0, 11);
+    const slotsToShow = TIME_SLOTS;
 
     return (
       <div className="schedule-grid-container" style={{ overflowX: 'auto' }}>
@@ -293,6 +298,18 @@ export default function MySchedules() {
                 </div>
               </div>
 
+              {studentData.observations?.length > 0 && (
+                <div className="uncovered-notice card" style={{ borderLeft: '4px solid #FDD835', background: '#FFF8E1' }}>
+                  <HiOutlineExclamationCircle style={{ color: '#F57F17', fontSize: 20 }} />
+                  <div>
+                    <strong>Observaciones ({studentData.observations.length}):</strong>
+                    {studentData.observations.map((o, i) => (
+                      <div key={i} style={{ fontSize: 12, marginTop: 2 }}>⚠ {o.courseCode} — {o.message}</div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
               {studentData.uncoveredCourses?.length > 0 && (
                 <div className="uncovered-notice card">
                   <HiOutlineExclamationCircle style={{ color: 'var(--warning)', fontSize: 20 }} />
@@ -312,6 +329,9 @@ export default function MySchedules() {
                 </button>
                 <button className="btn btn-outline btn-sm" onClick={() => saveAsSimulation(studentData.schedule.assignments, studentData.stats, 'ideal')} disabled={savingSimulation}>
                   <HiOutlineSaveAs /> {savingSimulation ? 'Guardando...' : 'Guardar simulación'}
+                </button>
+                <button className="btn btn-primary btn-sm" onClick={() => saveAsSimulation(studentData.schedule.assignments, studentData.stats, 'ideal', true)} disabled={savingSimulation}>
+                  Simular este horario
                 </button>
               </div>
               {renderScheduleTable(studentData.schedule.assignments)}
@@ -340,6 +360,14 @@ export default function MySchedules() {
                       </div>
                     </div>
                     {renderScheduleTable(alt.assignments)}
+                    <div style={{ marginTop: 8, display: 'flex', gap: 8 }}>
+                      <button className="btn btn-outline btn-sm" onClick={() => saveAsSimulation(alt.assignments, alt.stats, alt.label)} disabled={savingSimulation}>
+                        <HiOutlineSaveAs /> {savingSimulation ? 'Guardando...' : 'Guardar simulación'}
+                      </button>
+                      <button className="btn btn-primary btn-sm" onClick={() => saveAsSimulation(alt.assignments, alt.stats, alt.label, true)} disabled={savingSimulation}>
+                        Simular
+                      </button>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -351,17 +379,100 @@ export default function MySchedules() {
   }
 
   // ═══════════════════════════════════
-  // COORDINATOR VIEW — Full generation list (original behavior)
+  // COORDINATOR VIEW — Sections grouped by semester
   // ═══════════════════════════════════
   const completed = generations.filter(g => g.status === 'completada');
   const failed = generations.filter(g => g.status === 'fallida');
-  const colorMap = scheduleData ? buildColorMap(scheduleData.assignments || []) : {};
+
+  const loadSectionsForGen = async (gen) => {
+    setSelectedGen(gen);
+    setLoadingSections(true);
+    setViewSemester(null);
+    try {
+      const careerId = gen.career?._id || gen.career;
+      const sem = gen.semester || '2026-1';
+      const res = await api.get('/sections', { params: { career: careerId, semester: sem } });
+      setSectionData(res.data.sections || []);
+    } catch (e) { console.error(e); setSectionData([]); }
+    setLoadingSections(false);
+  };
+
+  const semesters = [...new Set(sectionData.map(s => s.courseSemester))].sort((a, b) => a - b);
+  const filteredSections = viewSemester
+    ? sectionData.filter(s => s.courseSemester === viewSemester)
+    : sectionData;
+
+  const sectionsToAssignments = (sections) => {
+    const result = [];
+    sections.forEach(sec => {
+      (sec.scheduleSlots || []).forEach(slot => {
+        result.push({
+          day: slot.day,
+          startTime: slot.startTime,
+          endTime: slot.endTime,
+          courseId: {
+            _id: sec.courseId?._id,
+            name: sec.courseId?.name || 'Curso',
+            code: sec.courseId?.code || ''
+          },
+          classroomId: {
+            _id: sec.classroomId?._id,
+            code: sec.classroomId?.code || ''
+          },
+          teacherId: {
+            _id: sec.teacherId?._id,
+            name: sec.teacherId?.name || ''
+          },
+          sectionCode: sec.sectionCode
+        });
+      });
+    });
+    return result;
+  };
+
+  const renderSemesterTable = (sections) => {
+    const assignments = sectionsToAssignments(sections);
+    if (assignments.length === 0) return <p className="text-muted" style={{ textAlign: 'center', padding: 20 }}>Sin horarios para este semestre.</p>;
+    const colorMap = buildColorMap(assignments);
+    const usedSlots = TIME_SLOTS.filter(slot =>
+      DAYS.some(day => getAssignment(assignments, day, slot))
+    );
+    const slotsToShow = usedSlots.length > 0 ? usedSlots : TIME_SLOTS.slice(0, 11);
+    return (
+      <div className="schedule-grid-container" style={{ overflowX: 'auto', marginTop: 4 }}>
+        <table className="schedule-table compact">
+          <thead><tr><th className="time-col">Hora</th>{DAYS.slice(0, 5).map(d => <th key={d}>{d}</th>)}</tr></thead>
+          <tbody>
+            {slotsToShow.map(slot => (
+              <tr key={slot}>
+                <td className="time-cell">{slot}</td>
+                {DAYS.slice(0, 5).map(day => {
+                  const a = getAssignment(assignments, day, slot);
+                  if (!a) return <td key={day} className="empty-cell"></td>;
+                  const name = a.courseId?.name || 'Curso';
+                  const c = colorMap[name] || CELL_COLORS[0];
+                  return (
+                    <td key={day}>
+                      <div className="schedule-cell" style={{ background: c.bg, borderLeft: `3px solid ${c.border}`, color: c.text, padding: '4px 6px', borderRadius: 4, fontSize: 11 }}>
+                        <strong>{a.courseId?.code}-{a.sectionCode}</strong><br />
+                        <span style={{ fontSize: 10 }}>{a.classroomId?.code || ''} · {a.teacherId?.name?.split(' ')[0] || ''}</span>
+                      </div>
+                    </td>
+                  );
+                })}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    );
+  };
 
   return (
     <div className="myschedules-page animate-fadeIn">
       <div className="page-header">
         <h1>Mis horarios</h1>
-        <p>Consulta tus horarios generados y alternativas.</p>
+        <p>Consulta los horarios generados por carrera y semestre.</p>
       </div>
 
       <div className="tabs">
@@ -372,28 +483,92 @@ export default function MySchedules() {
       {tab === 'generados' ? (
         <div className="schedules-list">
           {completed.length === 0 ? (
-            <div className="empty-state"><HiOutlineCalendar /><h3>Sin horarios generados</h3><p>Genera tu primer horario desde la página "Generar horario".</p>
-              <button className="btn btn-primary" style={{ marginTop: 12 }} onClick={() => navigate('/generate')}>Generar horario</button>
+            <div className="empty-state"><HiOutlineCalendar /><h3>Sin horarios generados</h3><p>Genera horarios desde la página "Generar Horarios".</p>
+              <button className="btn btn-primary" style={{ marginTop: 12 }} onClick={() => navigate('/career-generation')}>Generar horarios</button>
             </div>
-          ) : completed.map((gen, i) => (
-            <div key={gen._id} className={`schedule-card card ${i === 0 ? 'best' : ''}`}>
-              <div className="schedule-card-header">
-                {i === 0 && <HiOutlineStar className="star-icon" />}
-                <div><h3>{i === 0 ? 'Horario Óptimo' : gen.name || `Alternativa ${i}`}</h3><p>Generado: {new Date(gen.createdAt).toLocaleString('es-PE')}</p></div>
+          ) : (
+            <>
+              <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', marginBottom: 20 }}>
+                {completed.map(gen => (
+                  <div key={gen._id}
+                    className={`card ${selectedGen?._id === gen._id ? 'card-selected' : ''}`}
+                    style={{ flex: '1 0 280px', padding: 16, cursor: 'pointer', border: selectedGen?._id === gen._id ? '2px solid var(--primary)' : '1px solid var(--border)' }}
+                    onClick={() => loadSectionsForGen(gen)}
+                  >
+                    <div className="schedule-card-header" style={{ marginBottom: 8 }}>
+                      <div>
+                        <strong style={{ fontSize: '0.9rem' }}>{gen.name || gen.career?.name || 'Horario'}</strong>
+                        <p style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', margin: '2px 0 0' }}>
+                          {new Date(gen.createdAt).toLocaleString('es-PE')}
+                        </p>
+                      </div>
+                      <span className={`badge badge-${gen.status === 'completada' ? 'success' : 'error'}`}>
+                        {gen.qualityScore || 0}
+                      </span>
+                    </div>
+                    <div style={{ display: 'flex', gap: 16, fontSize: '0.78rem', color: 'var(--text-secondary)' }}>
+                      <span>{gen.sectionsGenerated || 0} secciones</span>
+                      <span>{gen.semester}</span>
+                    </div>
+                  </div>
+                ))}
               </div>
-              <div className="schedule-card-stats">
-                <div className="scard-stat"><span className="scard-label">Optimización</span><span className="scard-value">{gen.qualityScore} / 100</span></div>
-                <div className="scard-stat"><span className="scard-label">Restricciones</span><span className="scard-value">{gen.constraintsFulfilled || 0}%</span></div>
-                <div className="scard-stat"><span className="scard-label">Estado</span><span className={`badge badge-${gen.status === 'completada' ? 'success' : 'error'}`}>{gen.status === 'completada' ? 'Válido' : gen.status}</span></div>
-              </div>
-              {gen.unsatisfiedConditions?.length > 0 && (
-                <div className="schedule-card-warning"><HiOutlineExclamationCircle /> {gen.unsatisfiedConditions.length} condiciones no satisfechas</div>
+
+              {selectedGen && (
+                <div className="card" style={{ padding: 16 }}>
+                  <div className="sections-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+                    <h3 style={{ margin: 0 }}>
+                      {selectedGen.career?.name || 'Carrera'} — {selectedGen.name}
+                    </h3>
+                    <span className="badge badge-success" style={{ fontSize: '0.8rem' }}>
+                      Score: {selectedGen.qualityScore}/100
+                    </span>
+                  </div>
+
+                  {loadingSections ? (
+                    <div className="loading-container"><div className="spinner"></div></div>
+                  ) : sectionData.length === 0 ? (
+                    <p className="text-muted" style={{ textAlign: 'center', padding: 20 }}>No hay secciones disponibles.</p>
+                  ) : (
+                    <>
+                      {/* Semester tabs */}
+                      <div className="semester-tabs" style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 16, paddingBottom: 12, borderBottom: '1px solid var(--border)' }}>
+                        <button
+                          className={`semester-tab ${!viewSemester ? 'active' : ''}`}
+                          onClick={() => setViewSemester(null)}
+                          style={{ padding: '6px 16px', borderRadius: 20, border: '1px solid var(--border)', background: !viewSemester ? 'var(--primary)' : 'transparent', cursor: 'pointer', fontSize: '0.82rem', fontWeight: 500, color: !viewSemester ? '#fff' : 'var(--text-secondary)' }}
+                        >
+                          Todos ({sectionData.length})
+                        </button>
+                        {semesters.map(s => (
+                          <button key={s}
+                            className={`semester-tab ${viewSemester === s ? 'active' : ''}`}
+                            onClick={() => setViewSemester(s)}
+                            style={{ padding: '6px 16px', borderRadius: 20, border: '1px solid var(--border)', background: viewSemester === s ? 'var(--primary)' : 'transparent', cursor: 'pointer', fontSize: '0.82rem', fontWeight: 500, color: viewSemester === s ? '#fff' : 'var(--text-secondary)' }}
+                          >
+                            Sem {s} ({sectionData.filter(sec => sec.courseSemester === s).length})
+                          </button>
+                        ))}
+                      </div>
+
+                      {/* Semester summary + Schedule table */}
+                      <div className="semester-summary" style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginBottom: 16 }}>
+                        {filteredSections.map(sec => (
+                          <div key={sec._id} style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '4px 10px', borderRadius: 14, background: 'var(--bg-hover)', fontSize: '0.72rem', fontWeight: 500, color: 'var(--text-secondary)' }}>
+                            <span style={{ width: 8, height: 8, borderRadius: '50%', background: (CELL_COLORS[[...new Set(sectionData.map(s => s.courseId?.name))].indexOf(sec.courseId?.name) % CELL_COLORS.length] || CELL_COLORS[0]).border }}></span>
+                            <span style={{ fontFamily: "'JetBrains Mono', monospace" }}>{sec.courseId?.code}-{sec.sectionCode}</span>
+                            <span>{sec.teacherId?.name?.split(' ')[0]}</span>
+                            <span>{sec.classroomId?.code}</span>
+                          </div>
+                        ))}
+                      </div>
+                      {renderSemesterTable(filteredSections)}
+                    </>
+                  )}
+                </div>
               )}
-              <button className="btn btn-primary btn-sm" style={{ marginTop: 12 }} onClick={() => handleViewSchedule(gen)}>
-                <HiOutlineEye /> Ver horario completo →
-              </button>
-            </div>
-          ))}
+            </>
+          )}
         </div>
       ) : (
         <div className="schedules-list">
@@ -407,21 +582,6 @@ export default function MySchedules() {
           ))}
         </div>
       )}
-
-      <Modal isOpen={!!viewSchedule} onClose={() => { setViewSchedule(null); setScheduleData(null); }} title={viewSchedule ? `${viewSchedule.name || 'Horario'} — Score: ${viewSchedule.qualityScore}/100` : ''} width="900px">
-        {loadingSchedule ? (
-          <div className="loading-container"><div className="spinner"></div></div>
-        ) : scheduleData ? (
-          <div className="modal-schedule-view">
-            <div className="modal-schedule-stats">
-              <span><strong>Asignaciones:</strong> {scheduleData.totalAssignments}</span>
-              <span><strong>Semestre:</strong> {scheduleData.semester}</span>
-              <span className="badge badge-success">Válido</span>
-            </div>
-            {renderScheduleTable(scheduleData.assignments || [])}
-          </div>
-        ) : <p>No se pudo cargar el horario.</p>}
-      </Modal>
     </div>
   );
 }

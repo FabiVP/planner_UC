@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, startTransition } from 'react';
 import api from '../api/axios';
 import {
   HiOutlineAcademicCap, HiOutlineUserGroup, HiOutlineBookOpen,
@@ -28,17 +28,19 @@ export default function Planning() {
   const [passRate, setPassRate] = useState(75);
   const [growthRate, setGrowthRate] = useState(5);
 
-  useEffect(() => { loadSummary(); }, []);
-
   const loadSummary = async () => {
-    setLoading(true);
+    startTransition(() => setLoading(true));
     try {
       const res = await api.get('/careers/summary/all');
-      setSummary(res.data);
-      setCareers(res.data.summary || []);
+      startTransition(() => {
+        setSummary(res.data);
+        setCareers(res.data.summary || []);
+      });
     } catch (err) { console.error(err); }
-    setLoading(false);
+    startTransition(() => setLoading(false));
   };
+
+  useEffect(() => { loadSummary(); }, []);
 
   const selectCareer = async (career, forceMode) => {
     setSelectedCareer(career);
@@ -82,7 +84,6 @@ export default function Planning() {
 
   // Stats
   const totalCareers = careers.length;
-  const totalDeficitCareers = careers.filter(c => c.status === 'deficit').length;
   const totalTeachersNeeded = careers.reduce((s, c) => s + c.totalTeachersNeeded, 0);
   const totalDeficitSum = careers.reduce((s, c) => s + c.totalDeficit, 0);
 

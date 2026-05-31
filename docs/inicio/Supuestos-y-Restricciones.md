@@ -24,8 +24,8 @@ Los supuestos son condiciones que se asumen como verdaderas para continuar con e
 | SA-01 | Los datos de estudiantes, docentes, cursos y aulas estarán disponibles en formato estructurado para ser ingresados al sistema | El sistema requiere datos base para funcionar; se asume que el equipo de pruebas proveerá datasets de prueba | Alto: el sistema no puede generar horarios sin datos de entrada |
 | SA-02 | Cada docente puede ser asignado a no más de 3 cursos por semestre | Práctica académica común en universidades peruanas; limita la complejidad del CSP | Medio: ajustar restricción en el modelo |
 | SA-03 | Las aulas tienen capacidad fija y tipo definido (teórica / laboratorio) | Necesario para la restricción de infraestructura del CSP | Medio: el motor de asignación requeriría ajustes |
-| SA-04 | El límite de créditos por estudiante es de 20 a 22 créditos por semestre, según la consigna | Establecido explícitamente en la consigna del PFA | Bajo: ajustar la validación |
-| SA-05 | Los horarios se planifican para una semana tipo (lunes a sábado, turnos mañana/tarde/noche) | Simplificación del modelo temporal para el PMV | Medio: requeriría adaptar el modelo de dominio |
+| SA-04 | El límite de créditos por estudiante es de 12 a 25 créditos por semestre (rango configurable vía InstitutionalPolicy), con reducción a 18 si hay >2 desaprobados | Definido en `InstitutionalPolicy.enrollmentRules` con defaults 12-25 | Bajo: ajustar la validación |
+| SA-05 | Los horarios se planifican para una semana tipo (lunes a viernes, 15 franjas de 07:00-22:00, bloque de almuerzo 13:00-14:00) | Implementado con TIME_SLOTS en `csp.js` y frontend | Medio: requeriría adaptar el modelo de dominio |
 | SA-06 | Los prerrequisitos de cada curso son datos conocidos y no cambian durante un semestre | Necesario para la validación estática de matrícula | Bajo: actualizar catálogo de cursos |
 | SA-07 | El sistema no necesita integrarse con sistemas externos (SIS, ERP) en el PMV v1.0.0 | Restricción de alcance deliberada para reducir complejidad del PMV | Alto: cambiaría la arquitectura de integración |
 
@@ -84,16 +84,24 @@ Las restricciones son condiciones impuestas que limitan las opciones de diseño 
 | RsE-02 | Las contraseñas deben almacenarse con hash (bcrypt) | OWASP Top 10 (A02: Cryptographic Failures) | No se puede almacenar contraseñas en texto plano |
 | RsE-03 | Los inputs del usuario deben validarse y sanitizarse | OWASP Top 10 (A03: Injection) | Implementar validación tanto en frontend como en backend |
 
-### 3.6. Restricciones del Dominio (CSP) con Priorización para PMV
+### 3.6. Restricciones del Dominio (CSP) — Implementadas (RD-01 a RD-14)
 
-| ID | Restricción del modelo | Tipo | Prioridad PMV | Impacto si se omite |
+| ID | Restricción del modelo | Tipo | Implementado en | Impacto si se omite |
 |---|---|---|---|---|
-| RD-01 | Un docente no puede estar asignado a dos cursos al mismo tiempo | Dura (hard) | **Alta (Obligatoria)** | Horario inválido (conflicto de persona) |
-| RD-02 | Un aula no puede ser asignada a dos cursos al mismo tiempo | Dura (hard) | **Alta (Obligatoria)** | Horario inválido (doble reserva) |
-| RD-03 | Un estudiante no puede tener dos cursos solapados en su horario | Dura (hard) | **Alta (Obligatoria)** | Estudiante no puede asistir a dos clases |
-| RD-04 | El total de créditos por estudiante debe estar entre 20 y 22 | Dura (hard) | **Alta (Obligatoria)** | Incumplimiento normativa académica |
-| RD-05 | Un curso solo puede ser tomado si se cumplen todos sus prerrequisitos | Dura (hard) | **Alta (Obligatoria)** | Estudiante cursa sin base conceptual |
-| RD-06 | El tipo de aula debe coincidir con el tipo de curso (teórico/laboratorio) | Dura (hard) | **Media (Sprint 3)** | Clase teórica en laboratorio (ineficiencia, no invalidez) |
+| RD-01 | Un docente no puede estar asignado a dos cursos al mismo tiempo | Dura (hard) | `constraints.js:checkRD01` | Horario inválido (conflicto de persona) |
+| RD-02 | Un aula no puede ser asignada a dos cursos al mismo tiempo | Dura (hard) | `constraints.js:checkRD02` | Horario inválido (doble reserva) |
+| RD-03 | Un estudiante del mismo semestre/carrera no puede tener dos cursos solapados | Dura (hard) | `constraints.js:checkRD03` | Estudiante no puede asistir a dos clases |
+| RD-04 | La capacidad del aula debe ser >= alumnos del curso (aforo) | Dura (hard) | `constraints.js:checkRD04` | Aula insuficiente para estudiantes |
+| RD-05 | El tipo de aula debe coincidir con el tipo de curso (aulas virtuales permitidas para teóricos) | Dura (hard) | `constraints.js:checkRD05` | Clase teórica en laboratorio |
+| RD-06 | Disponibilidad del docente (horaria + días libres) | Dura (hard) | `constraints.js:checkRD06_TeacherAvailability` | Docente asignado fuera de su horario |
+| RD-07 | Disponibilidad del aula (schedule de franjas) | Dura (hard) | `constraints.js:checkRD07_ClassroomAvailability` | Aula ocupada en hora asignada |
+| RD-08 | Carga máxima del docente (cursos y horas semanales según contractType) | Dura (hard) | `constraints.js:checkRD08_TeacherLoad` | Docente con sobrecarga |
+| RD-09 | Horario dentro de ventana institucional (activeDays, startTime, endTime) | Dura (hard) | `constraints.js:checkRD09_InstitutionalSchedule` | Horario fuera de horario institucional |
+| RD-10 | Máximo de horas continuas por docente (default: 4h) | Dura (hard) | `constraints.js:checkRD10_ContinuousHours` | Docente con jornada excesiva continua |
+| RD-11 | Distribución de sesiones en días diferentes (maxPerDay) | Dura (hard) | `constraints.js:checkRD11_DayDistribution` | Curso con 2 sesiones el mismo día |
+| RD-12 | Bloques horarios bloqueados (almuerzo, mantenimiento) | Dura (hard) | `constraints.js:checkRD12_BlockedTimeSlots` | Asignación en hora bloqueada |
+| RD-13 | Preferencia de turno para docentes por horas (PH) como restricción dura | Dura (hard) | `constraints.js:checkRD13_PH_Preferences` | PH asignado fuera de su turno |
+| RD-14 | Límite de créditos por semestre (mín 12, máx 25, configurable) | Dura (hard) | `constraints.js:checkRD14_CreditLimit` | Créditos fuera del rango permitido |
 
 ---
 
@@ -110,13 +118,13 @@ Las restricciones son condiciones impuestas que limitan las opciones de diseño 
 
 ## 4. Estrategia de Priorización de Restricciones del CSP
 
-Para el PMV v1.0.0, las restricciones se priorizan de la siguiente manera:
+Para el PMV v1.0.0, todas las restricciones RD-01 a RD-14 están implementadas:
 
-| Prioridad | Restricciones | Justificación |
+| Prioridad | Restricciones | Estado |
 |---|---|---|
-| **Alta (implementación obligatoria)** | RD-01, RD-02, RD-03, RD-04, RD-05 | Son restricciones duras sin las cuales el horario sería inválido |
-| **Media (implementación en Sprint 3)** | RD-06, disponibilidad de docentes | Mejoran la calidad del horario pero el sistema puede funcionar sin ellas |
-| **Baja (versiones futuras)** | Optimización de preferencias de horario de estudiantes | Restricciones blandas que mejoran la experiencia pero no son críticas |
+| **Alta (implementada desde Sprint 3)** | RD-01 a RD-11 | Implementado en `constraints.js` con verificación unificada en `checkAllConstraints` |
+| **Media (implementada en Sprint 4-5)** | RD-12, RD-13, RD-14 | Bloques bloqueados, turno PH, límite de créditos (nuevas restricciones añadidas durante el desarrollo) |
+| **Blandas (optimización)** | RS-01 a RS-04 | Preferencias de turno docente, huecos, compactación, equidad en `scoring.js` |
 
 ---
 
@@ -124,9 +132,9 @@ Para el PMV v1.0.0, las restricciones se priorizan de la siguiente manera:
 
 | Supuesto | Restricción relacionada | Relación |
 |---|---|---|
-| SA-04 (créditos 20–22) | RD-04 | El supuesto valida la restricción dura del CSP |
-| SA-06 (prerrequisitos conocidos) | RD-05 | El supuesto permite implementar la restricción de manera estática |
-| SA-05 (semana tipo) | RD-01, RD-02, RD-03 | La simplificación temporal hace tratables las restricciones de solapamiento |
+| SA-04 (créditos 12-25) | RD-14 | El supuesto valida la restricción dura del CSP |
+| SA-06 (prerrequisitos conocidos) | Validación de matrícula | El supuesto permite implementar la validación de manera estática |
+| SA-05 (semana tipo Lun-Vie) | RD-01, RD-02, RD-03, RD-09 | La simplificación temporal hace tratables las restricciones de solapamiento |
 | SP-02 (habilidades del equipo) | RT-01 (stack MERN) | El supuesto valida que la restricción tecnológica es implementable |
 
 ---

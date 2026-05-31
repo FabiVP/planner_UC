@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, startTransition } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ScheduleGrid from '../components/schedule/ScheduleGrid';
 import Modal from '../components/ui/Modal';
@@ -11,14 +11,17 @@ export default function Schedules() {
   const [selectedCell, setSelectedCell] = useState(null);
   const navigate = useNavigate();
 
-  useEffect(() => { load(); }, []);
   const load = async () => {
     try {
       const r = await api.get('/schedule');
-      setSchedules(r.data.schedules || []);
-      if (r.data.schedules?.length > 0) setSelected(r.data.schedules[0]);
-    } catch(e) {}
+      startTransition(() => {
+        setSchedules(r.data.schedules || []);
+        if (r.data.schedules?.length > 0) setSelected(r.data.schedules[0]);
+      });
+    } catch { /* ignore */ }
   };
+
+  useEffect(() => { load(); }, []);
 
   return (
     <div className="animate-fadeIn">

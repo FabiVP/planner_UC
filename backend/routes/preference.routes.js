@@ -9,5 +9,6 @@ router.get('/', ctrl.getMyPreferences);
 router.put('/', ctrl.updateMyPreferences);
 router.get('/availability/teachers', ctrl.getTeacherAvailability);
 router.get('/availability/students', ctrl.getStudentAvailability);
+router.get('/teachers/by-career', ctrl.getTeachersByCareer);
 
 module.exports = router;

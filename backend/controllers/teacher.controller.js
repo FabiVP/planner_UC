@@ -39,20 +39,33 @@ exports.getById = async (req, res, next) => {
 exports.getMyProfile = async (req, res, next) => {
   try {
     const userId = req.user._id;
-    const teacher = await Teacher.findOne({ userId })
+    let teacher = await Teacher.findOne({ userId })
       .populate('specializations', 'code name credits semester type');
 
     if (!teacher) {
-      return res.status(404).json({
-        message: 'No se encontró un perfil de docente vinculado a tu cuenta.',
-        hint: 'El coordinador debe crear tu perfil docente y vincularlo a tu usuario.'
-      });
+      // Try to link by email if a Teacher record exists
+      teacher = await Teacher.findOne({ email: req.user.email });
+      if (teacher) {
+        teacher.userId = userId;
+        await teacher.save();
+        teacher = await Teacher.findById(teacher._id)
+          .populate('specializations', 'code name credits semester type');
+      } else {
+        // Auto-create a basic profile
+        teacher = await Teacher.create({
+          userId,
+          name: req.user.name,
+          email: req.user.email
+        });
+      }
     }
 
     // Compute summary stats
     const totalSpecializations = teacher.specializations?.length || 0;
     const availableDays = teacher.availability?.length || 0;
     const freeDaysCount = teacher.freeDays?.length || 0;
+
+    const adminLoadLabel = teacher.administrativeLoad ? 'Con carga administrativa' : 'Sin carga administrativa';
 
     res.json({
       teacher,
@@ -63,6 +76,9 @@ exports.getMyProfile = async (req, res, next) => {
         contractLabel: teacher.contractType === 'tiempo_completo' ? 'Tiempo Completo' : 'Por Horas',
         maxWeeklyHours: teacher.maxWeeklyHours,
         maxCourses: teacher.maxCourses,
+        teachingHours: teacher.teachingHours,
+        administrativeLoad: teacher.administrativeLoad,
+        adminLoadLabel: teacher.contractType === 'tiempo_completo' ? adminLoadLabel : null,
         shiftLabel: { manana: 'Mañana', tarde: 'Tarde', noche: 'Noche', indiferente: 'Indiferente' }[teacher.preferredShift] || 'Indiferente'
       }
     });
@@ -87,7 +103,8 @@ exports.updateMyProfile = async (req, res, next) => {
 
     // Only allow docente to update these fields (not contract, name, etc.)
     const allowedFields = [
-      'availability', 'freeDays', 'preferredShift', 'specializations'
+      'availability', 'freeDays', 'preferredShift', 'specializations',
+      'teachingHours', 'administrativeLoad'
     ];
 
     const updateData = {};
@@ -122,6 +139,8 @@ exports.getAdminOverview = async (req, res, next) => {
 
     const tcTeachers = teachers.filter(t => t.contractType === 'tiempo_completo');
     const phTeachers = teachers.filter(t => t.contractType === 'por_horas');
+    const tcWithAdmin = tcTeachers.filter(t => t.administrativeLoad === true);
+    const tcWithoutAdmin = tcTeachers.filter(t => t.administrativeLoad !== true);
 
     // Calculate coverage: how many courses have at least one teacher specialized
     const allCourses = await Course.countDocuments({ active: true });
@@ -143,6 +162,8 @@ exports.getAdminOverview = async (req, res, next) => {
       metrics: {
         total: teachers.length,
         fullTime: tcTeachers.length,
+        fullTimeWithAdmin: tcWithAdmin.length,
+        fullTimeWithoutAdmin: tcWithoutAdmin.length,
         partTime: phTeachers.length,
         totalCapacityHours: tcTeachers.length * 40 + phTeachers.length * 20,
         coursesCovered: coveredCourseIds.size,

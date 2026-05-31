@@ -6,12 +6,12 @@ import api from '../../api/axios';
 import './Header.css';
 
 export default function Header() {
-  const { user, logout } = useAuth();
+  const { logout } = useAuth();
   const navigate = useNavigate();
   const [unreadCount, setUnreadCount] = useState(0);
 
   useEffect(() => {
-    api.get('/notifications?read=false')
+    api.get('/notifications', { params: { read: false } })
       .then(res => setUnreadCount(res.data.unreadCount || 0))
       .catch(() => {});
   }, []);

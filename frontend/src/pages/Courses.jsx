@@ -1,37 +1,45 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, startTransition } from 'react';
 import Modal from '../components/ui/Modal';
 import api from '../api/axios';
 import { HiOutlinePlus, HiOutlinePencil, HiOutlineTrash, HiOutlineEye } from 'react-icons/hi';
 import './Courses.css';
 
-const emptyForm = { code: '', name: '', credits: 4, type: 'teorico', semester: 1, sessionsPerWeek: 2, hoursPerSession: 1, career: '', difficulty: 3, corequisites: [] };
+const emptyForm = { code: '', name: '', credits: 4, type: 'teorico', semester: 1, sessionsPerWeek: 2, hoursPerSession: 1, career: '', difficulty: 3, corequisites: [], minStudentsPerSection: 15, maxStudents: 40, mandatory: true, assignedTeachers: [] };
 
 export default function Courses() {
   const [courses, setCourses] = useState([]);
   const [careers, setCareers] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [teachers, setTeachers] = useState([]);
+  const [, setLoading] = useState(true);
   const [modal, setModal] = useState(false);
   const [editing, setEditing] = useState(null);
   const [form, setForm] = useState({ ...emptyForm });
   const [filterCareer, setFilterCareer] = useState('all');
   const [detailItem, setDetailItem] = useState(null);
 
-  useEffect(() => { loadCourses(); loadCareers(); }, []);
-
   const loadCourses = async () => {
     try {
       const res = await api.get('/courses');
-      setCourses(res.data.courses || []);
+      startTransition(() => setCourses(res.data.courses || []));
     } catch (err) { console.error(err); }
-    finally { setLoading(false); }
+    finally { startTransition(() => setLoading(false)); }
   };
 
   const loadCareers = async () => {
     try {
       const res = await api.get('/careers');
-      setCareers(res.data.careers || []);
+      startTransition(() => setCareers(res.data.careers || []));
     } catch (err) { console.error(err); }
   };
+
+  const loadTeachers = async () => {
+    try {
+      const res = await api.get('/teachers');
+      startTransition(() => setTeachers(res.data.teachers || []));
+    } catch (err) { console.error(err); }
+  };
+
+  useEffect(() => { loadCourses(); loadCareers(); loadTeachers(); }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -64,7 +72,11 @@ export default function Courses() {
       hoursPerSession: course.hoursPerSession,
       career: course.career?._id || course.career || '',
       difficulty: course.difficulty || 3,
-      corequisites: (course.corequisites || []).map(c => c._id || c)
+      corequisites: (course.corequisites || []).map(c => c._id || c),
+      minStudentsPerSection: course.minStudentsPerSection ?? 15,
+      maxStudents: course.maxStudents ?? 40,
+      mandatory: course.mandatory !== undefined ? course.mandatory : true,
+      assignedTeachers: (course.assignedTeachers || []).map(t => t._id || t)
     });
     setModal(true);
   };
@@ -74,7 +86,7 @@ export default function Courses() {
     try {
       await api.delete(`/courses/${id}`);
       loadCourses();
-    } catch (err) { alert('Error al eliminar'); }
+    }     catch { alert('Error al eliminar'); }
   };
 
   const getCareerName = (course) => {
@@ -176,6 +188,7 @@ export default function Courses() {
           <div className="form-row">
             <div className="form-group"><label>Semestre</label><input type="number" className="form-input" value={form.semester} onChange={e => setForm({...form, semester: +e.target.value})} min="1" max="10" required /></div>
             <div className="form-group"><label>Sesiones/semana</label><input type="number" className="form-input" value={form.sessionsPerWeek} onChange={e => setForm({...form, sessionsPerWeek: +e.target.value})} min="1" max="5" required /></div>
+            <div className="form-group"><label>Horas/sesión</label><input type="number" className="form-input" value={form.hoursPerSession} onChange={e => setForm({...form, hoursPerSession: +e.target.value})} min="1" max="3" required /></div>
           </div>
           <div className="form-row">
             <div className="form-group">
@@ -188,6 +201,32 @@ export default function Courses() {
                   </button>
                 ))}
               </div>
+            </div>
+          </div>
+          <div className="form-row">
+            <div className="form-group"><label>Mín. estudiantes/sección</label><input type="number" className="form-input" value={form.minStudentsPerSection} onChange={e => setForm({...form, minStudentsPerSection: +e.target.value})} min="1" max="50" required /></div>
+            <div className="form-group"><label>Máx. estudiantes</label><input type="number" className="form-input" value={form.maxStudents} onChange={e => setForm({...form, maxStudents: +e.target.value})} min="5" max="200" required /></div>
+          </div>
+          <div className="form-row">
+            <div className="form-group">
+              <label>Obligatorio</label>
+              <div className="toggle-row" style={{ marginTop: 4 }}>
+                <label className="toggle-label">
+                  <input type="checkbox" checked={form.mandatory} onChange={e => setForm({...form, mandatory: e.target.checked})} />
+                  <span className="toggle-text">{form.mandatory ? 'Sí' : 'No'}</span>
+                </label>
+              </div>
+            </div>
+            <div className="form-group">
+              <label>Docentes asignados</label>
+              <select className="form-select" multiple value={form.assignedTeachers}
+                onChange={e => setForm({...form, assignedTeachers: Array.from(e.target.selectedOptions, o => o.value)})}
+                style={{ minHeight: '80px' }}>
+                {teachers.map(t => (
+                  <option key={t._id} value={t._id}>{t.name}</option>
+                ))}
+              </select>
+              <span className="form-hint">Ctrl+click para seleccionar múltiples. {form.assignedTeachers.length} seleccionados.</span>
             </div>
           </div>
           <div className="form-group">
@@ -216,6 +255,14 @@ export default function Courses() {
             <div className="detail-row"><span className="detail-label">Semestre</span><span className="detail-value">{detailItem.semester}</span></div>
             <div className="detail-row"><span className="detail-label">Sesiones/semana</span><span className="detail-value">{detailItem.sessionsPerWeek} × {detailItem.hoursPerSession}h</span></div>
             <div className="detail-row"><span className="detail-label">Dificultad</span><span className="detail-value">{'★'.repeat(detailItem.difficulty || 3)}{'☆'.repeat(5 - (detailItem.difficulty || 3))}</span></div>
+            <div className="detail-row"><span className="detail-label">Min. estudiantes</span><span className="detail-value">{detailItem.minStudentsPerSection ?? 15}</span></div>
+            <div className="detail-row"><span className="detail-label">Máx. estudiantes</span><span className="detail-value">{detailItem.maxStudents ?? 40}</span></div>
+            <div className="detail-row"><span className="detail-label">Obligatorio</span><span className="detail-value">{detailItem.mandatory !== false ? 'Sí' : 'No'}</span></div>
+            <div className="detail-row"><span className="detail-label">Docentes asignados</span><span className="detail-value">
+              {detailItem.assignedTeachers?.length > 0
+                ? detailItem.assignedTeachers.map(t => t.name || t).join(', ')
+                : '—'}
+            </span></div>
           </div>
         )}
       </Modal>

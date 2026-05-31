@@ -1,0 +1,439 @@
+/* ══════════════════════════════════════════
+   TeacherPreferences — Admin view
+   ══════════════════════════════════════════ */
+
+.teacher-prefs-page .page-header p {
+  max-width: 640px;
+}
+
+/* ── Stats ── */
+.teacher-prefs-page .stats-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.teacher-prefs-page .stat-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 20px;
+}
+
+.teacher-prefs-page .stat-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.teacher-prefs-page .stat-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--text-primary);
+}
+
+.teacher-prefs-page .stat-label {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+}
+
+/* ── Tabs ── */
+.teacher-prefs-page .pref-tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 20px;
+  background: var(--surface);
+  border-radius: 12px;
+  padding: 4px;
+  border: 1px solid var(--border);
+}
+
+.teacher-prefs-page .pref-tab {
+  padding: 10px 20px;
+  border: none;
+  background: none;
+  border-radius: 10px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.teacher-prefs-page .pref-tab:hover {
+  color: var(--text-primary);
+  background: rgba(99, 102, 241, 0.06);
+}
+
+.teacher-prefs-page .pref-tab.active {
+  background: var(--primary);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
+}
+
+/* ── Heatmap ── */
+.teacher-prefs-page .heatmap-container {
+  overflow-x: auto;
+}
+
+.teacher-prefs-page .heatmap-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 4px;
+}
+
+.teacher-prefs-page .heatmap-table th {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 8px 6px;
+  text-align: center;
+}
+
+.teacher-prefs-page .heatmap-table th:first-child {
+  text-align: left;
+  min-width: 80px;
+}
+
+.teacher-prefs-page .heatmap-table td {
+  text-align: center;
+  padding: 12px 8px;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  transition: transform 0.15s, box-shadow 0.15s;
+  cursor: default;
+  position: relative;
+}
+
+.teacher-prefs-page .heatmap-table td:hover {
+  transform: scale(1.08);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+  z-index: 2;
+}
+
+.teacher-prefs-page .heatmap-table td:first-child {
+  text-align: left;
+  font-weight: 600;
+  background: transparent !important;
+  color: var(--text-primary);
+  font-size: 0.82rem;
+}
+
+.teacher-prefs-page .heatmap-table td:first-child:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+.teacher-prefs-page .heatmap-cell-0 { background: var(--surface); color: var(--text-secondary); }
+.teacher-prefs-page .heatmap-cell-1 { background: rgba(99, 102, 241, 0.1); color: var(--primary); }
+.teacher-prefs-page .heatmap-cell-2 { background: rgba(99, 102, 241, 0.2); color: var(--primary); }
+.teacher-prefs-page .heatmap-cell-3 { background: rgba(99, 102, 241, 0.35); color: #fff; }
+.teacher-prefs-page .heatmap-cell-4 { background: rgba(99, 102, 241, 0.55); color: #fff; }
+.teacher-prefs-page .heatmap-cell-5 { background: var(--primary); color: #fff; }
+
+/* ── Shift distribution ── */
+.teacher-prefs-page .shift-distribution {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 14px;
+  margin-top: 16px;
+}
+
+.teacher-prefs-page .shift-bar-card {
+  padding: 16px;
+  border-radius: 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+
+.teacher-prefs-page .shift-bar-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+.teacher-prefs-page .shift-bar-label .shift-emoji {
+  font-size: 1.2rem;
+}
+
+.teacher-prefs-page .shift-bar-track {
+  height: 10px;
+  background: var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.teacher-prefs-page .shift-bar-fill {
+  height: 100%;
+  border-radius: 6px;
+  transition: width 0.6s ease;
+}
+
+.teacher-prefs-page .shift-bar-fill.manana { background: linear-gradient(90deg, #f59e0b, #f97316); }
+.teacher-prefs-page .shift-bar-fill.tarde { background: linear-gradient(90deg, #6366f1, #8b5cf6); }
+.teacher-prefs-page .shift-bar-fill.noche { background: linear-gradient(90deg, #1e293b, #475569); }
+.teacher-prefs-page .shift-bar-fill.indiferente { background: linear-gradient(90deg, #10b981, #34d399); }
+
+.teacher-prefs-page .shift-bar-count {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  margin-top: 6px;
+}
+
+/* ── Info banner ── */
+.teacher-prefs-page .info-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 18px;
+  background: rgba(99, 102, 241, 0.06);
+  border: 1px solid rgba(99, 102, 241, 0.15);
+  border-radius: 12px;
+  margin-bottom: 20px;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.teacher-prefs-page .info-banner svg {
+  flex-shrink: 0;
+  color: var(--primary);
+  font-size: 1.2rem;
+  margin-top: 2px;
+}
+
+.teacher-prefs-page .section-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.teacher-prefs-page .badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 10px;
+  border-radius: 10px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+.teacher-prefs-page .badge-info {
+  background: rgba(99, 102, 241, 0.1);
+  color: var(--primary);
+}
+
+/* ── Career subheader ── */
+.tp-career-subheader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--text-primary);
+}
+
+/* ── Teacher row ── */
+.tp-teacher-row {
+  border-bottom: 1px solid var(--border);
+}
+.tp-teacher-row:last-child {
+  border-bottom: none;
+}
+.tp-teacher-row.pending {
+  background: rgba(245, 158, 11, 0.04);
+}
+
+.tp-teacher-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.tp-teacher-main:hover {
+  background: var(--hover);
+}
+
+.tp-teacher-info {
+  flex: 1;
+}
+
+.tp-teacher-name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.92rem;
+}
+
+.tp-icon-ok { color: #059669; font-size: 16px; flex-shrink: 0; }
+.tp-icon-pending { color: #d97706; font-size: 16px; flex-shrink: 0; }
+
+.tp-badge-contract {
+  display: inline-flex;
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  margin-left: 4px;
+}
+.tp-badge-contract.tiempo_completo {
+  background: rgba(16, 185, 129, 0.1);
+  color: #059669;
+}
+.tp-badge-contract.por_horas {
+  background: rgba(139, 92, 246, 0.1);
+  color: #7c3aed;
+}
+
+.tp-teacher-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 3px;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  flex-wrap: wrap;
+}
+.tp-teacher-meta svg {
+  font-size: 13px;
+  vertical-align: middle;
+}
+
+.tp-sep {
+  color: var(--border);
+}
+
+.tp-text-ok { color: #059669; font-weight: 500; }
+.tp-text-pending { color: #d97706; font-weight: 500; }
+
+/* ── Detail panel ── */
+.tp-teacher-detail {
+  padding: 16px 20px 20px;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  animation: fadeIn 0.2s ease;
+}
+
+.tp-detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.tp-detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.tp-detail-full {
+  grid-column: 1 / -1;
+}
+
+.tp-detail-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: var(--text-secondary);
+}
+
+.tp-detail-value {
+  font-size: 0.88rem;
+}
+
+.tp-detail-na {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+/* ── Availability slots ── */
+.tp-avail-slot-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tp-avail-slot-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  background: rgba(16, 185, 129, 0.07);
+  border: 1px solid rgba(16, 185, 129, 0.15);
+  border-radius: 8px;
+  font-size: 0.82rem;
+}
+
+.tp-day-badge {
+  font-weight: 600;
+  color: #059669;
+}
+
+.tp-time-badge {
+  color: var(--text-secondary);
+}
+
+/* ── Chips ── */
+.tp-chip-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.tp-chip-free {
+  padding: 2px 10px;
+  border-radius: 10px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  background: rgba(239, 68, 68, 0.08);
+  color: #dc2626;
+}
+
+.tp-chip-spec {
+  padding: 2px 10px;
+  border-radius: 10px;
+  font-size: 0.78rem;
+  background: rgba(99, 102, 241, 0.08);
+  color: var(--primary);
+  font-weight: 500;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 900px) {
+  .teacher-prefs-page .section-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .tp-detail-grid {
+    grid-template-columns: 1fr;
+  }
+}

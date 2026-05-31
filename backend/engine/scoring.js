@@ -1,6 +1,15 @@
 /**
  * Scoring Module — Sistema de evaluación para horarios generados.
  * 
+ * JERARQUÍA DE PRIORIDAD (MÁXIMA a menor):
+ *   1. INSTITUCIONAL (políticas de la universidad)
+ *   2. DISPONIBILIDAD docente/aula (restricciones duras)
+ *   3. PREFERENCIAS del docente
+ *   4. PREFERENCIAS del estudiante
+ * 
+ * Regla clave: Si una preferencia del docente CONFLICTA con
+ * una regla institucional, la institucional SIEMPRE gana.
+ * 
  * Evalúa cada solución del CSP con puntajes ponderados:
  *   - Validez del horario (25%): restricciones duras cumplidas
  *   - Restricciones institucionales (25%): capacidad, tipo aula, prereqs
@@ -36,11 +45,21 @@ const SCORES = {
 
 /**
  * Determinar el turno de una franja horaria
+ * Usa policy.shifts si está disponible, o valores por defecto.
  */
-function getShift(startTime) {
-  const hour = parseInt(startTime.split(':')[0], 10);
-  if (hour < 13) return 'manana';
-  if (hour < 19) return 'tarde';
+function getShift(startTime, policy = null) {
+  const shifts = policy?.shifts || {
+    manana: { start: '07:00', end: '13:00' },
+    tarde: { start: '14:00', end: '19:00' },
+    noche: { start: '19:00', end: '22:00' }
+  };
+
+  for (const [name, range] of Object.entries(shifts)) {
+    if (startTime >= range.start && startTime < range.end) {
+      return name;
+    }
+  }
+  // Fallback: noche
   return 'noche';
 }
 
@@ -107,8 +126,10 @@ function calculateInstitutionalScore(assignments, courses, classrooms) {
 
 /**
  * Calcular puntaje de preferencias satisfechas
+ * JERARQUÍA: Las preferencias institucionales (policy) tienen prioridad
+ * sobre las preferencias del docente. Si hay conflicto, gana la universidad.
  */
-function calculatePreferencesScore(assignments, teachers, preferences) {
+function calculatePreferencesScore(assignments, teachers, preferences, policy = null) {
   if (!preferences || preferences.length === 0) {
     return { score: 85, details: [] };
   }
@@ -117,10 +138,14 @@ function calculatePreferencesScore(assignments, teachers, preferences) {
   let maxPoints = 0;
   const details = [];
 
+  // ── Cargar reglas institucionales ──
+  const institutionalShiftTimes = policy?.shifts || {};
+  const institutionalBlocked = policy?.allowedSchedule?.blockedTimeSlots || [];
+
   for (const assignment of assignments) {
     const teacherId = (assignment.teacherId?._id || assignment.teacherId)?.toString();
     const teacher = teachers.find(t => (t._id || t).toString() === teacherId);
-    const shift = getShift(assignment.startTime);
+    const shift = getShift(assignment.startTime, policy);
 
     // Teacher preferred shift
     if (teacher) {
@@ -129,28 +154,63 @@ function calculatePreferencesScore(assignments, teachers, preferences) {
         p.userId?.toString() === teacher.userId?.toString() && p.role === 'docente'
       );
 
-      if (teacherPref) {
-        if (teacherPref.preferredShift === 'indiferente' || teacherPref.preferredShift === shift) {
+      // ── Verificar si hay conflicto con reglas institucionales ──
+      let institutionalConflict = false;
+
+      // Verificar que el turno esté dentro de los permitidos por la institución
+      if (institutionalShiftTimes[shift]) {
+        const instStart = institutionalShiftTimes[shift].start;
+        const instEnd = institutionalShiftTimes[shift].end;
+        if (assignment.startTime < instStart) {
+          institutionalConflict = true;
+        }
+      }
+
+      // Verificar bloqueos institucionales
+      for (const block of institutionalBlocked) {
+        if (assignment.startTime >= block.start && assignment.startTime < block.end) {
+          institutionalConflict = true;
+          break;
+        }
+      }
+
+      // Usar preferredShift del Teacher model como fuente principal,
+      // y del Preference model como respaldo si el docente configuró allí.
+      const teacherShift = teacher.preferredShift || teacherPref?.preferredShift;
+
+      if (teacherShift || teacherPref) {
+        if (institutionalConflict) {
+          // Conflicto institucional → la preferencia del docente NO se penaliza
+          // porque la asignación fue forzada por reglas de la universidad
+          totalPoints += 0; // neutral
+          details.push({
+            type: 'teacher_shift_overridden',
+            description: `Docente ${teacher.name}: preferencia anulada por regla institucional en turno ${shift}`,
+            impact: 'Bajo'
+          });
+        } else if (!teacherShift || teacherShift === 'indiferente' || teacherShift === shift) {
           totalPoints += SCORES.TEACHER_PREFERRED_SHIFT;
         } else {
           totalPoints += SCORES.UNWANTED_SLOT;
           details.push({
             type: 'teacher_shift',
-            description: `Docente ${teacher.name} asignado en turno ${shift}, prefiere ${teacherPref.preferredShift}`,
+            description: `Docente ${teacher.name} asignado en turno ${shift}, prefiere ${teacherShift}`,
             impact: 'Medio'
           });
         }
 
-        // Check block availability
-        const dayMap = { lunes: 'lun', martes: 'mar', miercoles: 'mie', jueves: 'jue', viernes: 'vie', sabado: 'sab', domingo: 'dom' };
-        const dayKey = dayMap[assignment.day];
-        if (dayKey && teacherPref.availability?.[shift]?.[dayKey] === false) {
-          totalPoints += SCORES.UNWANTED_SLOT;
-          details.push({
-            type: 'teacher_availability',
-            description: `Docente ${teacher.name} no disponible ${assignment.day} ${shift}`,
-            impact: 'Alto'
-          });
+        // Check block availability (only if no institutional conflict)
+        if (!institutionalConflict && teacherPref) {
+          const dayMap = { lunes: 'lun', martes: 'mar', miercoles: 'mie', jueves: 'jue', viernes: 'vie', sabado: 'sab', domingo: 'dom' };
+          const dayKey = dayMap[assignment.day];
+          if (dayKey && teacherPref.availability?.[shift]?.[dayKey] === false) {
+            totalPoints += SCORES.UNWANTED_SLOT;
+            details.push({
+              type: 'teacher_availability',
+              description: `Docente ${teacher.name} no disponible ${assignment.day} ${shift}`,
+              impact: 'Alto'
+            });
+          }
         }
       } else {
         totalPoints += SCORES.TEACHER_PREFERRED_SHIFT; // No pref = ok
@@ -171,19 +231,24 @@ function calculatePreferencesScore(assignments, teachers, preferences) {
     for (const [day, times] of Object.entries(days)) {
       const sorted = times.sort();
       for (let i = 1; i < sorted.length; i++) {
-        const prev = parseInt(sorted[i - 1].split(':')[0], 10);
-        const curr = parseInt(sorted[i].split(':')[0], 10);
-        const gap = curr - prev - 1;
+        const prevMin = timeToMinutes(sorted[i - 1]);
+        const currMin = timeToMinutes(sorted[i]);
+        const gap = (currMin - prevMin) / 60;
         if (gap >= 2) {
           totalPoints += SCORES.LONG_GAP;
           details.push({
             type: 'gap',
-            description: `Docente con hueco de ${gap} horas el ${day}`,
+            description: `Docente con hueco de ${gap.toFixed(1)} horas el ${day}`,
             impact: 'Bajo'
           });
         }
       }
     }
+  }
+
+  function timeToMinutes(t) {
+    const [h, m] = t.split(':').map(Number);
+    return h * 60 + (m || 0);
   }
 
   const score = maxPoints > 0
@@ -239,7 +304,7 @@ function calculateOptimizationScore(assignments, courses, teachers, classrooms) 
 function evaluateSolution(assignments, courses, teachers, classrooms, preferences = [], policy = null) {
   const validity = calculateValidityScore(assignments);
   const institutional = calculateInstitutionalScore(assignments, courses, classrooms);
-  const prefResult = calculatePreferencesScore(assignments, teachers, preferences);
+  const prefResult = calculatePreferencesScore(assignments, teachers, preferences, policy);
   const optimization = calculateOptimizationScore(assignments, courses, teachers, classrooms);
 
   // Dynamic weights from policy, or use defaults

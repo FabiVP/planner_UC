@@ -1,69 +1,69 @@
 // GET /api/restrictions — Listar restricciones institucionales
 exports.getAll = async (req, res, next) => {
   try {
-    // Restricciones institucionales predefinidas del sistema
+    // Restricciones institucionales del motor CSP (constraints.js)
     const restrictions = [
       {
         id: 'RD-01',
         category: 'institucional',
-        rule: 'Créditos limitados',
-        description: 'No puede inscribir más de 22 créditos.',
+        rule: 'No solapamiento de docente',
+        description: 'Un docente no puede estar asignado a dos cursos al mismo tiempo.',
         active: true,
         type: 'dura'
       },
       {
         id: 'RD-02',
         category: 'institucional',
-        rule: 'Choque de horarios',
-        description: 'No se permite clases en el mismo horario.',
+        rule: 'No solapamiento de aula',
+        description: 'Un aula no puede ser asignada a dos cursos al mismo tiempo.',
         active: true,
         type: 'dura'
       },
       {
         id: 'RD-03',
         category: 'institucional',
-        rule: 'Requisitos de materia',
-        description: 'Debe cumplir con los requisitos de cada materia.',
+        rule: 'No solapamiento de estudiantes',
+        description: 'Cursos del mismo semestre y carrera no deben solaparse.',
         active: true,
         type: 'dura'
       },
       {
         id: 'RD-04',
         category: 'institucional',
-        rule: 'Obligatoriedad',
-        description: 'Debe incluir todas las materias obligatorias del plan de estudios.',
+        rule: 'Capacidad de aula (aforo)',
+        description: 'El aula debe tener capacidad suficiente para los alumnos del curso.',
         active: true,
         type: 'dura'
       },
       {
         id: 'RD-05',
         category: 'institucional',
-        rule: 'Capacidad de aula',
-        description: 'Solo se asignan materias con la capacidad adecuada de cupo.',
+        rule: 'Tipo de infraestructura',
+        description: 'El tipo de aula debe corresponder al tipo de curso (teórico/laboratorio).',
         active: true,
         type: 'dura'
       },
       {
         id: 'RD-06',
         category: 'institucional',
-        rule: 'Tipo de aula',
-        description: 'El tipo de aula debe corresponder al tipo de materia.',
+        rule: 'Disponibilidad del docente',
+        description: 'La asignación debe estar dentro de la disponibilidad horaria y días libres del docente.',
         active: true,
         type: 'dura'
       },
       {
         id: 'RD-07',
         category: 'institucional',
-        rule: 'Disponibilidad docente',
-        description: 'Respetar la disponibilidad horaria del docente.',
+        rule: 'Disponibilidad del aula',
+        description: 'La asignación debe estar dentro del horario disponible del aula.',
         active: true,
         type: 'dura'
       },
       {
         id: 'RD-08',
         category: 'institucional',
-        rule: 'Carga máxima docente',
-        description: 'Límite de horas y cursos según tipo de contrato: Tiempo Completo (40h/sem, 4 cursos) o Por Horas (20h/sem, 2 cursos).',
+        rule: 'Carga máxima del docente',
+        description: 'Límite de horas y cursos según tipo de contrato: TC sin carga admin (36h), TC con carga admin (24h), PH (20h).',
         active: true,
         type: 'dura'
       },
@@ -71,14 +71,14 @@ exports.getAll = async (req, res, next) => {
         id: 'RD-09',
         category: 'institucional',
         rule: 'Horario institucional',
-        description: 'Las clases solo pueden programarse entre las 7:00 a.m. y las 10:00 p.m., de lunes a domingo.',
+        description: 'Las clases solo pueden programarse dentro de la ventana horaria y días activos definidos por la institución.',
         active: true,
         type: 'dura'
       },
       {
         id: 'RD-10',
         category: 'institucional',
-        rule: 'Horas continuas docente',
+        rule: 'Horas continuas por docente',
         description: 'Un docente no puede dictar más de 4 horas consecutivas de clase.',
         active: true,
         type: 'dura'
@@ -87,23 +87,31 @@ exports.getAll = async (req, res, next) => {
         id: 'RD-11',
         category: 'institucional',
         rule: 'Distribución de sesiones',
-        description: 'Las sesiones del mismo curso deben programarse en días diferentes para mejor aprendizaje.',
+        description: 'Las sesiones del mismo curso deben programarse en días diferentes.',
         active: true,
         type: 'dura'
       },
       {
         id: 'RD-12',
         category: 'institucional',
-        rule: 'Horario de almuerzo bloqueado',
-        description: 'No se pueden programar clases entre la 1:00 p.m. y las 2:00 p.m. (horario de almuerzo institucional).',
+        rule: 'Bloques horarios bloqueados',
+        description: 'No se pueden programar clases en bloques bloqueados (ej: almuerzo 13:00-14:00).',
         active: true,
         type: 'dura'
       },
       {
         id: 'RD-13',
         category: 'institucional',
-        rule: 'Vinculación tripartita',
-        description: 'Solo se programan cursos que estén vinculados entre administrador, docente asignado y estudiantes matriculados.',
+        rule: 'Preferencia de turno para docentes PH',
+        description: 'Los docentes por horas tienen su turno preferido como restricción obligatoria.',
+        active: true,
+        type: 'dura'
+      },
+      {
+        id: 'RD-14',
+        category: 'institucional',
+        rule: 'Límite de créditos por semestre',
+        description: 'La suma de créditos de los cursos de cada semestre debe estar entre 12 y 25.',
         active: true,
         type: 'dura'
       },

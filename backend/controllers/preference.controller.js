@@ -100,6 +100,130 @@ exports.getTeacherAvailability = async (req, res, next) => {
   }
 };
 
+// GET /api/preferences/teachers/by-career — Docentes agrupados por carrera con estado de preferencias
+// Las preferencias reales del docente son las que configura en su perfil (Teacher model):
+// disponibilidad, turno preferido, días libres, especialidades, carga horaria.
+exports.getTeachersByCareer = async (req, res, next) => {
+  try {
+    const Career = require('../models/Career');
+    const [teachers, totalCareers] = await Promise.all([
+      Teacher.find({ active: true })
+        .select('name email department contractType administrativeLoad teachingHours preferredShift availability freeDays specializations updatedAt')
+        .populate('specializations', 'name code')
+        .sort({ department: 1, name: 1 })
+        .lean(),
+      Career.countDocuments({ active: true })
+    ]);
+
+    const daysMap = { lunes: 'lun', martes: 'mar', miercoles: 'mie', jueves: 'jue', viernes: 'vie', sabado: 'sab', domingo: 'dom' };
+
+    // Group by department/career
+    const grouped = {};
+    let hasPrefCount = 0;
+
+    for (const teacher of teachers) {
+      const dept = teacher.department || 'Sin departamento';
+      if (!grouped[dept]) grouped[dept] = { department: dept, teachers: [] };
+
+      // Un docente tiene preferencias configuradas si:
+      // - Tiene turno preferido (no indiferente)
+      // - O tiene disponibilidad horaria definida
+      // - O tiene días libres
+      // - O tiene especialidades asignadas
+      const hasShift = teacher.preferredShift && teacher.preferredShift !== 'indiferente';
+      const hasAvailability = teacher.availability && teacher.availability.length > 0;
+      const hasFreeDays = teacher.freeDays && teacher.freeDays.length > 0;
+      const hasSpecializations = teacher.specializations && teacher.specializations.length > 0;
+      const hasConfiguredPreferences = hasShift || hasAvailability || hasFreeDays || hasSpecializations;
+
+      if (hasConfiguredPreferences) hasPrefCount++;
+
+      // Build readable available days
+      const availSlots = teacher.availability || [];
+      const availableDays = [...new Set(availSlots.map(s => s.day))];
+      const freeDayList = teacher.freeDays || [];
+
+      grouped[dept].teachers.push({
+        _id: teacher._id,
+        name: teacher.name,
+        email: teacher.email,
+        contractType: teacher.contractType,
+        administrativeLoad: teacher.administrativeLoad,
+        teachingHours: teacher.teachingHours,
+        preferredShift: teacher.preferredShift,
+        // Estado real de preferencias
+        hasConfiguredPreferences,
+        details: {
+          hasShift,
+          hasAvailability,
+          hasFreeDays,
+          hasSpecializations: teacher.specializations?.length || 0
+        },
+        availableDays,
+        availabilitySlots: availSlots.map(s => ({
+          day: s.day,
+          startTime: s.startTime,
+          endTime: s.endTime
+        })),
+        freeDays: freeDayList,
+        specializations: (teacher.specializations || []).map(s => ({ code: s.code, name: s.name })),
+        lastUpdated: teacher.updatedAt
+      });
+    }
+
+    const careers = Object.values(grouped);
+
+    // ── Aggregate stats ──
+    const shiftDistribution = {
+      manana: teachers.filter(t => t.preferredShift === 'manana').length,
+      tarde: teachers.filter(t => t.preferredShift === 'tarde').length,
+      noche: teachers.filter(t => t.preferredShift === 'noche').length,
+      indiferente: teachers.filter(t => t.preferredShift === 'indiferente' || !t.preferredShift).length
+    };
+
+    const contractDistribution = {
+      tc: teachers.filter(t => t.contractType === 'tiempo_completo' && !t.administrativeLoad).length,
+      tcAdmin: teachers.filter(t => t.contractType === 'tiempo_completo' && t.administrativeLoad).length,
+      ph: teachers.filter(t => t.contractType === 'por_horas').length
+    };
+
+    // Heatmap: teachers available per shift × day (using availability slots)
+    const heatmapDays = ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'domingo'];
+    const heatmapShifts = ['manana', 'tarde', 'noche'];
+    const heatmap = {};
+    for (const shift of heatmapShifts) {
+      heatmap[shift] = {};
+      for (const day of heatmapDays) {
+        heatmap[shift][day] = teachers.filter(t => {
+          if (!t.availability || t.availability.length === 0) return false;
+          const daySlots = t.availability.filter(a => a.day === day);
+          if (daySlots.length === 0) return false;
+          const hour = parseInt(daySlots[0].startTime.split(':')[0], 10);
+          if (shift === 'manana') return hour < 13;
+          if (shift === 'tarde') return hour >= 13 && hour < 19;
+          return hour >= 19;
+        }).length;
+      }
+    }
+
+    res.json({
+      totalTeachers: teachers.length,
+      totalCareers,
+      withPreferences: hasPrefCount,
+      withoutPreferences: teachers.length - hasPrefCount,
+      shiftDistribution,
+      contractDistribution,
+      heatmap,
+      averageAvailability: teachers.length > 0
+        ? Math.round(teachers.reduce((sum, t) => sum + (t.availability?.length || 0), 0) / teachers.length)
+        : 0,
+      careers
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 // GET /api/preferences/availability/students — Estadísticas de disponibilidad de alumnos
 exports.getStudentAvailability = async (req, res, next) => {
   try {

@@ -25,7 +25,7 @@
  */
 
 const { checkAllConstraints, checkRD05, checkRD04 } = require('./constraints');
-const { selectVariableMRV, orderDomainValues } = require('./heuristics');
+const { selectVariableMRV, orderDomainValues, forwardCheck } = require('./heuristics');
 const { validateSolution } = require('./validator');
 const { evaluateSolution, detectUnsatisfiedConditions } = require('./scoring');
 
@@ -94,7 +94,7 @@ function buildVariables(courses) {
  *   - RD-06: teacher availability (horaria + días libres)
  *   - RD-09: slot within institutional schedule
  */
-function buildDomains(variables, teachers, classrooms, policy) {
+function buildDomains(variables, teachers, classrooms, policy, preferences = []) {
   let slots = generateSlots();
 
   // Pre-filter slots by institutional schedule (RD-09)
@@ -147,20 +147,29 @@ function buildDomains(variables, teachers, classrooms, policy) {
     });
 
     for (const teacher of eligibleTeachers) {
+      // Look up preference from Preference model as fallback
+      const teacherPref = preferences.find(p => p.userId?.toString() === teacher.userId?.toString());
+      const effectiveShift = teacher.preferredShift || teacherPref?.preferredShift;
+      // RD-13 pre-filter: skip if PH teacher and slot not in preferred shift
+      const isPHWithShift = teacher.contractType === 'por_horas' && effectiveShift && effectiveShift !== 'indiferente';
+
       for (const classroom of eligibleClassrooms) {
         for (const slot of slots) {
           // Check teacher availability (including free days)
-          if (isTeacherAvailable(teacher, slot)) {
-            // Check classroom availability schedule
-            if (isClassroomAvailable(classroom, slot)) {
-              domain.push({
-                teacherId: teacher._id,
-                teacher,
-                classroomId: classroom._id,
-                classroom,
-                ...slot
-              });
-            }
+          if (!isTeacherAvailable(teacher, slot)) continue;
+
+          // RD-13: PH teacher preferred shift enforcement
+          if (isPHWithShift && !isSlotInShift(slot, effectiveShift, policy)) continue;
+
+          // Check classroom availability schedule
+          if (isClassroomAvailable(classroom, slot)) {
+            domain.push({
+              teacherId: teacher._id,
+              teacher,
+              classroomId: classroom._id,
+              classroom,
+              ...slot
+            });
           }
         }
       }
@@ -206,11 +215,44 @@ function isClassroomAvailable(classroom, slot) {
 }
 
 /**
- * Fisher-Yates shuffle for array randomization
+ * Check if a slot falls within the given shift using policy boundaries or defaults.
+ */
+function isSlotInShift(slot, shiftName, policy) {
+  const shifts = policy?.shifts || {
+    manana: { start: '07:00', end: '13:00' },
+    tarde: { start: '14:00', end: '19:00' },
+    noche: { start: '19:00', end: '22:00' }
+  };
+  const range = shifts[shiftName];
+  if (!range) return true;
+  return slot.startTime >= range.start && slot.endTime <= range.end;
+}
+
+/**
+ * Seeded pseudo-random number generator (Mulberry32).
+ * Ensures reproducible shuffles for the same seed.
+ */
+function seededRandom(seed) {
+  let s = seed | 0;
+  return function() {
+    s = (s + 0x6D2B79F5) | 0;
+    let t = Math.imul(s ^ (s >>> 15), 1 | s);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+/**
+ * Fisher-Yates shuffle using seeded random for reproducibility.
+ * Uses a seed derived from the current epoch minute so that CSP runs
+ * within the same minute produce identical results, but different minutes
+ * produce different (but reproducible) shuffles.
  */
 function shuffleArray(array) {
+  const seed = Math.floor(Date.now() / 60000); // per-minute seed
+  const rng = seededRandom(seed);
   for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
+    const j = Math.floor(rng() * (i + 1));
     [array[i], array[j]] = [array[j], array[i]];
   }
   return array;
@@ -220,7 +262,7 @@ function shuffleArray(array) {
  * Main CSP Solver with Backtracking + MRV + Forward Checking
  * Now uses checkAllConstraints for full validation.
  */
-function solve(variables, assignments, courses, policy, startTime, timeout = 30000) {
+function solve(variables, assignments, courses, policy, startTime, timeout = 30000, preferences = []) {
   // Timeout check
   if (Date.now() - startTime > timeout) {
     return null; // Timeout
@@ -267,16 +309,29 @@ function solve(variables, assignments, courses, policy, startTime, timeout = 300
       teacher: value.teacher,
       classroom: value.classroom,
       courses,
-      policy
+      policy,
+      preferences
     });
 
     if (result.valid) {
-      assignments.push(assignment);
+      // ── Forward Checking: prune domains of unassigned variables ──
+      const domainSnapshots = unassigned.map(v => [...v.domain]);
+      const fcResult = forwardCheck(variable, value, unassigned, assignments);
 
-      const solution = solve(variables, assignments, courses, policy, startTime, timeout);
-      if (solution) return solution;
+      if (fcResult) {
+        assignments.push(assignment);
+        const solution = solve(variables, assignments, courses, policy, startTime, timeout, preferences);
+        if (solution) return solution;
+        assignments.pop(); // Backtrack
+      }
 
-      assignments.pop(); // Backtrack
+      // Restore domains pruned by forward checking
+      let idx = 0;
+      for (const v of variables) {
+        if (!assignments.find(a => a.id === v.id)) {
+          v.domain = domainSnapshots[idx++];
+        }
+      }
     }
   }
 
@@ -306,7 +361,7 @@ function runCSPMultiple(courses, teachers, classrooms, preferences = [], numSolu
 
     try {
       const variables = buildVariables(courses);
-      buildDomains(variables, teachers, classrooms, policy);
+      buildDomains(variables, teachers, classrooms, policy, preferences);
 
       // Check for empty domains
       const emptyDomainVars = variables.filter(v => v.domain.length === 0);
@@ -325,7 +380,7 @@ function runCSPMultiple(courses, teachers, classrooms, preferences = [], numSolu
         continue;
       }
 
-      const solution = solve(variables, [], courses, policy, Date.now(), maxTimePerAttempt);
+      const solution = solve(variables, [], courses, policy, Date.now(), maxTimePerAttempt, preferences);
 
       if (solution) {
         const assignments = solution.map(a => ({

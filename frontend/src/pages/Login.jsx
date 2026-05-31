@@ -7,7 +7,7 @@ import './Login.css';
 const PROFILES = [
   { label: 'Coordinador', email: 'admin@uni.edu', pw: 'admin123', color: '#E53E3E' },
   { label: 'Docente', email: 'ana.vargas@uni.edu', pw: 'docente123', color: '#38A169' },
-  { label: 'Estudiante', email: 'luis.ramirez@uni.edu', pw: 'estudiante123', color: '#3182CE' },
+  { label: 'Estudiante', email: 'jorge.lopez@uni.edu', pw: 'estudiante123', color: '#3182CE' },
 ];
 
 export default function Login() {
@@ -32,9 +32,18 @@ export default function Login() {
     }
   };
 
-  const quickLogin = (profile) => {
+  const quickLogin = async (profile) => {
     setEmail(profile.email);
     setPassword(profile.pw);
+    setLoading(true);
+    setError('');
+    try {
+      await login(profile.email, profile.pw);
+      navigate('/');
+    } catch (err) {
+      setError(err.response?.data?.message || 'Error al iniciar sesión');
+    }
+    setLoading(false);
   };
 
   return (

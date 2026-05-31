@@ -29,7 +29,7 @@ exports.generate = async (req, res, next) => {
     const courses = await Course.find({ active: true }).populate('prerequisites').populate('assignedTeachers', 'name');
     const teachers = await Teacher.find({ active: true }).populate('specializations');
     const classrooms = await Classroom.find({ available: true });
-    const preferences = await Preference.find({});
+    const preferences = await Preference.find({ role: 'docente' });
 
     // Load active institutional policy (if any)
     const policy = await InstitutionalPolicy.findOne({ active: true }).sort({ updatedAt: -1 });
@@ -360,7 +360,8 @@ exports.generatePublic = async (req, res) => {
     console.log(`📚 Cursos: ${courses.length} | 👨‍🏫 Docentes: ${teachers.length} | 🏫 Aulas: ${classrooms.length}`);
 
     const startTime = Date.now();
-    const result = runCSPMultiple(courses, teachers, classrooms, [], 3, policy);
+    const preferences = await Preference.find({ role: 'docente' });
+    const result = runCSPMultiple(courses, teachers, classrooms, preferences, 3, policy);
     const executionTime = (Date.now() - startTime) / 1000;
 
     if (result.success) {

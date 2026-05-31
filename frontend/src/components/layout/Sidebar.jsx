@@ -1,4 +1,4 @@
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import {
   HiOutlineHome,
@@ -14,7 +14,6 @@ import {
   HiOutlineOfficeBuilding,
   HiOutlineCube,
   HiOutlineLightningBolt,
-  HiOutlineCog,
   HiOutlineAcademicCap,
   HiOutlineCollection,
   HiOutlineShieldCheck,
@@ -30,11 +29,10 @@ const baseNav = [
 
 // Student-specific nav
 const studentNav = [
-  { path: '/enrollment', icon: HiOutlineBookOpen, label: 'Matrícula' },
-  { path: '/section-enrollment', icon: HiOutlineCalendar, label: 'Armar horario' },
+  { path: '/enrollment', icon: HiOutlineBookOpen, label: 'Planificar horario' },
   { path: '/my-schedules', icon: HiOutlineClipboardList, label: 'Mi horario' },
   { path: '/simulations', icon: HiOutlineDocumentDuplicate, label: 'Simulaciones' },
-  { path: '/preferences', icon: HiOutlineAdjustments, label: 'Preferencias' },
+  { path: '/mis-preferencias', icon: HiOutlineAdjustments, label: 'Preferencias' },
   { path: '/notifications', icon: HiOutlineBell, label: 'Notificaciones' },
   { path: '/help', icon: HiOutlineQuestionMarkCircle, label: 'Ayuda' },
 ];
@@ -43,8 +41,6 @@ const studentNav = [
 const docenteNav = [
   { path: '/teacher-profile', icon: HiOutlineUserGroup, label: 'Mi perfil docente' },
   { path: '/my-schedules', icon: HiOutlineClipboardList, label: 'Mi horario' },
-  { path: '/simulations', icon: HiOutlineDocumentDuplicate, label: 'Simulaciones' },
-  { path: '/preferences', icon: HiOutlineAdjustments, label: 'Preferencias' },
   { path: '/restrictions', icon: HiOutlineLockClosed, label: 'Restricciones' },
   { path: '/notifications', icon: HiOutlineBell, label: 'Notificaciones' },
   { path: '/help', icon: HiOutlineQuestionMarkCircle, label: 'Ayuda' },
@@ -54,7 +50,6 @@ const docenteNav = [
 const coordinadorNav = [
   { path: '/planning', icon: HiOutlineCollection, label: 'Planificación' },
   { path: '/my-schedules', icon: HiOutlineClipboardList, label: 'Mis horarios' },
-  { path: '/preferences', icon: HiOutlineAdjustments, label: 'Preferencias' },
   { path: '/restrictions', icon: HiOutlineLockClosed, label: 'Restricciones' },
   { path: '/reports', icon: HiOutlineChartBar, label: 'Reportes' },
   { path: '/notifications', icon: HiOutlineBell, label: 'Notificaciones' },
@@ -69,15 +64,15 @@ const coordinadorExtra = [
   { path: '/students', icon: HiOutlineCube, label: 'Estudiantes' },
   { path: '/classrooms', icon: HiOutlineOfficeBuilding, label: 'Aulas' },
   { path: '/campus', icon: HiOutlineGlobe, label: 'Campus / Sedes' },
-  { path: '/generation', icon: HiOutlineLightningBolt, label: 'Generaciones' },
-  { path: '/career-generation', icon: HiOutlineCalendar, label: 'Generar x Carrera' },
-  { path: '/policies', icon: HiOutlineShieldCheck, label: 'Políticas' },
+  { path: '/career-generation', icon: HiOutlineLightningBolt, label: 'Generar Horarios' },
+  { type: 'divider', label: 'Preferencias' },
+  { path: '/policies', icon: HiOutlineShieldCheck, label: 'Políticas Institucionales' },
+  { path: '/teacher-preferences', icon: HiOutlineUserGroup, label: 'Pref. Docentes' },
   { path: '/student-preferences', icon: HiOutlineAcademicCap, label: 'Pref. Estudiantes' },
 ];
 
 export default function Sidebar() {
   const { user, role } = useAuth();
-  const location = useLocation();
 
   let navItems = [...baseNav];
   if (role === 'estudiante') {

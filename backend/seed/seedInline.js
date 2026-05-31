@@ -286,6 +286,13 @@ async function seedInline() {
       minBreakBetweenClasses: 0,
       maxContinuousHours: 4
     },
+    partTimePreferences: {
+      allowedShifts: ['manana', 'tarde'],
+      allowMultiShift: false,
+      allowedCourseTypes: ['teorico', 'laboratorio'],
+      prioritizeAfterFullTime: true,
+      maxDaysPerWeek: 5
+    },
     classroomRules: {
       maxCapacityUsagePercent: 100,
       strictTypeMatch: true,
@@ -294,6 +301,11 @@ async function seedInline() {
     courseDistribution: {
       preferNonConsecutiveDays: true,
       maxSessionsPerCoursePerDay: 1
+    },
+    enrollmentRules: {
+      minCreditsPerSemester: 12,
+      maxCreditsPerSemester: 25,
+      minStudentsPerSection: 15
     },
     priorityWeights: {
       institutional: 0.30,
@@ -346,7 +358,7 @@ async function seedInline() {
         { code: 'T1', name: 'Torre 1', floors: 6 },
         { code: 'T2', name: 'Torre 2', floors: 4 }
       ],
-      travelTimes: [{ toCampus: 'HYO', minutes: 360 }]
+      travelTimes: [{ toCampusId: 'HYO', minutes: 360 }]
     }
   ]);
   console.log(`🌍 ${campuses.length} campus creados.`);

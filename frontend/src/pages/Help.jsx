@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { HiOutlineQuestionMarkCircle, HiOutlineBookOpen, HiOutlineMail, HiOutlineChevronDown, HiOutlineChevronUp, HiOutlineDocumentText, HiOutlineLightningBolt, HiOutlineAcademicCap, HiOutlineCog } from 'react-icons/hi';
+import api from '../api/axios';
+import { HiOutlineQuestionMarkCircle, HiOutlineMail, HiOutlineChevronDown, HiOutlineChevronUp, HiOutlineDocumentText, HiOutlineLightningBolt, HiOutlineAcademicCap, HiOutlineCog } from 'react-icons/hi';
 import Modal from '../components/ui/Modal';
 import './Help.css';
 
@@ -100,6 +101,23 @@ export default function Help() {
   const [openFaq, setOpenFaq] = useState(null);
   const [openGuide, setOpenGuide] = useState(null);
   const [showContact, setShowContact] = useState(false);
+  const [contactSubject, setContactSubject] = useState('Problema con generación de horario');
+  const [contactMessage, setContactMessage] = useState('');
+  const [sending, setSending] = useState(false);
+
+  const handleSendContact = async () => {
+    if (!contactMessage.trim()) { alert('Escribe un mensaje.'); return; }
+    setSending(true);
+    try {
+      await api.post('/notifications', { title: `Contacto: ${contactSubject}`, message: contactMessage, type: 'aviso', category: 'soporte' });
+      alert('Mensaje enviado correctamente');
+      setShowContact(false);
+      setContactMessage('');
+    } catch {
+      alert('Error al enviar mensaje');
+    }
+    setSending(false);
+  };
 
   return (
     <div className="help-page animate-fadeIn">
@@ -193,7 +211,7 @@ export default function Help() {
         <div className="contact-modal">
           <div className="form-group">
             <label>Asunto</label>
-            <select className="form-select">
+            <select className="form-select" value={contactSubject} onChange={e => setContactSubject(e.target.value)}>
               <option>Problema con generación de horario</option>
               <option>Error en el sistema</option>
               <option>Solicitud de funcionalidad</option>
@@ -202,9 +220,9 @@ export default function Help() {
           </div>
           <div className="form-group">
             <label>Mensaje</label>
-            <textarea className="form-input" rows="4" placeholder="Describe tu problema o sugerencia..."></textarea>
+            <textarea className="form-input" rows="4" placeholder="Describe tu problema o sugerencia..." value={contactMessage} onChange={e => setContactMessage(e.target.value)}></textarea>
           </div>
-          <button className="btn btn-primary" style={{width:'100%',justifyContent:'center'}} onClick={() => { alert('Mensaje enviado correctamente'); setShowContact(false); }}>
+          <button className="btn btn-primary" style={{width:'100%',justifyContent:'center'}} disabled={sending} onClick={handleSendContact}>
             <HiOutlineMail /> Enviar mensaje
           </button>
         </div>

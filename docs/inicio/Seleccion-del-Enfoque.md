@@ -30,11 +30,11 @@ Dado este contexto, el enfoque debe ser **iterativo e incremental**, capaz de ad
 El sistema a desarrollar aborda un **problema de complejidad computacional NP-difícil** (equivalente al problema de *Graph Coloring* o *Job-Shop Scheduling*). Esta característica lo diferencia fundamentalmente de un sistema CRUD o de una aplicación de gestión convencional por las siguientes razones:
 
 ### 2.1. Explosión combinatoria del espacio de búsqueda
-Para una entrada modesta de `n=50` cursos, `m=20` docentes, `p=15` aulas y `t=30` franjas horarias (lunes a sábado × 5 turnos), el espacio de soluciones posibles es `(m × p × t)^n`, un número astronómico (>10^50). **La fuerza bruta es inviable**. Se requiere un algoritmo de Satisfacción de Restricciones (CSP) con heurísticas de poda.
+Para una entrada modesta de `n=50` cursos, `m=20` docentes, `p=15` aulas y `t=75` franjas horarias (lunes a viernes × 15 franjas 07:00-22:00), el espacio de soluciones posibles es exponencial (>10^50). **La fuerza bruta es inviable**. Se requiere un algoritmo de Satisfacción de Restricciones (CSP) con heurísticas de poda, y para el horario estudiante un matching bipartito (Kuhn).
 
 ### 2.2. Múltiples restricciones interdependientes y en conflicto
-- **Restricciones duras (hard):** RD-01 a RD-06 (ver documento D). Cualquier violación invalida el horario.
-- **Restricciones blandas (soft):** Preferencias de docentes, horarios compactos para estudiantes.
+- **Restricciones duras (hard):** RD-01 a RD-14 implementadas en `constraints.js` (ver documento D). Cualquier violación invalida el horario.
+- **Restricciones blandas (soft):** RS-01 a RS-04 (preferencias de docentes, huecos, compactación, equidad) optimizadas vía scoring en 4 dimensiones.
 - **Conflicto:** Minimizar días de clase para estudiantes vs. Maximizar uso de aulas. No existe solución óptima única, sino **soluciones Pareto-óptimas**.
 
 ### 2.3. Incertidumbre y variabilidad propias del currículo flexible

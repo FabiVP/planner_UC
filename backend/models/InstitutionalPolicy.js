@@ -61,6 +61,28 @@ const institutionalPolicySchema = new mongoose.Schema({
     maxContinuousHours: { type: Number, default: 4 }
   },
 
+  // ── Preferencias de tiempo parcial (gestionadas por el admin) ──
+  partTimePreferences: {
+    // Turnos permitidos para docentes por horas
+    allowedShifts: {
+      type: [String],
+      enum: ['manana', 'tarde', 'noche'],
+      default: ['manana', 'tarde']
+    },
+    // Permitir que docentes PH den clases en múltiples turnos
+    allowMultiShift: { type: Boolean, default: false },
+    // Los PH pueden dictar solo ciertos tipos de curso
+    allowedCourseTypes: {
+      type: [String],
+      enum: ['teorico', 'laboratorio'],
+      default: ['teorico', 'laboratorio']
+    },
+    // Priorizar horarios de PH después de asignar TC
+    prioritizeAfterFullTime: { type: Boolean, default: true },
+    // Máximo de días a la semana que puede trabajar un PH
+    maxDaysPerWeek: { type: Number, default: 5, min: 1, max: 7 }
+  },
+
   // ── Restricciones de aulas ──
   classroomRules: {
     // Porcentaje máximo de ocupación permitido del aforo
@@ -81,6 +103,13 @@ const institutionalPolicySchema = new mongoose.Schema({
     avoidBefore: { type: String, default: '' },
     // Evitar clases después de esta hora
     avoidAfter: { type: String, default: '' }
+  },
+
+  // ── Reglas de matrícula ──
+  enrollmentRules: {
+    minCreditsPerSemester: { type: Number, default: 12, min: 0, max: 50 },
+    maxCreditsPerSemester: { type: Number, default: 25, min: 1, max: 50 },
+    minStudentsPerSection: { type: Number, default: 15, min: 1, max: 50 }
   },
 
   // ── Prioridades del motor CSP ──

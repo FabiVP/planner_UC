@@ -246,10 +246,10 @@
 /* ═══ Schedule Alternatives ═══ */
 .alternatives-section { margin-top: 12px; }
 .alternatives-section h4 { font-size: 14px; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
-.alternatives-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
+.alternatives-grid { display: flex; flex-direction: column; gap: 16px; }
 .alt-card {
   padding: 16px; border-radius: 10px; border: 2px solid var(--border);
-  background: var(--card-bg); cursor: pointer; transition: all 0.2s;
+  background: var(--card-bg); transition: all 0.2s;
 }
 .alt-card:hover { border-color: var(--primary); }
 .alt-card.selected { border-color: var(--primary); background: rgba(99,102,241,0.05); }

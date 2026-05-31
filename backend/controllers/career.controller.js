@@ -111,8 +111,8 @@ exports.getDemand = async (req, res, next) => {
         })
       );
 
-      // Estimate sections needed (based on maxStudents)
-      const estimatedStudents = course.maxStudents || 40;
+      // Estimate sections needed (based on average 30 students per section)
+      const estimatedStudents = 30;
       const sectionsNeeded = Math.max(1, Math.ceil(estimatedStudents / (course.maxStudents || 40)));
 
       // Total sessions = sections × sessionsPerWeek
@@ -203,7 +203,7 @@ exports.getSummaryAll = async (req, res, next) => {
             return specId === course._id.toString();
           })
         );
-        const sectionsNeeded = Math.max(1, Math.ceil((course.maxStudents || 40) / (course.maxStudents || 40)));
+        const sectionsNeeded = Math.max(1, Math.ceil(30 / (course.maxStudents || 40)));
         const teachersNeeded = Math.max(1, sectionsNeeded);
         totalTeachersNeeded += teachersNeeded;
         const deficit = teachersNeeded - qualifiedTeachers.length;

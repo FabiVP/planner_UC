@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, startTransition } from 'react';
 import api from '../api/axios';
 import { HiOutlineBell, HiOutlineCalendar, HiOutlineExclamation, HiOutlineInformationCircle, HiOutlineCheck } from 'react-icons/hi';
 import './Notifications.css';
@@ -7,30 +7,33 @@ export default function Notifications() {
   const [tab, setTab] = useState('todas');
   const [notifications, setNotifications] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [now, setNow] = useState(() => Date.now());
 
-  useEffect(() => { load(); }, [tab]);
-
-  const load = async () => {
+  const load = useCallback(async () => {
+    startTransition(() => setLoading(true));
     try {
       const params = tab !== 'todas' ? `?category=${tab === 'avisos' ? 'aviso' : 'alerta'}` : '';
       const res = await api.get(`/notifications${params}`);
-      setNotifications(res.data.notifications || []);
-    } catch (e) { console.error(e); }
-    setLoading(false);
-  };
+      startTransition(() => setNotifications(res.data.notifications || []));
+    } catch { console.error('Error cargando notificaciones'); }
+    startTransition(() => setLoading(false));
+  }, [tab]);
+
+  useEffect(() => { load(); }, [load]);
+  useEffect(() => { const id = setInterval(() => setNow(Date.now()), 60000); return () => clearInterval(id); }, []);
 
   const markAsRead = async (id) => {
     try {
       await api.put(`/notifications/${id}/read`);
       setNotifications(prev => prev.map(n => n._id === id ? { ...n, read: true } : n));
-    } catch (e) {}
+    } catch { /* ignore */ }
   };
 
   const markAllRead = async () => {
     try {
       await api.put('/notifications/read-all');
       setNotifications(prev => prev.map(n => ({ ...n, read: true })));
-    } catch (e) {}
+    } catch { /* ignore */ }
   };
 
   const getIcon = (type) => {
@@ -43,7 +46,7 @@ export default function Notifications() {
   };
 
   const timeAgo = (date) => {
-    const diff = (Date.now() - new Date(date).getTime()) / 1000;
+    const diff = (now - new Date(date).getTime()) / 1000;
     if (diff < 3600) return `Hace ${Math.floor(diff / 60)} min`;
     if (diff < 86400) return `Hace ${Math.floor(diff / 3600)} horas`;
     return `Hace ${Math.floor(diff / 86400)} días`;

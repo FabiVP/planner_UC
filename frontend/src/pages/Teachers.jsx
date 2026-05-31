@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, startTransition } from 'react';
 import Modal from '../components/ui/Modal';
 import api from '../api/axios';
 import { HiOutlinePlus, HiOutlinePencil, HiOutlineTrash, HiOutlineClock, HiOutlineBriefcase, HiOutlineAcademicCap, HiOutlineEye } from 'react-icons/hi';
@@ -55,24 +55,24 @@ export default function Teachers() {
   const [form, setForm] = useState({ ...defaultForm });
   const [activeTab, setActiveTab] = useState('basic');
 
-  useEffect(() => {
-    loadTeachers();
-    loadCourses();
-  }, []);
-
   const loadTeachers = async () => {
     try {
       const r = await api.get('/teachers');
-      setTeachers(r.data.teachers || []);
-    } catch (e) {}
+      startTransition(() => setTeachers(r.data.teachers || []));
+    } catch { /* ignore */ }
   };
 
   const loadCourses = async () => {
     try {
       const r = await api.get('/courses');
-      setCourses(r.data.courses || []);
-    } catch (e) {}
+      startTransition(() => setCourses(r.data.courses || []));
+    } catch { /* ignore */ }
   };
+
+  useEffect(() => {
+    loadTeachers();
+    loadCourses();
+  }, []);
 
   const handleContractChange = (contractType) => {
     if (contractType === 'por_horas') {

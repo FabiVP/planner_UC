@@ -88,5 +88,7 @@ exports.createNotification = async (userId, { title, message, type, category, re
     });
   } catch (error) {
     console.error('Error creating notification:', error.message);
+    // Re-throw so callers can react to failures instead of assuming success
+    throw error;
   }
 };

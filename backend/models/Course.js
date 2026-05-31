@@ -74,7 +74,7 @@ const courseSchema = new mongoose.Schema({
   },
   minStudentsPerSection: {
     type: Number,
-    default: 10,
+    default: 15,
     min: 1,
     max: 50
   },

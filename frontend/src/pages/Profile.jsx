@@ -1,27 +1,28 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, startTransition } from 'react';
 import { useAuth } from '../context/AuthContext';
 import api from '../api/axios';
 import './Profile.css';
 
 export default function Profile() {
-  const { user, updateUser, logout } = useAuth();
+  const { user, updateUser } = useAuth();
   const [form, setForm] = useState({ name: '', email: '', phone: '', career: '', department: '' });
   const [pwForm, setPwForm] = useState({ currentPassword: '', newPassword: '' });
   const [saving, setSaving] = useState(false);
   const [msg, setMsg] = useState('');
 
   useEffect(() => {
-    if (user) setForm({ name: user.name || '', email: user.email || '', phone: user.phone || '', career: user.career || '', department: user.department || '' });
+    if (user) startTransition(() => setForm({ name: user.name || '', email: user.email || '', phone: user.phone || '', career: user.career || '', department: user.department || '' }));
   }, [user]);
 
   const handleSave = async () => {
     setSaving(true);
     try {
       const res = await api.put('/profile', form);
-      updateUser(res.data);
+      const data = res.data.user || res.data;
+      updateUser(data);
       setMsg('Perfil actualizado');
       setTimeout(() => setMsg(''), 3000);
-    } catch (e) { setMsg('Error al guardar'); }
+    } catch { setMsg('Error al guardar'); }
     setSaving(false);
   };
 

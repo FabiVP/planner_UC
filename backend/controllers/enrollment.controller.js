@@ -1,6 +1,7 @@
 const Enrollment = require('../models/Enrollment');
 const Student = require('../models/Student');
 const Course = require('../models/Course');
+const InstitutionalPolicy = require('../models/InstitutionalPolicy');
 
 // Validate enrollment (credits + prerequisites)
 const validateEnrollment = async (studentId, courseIds) => {
@@ -15,13 +16,16 @@ const validateEnrollment = async (studentId, courseIds) => {
     errors.push('Uno o más cursos seleccionados no existen.');
   }
 
-  // RD-04: Credit validation (20-22)
+  // RD-14: Credit validation from institutional policy
+  const policy = await InstitutionalPolicy.findOne({ active: true }).sort({ updatedAt: -1 });
+  const minCredits = policy?.enrollmentRules?.minCreditsPerSemester ?? 12;
+  const maxCredits = policy?.enrollmentRules?.maxCreditsPerSemester ?? 25;
   const totalCredits = courses.reduce((sum, c) => sum + c.credits, 0);
-  if (totalCredits < 20) {
-    errors.push(`Total de créditos (${totalCredits}) está por debajo del mínimo de 20.`);
+  if (totalCredits < minCredits) {
+    errors.push(`Total de créditos (${totalCredits}) está por debajo del mínimo de ${minCredits}.`);
   }
-  if (totalCredits > 22) {
-    errors.push(`Total de créditos (${totalCredits}) excede el límite de 22 créditos por semestre.`);
+  if (totalCredits > maxCredits) {
+    errors.push(`Total de créditos (${totalCredits}) excede el límite de ${maxCredits} créditos por semestre.`);
   }
 
   // RD-05: Prerequisites validation
@@ -62,6 +66,13 @@ exports.getAll = async (req, res, next) => {
 exports.create = async (req, res, next) => {
   try {
     const { studentId, semester, selectedCourses } = req.body;
+
+    if (!selectedCourses || !Array.isArray(selectedCourses) || selectedCourses.length === 0) {
+      return res.status(400).json({ message: 'Debe seleccionar al menos un curso.' });
+    }
+    if (!studentId) {
+      return res.status(400).json({ message: 'El ID del estudiante es requerido.' });
+    }
 
     // Validate
     const validation = await validateEnrollment(studentId, selectedCourses);

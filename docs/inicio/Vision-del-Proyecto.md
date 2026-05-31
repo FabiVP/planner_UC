@@ -37,9 +37,10 @@ El sistema aporta valor medible en tres dimensiones:
 - Trazabilidad y registro de decisiones de planificación.
 
 ### 3.2. Valor para los Estudiantes
-- Horarios coherentes con sus prerrequisitos aprobados y límite de créditos (20–22).
-- Acceso a visualización clara de su horario generado.
-- Equidad en la asignación de franjas horarias.
+- Horarios coherentes con sus prerrequisitos aprobados y límite de créditos (12–25, configurable).
+- Generación de horario personalizado con matching óptimo (Kuhn) + hasta 2 alternativas.
+- Observaciones si algún curso se asigna fuera de su disponibilidad.
+- Acceso a visualización clara de su horario generado en grilla Lun-Vie 07:00-22:00.
 
 ### 3.3. Valor para los Docentes
 - Asignación de cursos respetando su disponibilidad horaria declarada.

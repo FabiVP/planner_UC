@@ -8,6 +8,35 @@ const Preference = require('../models/Preference');
 const { getShift } = require('../engine/scoring');
 
 /**
+ * Helper: find or auto-create a Student profile for the logged-in user
+ */
+async function findOrCreateStudent(userId, user, populateCareer = true) {
+  let query = Student.findOne({ userId });
+  if (populateCareer) query = query.populate('career', 'code name totalSemesters totalCredits');
+  let student = await query;
+
+  if (!student) {
+    query = Student.findOne({ email: user.email });
+    if (populateCareer) query = query.populate('career', 'code name totalSemesters totalCredits');
+    student = await query;
+    if (student) {
+      student.userId = userId;
+      await student.save();
+    } else {
+      const count = await Student.countDocuments();
+      student = await Student.create({
+        userId,
+        name: user.name,
+        email: user.email,
+        studentCode: `AUTO-${String(count + 1).padStart(5, '0')}`,
+        currentSemester: 1
+      });
+    }
+  }
+  return student;
+}
+
+/**
  * GET /api/student-schedule/eligible-courses
  * Devuelve los cursos que el estudiante puede tomar,
  * FILTRADOS POR SU CARRERA, incluyendo validaciones de prerrequisitos,
@@ -16,10 +45,7 @@ const { getShift } = require('../engine/scoring');
 exports.getEligibleCourses = async (req, res, next) => {
   try {
     const userId = req.user._id;
-    const student = await Student.findOne({ userId })
-      .populate('approvedCourses.courseId')
-      .populate('career', 'code name totalSemesters totalCredits');
-    if (!student) return res.status(404).json({ message: 'Perfil de estudiante no encontrado.' });
+    const student = await findOrCreateStudent(userId, req.user);
 
     const semester = student.currentSemester || 1;
     const approvedCourseIds = (student.approvedCourses || [])
@@ -177,16 +203,15 @@ exports.validateSelection = async (req, res, next) => {
     const { courseIds } = req.body;
     if (!courseIds?.length) return res.status(400).json({ message: 'Selecciona al menos un curso.' });
 
-    const student = await Student.findOne({ userId });
-    if (!student) return res.status(404).json({ message: 'Perfil de estudiante no encontrado.' });
+    const student = await findOrCreateStudent(userId, req.user);
 
     const approvedCourseIds = (student.approvedCourses || [])
       .filter(ac => ac.grade >= 11)
-      .map(ac => ac.courseId?.toString());
+      .map(ac => ac.courseId?._id?.toString() || ac.courseId?.toString());
 
     const failedCourseIds = (student.approvedCourses || [])
       .filter(ac => ac.grade != null && ac.grade < 11)
-      .map(ac => ac.courseId?.toString());
+      .map(ac => ac.courseId?._id?.toString() || ac.courseId?.toString());
 
     const selectedCourses = await Course.find({ _id: { $in: courseIds } })
       .populate('prerequisites', 'code name')
@@ -265,9 +290,11 @@ exports.validateSelection = async (req, res, next) => {
       validations.push(validation);
     }
 
-    // ── Credit limits (12-22) ──
-    const minCredits = 12;
-    const maxCredits = 22;
+    // ── Credit limits from institutional policy ──
+    const InstitutionalPolicy = require('../models/InstitutionalPolicy');
+    const policy = await InstitutionalPolicy.findOne({ active: true }).sort({ updatedAt: -1 });
+    const minCredits = policy?.enrollmentRules?.minCreditsPerSemester ?? 12;
+    const maxCredits = policy?.enrollmentRules?.maxCreditsPerSemester ?? 25;
     // Reducción de créditos si tiene cursos desaprobados (regla institucional)
     const effectiveMaxCredits = failedCourseIds.length > 2 ? 18 : maxCredits;
 
@@ -360,8 +387,7 @@ exports.generateStudentSchedule = async (req, res, next) => {
     const userId = req.user._id;
     const { courseIds } = req.body || {};
 
-    const student = await Student.findOne({ userId }).populate('career', 'code name');
-    if (!student) return res.status(404).json({ message: 'Perfil de estudiante no encontrado.' });
+    const student = await findOrCreateStudent(userId, req.user);
 
     const preference = await Preference.findOne({ userId, role: 'estudiante' });
     const preferredShift = preference?.preferredShift || student.preferredShift || 'indiferente';
@@ -369,11 +395,11 @@ exports.generateStudentSchedule = async (req, res, next) => {
 
     const approvedCourseIds = (student.approvedCourses || [])
       .filter(ac => ac.grade >= 11)
-      .map(ac => ac.courseId?.toString());
+      .map(ac => ac.courseId?._id?.toString() || ac.courseId?.toString());
 
     const failedCourseIds = (student.approvedCourses || [])
       .filter(ac => ac.grade !== undefined && ac.grade !== null && ac.grade < 11)
-      .map(ac => ac.courseId?.toString());
+      .map(ac => ac.courseId?._id?.toString() || ac.courseId?.toString());
 
     // Get latest institutional schedule
     const latestGeneration = await Generation.findOne({ status: 'completada' }).sort({ createdAt: -1 });
@@ -421,36 +447,109 @@ exports.generateStudentSchedule = async (req, res, next) => {
       return courseIdsToTake.has(cId);
     });
 
+    // Build unavailable slots from student preference
+    const unavailableSlots = new Set();
+    const dayAbbrev = { lunes: 'lun', martes: 'mar', miercoles: 'mie', jueves: 'jue', viernes: 'vie', sabado: 'sab', domingo: 'dom' };
+    if (preference?.availability) {
+      for (const a of matchingAssignments) {
+        const shift = getShift(a.startTime);
+        const dayKey = dayAbbrev[a.day];
+        const avail = preference.availability[shift];
+        if (avail && avail[dayKey] === false) {
+          unavailableSlots.add(`${a.day}|${a.startTime}`);
+        }
+      }
+    }
+    if (preference?.detailedAvailability?.length > 0) {
+      for (const a of matchingAssignments) {
+        const blocked = preference.detailedAvailability.some(d =>
+          d.day === a.day &&
+          d.status === 'no_disponible' &&
+          a.startTime >= d.startTime &&
+          a.startTime < d.endTime
+        );
+        if (blocked) unavailableSlots.add(`${a.day}|${a.startTime}`);
+      }
+    }
+
     // ── Build schedule helper ──
-    const buildSchedule = (assignments, shiftPref) => {
-      const sorted = [...assignments];
-      if (shiftPref !== 'indiferente') {
-        sorted.sort((a, b) => {
-          const matchA = getShift(a.startTime) === shiftPref ? 0 : 1;
-          const matchB = getShift(b.startTime) === shiftPref ? 0 : 1;
-          return matchA - matchB;
-        });
+    const buildSchedule = (assignments, shiftPref, unavailable = new Set(), shuffleAdj = false) => {
+      // Group assignments by course ID
+      const courseMap = {};
+      for (const a of assignments) {
+        const cId = a.courseId?._id?.toString() || a.courseId?.toString();
+        if (!courseMap[cId]) courseMap[cId] = [];
+        courseMap[cId].push(a);
       }
 
+      const courseIds = Object.keys(courseMap);
+
+      // Sort each course's own slots by shift preference
+      for (const cId of courseIds) {
+        const slots = courseMap[cId];
+        if (shiftPref !== 'indiferente') {
+          slots.sort((a, b) => {
+            const matchA = getShift(a.startTime) === shiftPref ? 0 : 1;
+            const matchB = getShift(b.startTime) === shiftPref ? 0 : 1;
+            return matchA - matchB;
+          });
+        }
+      }
+
+      // ── Maximum bipartite matching (Kuhn's algorithm) ──
+      // Each course needs exactly 1 slot, no two courses share a slot.
+      // Build adjacency: available slots first, then unavailable (fallback)
+      const adj = {};
+      const slotToCourse = {};
+      for (const cId of courseIds) {
+        const available = [];
+        const fallback = [];
+        for (const a of courseMap[cId]) {
+          const key = `${a.day}|${a.startTime}`;
+          if (unavailable.has(key)) fallback.push(key);
+          else available.push(key);
+        }
+        // Shuffle within each group if requested (produces different matchings)
+        if (shuffleAdj) {
+          for (let i = available.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [available[i], available[j]] = [available[j], available[i]];
+          }
+          for (let i = fallback.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [fallback[i], fallback[j]] = [fallback[j], fallback[i]];
+          }
+        }
+        adj[cId] = [...available, ...fallback];
+      }
+
+      function dfsAugment(cId, visited) {
+        for (const slot of adj[cId]) {
+          if (visited.has(slot)) continue;
+          visited.add(slot);
+          const prev = slotToCourse[slot];
+          if (prev === undefined || dfsAugment(prev, visited)) {
+            slotToCourse[slot] = cId;
+            return true;
+          }
+        }
+        return false;
+      }
+
+      // Process most constrained first for better performance
+      courseIds.sort((a, b) => adj[a].length - adj[b].length);
+      for (const cId of courseIds) {
+        dfsAugment(cId, new Set());
+      }
+
+      // Build result from matching
       const selected = [];
       const selectedCIds = new Set();
-
-      for (const assignment of sorted) {
-        const cId = assignment.courseId?._id?.toString() || assignment.courseId?.toString();
-        const course = coursesToTake.find(c => c._id.toString() === cId);
-        const sessionsNeeded = course?.sessionsPerWeek || 2;
-        const currentSessions = selected.filter(a =>
-          (a.courseId?._id?.toString() || a.courseId?.toString()) === cId
-        ).length;
-
-        if (currentSessions >= sessionsNeeded) continue;
-
-        const hasConflict = selected.some(a =>
-          a.day === assignment.day && a.startTime === assignment.startTime
-        );
-
-        if (!hasConflict) {
-          selected.push(assignment);
+      for (const [slotKey, cId] of Object.entries(slotToCourse)) {
+        const [day, startTime] = slotKey.split('|');
+        const a = courseMap[cId].find(a => a.day === day && a.startTime === startTime);
+        if (a) {
+          selected.push(a);
           selectedCIds.add(cId);
         }
       }
@@ -485,6 +584,22 @@ exports.generateStudentSchedule = async (req, res, next) => {
         .filter(c => !selectedCIds.has(c._id.toString()))
         .map(c => ({ code: c.code, name: c.name, semester: c.semester, credits: c.credits }));
 
+      // Detect observations: courses assigned to unavailable (fallback) slots
+      const observations = [];
+      for (const [slotKey, cId] of Object.entries(slotToCourse)) {
+        if (unavailable.has(slotKey)) {
+          const course = coursesToTake.find(c => c._id.toString() === cId);
+          const [day, startTime] = slotKey.split('|');
+          if (course) {
+            observations.push({
+              courseCode: course.code,
+              courseName: course.name,
+              message: `Asignado a ${day} ${startTime} — fuera de su disponibilidad`
+            });
+          }
+        }
+      }
+
       return {
         assignments: selected.map(a => ({
           courseId: a.courseId, teacherId: a.teacherId,
@@ -496,9 +611,11 @@ exports.generateStudentSchedule = async (req, res, next) => {
           shiftMatchPercent, preferredShift: shiftPref,
           failedCoursesIncluded: [...selectedCIds].filter(id => failedCourseIds.includes(id)).length,
           uncoveredCourses: uncovered.length,
-          totalGaps
+          totalGaps,
+          observationsCount: observations.length
         },
         uncoveredCourses: uncovered,
+        observations,
         score: Math.round(
           (totalCourses / Math.max(coursesToTake.length, 1)) * 40 +
           shiftMatchPercent * 0.3 +
@@ -508,14 +625,14 @@ exports.generateStudentSchedule = async (req, res, next) => {
     };
 
     // ── Generate primary + alternatives ──
-    const primaryResult = buildSchedule(matchingAssignments, preferredShift);
+    const primaryResult = buildSchedule(matchingAssignments, preferredShift, unavailableSlots);
 
     // Alternative 1: opposite shift preference
     const altShifts = ['manana', 'tarde', 'noche'].filter(s => s !== preferredShift);
     const alternatives = [];
 
     for (const altShift of altShifts) {
-      const altResult = buildSchedule(matchingAssignments, altShift);
+      const altResult = buildSchedule(matchingAssignments, altShift, unavailableSlots, true);
       if (altResult.assignments.length > 0) {
         alternatives.push({
           label: `Horario turno ${{ manana: 'Mañana', tarde: 'Tarde', noche: 'Noche' }[altShift]}`,
@@ -527,7 +644,7 @@ exports.generateStudentSchedule = async (req, res, next) => {
 
     // Alternative 3: shuffle to find different assignment
     const shuffled = [...matchingAssignments].sort(() => Math.random() - 0.5);
-    const shuffleResult = buildSchedule(shuffled, preferredShift);
+    const shuffleResult = buildSchedule(shuffled, preferredShift, unavailableSlots);
     if (shuffleResult.assignments.length > 0 && shuffleResult.score !== primaryResult.score) {
       alternatives.push({
         label: 'Horario alternativo',
@@ -554,6 +671,7 @@ exports.generateStudentSchedule = async (req, res, next) => {
       },
       stats: primaryResult.stats,
       uncoveredCourses: primaryResult.uncoveredCourses,
+      observations: primaryResult.observations,
       alternatives: alternatives.slice(0, 2),
       message: primaryResult.uncoveredCourses.length > 0
         ? `Se asignaron ${primaryResult.stats.totalCourses} cursos (${primaryResult.stats.totalCredits} créd). ${primaryResult.uncoveredCourses.length} curso(s) sin horario disponible.`
@@ -566,8 +684,14 @@ exports.generateStudentSchedule = async (req, res, next) => {
 
 /**
  * GET /api/student-schedule/my-schedule
+ * Query params: ?courseIds=JSON_ARRAY
  */
 exports.getMySchedule = async (req, res, next) => {
+  if (req.query.courseIds) {
+    try {
+      req.body = { courseIds: JSON.parse(req.query.courseIds) };
+    } catch { /* ignore malformed */ }
+  }
   return exports.generateStudentSchedule(req, res, next);
 };
 

@@ -52,7 +52,7 @@ const simulationSchema = new mongoose.Schema({
   },
   label: {
     type: String,
-    enum: ['ideal', 'alternativo', 'secundario', 'sin_vacantes', 'personalizado'],
+    enum: ['ideal', 'alternativo', 'secundario', 'sin_vacantes', 'personalizado', 'asignado'],
     default: 'personalizado'
   },
   semester: {

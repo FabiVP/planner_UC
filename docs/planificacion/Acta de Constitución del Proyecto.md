@@ -27,7 +27,7 @@
 
 ### Finalidad y Justificación
 
-**Propósito:** Reducir el tiempo de planificación de horarios de días a minutos, eliminando conflictos de asignación (solapamientos de docentes, aulas o estudiantes) y garantizando el cumplimiento de restricciones académicas (prerrequisitos, créditos 20-22, disponibilidad).
+**Propósito:** Reducir el tiempo de planificación de horarios de días a minutos, eliminando conflictos de asignación (solapamientos de docentes, aulas o estudiantes) y garantizando el cumplimiento de restricciones académicas (prerrequisitos, créditos 12-25 configurables, disponibilidad).
 
 **Justificación Cuantitativa:**
 - Reducción del tiempo de elaboración de horarios: de 5-7 días a menos de 30 segundos.

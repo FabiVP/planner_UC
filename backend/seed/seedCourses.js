@@ -123,6 +123,7 @@ const TEACHER_NAMES = [
 const DEPARTMENTS = [
   'Ingeniería de Sistemas', 'Ciencias de la Computación', 'Informática', 'Redes y Comunicaciones',
   'Base de Datos', 'Ingeniería de Software', 'Inteligencia Artificial', 'Sistemas de Información',
+  'Desarrollo Web y Móvil', 'Investigación y Proyectos', 'Empresarial',
 ];
 
 const SHIFTS = ['manana', 'tarde', 'noche'];
@@ -140,11 +141,9 @@ async function seedCourses() {
     }
     console.log(`✅ Carrera encontrada: ${career.name} (${career._id})`);
 
-    // ─── Eliminar todos los cursos ISI (viejos del seed + previos) ───
+    // ─── Eliminar todos los cursos de la carrera (viejos del seed + previos) ───
     const deletedCourses = await Course.deleteMany({ career: career._id });
-    const codeList = CURRICULUM.flat().map(c => c.code);
-    const deletedGeneral = await Course.deleteMany({ code: { $in: codeList }, career: { $exists: false } });
-    console.log(`🗑️  Cursos eliminados: ${deletedCourses.deletedCount} ISI + ${deletedGeneral.deletedCount} generales`);
+    console.log(`🗑️  Cursos eliminados: ${deletedCourses.deletedCount}`);
 
     // Keep seed teachers (Matemáticas) and delete the rest
     await Teacher.deleteMany({ name: { $nin: ['Carlos López'] } });
@@ -161,12 +160,12 @@ async function seedCourses() {
           credits: c.credits,
           type: c.type,
           semester: sem,
-          career: c.kind === 'I' ? career._id : undefined,
+          career: career._id,
           sessionsPerWeek: c.type === 'laboratorio' ? 2 : 3,
           hoursPerSession: 1,
           difficulty: c.difficulty,
           mandatory: true,
-          maxStudents: 40,
+          maxStudents: c.type === 'laboratorio' ? 25 : 40,
         });
       }
     }
@@ -224,7 +223,7 @@ async function seedCourses() {
         classroomData.push({
           code: `LAB${String(i + 3).padStart(2, '0')}`,
           name: `Laboratorio ${i + 3} - Piso ${floor}`,
-          capacity: 25 + (i % 2) * 5,
+          capacity: 40,
           type: 'laboratorio',
           building: 'Laboratorios',
           floor,
@@ -307,6 +306,7 @@ async function seedCourses() {
     }
 
     for (const course of isiCourses) {
+      if (course.assignedTeachers?.length > 0) continue; // ya tiene docente (general)
       let assigned = false;
       for (const entry of departmentMap) {
         if (entry.keywords.some(kw => course.name.includes(kw))) {
@@ -340,14 +340,13 @@ async function seedCourses() {
     }
 
     await Promise.all(updates);
-    console.log(`🔗 47 cursos ISI vinculados a ${createdTeachers.length} docentes (asignación por especialidad)`);
+    const linkedCount = createdCourses.filter(c => c.assignedTeachers?.length > 0).length;
+    console.log(`🔗 ${linkedCount} cursos vinculados a ${createdTeachers.length} docentes (asignación por especialidad)`);
 
     // ─── Resumen ───
     for (let sem = 1; sem <= 10; sem++) {
       const semCourses = createdCourses.filter(c => c.semester === sem);
-      const isi = semCourses.filter(c => c.career);
-      const gen = semCourses.filter(c => !c.career);
-      console.log(`   Semestre ${sem}: ${semCourses.length} cursos (${isi.length} ISI, ${gen.length} generales)`);
+      console.log(`   Semestre ${sem}: ${semCourses.length} cursos`);
     }
 
     await mongoose.disconnect();

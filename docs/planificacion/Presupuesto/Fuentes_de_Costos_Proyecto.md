@@ -32,7 +32,7 @@
 | 4.1 Investigación e implementación de backtracking | 30 | 10.00 | 8.00 | 0 | 5.00 | 313.00 |
 | 4.2 Heurística MRV (Minimum Remaining Values) | 20 | 10.00 | 5.00 | 0 | 4.00 | 209.00 |
 | 4.3 Forward Checking y poda | 20 | 10.00 | 5.00 | 0 | 4.00 | 209.00 |
-| 4.4 Implementación de restricciones RD-01 a RD-06 | 25 | 10.00 | 8.00 | 0 | 5.00 | 263.00 |
+| 4.4 Implementación de restricciones RD-01 a RD-11 (base) | 25 | 10.00 | 8.00 | 0 | 5.00 | 263.00 |
 | 4.5 Manejo de timeout (30s) y solución parcial | 15 | 10.00 | 5.00 | 0 | 4.00 | 159.00 |
 | 4.6 Pruebas de integración del CSP | 10 | 10.00 | 4.00 | 0 | 3.00 | 107.00 |
 | **Sprint 4 - Visualización y Pruebas** | 80 | 9.00 | 20.00 | 0 | 15.00 | 755.00 |

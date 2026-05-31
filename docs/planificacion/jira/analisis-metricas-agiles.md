@@ -1,6 +1,7 @@
 # Análisis de Métricas Ágiles - Proyecto UniScheduler
 
 **Fecha de análisis:** 27 de abril de 2026  
+**Última actualización:** Mayo 2026 (alcance real: RD-01 a RD-14 implementados en Sprints 3-5)  
 **Metodología:** Scrum  
 **Herramienta:** Jira  
 
@@ -21,7 +22,7 @@
 
 - **Semana 1 (27 abr - 1 may):** El trabajo pendiente se mantiene estable alrededor de 50 puntos. Esta meseta inicial es típica en sprints de alta complejidad algorítmica, donde el equipo dedica tiempo al diseño del modelo CSP y la definición de restricciones antes de comenzar la implementación.
 
-- **Semana 2-3 (5 may - 17 may):** Se observa una disminución sostenida del trabajo pendiente, pasando de 50 a aproximadamente 30-35 puntos. La línea real se aproxima a la línea de guía ideal, indicando un ritmo de desarrollo saludable durante la implementación del backtracking base y las restricciones RD-01, RD-02, RD-04, RD-05 y RD-06.
+- **Semana 2-3 (5 may - 17 may):** Se observa una disminución sostenida del trabajo pendiente, pasando de 50 a aproximadamente 30-35 puntos. La línea real se aproxima a la línea de guía ideal, indicando un ritmo de desarrollo saludable durante la implementación del backtracking base y las restricciones RD-01, RD-02, RD-04, RD-05, RD-06 (base del conjunto que se expandiría a RD-01 a RD-14 en Sprints 4-5).
 
 - **Semana 4-5 (21 may - 5 jun):** La curva se aplana significativamente. El trabajo pendiente se estanca alrededor de 20-25 puntos. Este estancamiento se correlaciona directamente con la implementación de la **restricción RD-03 (estudiante sin solapamiento)**, que es la más costosa computacionalmente debido a que requiere validar la asignación de horarios contra cada estudiante matriculado (complejidad O(n²) en el peor caso).
 

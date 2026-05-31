@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, startTransition } from 'react';
 import Modal from '../components/ui/Modal';
 import api from '../api/axios';
 import { HiOutlinePlus, HiOutlinePencil, HiOutlineTrash, HiOutlineEye } from 'react-icons/hi';
@@ -13,9 +13,10 @@ export default function Students() {
   const [loadError, setLoadError] = useState(null);
   const [detailItem, setDetailItem] = useState(null);
 
+  const load = async () => { try { const r = await api.get('/students?limit=500'); startTransition(() => { setStudents(r.data.students || []); setLoadError(null); }); } catch { startTransition(() => setLoadError('Error al cargar estudiantes')); } };
+  const loadCareers = async () => { try { const r = await api.get('/careers'); startTransition(() => setCareers(r.data.careers || [])); } catch { /* ignore */ } };
+
   useEffect(() => { load(); loadCareers(); }, []);
-  const load = async () => { try { const r = await api.get('/students?limit=500'); setStudents(r.data.students || []); setLoadError(null); } catch(e){ setLoadError('Error al cargar estudiantes'); } };
-  const loadCareers = async () => { try { const r = await api.get('/careers'); setCareers(r.data.careers || []); } catch(e){} };
 
   const getCareerName = (s) => {
     if (!s.career) return '—';

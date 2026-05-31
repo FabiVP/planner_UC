@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, startTransition } from 'react';
 import api from '../api/axios';
 import {
   HiOutlineCog, HiOutlineClock, HiOutlineUserGroup,
   HiOutlineOfficeBuilding, HiOutlineScale, HiOutlineSave,
-  HiOutlineRefresh
+  HiOutlineRefresh, HiOutlineInformationCircle
 } from 'react-icons/hi';
 import './InstitutionalPolicies.css';
 
@@ -23,22 +23,22 @@ export default function InstitutionalPolicies() {
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
 
-  useEffect(() => { loadPolicy(); }, []);
-
   const loadPolicy = async () => {
-    setLoading(true);
+    startTransition(() => setLoading(true));
     try {
       const r = await api.get('/policies/active');
-      setPolicy(r.data);
-    } catch (e) {
+      startTransition(() => setPolicy(r.data));
+    } catch {
       // Create default if none exists
       try {
         const r = await api.post('/policies', {});
-        setPolicy(r.data.policy);
-      } catch (e2) {}
+        startTransition(() => setPolicy(r.data.policy));
+      } catch { /* ignore */ }
     }
-    setLoading(false);
+    startTransition(() => setLoading(false));
   };
+
+  useEffect(() => { loadPolicy(); }, []);
 
   const handleSave = async () => {
     if (!policy) return;
@@ -187,53 +187,30 @@ export default function InstitutionalPolicies() {
           </div>
         </div>
 
-        {/* Límites docentes */}
+        {/* Docentes Tiempo Completo */}
         <div className="card policy-card">
           <div className="policy-card-header">
             <HiOutlineUserGroup className="policy-icon teacher" />
             <div>
-              <h3>Límites de Carga Docente</h3>
-              <p>Restricciones de horas y cursos por tipo de contrato</p>
+              <h3>Docentes Tiempo Completo (TC)</h3>
+              <p>Límites de carga y reglas para docentes de TC</p>
             </div>
           </div>
           <div className="policy-card-body">
-            <div className="contract-limits">
-              <div className="limit-group tc">
-                <h4>Tiempo Completo (TC)</h4>
-                <div className="form-row">
-                  <div className="form-group">
-                    <label>Máx. horas/semana</label>
-                    <input type="number" className="form-input"
-                      value={policy.teacherLimits?.maxWeeklyHoursFullTime || 40}
-                      onChange={e => updateField('teacherLimits.maxWeeklyHoursFullTime', +e.target.value)} min="1" max="48" />
-                  </div>
-                  <div className="form-group">
-                    <label>Máx. cursos</label>
-                    <input type="number" className="form-input"
-                      value={policy.teacherLimits?.maxCoursesFullTime || 4}
-                      onChange={e => updateField('teacherLimits.maxCoursesFullTime', +e.target.value)} min="1" max="10" />
-                  </div>
-                </div>
+            <div className="form-row">
+              <div className="form-group">
+                <label>Máx. horas/semana</label>
+                <input type="number" className="form-input"
+                  value={policy.teacherLimits?.maxWeeklyHoursFullTime || 40}
+                  onChange={e => updateField('teacherLimits.maxWeeklyHoursFullTime', +e.target.value)} min="1" max="48" />
               </div>
-              <div className="limit-group ph">
-                <h4>Por Horas (PH)</h4>
-                <div className="form-row">
-                  <div className="form-group">
-                    <label>Máx. horas/semana</label>
-                    <input type="number" className="form-input"
-                      value={policy.teacherLimits?.maxWeeklyHoursPartTime || 20}
-                      onChange={e => updateField('teacherLimits.maxWeeklyHoursPartTime', +e.target.value)} min="1" max="30" />
-                  </div>
-                  <div className="form-group">
-                    <label>Máx. cursos</label>
-                    <input type="number" className="form-input"
-                      value={policy.teacherLimits?.maxCoursesPartTime || 2}
-                      onChange={e => updateField('teacherLimits.maxCoursesPartTime', +e.target.value)} min="1" max="6" />
-                  </div>
-                </div>
+              <div className="form-group">
+                <label>Máx. cursos</label>
+                <input type="number" className="form-input"
+                  value={policy.teacherLimits?.maxCoursesFullTime || 4}
+                  onChange={e => updateField('teacherLimits.maxCoursesFullTime', +e.target.value)} min="1" max="10" />
               </div>
             </div>
-
             <div className="form-row" style={{ marginTop: 12 }}>
               <div className="form-group">
                 <label>Descanso mín. entre clases (min)</label>
@@ -246,6 +223,106 @@ export default function InstitutionalPolicies() {
                 <input type="number" className="form-input"
                   value={policy.teacherLimits?.maxContinuousHours || 4}
                   onChange={e => updateField('teacherLimits.maxContinuousHours', +e.target.value)} min="1" max="8" />
+              </div>
+            </div>
+            <p className="form-hint" style={{ marginTop: 12, fontSize: '0.82rem', color: 'var(--text-secondary)' }}>
+              Las preferencias de los docentes TC se toman en cuenta, pero si existe conflicto con las reglas institucionales, prevalecen las de la universidad.
+            </p>
+          </div>
+        </div>
+
+        {/* Docentes Tiempo Parcial — preferencias SIEMPRE respetadas */}
+        <div className="card policy-card" style={{ borderLeft: '4px solid #8b5cf6' }}>
+          <div className="policy-card-header">
+            <HiOutlineUserGroup className="policy-icon teacher" style={{ background: '#8b5cf6' }} />
+            <div>
+              <h3>Docentes Tiempo Parcial (PH)</h3>
+              <p>Límites de carga, reglas y preferencias — se respetan SIEMPRE</p>
+            </div>
+          </div>
+          <div className="policy-card-body">
+            <div className="info-banner" style={{ marginBottom: 16, background: 'rgba(139,92,246,0.08)', border: '1px solid rgba(139,92,246,0.2)' }}>
+              <HiOutlineInformationCircle style={{ color: '#8b5cf6' }} />
+              <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
+                <strong>Las preferencias de los docentes PH tienen prioridad absoluta.</strong> A diferencia de los TC, las preferencias de disponibilidad, turno y tipo de curso de los docentes por horas se respetan obligatoriamente en la generación de horarios.
+              </div>
+            </div>
+            <div className="form-row">
+              <div className="form-group">
+                <label>Máx. horas/semana</label>
+                <input type="number" className="form-input"
+                  value={policy.teacherLimits?.maxWeeklyHoursPartTime || 20}
+                  onChange={e => updateField('teacherLimits.maxWeeklyHoursPartTime', +e.target.value)} min="1" max="30" />
+              </div>
+              <div className="form-group">
+                <label>Máx. cursos</label>
+                <input type="number" className="form-input"
+                  value={policy.teacherLimits?.maxCoursesPartTime || 2}
+                  onChange={e => updateField('teacherLimits.maxCoursesPartTime', +e.target.value)} min="1" max="6" />
+              </div>
+            </div>
+            <div style={{ marginTop: 16 }}>
+              <h4 className="subsection-title">Reglas de asignación</h4>
+              <div className="form-group">
+                <label>Turnos permitidos para PH</label>
+                <div className="day-selector">
+                  {['manana', 'tarde', 'noche'].map(shift => (
+                    <button key={shift} type="button"
+                      className={`day-option ${(policy.partTimePreferences?.allowedShifts || []).includes(shift) ? 'active' : ''}`}
+                      onClick={() => {
+                        const current = policy.partTimePreferences?.allowedShifts || [];
+                        const updated = current.includes(shift)
+                          ? current.filter(s => s !== shift)
+                          : [...current, shift];
+                        updateField('partTimePreferences.allowedShifts', updated);
+                      }}
+                    >
+                      {shift === 'manana' ? 'Mañana' : shift === 'tarde' ? 'Tarde' : 'Noche'}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              <div className="form-group" style={{ marginTop: 12 }}>
+                <label>Tipos de curso permitidos para PH</label>
+                <div className="day-selector">
+                  {['teorico', 'laboratorio'].map(type => (
+                    <button key={type} type="button"
+                      className={`day-option ${(policy.partTimePreferences?.allowedCourseTypes || []).includes(type) ? 'active' : ''}`}
+                      onClick={() => {
+                        const current = policy.partTimePreferences?.allowedCourseTypes || [];
+                        const updated = current.includes(type)
+                          ? current.filter(t => t !== type)
+                          : [...current, type];
+                        updateField('partTimePreferences.allowedCourseTypes', updated);
+                      }}
+                    >
+                      {type === 'teorico' ? 'Teórico' : 'Laboratorio'}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              <div className="form-group" style={{ marginTop: 12 }}>
+                <label>Máx. días por semana para PH</label>
+                <input type="number" className="form-input"
+                  value={policy.partTimePreferences?.maxDaysPerWeek || 5}
+                  onChange={e => updateField('partTimePreferences.maxDaysPerWeek', +e.target.value)}
+                  min="1" max="7" />
+              </div>
+              <div className="toggle-row" style={{ marginTop: 12 }}>
+                <label className="toggle-label">
+                  <input type="checkbox"
+                    checked={policy.partTimePreferences?.allowMultiShift !== false}
+                    onChange={e => updateField('partTimePreferences.allowMultiShift', e.target.checked)} />
+                  <span className="toggle-text">Permitir múltiples turnos para PH</span>
+                </label>
+              </div>
+              <div className="toggle-row">
+                <label className="toggle-label">
+                  <input type="checkbox"
+                    checked={policy.partTimePreferences?.prioritizeAfterFullTime !== false}
+                    onChange={e => updateField('partTimePreferences.prioritizeAfterFullTime', e.target.checked)} />
+                  <span className="toggle-text">Priorizar horarios PH después de TC</span>
+                </label>
               </div>
             </div>
           </div>
@@ -290,6 +367,57 @@ export default function InstitutionalPolicies() {
                   onChange={e => updateField('classroomRules.allowVirtualClassrooms', e.target.checked)} />
                 <span className="toggle-text">Permitir aulas virtuales para cursos teóricos</span>
               </label>
+            </div>
+          </div>
+        </div>
+
+        {/* Reglas de matrícula */}
+        <div className="card policy-card">
+          <div className="policy-card-header">
+            <HiOutlineUserGroup className="policy-icon teacher" style={{ background: '#059669' }} />
+            <div>
+              <h3>Reglas de Matrícula</h3>
+              <p>Límites de créditos por semestre y apertura de secciones</p>
+            </div>
+          </div>
+          <div className="policy-card-body">
+            <h4 className="subsection-title">Créditos por semestre</h4>
+            <div className="form-row">
+              <div className="form-group">
+                <label>Mín. créditos</label>
+                <input type="number" className="form-input"
+                  value={policy.enrollmentRules?.minCreditsPerSemester ?? 12}
+                  onChange={e => updateField('enrollmentRules.minCreditsPerSemester', +e.target.value)} min="0" max="50" />
+              </div>
+              <div className="form-group">
+                <label>Máx. créditos</label>
+                <input type="number" className="form-input"
+                  value={policy.enrollmentRules?.maxCreditsPerSemester ?? 25}
+                  onChange={e => updateField('enrollmentRules.maxCreditsPerSemester', +e.target.value)} min="1" max="50" />
+              </div>
+            </div>
+            <p className="form-hint" style={{ fontSize: '0.82rem', color: 'var(--text-secondary)' }}>
+              La suma de créditos de todos los cursos de un mismo semestre debe estar dentro de este rango (RD-14).
+            </p>
+
+            <h4 className="subsection-title" style={{ marginTop: 16 }}>Apertura de secciones</h4>
+            <div className="form-group">
+              <label>Mín. estudiantes por sección</label>
+              <input type="number" className="form-input"
+                value={policy.enrollmentRules?.minStudentsPerSection ?? 15}
+                onChange={e => updateField('enrollmentRules.minStudentsPerSection', +e.target.value)} min="1" max="50" />
+            </div>
+            <p className="form-hint" style={{ fontSize: '0.82rem', color: 'var(--text-secondary)' }}>
+              Si la demanda de un curso es menor a este número, la sección se crea como <strong>pendiente</strong> y no se genera horario.
+            </p>
+
+            <h4 className="subsection-title" style={{ marginTop: 16 }}>Modos de docente TC</h4>
+            <div className="info-banner" style={{ background: 'rgba(16,185,129,0.06)', border: '1px solid rgba(16,185,129,0.15)', marginTop: 8 }}>
+              <HiOutlineInformationCircle style={{ color: '#059669' }} />
+              <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
+                Los docentes TC sin carga administrativa tienen <strong>36h</strong> de enseñanza semanales.
+                Los TC con carga administrativa tienen <strong>24h</strong>. Esto se configura desde el perfil de cada docente y afecta la restricción RD-08.
+              </div>
             </div>
           </div>
         </div>

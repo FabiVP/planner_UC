@@ -27,7 +27,7 @@
 | Investigación e implementación de backtracking | Semana 7 | 313.00 | Estudio e implementación del algoritmo base |
 | Heurística MRV (Minimum Remaining Values) | Semana 7 | 209.00 | Optimización para elegir la variable más restringida |
 | Forward Checking y poda | Semana 8 | 209.00 | Propagación de restricciones para reducir el espacio de búsqueda |
-| Implementación de restricciones RD-01 a RD-06 | Semana 8 | 263.00 | Codificación de las 6 restricciones duras del dominio |
+| Implementación de restricciones RD-01 a RD-11 (base) | Semana 8 | 263.00 | Codificación de restricciones duras base del dominio |
 | Manejo de timeout (30s) y solución parcial | Semana 9 | 159.00 | Control de tiempo y retorno de mejor solución encontrada |
 | Pruebas de integración del CSP | Semana 9 | 107.00 | Validación del motor con diferentes escenarios |
 | **Subtotal Sprint 3** | | **1,260.00** | |
