@@ -1,9 +1,10 @@
-import { useState, useEffect, startTransition } from 'react';
+import { useState, useEffect, useMemo, startTransition } from 'react';
 import Modal from '../components/ui/Modal';
 import api from '../api/axios';
-import { HiOutlinePlus, HiOutlinePencil, HiOutlineTrash, HiOutlineEye } from 'react-icons/hi';
+import { HiOutlinePlus, HiOutlinePencil, HiOutlineTrash, HiOutlineEye, HiOutlineChevronLeft, HiOutlineChevronRight } from 'react-icons/hi';
 import './Courses.css';
 
+const PAGE_SIZE = 20;
 const emptyForm = { code: '', name: '', credits: 4, type: 'teorico', semester: 1, sessionsPerWeek: 2, hoursPerSession: 1, career: '', difficulty: 3, corequisites: [], minStudentsPerSection: 15, maxStudents: 40, mandatory: true, assignedTeachers: [] };
 
 export default function Courses() {
@@ -16,11 +17,16 @@ export default function Courses() {
   const [form, setForm] = useState({ ...emptyForm });
   const [filterCareer, setFilterCareer] = useState('all');
   const [detailItem, setDetailItem] = useState(null);
+  const [totalCourses, setTotalCourses] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const loadCourses = async () => {
     try {
-      const res = await api.get('/courses');
-      startTransition(() => setCourses(res.data.courses || []));
+      const res = await api.get('/courses?limit=10000');
+      startTransition(() => {
+        setCourses(res.data.courses || []);
+        setTotalCourses(res.data.total || 0);
+      });
     } catch (err) { console.error(err); }
     finally { startTransition(() => setLoading(false)); }
   };
@@ -96,20 +102,60 @@ export default function Courses() {
     return found ? found.name : '-';
   };
 
-  const filteredCourses = filterCareer === 'all'
-    ? courses
-    : courses.filter(c => {
-        const cId = c.career?._id || c.career;
-        return cId === filterCareer;
-      });
+  // Client-side filter by career
+  const filteredCourses = useMemo(() => {
+    const result = filterCareer === 'all'
+      ? courses
+      : courses.filter(c => {
+          const cId = c.career?._id || c.career;
+          return cId === filterCareer;
+        });
+    // Reset to page 1 when filter changes
+    return result;
+  }, [courses, filterCareer]);
+
+  // Reset page when filter changes
+  useEffect(() => { setCurrentPage(1); }, [filterCareer]);
+
+  // Paginate the filtered list
+  const totalPages = Math.max(1, Math.ceil(filteredCourses.length / PAGE_SIZE));
+  const safePage = Math.min(currentPage, totalPages);
+  const paginatedCourses = filteredCourses.slice(
+    (safePage - 1) * PAGE_SIZE,
+    safePage * PAGE_SIZE
+  );
+
+  const goToPage = (page) => {
+    if (page >= 1 && page <= totalPages) setCurrentPage(page);
+  };
+
+  // Generate page numbers with ellipsis
+  const getPageNumbers = () => {
+    const pages = [];
+    const delta = 2;
+    const left = Math.max(2, safePage - delta);
+    const right = Math.min(totalPages - 1, safePage + delta);
+
+    pages.push(1);
+    if (left > 2) pages.push('...');
+    for (let i = left; i <= right; i++) pages.push(i);
+    if (right < totalPages - 1) pages.push('...');
+    if (totalPages > 1) pages.push(totalPages);
+
+    return pages;
+  };
 
   return (
     <div className="animate-fadeIn">
         <div className="page-actions">
           <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
-            <span className="results-count">{filteredCourses.length} asignaturas</span>
+            <span className="results-count">
+              {filteredCourses.length === totalCourses
+                ? `${totalCourses} asignaturas`
+                : `${filteredCourses.length} de ${totalCourses} asignaturas`}
+            </span>
             {careers.length > 0 && (
-              <select className="form-select" value={filterCareer} onChange={e => setFilterCareer(e.target.value)}
+              <select className="form-select" value={filterCareer} onChange={e => { setFilterCareer(e.target.value); setCurrentPage(1); }}
                 style={{ padding: '0.35rem 0.75rem', fontSize: '0.82rem', width: 'auto', minWidth: '180px' }}>
                 <option value="all">Todas las carreras</option>
                 {careers.map(c => <option key={c._id} value={c._id}>{c.name}</option>)}
@@ -138,7 +184,7 @@ export default function Courses() {
                 </tr>
               </thead>
               <tbody>
-                {filteredCourses.map(c => (
+                {paginatedCourses.map(c => (
                   <tr key={c._id}>
                     <td><span className="code-badge">{c.code}</span></td>
                     <td className="td-name">{c.name}</td>
@@ -161,12 +207,32 @@ export default function Courses() {
                     </td>
                   </tr>
                 ))}
-                {filteredCourses.length === 0 && (
+                {paginatedCourses.length === 0 && (
                   <tr><td colSpan="9" className="empty-state">No hay cursos registrados</td></tr>
                 )}
               </tbody>
             </table>
           </div>
+
+          {totalPages > 1 && (
+            <div className="pagination">
+              <button className="pagination-btn" onClick={() => goToPage(safePage - 1)} disabled={safePage <= 1}>
+                <HiOutlineChevronLeft />
+              </button>
+              {getPageNumbers().map((p, i) =>
+                p === '...' ? (
+                  <span key={`ellipsis-${i}`} className="pagination-ellipsis">...</span>
+                ) : (
+                  <button key={p} className={`pagination-btn ${p === safePage ? 'active' : ''}`} onClick={() => goToPage(p)}>
+                    {p}
+                  </button>
+                )
+              )}
+              <button className="pagination-btn" onClick={() => goToPage(safePage + 1)} disabled={safePage >= totalPages}>
+                <HiOutlineChevronRight />
+              </button>
+            </div>
+          )}
         </div>
       <Modal isOpen={modal} onClose={() => setModal(false)} title={editing ? 'Editar Curso' : 'Nuevo Curso'}>
         <form onSubmit={handleSubmit} className="modal-form">

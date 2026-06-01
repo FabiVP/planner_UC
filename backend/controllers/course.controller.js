@@ -3,23 +3,36 @@ const { validationResult } = require('express-validator');
 
 exports.getAll = async (req, res, next) => {
   try {
-    const { semester, type, active, career, page = 1, limit = 50 } = req.query;
+    const { semester, type, active, career } = req.query;
+    const page = Math.max(1, parseInt(req.query.page) || 1);
+    const limit = Math.min(10000, Math.max(1, parseInt(req.query.limit) || 20));
     const filter = {};
     if (semester) filter.semester = semester;
     if (type) filter.type = type;
     if (active !== undefined) filter.active = active === 'true';
     if (career) filter.career = career;
-    
-    const skip = (parseInt(page) - 1) * parseInt(limit);
+
+    const skip = (page - 1) * limit;
     const [courses, total] = await Promise.all([
       Course.find(filter)
         .populate('prerequisites', 'code name')
         .populate('career', 'code name faculty')
         .sort({ semester: 1, code: 1 })
-        .skip(skip).limit(parseInt(limit)),
+        .skip(skip).limit(limit)
+        .lean(),
       Course.countDocuments(filter)
     ]);
-    res.json({ count: courses.length, total, page: parseInt(page), pages: Math.ceil(total / parseInt(limit)), courses });
+    const pages = Math.ceil(total / limit);
+    res.json({
+      count: courses.length,
+      total,
+      page,
+      limit,
+      pages,
+      hasNext: page < pages,
+      hasPrev: page > 1,
+      courses
+    });
   } catch (error) {
     next(error);
   }

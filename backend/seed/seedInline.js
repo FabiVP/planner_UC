@@ -19,21 +19,19 @@ const Campus = require('../models/Campus');
 const Simulation = require('../models/Simulation');
 
 async function seedInline() {
-  // Clear existing data
-  await Promise.all([
-    User.deleteMany({}),
-    Course.deleteMany({}),
-    Teacher.deleteMany({}),
-    Student.deleteMany({}),
-    Classroom.deleteMany({}),
-    Preference.deleteMany({}),
-    Notification.deleteMany({}),
-    Career.deleteMany({}),
-    InstitutionalPolicy.deleteMany({}),
-    Campus.deleteMany({}),
-    Simulation.deleteMany({})
+  // Verificar si ya hay datos — si existen, no sobreescribir
+  const [userCount, courseCount, teacherCount, studentCount, careerCount] = await Promise.all([
+    User.countDocuments(),
+    Course.countDocuments(),
+    Teacher.countDocuments(),
+    Student.countDocuments(),
+    Career.countDocuments()
   ]);
-  console.log('🗑️  Datos anteriores eliminados.');
+  if (userCount > 0 || courseCount > 0 || teacherCount > 0 || studentCount > 0 || careerCount > 0) {
+    console.log('📦 La base de datos ya contiene datos. Seed automático omitido para preservar datos existentes.');
+    return;
+  }
+  console.log('🆕 Base de datos vacía. Insertando datos de semilla...');
 
   // ═══════════════════════════════════════════
   // USUARIOS (5 perfiles)

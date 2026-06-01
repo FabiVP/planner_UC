@@ -93,5 +93,7 @@ const courseSchema = new mongoose.Schema({
 
 courseSchema.index({ semester: 1 });
 courseSchema.index({ career: 1, semester: 1 });
+courseSchema.index({ name: 1 });
+courseSchema.index({ type: 1 });
 
 module.exports = mongoose.model('Course', courseSchema);

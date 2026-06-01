@@ -129,4 +129,9 @@ teacherSchema.pre('save', function(next) {
   next();
 });
 
+teacherSchema.index({ email: 1 });
+teacherSchema.index({ name: 1 });
+teacherSchema.index({ department: 1, active: 1 });
+teacherSchema.index({ contractType: 1 });
+
 module.exports = mongoose.model('Teacher', teacherSchema);

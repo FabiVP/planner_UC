@@ -2,9 +2,11 @@ const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
+const compression = require('compression');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const connectDB = require('./config/db');
+const { co2Monitor, getMetrics } = require('./middleware/co2Monitor');
 
 dotenv.config();
 
@@ -12,10 +14,12 @@ const app = express();
 
 // Middleware
 app.use(helmet());
+app.use(compression({ level: 6, threshold: 1024 }));
 app.use(cors({ origin: process.env.CORS_ORIGIN || '*', credentials: true }));
 app.use(morgan('dev'));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
+app.use(co2Monitor);
 
 // Routes
 app.use('/api/auth', require('./routes/auth.routes'));
@@ -39,6 +43,9 @@ app.use('/api/student-schedule', require('./routes/student-schedule.routes'));
 app.use('/api/simulations', require('./routes/simulation.routes'));
 app.use('/api/campuses', require('./routes/campus.routes'));
 app.use('/api', require('./routes/section.routes'));
+
+// Sustainability metrics endpoint
+app.get('/api/sustainability', getMetrics);
 
 // Health check — incluye estado de la base de datos
 app.get('/api/health', (req, res) => {
@@ -73,19 +80,12 @@ const startServer = async () => {
     // Conectar a la base de datos
     await connectDB();
 
-    // Verificar si la BD está vacía (modo in-memory o primera ejecución)
-    const User = require('./models/User');
-    const userCount = await User.countDocuments();
-
-    if (userCount === 0) {
-      console.log('📋 Base de datos vacía detectada. Ejecutando seed automático...');
-      try {
-        await require('./seed/seedInline')();
-        console.log('✅ Seed automático completado.');
-      } catch (seedErr) {
-        console.warn('⚠️  Error en seed automático:', seedErr.message);
-        console.log('   Puedes ejecutar el seed manualmente: npm run seed');
-      }
+    // Seed automático solo si la BD está completamente vacía (seedInline verifica internamente)
+    try {
+      await require('./seed/seedInline')();
+    } catch (seedErr) {
+      console.warn('⚠️  Error en seed automático:', seedErr.message);
+      console.log('   Puedes ejecutar el seed manualmente: npm run seed');
     }
 
     // Iniciar servidor HTTP

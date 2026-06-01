@@ -9,6 +9,7 @@
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const path = require('path');
+const readline = require('readline');
 
 dotenv.config({ path: path.join(__dirname, '..', '.env') });
 
@@ -27,6 +28,17 @@ async function seed() {
     const dbUri = process.env.MONGODB_URI || process.env.DATABASE_URL || 'mongodb://localhost:27017/unischeduler';
     await mongoose.connect(dbUri);
     console.log('📦 Conectado a MongoDB:', dbUri);
+
+    // Confirmar antes de borrar
+    const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
+    const answer = await new Promise(resolve => {
+      rl.question('⚠️  ¿Estás seguro de borrar TODOS los datos y reemplazarlos con datos de prueba? (s/N): ', resolve);
+    });
+    rl.close();
+    if (answer.toLowerCase() !== 's' && answer.toLowerCase() !== 'si') {
+      console.log('❌ Seed cancelado.');
+      process.exit(0);
+    }
 
     // Clear existing data
     await Promise.all([

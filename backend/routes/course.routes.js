@@ -3,6 +3,7 @@ const { body } = require('express-validator');
 const ctrl = require('../controllers/course.controller');
 const auth = require('../middleware/auth');
 const roleGuard = require('../middleware/roleGuard');
+const { cacheMiddleware, invalidateCacheByPrefix } = require('../middleware/cache');
 
 const validateCourse = [
   body('code').trim().notEmpty().withMessage('El código del curso es requerido'),
@@ -11,10 +12,19 @@ const validateCourse = [
   body('type').isIn(['teorico', 'laboratorio']).withMessage('Tipo debe ser teorico o laboratorio'),
 ];
 
-router.get('/', auth, ctrl.getAll);
+router.get('/', auth, cacheMiddleware('cursos'), ctrl.getAll);
 router.get('/:id', auth, ctrl.getById);
-router.post('/', auth, roleGuard('coordinador'), validateCourse, ctrl.create);
-router.put('/:id', auth, roleGuard('coordinador'), validateCourse, ctrl.update);
-router.delete('/:id', auth, roleGuard('coordinador'), ctrl.delete);
+router.post('/', auth, roleGuard('coordinador'), validateCourse, (req, res, next) => {
+  invalidateCacheByPrefix('cursos');
+  next();
+}, ctrl.create);
+router.put('/:id', auth, roleGuard('coordinador'), validateCourse, (req, res, next) => {
+  invalidateCacheByPrefix('cursos');
+  next();
+}, ctrl.update);
+router.delete('/:id', auth, roleGuard('coordinador'), (req, res, next) => {
+  invalidateCacheByPrefix('cursos');
+  next();
+}, ctrl.delete);
 
 module.exports = router;

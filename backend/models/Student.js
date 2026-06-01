@@ -80,4 +80,8 @@ studentSchema.virtual('failedCoursesCount').get(function() {
   return (this.approvedCourses || []).filter(ac => ac.grade != null && ac.grade < 11).length;
 });
 
+studentSchema.index({ email: 1 });
+studentSchema.index({ career: 1, currentSemester: 1 });
+studentSchema.index({ active: 1 });
+
 module.exports = mongoose.model('Student', studentSchema);

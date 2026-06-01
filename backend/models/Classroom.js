@@ -63,5 +63,7 @@ const classroomSchema = new mongoose.Schema({
 });
 
 classroomSchema.index({ type: 1, available: 1 });
+classroomSchema.index({ campus: 1, building: 1 });
+classroomSchema.index({ capacity: 1 });
 
 module.exports = mongoose.model('Classroom', classroomSchema);

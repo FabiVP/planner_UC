@@ -14,3 +14,11 @@
 .diff-btn { background: none; border: 1px solid var(--border); border-radius: 6px; padding: 4px 8px; cursor: pointer; font-size: 1.1rem; color: var(--text-secondary); transition: all 0.15s; }
 .diff-btn.active { color: #f59e0b; border-color: #f59e0b; background: rgba(245,158,11,0.08); }
 .diff-btn:hover { transform: scale(1.15); }
+
+/* Pagination */
+.pagination { display: flex; align-items: center; justify-content: center; gap: 4px; padding: 16px 0; border-top: 1px solid var(--border); margin-top: 0; }
+.pagination-btn { display: inline-flex; align-items: center; justify-content: center; min-width: 36px; height: 36px; padding: 0 10px; border: 1px solid var(--border); border-radius: 6px; background: var(--card-bg); color: var(--text); cursor: pointer; transition: all 0.15s; font-size: 0.85rem; }
+.pagination-btn:hover:not(:disabled):not(.active) { border-color: var(--primary); color: var(--primary); }
+.pagination-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); font-weight: 600; }
+.pagination-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.pagination-ellipsis { display: inline-flex; align-items: center; justify-content: center; min-width: 36px; height: 36px; color: var(--text-muted); font-size: 0.85rem; }

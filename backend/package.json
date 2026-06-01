@@ -11,7 +11,9 @@
     "test-mongo": "node -e \"const mongoose = require('mongoose'); const uri = process.env.MONGODB_URI || 'mongodb://localhost:27017/unischeduler'; mongoose.connect(uri, {serverSelectionTimeoutMS:5000}).then(()=>{console.log('✅ CONECTADO');return mongoose.connection.close();}).then(()=>{console.log('✅ Todo ok');process.exit(0);}).catch(e=>{console.log('❌ '+e.message);process.exit(1);})\""
   },
   "dependencies": {
+    "@tgwf/co2": "^0.18.0",
     "bcryptjs": "^2.4.3",
+    "compression": "^1.8.1",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.21.0",
@@ -21,7 +23,8 @@
     "jsonwebtoken": "^9.0.2",
     "mongodb-memory-server": "^11.1.0",
     "mongoose": "^8.7.0",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "node-cache": "^5.1.2"
   },
   "devDependencies": {
     "jest": "^29.7.0",
