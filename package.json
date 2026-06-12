@@ -1,0 +1,20 @@
+{
+  "name": "unischeduler",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Sistema de Generación Óptima de Horarios Académicos",
+  "scripts": {
+    "test:all": "cd backend && npm test && cd ../frontend && npm test",
+    "test:backend": "cd backend && npm test",
+    "test:frontend": "cd frontend && npm test",
+    "test:acceptance": "cd frontend && npx cypress run",
+    "backend:start": "cd backend && node server.js",
+    "frontend:dev": "cd frontend && npx vite",
+    "e2e:prepare": "start-server-and-test 'cd backend && node server.js' http://localhost:5000/api/health 'cd frontend && npx vite'",
+    "e2e:persistence": "start-server-and-test 'cd backend && node server.js' http://localhost:5000/api/health 'cd frontend && start-server-and-test dev http://localhost:5173 \"npx playwright test e2e/persistence.spec.js\"'"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.60.0",
+    "start-server-and-test": "^2.1.5"
+  }
+}

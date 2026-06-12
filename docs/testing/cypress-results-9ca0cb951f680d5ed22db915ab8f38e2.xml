@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="17.154" tests="6" failures="1">
+  <testsuite name="Root Suite" timestamp="2026-06-12T15:25:41" tests="0" file="cypress\e2e\login.cy.js" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Login - Acceptance Tests" timestamp="2026-06-12T15:25:41" tests="6" time="17.153" failures="1">
+    <testcase name="Login - Acceptance Tests debe mostrar el formulario de login con campos email y password" time="2.418" classname="debe mostrar el formulario de login con campos email y password">
+    </testcase>
+    <testcase name="Login - Acceptance Tests debe mostrar enlace de acceso rápido para los 3 roles" time="1.534" classname="debe mostrar enlace de acceso rápido para los 3 roles">
+    </testcase>
+    <testcase name="Login - Acceptance Tests debe mostrar error con credenciales inválidas" time="2.421" classname="debe mostrar error con credenciales inválidas">
+    </testcase>
+    <testcase name="Login - Acceptance Tests debe mostrar spinner de carga al enviar formulario" time="1.770" classname="debe mostrar spinner de carga al enviar formulario">
+    </testcase>
+    <testcase name="Login - Acceptance Tests debe deshabilitar botón de submit mientras carga" time="0.000" classname="debe deshabilitar botón de submit mientras carga">
+      <failure message="Timed out retrying after 4000ms: expected &apos;&lt;button.btn.btn-primary.btn-lg.login-btn&gt;&apos; to be &apos;disabled&apos;" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 4000ms: expected '<button.btn.btn-primary.btn-lg.login-btn>' to be 'disabled'
+    at Context.eval (webpack://frontend/./cypress/e2e/login.cy.js:37:44)]]></failure>
+    </testcase>
+    <testcase name="Login - Acceptance Tests debe llenar campos automáticamente al usar acceso rápido" time="1.866" classname="debe llenar campos automáticamente al usar acceso rápido">
+    </testcase>
+  </testsuite>
+</testsuites>

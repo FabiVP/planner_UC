@@ -246,4 +246,4 @@ describe('Generacion de slots y dominios', () => {
     expect(slots[0]).toHaveProperty('startTime');
     expect(slots[0]).toHaveProperty('endTime');
   });
-});doc
+});

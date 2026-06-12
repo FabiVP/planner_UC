@@ -1,7 +1,7 @@
 import { useState, useEffect, startTransition } from 'react';
 import Modal from '../components/ui/Modal';
 import api from '../api/axios';
-import { HiOutlinePlus, HiOutlinePencil, HiOutlineTrash, HiOutlineClock, HiOutlineBriefcase, HiOutlineAcademicCap, HiOutlineEye } from 'react-icons/hi';
+import { HiOutlinePlus, HiOutlinePencil, HiOutlineTrash, HiOutlineClock, HiOutlineBriefcase, HiOutlineAcademicCap, HiOutlineEye, HiOutlineUserGroup } from 'react-icons/hi';
 import './Teachers.css';
 
 const DAYS = [
@@ -175,6 +175,9 @@ export default function Teachers() {
 
   return (
     <div className="animate-fadeIn">
+      <div className="page-header">
+        <h1><HiOutlineUserGroup /> Docentes</h1>
+      </div>
       <div className="page-actions">
         <div className="results-info">
           <span className="results-count">{teachers.length} docentes registrados</span>

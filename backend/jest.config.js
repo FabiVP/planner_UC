@@ -1,0 +1,27 @@
+module.exports = {
+  testEnvironment: 'node',
+  testMatch: ['**/__tests__/**/*.test.js', '**/tests/**/*.test.js'],
+  testPathIgnorePatterns: ['/node_modules/', '/coverage/'],
+  collectCoverageFrom: [
+    'controllers/**/*.js',
+    'middleware/**/*.js',
+    'config/**/*.js',
+    'engine/**/*.js',
+    'models/**/*.js',
+    'server.js',
+    '!**/node_modules/**',
+    '!**/coverage/**',
+    '!seed/**',
+  ],
+  coveragePathIgnorePatterns: [
+    '/node_modules/',
+    '/coverage/',
+    '/tests/',
+    '/seed/',
+  ],
+  coverageReporters: ['html', 'lcov', 'text', 'clover', 'json'],
+  coverageDirectory: '<rootDir>/coverage',
+  setupFiles: ['<rootDir>/tests/setup.js'],
+  verbose: true,
+  testTimeout: 30000,
+};

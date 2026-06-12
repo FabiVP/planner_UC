@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="2.530" tests="2" failures="0">
+  <testsuite name="Root Suite" timestamp="2026-06-12T15:26:10" tests="0" file="cypress\e2e\navigation.cy.js" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Navigation - Acceptance Tests" timestamp="2026-06-12T15:26:10" tests="2" time="2.528" failures="0">
+    <testcase name="Navigation - Acceptance Tests debe redirigir al login si no está autenticado" time="1.744" classname="debe redirigir al login si no está autenticado">
+    </testcase>
+    <testcase name="Navigation - Acceptance Tests debe mostrar página 404 para rutas inexistentes" time="0.605" classname="debe mostrar página 404 para rutas inexistentes">
+    </testcase>
+  </testsuite>
+</testsuites>

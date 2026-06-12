@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="27.720" tests="5" failures="1">
+  <testsuite name="Root Suite" timestamp="2026-06-12T15:25:00" tests="0" file="cypress\e2e\crud.cy.js" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Data Management - Acceptance Tests" timestamp="2026-06-12T15:25:00" tests="5" time="27.719" failures="1">
+    <testcase name="Data Management - Acceptance Tests debe mostrar página de campus cuando está autenticado" time="0.000" classname="debe mostrar página de campus cuando está autenticado">
+      <failure message="Timed out retrying after 4000ms: expected &apos;http://localhost:5173/login&apos; to not include &apos;/login&apos;" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 4000ms: expected 'http://localhost:5173/login' to not include '/login'
+    at Context.eval (webpack://frontend/./cypress/e2e/crud.cy.js:7:13)]]></failure>
+    </testcase>
+    <testcase name="Data Management - Acceptance Tests debe mostrar página de asignaturas cuando está autenticado" time="3.375" classname="debe mostrar página de asignaturas cuando está autenticado">
+    </testcase>
+    <testcase name="Data Management - Acceptance Tests debe mostrar página de aulas cuando está autenticado" time="2.409" classname="debe mostrar página de aulas cuando está autenticado">
+    </testcase>
+    <testcase name="Data Management - Acceptance Tests debe mostrar página de estudiantes cuando está autenticado" time="2.732" classname="debe mostrar página de estudiantes cuando está autenticado">
+    </testcase>
+    <testcase name="Data Management - Acceptance Tests debe mostrar página de docentes cuando está autenticado" time="2.277" classname="debe mostrar página de docentes cuando está autenticado">
+    </testcase>
+  </testsuite>
+</testsuites>
