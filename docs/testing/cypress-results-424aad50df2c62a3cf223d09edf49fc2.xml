@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="21.007" tests="5" failures="3">
+  <testsuite name="Root Suite" timestamp="2026-06-12T23:59:18" tests="0" file="cypress\e2e\registration.cy.js" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Registration - Acceptance Tests" timestamp="2026-06-12T23:59:18" tests="5" time="21.006" failures="3">
+    <testcase name="Registration - Acceptance Tests debe mostrar opciones de registro de acceso rápido" time="1.538" classname="debe mostrar opciones de registro de acceso rápido">
+    </testcase>
+    <testcase name="Registration - Acceptance Tests debe permitir acceso rápido como Coordinador" time="0.000" classname="debe permitir acceso rápido como Coordinador">
+      <failure message="Timed out retrying after 4000ms: expected &apos;http://localhost:5173/login&apos; to not include &apos;/login&apos;" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 4000ms: expected 'http://localhost:5173/login' to not include '/login'
+    at Context.eval (webpack://frontend/./cypress/e2e/registration.cy.js:15:13)]]></failure>
+    </testcase>
+    <testcase name="Registration - Acceptance Tests debe permitir acceso rápido como Docente" time="0.000" classname="debe permitir acceso rápido como Docente">
+      <failure message="Timed out retrying after 4000ms: expected &apos;&lt;input#email.form-input&gt;&apos; not to be &apos;empty&apos;" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 4000ms: expected '<input#email.form-input>' not to be 'empty'
+    at Context.eval (webpack://frontend/./cypress/e2e/registration.cy.js:21:21)]]></failure>
+    </testcase>
+    <testcase name="Registration - Acceptance Tests debe permitir acceso rápido como Estudiante" time="0.000" classname="debe permitir acceso rápido como Estudiante">
+      <failure message="Timed out retrying after 4000ms: expected &apos;&lt;input#email.form-input&gt;&apos; not to be &apos;empty&apos;" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 4000ms: expected '<input#email.form-input>' not to be 'empty'
+    at Context.eval (webpack://frontend/./cypress/e2e/registration.cy.js:28:21)]]></failure>
+    </testcase>
+    <testcase name="Registration - Acceptance Tests debe mostrar el formulario con los campos requeridos" time="1.107" classname="debe mostrar el formulario con los campos requeridos">
+    </testcase>
+  </testsuite>
+</testsuites>

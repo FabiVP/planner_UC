@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="9.350" tests="3" failures="0">
+  <testsuite name="Root Suite" timestamp="2026-06-12T23:59:59" tests="0" file="cypress\e2e\validation.cy.js" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Validation - Acceptance Tests" timestamp="2026-06-12T23:59:59" tests="3" time="9.344" failures="0">
+    <testcase name="Validation - Acceptance Tests debe rechazar email sin formato válido" time="5.256" classname="debe rechazar email sin formato válido">
+    </testcase>
+    <testcase name="Validation - Acceptance Tests debe rechazar formulario vacío" time="2.067" classname="debe rechazar formulario vacío">
+    </testcase>
+    <testcase name="Validation - Acceptance Tests debe requerir el campo password" time="1.784" classname="debe requerir el campo password">
+    </testcase>
+  </testsuite>
+</testsuites>

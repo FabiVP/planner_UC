@@ -29,10 +29,6 @@ testem.log
 typings/
 .angular/
 
-# e2e
-e2e/*.js
-e2e/*.map
-
 # System Files
 .DS_Store/
 
@@ -306,3 +302,12 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/windows,visualstudiocode,mean,react,node
+
+# SonarQube
+.scannerwork/
+sonar.token
+
+# Cypress binaries
+frontend/cypress/videos/
+frontend/cypress/screenshots/
+
