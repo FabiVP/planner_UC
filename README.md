@@ -351,4 +351,59 @@ También disponible en la **[Wiki del proyecto](https://github.com/FabiVP/planne
 
 ---
 
+## 🔒 Aseguramiento de Calidad (PFA — Sonar.md)
+
+Esta sección documenta el proceso completo de auditoría técnica ejecutado sobre el sistema como parte del Proyecto de Fin de Asignatura.
+
+### Estándares aplicados
+
+| Estándar | Herramienta | Resultado |
+|----------|------------|-----------|
+| Calidad de código | SonarQube | ✅ Quality Gate PASSED — 0 bugs críticos |
+| Seguridad | OWASP Top 10 2025 | ✅ A01, A03, A05, A06 mitigados |
+| Accesibilidad | WCAG 2.1 AA | ✅ 22/23 criterios cumplidos (95.6%) |
+| Usabilidad | SUS (Brooke, 1996) | ✅ 75.5 puntos — Grado B (Bueno) |
+| Testing automatizado | Jest + Vitest + Playwright | ✅ 315+ pruebas |
+
+### Ejecutar análisis de calidad
+
+```bash
+# Pruebas unitarias + cobertura Backend
+cd backend && npm test
+
+# Pruebas unitarias + cobertura Frontend
+cd frontend && npm test
+
+# Pruebas E2E Playwright
+npx playwright test
+
+# Pruebas E2E Cypress
+cd frontend && npm run cypress:run
+
+# Análisis SonarQube (requiere Docker)
+docker run -d --name sonarqube -p 9000:9000 sonarqube:community
+# Configurar token en sonar-project.properties y ejecutar:
+npx sonar-scanner
+```
+
+### Documentación de evidencias
+
+| Documento | Descripción |
+|-----------|-------------|
+| [`docs/testing/analisis_sonarqube_metricas.md`](docs/testing/analisis_sonarqube_metricas.md) | Métricas SonarQube antes/después |
+| [`docs/testing/evidencia_owasp_mitigaciones.md`](docs/testing/evidencia_owasp_mitigaciones.md) | Evidencia de mitigaciones OWASP |
+| [`docs/testing/checklist_wcag_accesibilidad.md`](docs/testing/checklist_wcag_accesibilidad.md) | Checklist WCAG 2.1 con estado por criterio |
+| [`docs/testing/evaluacion_sus_usabilidad.md`](docs/testing/evaluacion_sus_usabilidad.md) | Evaluación SUS con cálculos y propuestas |
+| [`docs/testing/COVERAGE_ANALYSIS.md`](docs/testing/COVERAGE_ANALYSIS.md) | Análisis de cobertura de pruebas |
+| [`sonar-project.properties`](sonar-project.properties) | Configuración SonarQube del proyecto |
+
+### Archivos de seguridad implementados
+
+| Archivo | Descripción |
+|---------|-------------|
+| [`backend/middleware/security.js`](backend/middleware/security.js) | Middleware OWASP: CSP, sanitización, mass-assignment |
+| [`backend/tests/unit/middleware/security.test.js`](backend/tests/unit/middleware/security.test.js) | 22 tests — 100% cobertura en security.js |
+
+---
+
 *Universidad Continental — Taller de Proyectos 2 — 2026*
