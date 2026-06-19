@@ -7,19 +7,31 @@ const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const connectDB = require('./config/db');
 const { co2Monitor, getMetrics } = require('./middleware/co2Monitor');
+// OWASP Top 10 2025: Custom security middleware
+const { securityHeaders, sanitizeInputs } = require('./middleware/security');
 
 dotenv.config();
 
+
 const app = express();
 
+// OWASP A05: Trust proxy (needed for rate-limit behind reverse proxy)
+app.set('trust proxy', 1);
+
 // Middleware
-app.use(helmet());
+app.use(helmet({
+  contentSecurityPolicy: false, // Handled by our custom securityHeaders
+  crossOriginEmbedderPolicy: false,
+}));
+app.use(securityHeaders); // OWASP A05: Enhanced security headers + CSP
 app.use(compression({ level: 6, threshold: 1024 }));
-app.use(cors({ origin: process.env.CORS_ORIGIN || '*', credentials: true }));
+app.use(cors({ origin: process.env.CORS_ORIGIN || 'http://localhost:5173', credentials: true }));
 app.use(morgan('dev'));
-app.use(express.json({ limit: '10mb' }));
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json({ limit: '2mb' })); // Limit reduced: OWASP A06
+app.use(express.urlencoded({ extended: true, limit: '2mb' }));
+app.use(sanitizeInputs); // OWASP A03: Global input sanitization
 app.use(co2Monitor);
+
 
 // Routes
 app.use('/api/auth', require('./routes/auth.routes'));
