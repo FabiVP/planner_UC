@@ -48,28 +48,44 @@ export default function Login() {
 
   return (
     <div className="login-page">
-      <div className="login-bg-shapes">
+      {/* WCAG 2.1: Decorative background shapes hidden from assistive tech */}
+      <div className="login-bg-shapes" aria-hidden="true">
         <div className="shape shape-1"></div>
         <div className="shape shape-2"></div>
         <div className="shape shape-3"></div>
       </div>
-      
+
       <div className="login-card animate-fadeIn">
         <div className="login-header">
-          <div className="login-logo">
+          {/* WCAG 2.1 SC 1.1.1: Decorative icon hidden from screen readers */}
+          <div className="login-logo" aria-hidden="true">
             <HiOutlineCalendar />
           </div>
           <h1>UniScheduler</h1>
           <p>Sistema Inteligente de Generación de Horarios</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="login-form">
+        {/* WCAG 2.1 SC 4.1.3: Live region for error messages */}
+        <div
+          id="login-error-region"
+          role="alert"
+          aria-live="assertive"
+          aria-atomic="true"
+        >
           {error && <div className="login-error">{error}</div>}
-          
+        </div>
+
+        {/* WCAG 2.1 SC 1.3.5: Input Purpose + SC 3.3.2: Labels */}
+        <form
+          onSubmit={handleSubmit}
+          className="login-form"
+          aria-label="Formulario de inicio de sesión"
+          noValidate
+        >
           <div className="form-group">
             <label htmlFor="email">Correo electrónico</label>
             <div className="input-with-icon">
-              <HiOutlineMail className="input-icon" />
+              <HiOutlineMail className="input-icon" aria-hidden="true" />
               <input
                 id="email"
                 type="email"
@@ -78,6 +94,9 @@ export default function Login() {
                 value={email}
                 onChange={e => setEmail(e.target.value)}
                 required
+                autoComplete="email"
+                aria-required="true"
+                aria-describedby={error ? 'login-error-region' : undefined}
               />
             </div>
           </div>
@@ -85,7 +104,7 @@ export default function Login() {
           <div className="form-group">
             <label htmlFor="password">Contraseña</label>
             <div className="input-with-icon">
-              <HiOutlineLockClosed className="input-icon" />
+              <HiOutlineLockClosed className="input-icon" aria-hidden="true" />
               <input
                 id="password"
                 type="password"
@@ -94,17 +113,35 @@ export default function Login() {
                 value={password}
                 onChange={e => setPassword(e.target.value)}
                 required
+                autoComplete="current-password"
+                aria-required="true"
+                minLength={6}
               />
             </div>
           </div>
 
-          <button type="submit" className="btn btn-primary btn-lg login-btn" disabled={loading}>
-            {loading ? <span className="spinner" style={{width:20,height:20,borderWidth:2}}></span> : 'Iniciar sesión'}
+          {/* WCAG 2.1 SC 2.5.3: Accessible name for button */}
+          <button
+            type="submit"
+            className="btn btn-primary btn-lg login-btn"
+            disabled={loading}
+            aria-busy={loading}
+            aria-label={loading ? 'Iniciando sesión, por favor espere...' : 'Iniciar sesión'}
+          >
+            {loading ? (
+              <>
+                <span className="spinner" style={{width:20,height:20,borderWidth:2}} aria-hidden="true"></span>
+                <span className="sr-only">Cargando...</span>
+              </>
+            ) : (
+              'Iniciar sesión'
+            )}
           </button>
         </form>
 
-        <div className="quick-login">
-          <span className="quick-login-label">Acceso rápido:</span>
+        {/* WCAG 2.1 SC 2.4.6: Headings and Labels */}
+        <div className="quick-login" role="group" aria-labelledby="quick-login-label">
+          <span className="quick-login-label" id="quick-login-label">Acceso rápido:</span>
           <div className="quick-login-btns">
             {PROFILES.map(p => (
               <button
@@ -113,6 +150,7 @@ export default function Login() {
                 className="quick-login-btn"
                 style={{ '--accent': p.color }}
                 onClick={() => quickLogin(p)}
+                aria-label={`Acceso rápido como ${p.label} (${p.email})`}
               >
                 {p.label}
               </button>

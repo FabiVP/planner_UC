@@ -8,12 +8,18 @@ export default function QualityChart({ score = 92, metrics = {} }) {
   const offset = circumference - (score / 100) * circumference;
 
   useEffect(() => {
+    let timerId;
     if (circleRef.current) {
       circleRef.current.style.strokeDashoffset = circumference;
-      setTimeout(() => {
-        circleRef.current.style.strokeDashoffset = offset;
+      // Guard against null ref after component unmount
+      timerId = setTimeout(() => {
+        if (circleRef.current) {
+          circleRef.current.style.strokeDashoffset = offset;
+        }
       }, 100);
     }
+    // Cleanup: cancel timeout on unmount or re-render
+    return () => clearTimeout(timerId);
   }, [score, circumference, offset]);
 
   const defaultMetrics = {
@@ -71,7 +77,7 @@ export default function QualityChart({ score = 92, metrics = {} }) {
           </div>
         </div>
       </div>
-      <a href="#" className="quality-detail-link">Ver detalle del análisis →</a>
+      <button type="button" className="quality-detail-link btn-link" aria-label="Ver detalle del análisis de calidad">Ver detalle del análisis →</button>
     </div>
   );
 }

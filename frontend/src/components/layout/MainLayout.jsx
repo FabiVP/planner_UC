@@ -7,9 +7,9 @@ export default function MainLayout() {
   return (
     <div className="app-layout">
       <Sidebar />
-      <div className="app-main">
+      <div className="app-main" role="region" aria-label="Contenido principal de la aplicación">
         <Header />
-        <main className="page-content">
+        <main id="main-content" className="page-content" tabIndex={-1}>
           <Outlet />
         </main>
       </div>
