@@ -12,6 +12,7 @@ export default defineConfig({
       provider: 'v8',
       reporter: ['html', 'lcov', 'text', 'clover', 'json'],
       reportsDirectory: './coverage',
+      reportOnFailure: true,
       include: ['src/**/*.{js,jsx}'],
       exclude: [
         'src/**/*.{test,spec}.{js,jsx}',
