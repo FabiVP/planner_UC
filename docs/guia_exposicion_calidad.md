@@ -97,7 +97,7 @@
 | JSON body 10MB | A06 | Medio | Límite reducido a 2MB | Bajo |
 | X-Powered-By expuesto | A05 | Bajo | Header eliminado | Mínimo |
 
-#### Preguntas del jurado y respuestas
+#### Dudas OWASP
 
 **P1: ¿Por qué usaron un middleware centralizado en lugar de aplicar protecciones en cada ruta?**
 > "Un middleware centralizado garantiza que **todas** las rutas estén protegidas sin depender de que el desarrollador recuerde aplicar la protección en cada endpoint. Esto sigue el principio de **defense in depth** y reduce el riesgo de error humano. Además, facilita el mantenimiento: cualquier cambio en políticas de seguridad se hace en un solo archivo."
@@ -143,7 +143,7 @@
 
 > "Implementamos: **skip-to-content** para saltar navegación, **focus-visible** global con outline de 3px, **aria-live** para mensajes de error que lectores de pantalla anuncian automáticamente, **autoComplete** en campos de formulario, **prefers-reduced-motion** para usuarios sensibles a animaciones, y **forced-colors** para alto contraste del sistema operativo."
 
-#### Preguntas del jurado y respuestas
+#### Dudas sobre WCAG
 
 **P1: ¿Qué herramientas usaron para la validación WCAG?**
 > "Usamos inspección DOM manual para verificar roles ARIA, React Testing Library con queries de accesibilidad (`getByRole`, `findByLabelText`) para verificar que los componentes sean accesibles programáticamente, y análisis CSS para verificar ratios de contraste con la fórmula WCAG: `(L1 + 0.05) / (L2 + 0.05)` donde L es la luminancia relativa."
@@ -198,7 +198,7 @@
 
 > "El puntaje más bajo (57.5) corresponde a un docente con experiencia digital media-baja, lo que refleja una curva de aprendizaje esperada. El estudiante (P5) reportó 90.0, indicando que el sistema es intuitivo para usuarios nativos digitales."
 
-#### Preguntas del jurado y respuestas
+#### Dudas sobre SUS
 
 **P1: ¿Cómo se calcula el puntaje SUS exactamente?**
 > "La fórmula es: para cada ítem impar (positivo) se resta 1 al valor; para cada ítem par (negativo) se resta el valor de 5. Se suman las 10 contribuciones y se multiplica por 2.5. El rango teórico es de 0 a 100. Por ejemplo, para P1: ítems impares sumaron 15, pares sumaron 16, total 31 × 2.5 = 77.5."
@@ -501,8 +501,6 @@ router.put('/profile', auth, filterAllowedFields(['name','email','phone']), upda
 
 **Técnica de mitigación:** Whitelist de campos permitidos por ruta mediante middleware `filterAllowedFields()`.
 
-**Qué decir al jurado:**
-> "Esta vulnerabilidad permitía que un estudiante se autopromocionara a administrador enviando `{ 'role': 'admin' }` en el body. La mitigación filtra cualquier campo no incluido en una whitelist explícita por ruta. El test verifica que `role` e `isAdmin` sean eliminados del body."
 
 ### 7.2 A03 — Injection / XSS Stored
 
@@ -524,8 +522,6 @@ req.body[key] = req.body[key].replace(/<[^>]*>/g, '').trim();
 
 **Técnica de mitigación:** Sanitización de entradas mediante eliminación de etiquetas HTML en todos los strings del body, aplicada globalmente como middleware.
 
-**Qué decir al jurado:**
-> "Si un coordinador ingresaba `<script>alert('xss')</script>` en el nombre de un curso, ese script se almacenaba en MongoDB y se ejecutaba en el navegador de cualquier usuario que viera la lista de cursos. La mitigación elimina cualquier etiqueta HTML antes de almacenar, reduciendo el input a solo el texto seguro."
 
 ### 7.3 A05 — Security Misconfiguration (Headers HTTP)
 
@@ -549,8 +545,6 @@ req.body[key] = req.body[key].replace(/<[^>]*>/g, '').trim();
 
 **Técnica de mitigación:** Middleware centralizado que aplica todos los headers de seguridad usando helmet.js y configuración explícita.
 
-**Qué decir al jurado:**
-> "Esta era la configuración más crítica porque combinaba múltiples problemas: cualquier sitio web podía hacer peticiones CORS, no había protección contra clickjacking, y el límite de 10MB permitía ataques DoS por payload. La mitigación implementa 8 headers de seguridad en un solo middleware con cobertura de pruebas al 100%."
 
 ### 7.4 Riesgo residual
 
@@ -605,9 +599,7 @@ req.body[key] = req.body[key].replace(/<[^>]*>/g, '').trim();
 
 ---
 
-## APÉNDICE A — PREGUNTAS FRECUENTES DEL JURADO
-
-### Preguntas generales
+### Dudas generales
 
 **P: ¿Cuál fue el mayor desafío técnico del proyecto?**
 > "El motor CSP para generación de horarios, que debe resolver 14 restricciones curriculares simultáneamente. La complejidad computacional es alta, pero logramos tiempos de generación bajo 30 segundos para 50 cursos usando el algoritmo de Kuhn con heurísticas de ordenamiento."
@@ -626,7 +618,3 @@ req.body[key] = req.body[key].replace(/<[^>]*>/g, '').trim();
 **P: ¿Qué métrica consideran más importante y por qué?**
 > "El **Quality Gate** de SonarQube porque es una evaluación compuesta que integra todas las dimensiones de calidad. Si está PASSED, significa que el proyecto cumple estándares en reliability, security, maintainability, coverage y duplicación simultáneamente."
 
----
-
-*Este documento fue generado como guía de exposición para la defensa del proyecto UniScheduler.*
-*Basado en los análisis documentados en `docs/testing/` y los resultados del scan de SonarQube del 19 de Junio 2026.*
