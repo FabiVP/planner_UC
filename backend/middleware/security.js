@@ -65,19 +65,26 @@ const securityHeaders = (req, res, next) => {
 
 /**
  * Input sanitization — OWASP A03 Injection prevention.
- * Strips HTML tags and trims whitespace from string fields.
+ * 1) Elimina contenido de tags peligrosos (script, style, iframe, etc.)
+ * 2) Elimina todos los tags HTML restantes
+ * 3) Hace trim de espacios
  * @param {object} req - Express request
  * @param {object} res - Express response
  * @param {Function} next
  */
+const DANGEROUS_TAGS = /(<\s*(script|style|iframe|object|embed|form|input|button|link|meta)[^>]*>[\s\S]*?<\/\s*\2\s*>)/gi;
+const HTML_TAGS = /<[^>]*>/g;
+
 const sanitizeInputs = (req, res, next) => {
   if (req.body && typeof req.body === 'object') {
     for (const key of Object.keys(req.body)) {
       if (typeof req.body[key] === 'string') {
-        // Strip HTML tags to prevent stored XSS
-        req.body[key] = req.body[key]
-          .replace(/<[^>]*>/g, '')
-          .trim();
+        // 1. Eliminar contenido completo de tags peligrosos (XSS, injection)
+        req.body[key] = req.body[key].replace(DANGEROUS_TAGS, '');
+        // 2. Eliminar tags HTML restantes
+        req.body[key] = req.body[key].replace(HTML_TAGS, '');
+        // 3. Trim
+        req.body[key] = req.body[key].trim();
       }
     }
   }
