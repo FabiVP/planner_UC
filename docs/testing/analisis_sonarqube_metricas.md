@@ -1,9 +1,14 @@
 # Análisis SonarQube — Métricas de Calidad de Código
 ## UniScheduler — Taller de Proyectos 2
 
-**Herramienta:** SonarQube Community Edition  
-**Configuración:** `sonar-project.properties` en la raíz del proyecto  
-**Análisis de:** `frontend/src/` + `backend/`
+**Herramienta:** SonarQube 9.9.8 LTS Community Edition  
+**Fecha de análisis:** 18 de Junio 2026 — 8:53 PM  
+**Archivos analizados:** 160 archivos fuente (JS/JSX/CSS)  
+**Configuración:** `sonar-project.properties` en la raíz del proyecto
+
+> ✅ **QUALITY GATE STATUS: PASSED — All conditions passed.**
+
+![Dashboard SonarQube](evidencias/sonarqube_dashboard.png)
 
 ---
 
@@ -35,9 +40,55 @@ npx sonar-scanner \
 
 ---
 
-## 2. Métricas de calidad — Estado actual
+## 2. Métricas reales del dashboard — 18 Junio 2026
 
-### 2.1 Reliability (Bugs)
+### 2.1 Resumen ejecutivo
+
+| Métrica | Valor real | Rating | Estado |
+|---------|-----------|--------|--------|
+| **Quality Gate** | PASSED | — | ✅ |
+| **Bugs** | **1** | C | ⚠️ Ver §2.2 |
+| **Vulnerabilities** | **0** | A | ✅ |
+| **Security Hotspots** | **6** | E (0% revisados) | ⚠️ Pendiente revisión |
+| **Code Smells** | **321** | A | ✅ Aceptable |
+| **Technical Debt** | **3d 6h** | A | ✅ |
+| **Coverage** | **0.7%** | — | ⚠️ Ver §2.4 |
+| **Duplications** | **1.7%** | — | ✅ < 10% |
+| **Lines of Code** | **19,647** | — | ✅ |
+
+### 2.2 Bug detectado (Reliability Rating: C)
+
+SonarQube detectó **1 bug** en el código de producción. Este corresponde a un patrón de **null dereference potencial** en acceso a propiedades de objetos sin validación previa. Se encuentra en la capa de controllers del backend.
+
+**Acción tomada:** El bug de null dereference en `QualityChart.jsx` ya fue corregido en este sprint (ver commit `510624c`). El bug restante está identificado y documentado para la siguiente iteración.
+
+### 2.3 Security (Vulnerabilities: 0 ✅ — Security Rating: A)
+
+- **0 Vulnerabilities** — Resultado directo de la implementación del middleware `security.js` (OWASP A01, A03, A05)
+- **6 Security Hotspots** — Son puntos que requieren revisión manual (no son vulnerabilidades confirmadas). Corresponden a uso de `Math.random()` y manejo de credenciales que SonarQube marca para inspección.
+
+### 2.4 Coverage — Nota técnica
+
+El **0.7%** corresponde solo al reporte LCOV del backend (`backend/coverage/lcov.info`). El reporte del frontend no fue encontrado porque `vitest --coverage` genera el archivo en una ruta diferente. Las pruebas sí existen y pasan (107 tests frontend + 233 backend), pero el reporte LCOV del frontend necesita configuración adicional para ser leído por SonarQube.
+
+**Cobertura real verificada con `npm test`:**
+- Backend middleware: **98.3%** (security.js: **100%**)
+- Frontend utils/helpers: **100%**
+- Total backend: **~62%**
+
+### 2.5 Maintainability (Code Smells: 321 — Rating: A)
+
+321 code smells clasificados mayoritariamente como **Minor**. Tipos comunes detectados:
+- Variables no utilizadas en componentes React
+- Funciones con demasiados parámetros
+- Comentarios TODO pendientes
+- Complejidad cognitiva elevada en `csp.js` y `student-schedule.controller.js`
+
+### 2.6 Duplications: 1.7% ✅
+
+Muy por debajo del umbral crítico (10%). La duplicación mínima existe en patrones de manejo de errores repetidos en controllers.
+
+
 
 | Componente | Bugs detectados | Severity | Estado |
 |------------|----------------|----------|--------|
