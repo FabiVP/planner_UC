@@ -43,7 +43,7 @@
 
 **Producto Mínimo Viable (PMV v1.0.0):**
 - Módulo de registro y gestión de entidades (estudiantes, docentes, cursos, aulas).
-- Módulo de validación de matrícula (créditos 20-22, verificación de prerrequisitos).
+- Módulo de validación de matrícula (créditos 12-25 configurables vía InstitutionalPolicy, verificación de prerrequisitos).
 - Motor de generación automática de horarios mediante algoritmo CSP.
 - Módulo de visualización de horarios generados (grilla semanal interactiva).
 - Autenticación y autorización básica por roles (coordinador, estudiante, docente).

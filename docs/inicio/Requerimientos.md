@@ -25,7 +25,11 @@ Este documento sigue las directrices de **ARC42** para la documentación de arqu
 | RF-05 | Visualización en grilla | **Must** | El sistema debe mostrar el horario generado en una tabla semanal (lunes a viernes, 07:00-22:00, 15 franjas de 1h) donde cada celda muestre: nombre del curso, código y aula. | Usuario ve el grid con todos los cursos coloreados por materia. | 4 |
 | RF-06 | Autenticación por roles | **Must** | El sistema debe permitir inicio de sesión con correo/contraseña (incluyendo acceso rápido con 3 perfiles predefinidos: Coordinador, Docente, Estudiante) y asignar permisos distintos para cada rol. | Estudiante intenta acceder a "/admin/cursos" y recibe error HTTP 403. | 1 |
 | RF-07 | Horario personalizado del estudiante | **Must** | El sistema debe generar un horario personalizado para cada estudiante basado en el horario institucional, usando matching bipartito (Kuhn), respetando preferencia de turno y disponibilidad como sugerencia, generando hasta 2 alternativas. | Estudiante selecciona cursos, genera horario y ve 3 opciones (primaria + 2 alternativas) con observaciones si hay asignaciones fuera de su disponibilidad. | 4 |
-
+| RF-08 | Gestión de carreras y generaciones | **Must** | El sistema debe permitir gestionar carreras académicas y sus generaciones (promociones), asociando planes de estudio y períodos lectivos. | Coordinador crea una carrera con 5 generaciones y cada una muestra los cursos asociados. | 1 |
+| RF-09 | Gestión de campus y sedes | **Must** | El sistema debe permitir administrar múltiples campus o sedes universitarias, cada uno con sus propias aulas y recursos. | Coordinador selecciona un campus y visualiza solo las aulas de ese campus. | 1 |
+| RF-10 | Módulo de reportes y estadísticas | **Should** | El sistema debe generar reportes en PDF con estadísticas de horarios generados, ocupación de aulas y carga docente. | Coordinador genera un reporte de ocupación de aulas y descarga un PDF con tablas y gráficos. | 4 |
+| RF-11 | Módulo de simulaciones y proyecciones | **Could** | El sistema debe permitir ejecutar simulaciones de generación de horarios con diferentes configuraciones y proyectar escenarios futuros. | Coordinador ejecuta una simulación con restricciones modificadas y compara resultados con la generación actual. | 4 |
+| RF-12 | Notificaciones y preferencias | **Could** | El sistema debe permitir a usuarios configurar preferencias de horario (turno, disponibilidad) y recibir notificaciones sobre cambios en sus asignaciones. | Docente actualiza su disponibilidad y el sistema registra el cambio sin afectar horarios ya generados. | 4 |
 ---
 
 ## 3. Requerimientos No Funcionales (RNF) - Basados en ISO/IEC 25010
@@ -46,10 +50,11 @@ Este documento sigue las directrices de **ARC42** para la documentación de arqu
 
 | Requerimiento | Objetivo Específico (de `C_project_charter.md`) | Relación |
 | :--- | :--- | :--- |
-| RF-01, RF-06 | OE-03 (Diseñar arquitectura) | Soportan la capa de gestión de datos. |
+| RF-01, RF-06, RF-08, RF-09 | OE-03 (Diseñar arquitectura) | Soportan la capa de gestión de datos. |
 | RF-02, RF-03 | OE-02 (Modelar como CSP) | Validaciones previas al CSP. |
 | RF-04 | OE-02, OE-04 (Implementar CSP, sistema funcional) | **Núcleo del valor del sistema.** |
 | RF-05, RF-07 | OE-04 (Sistema funcional) | Interfaces de visualización de horarios. |
+| RF-10, RF-11, RF-12 | OE-04 (Sistema funcional) | Funcionalidades complementarias de soporte. |
 | RNF-01, RNF-02, RNF-04 | OE-05 (Calidad según ISO 25010) | Impactan directamente en la evaluación de calidad. |
 
 ---

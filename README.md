@@ -43,7 +43,7 @@
 **Declaración FOR:**
 > *"PARA coordinadores académicos, estudiantes y docentes de universidades con currículo flexible, QUIENES enfrentan dificultades en la planificación manual de horarios, EL Sistema SGOHA ES una aplicación web SPA con motor CSP QUE genera horarios válidos, libres de conflictos y optimizados. A DIFERENCIA de hojas de cálculo o sistemas rígidos, NUESTRO PRODUCTO ofrece automatización, equidad y visualización interactiva."*
 
-**Propósito:** Reducir el tiempo de planificación de días a minutos, eliminando solapamientos de aulas/docentes/estudiantes y validando automáticamente prerrequisitos y carga crediticia (20-22 créditos).
+**Propósito:** Reducir el tiempo de planificación de días a minutos, eliminando solapamientos de aulas/docentes/estudiantes y validando automáticamente prerrequisitos y carga crediticia (12-25 créditos, configurable).
 
 ---
 
@@ -62,7 +62,7 @@ El problema abordado **NO es un sistema CRUD trivial**. Corresponde a un context
     - En un escenario de prueba con 50 cursos, las combinaciones posibles superan `10^20`, inviables para fuerza bruta.
 
 2.  **Múltiples Variables Interdependientes con Restricciones Duras y Blandas:**
-    - **Variables:** Cursos, estudiantes, docentes, aulas, franjas horarias (lunes a sábado, 3 turnos).
+    - **Variables:** Cursos, estudiantes, docentes, aulas, franjas horarias (lunes a viernes, 07:00-22:00, 15 franjas).
     - **Interdependencias:** Asignar un curso a un docente restringe el aula; los prerrequisitos del estudiante afectan la validez de su matrícula; el cupo del aula impacta qué estudiantes pueden asistir.
 
 3.  **Incertidumbre y Variabilidad (Currículo Flexible):**
@@ -116,9 +116,9 @@ Basado en ISO/IEC 25010 y estructurado según la vista de requisitos de ARC42.
 | ID | Requerimiento (SMART) | Criterio de Aceptación | Sprint |
 | :--- | :--- | :--- | :--- |
 | **RF-01** | **Registro de Entidades:** El sistema debe permitir al coordinador dar de alta, modificar y listar estudiantes, docentes, cursos y aulas con sus atributos completos (nombre, créditos, prerrequisitos, disponibilidad, capacidad). | Se crea un curso en <2 segundos y aparece en el listado. | 1 |
-| **RF-02** | **Validación de Matrícula:** Dado un estudiante y su selección de cursos, el sistema debe verificar en <1 segundo que el total de créditos esté entre 20 y 22 y que todos los prerrequisitos estén aprobados. | Se rechaza matrícula con 23 créditos mostrando causa específica. | 2 |
+| **RF-02** | **Validación de Matrícula:** Dado un estudiante y su selección de cursos, el sistema debe verificar en <1 segundo que el total de créditos esté entre 12 y 25 (configurable vía InstitutionalPolicy) y que todos los prerrequisitos estén aprobados. | Se rechaza matrícula con 26 créditos mostrando causa específica. | 2 |
 | **RF-03** | **Generación CSP:** El sistema debe producir un horario semanal válido (sin violar restricciones RD-01 a RD-05) en ≤30 segundos para un input de 50 cursos. | Se genera JSON con asignación curso->(día, hora, aula). | 3 |
-| **RF-04** | **Visualización de Horarios:** El sistema debe mostrar una grilla interactiva (lunes a sábado, turnos mañana/tarde/noche) donde cada celda muestre el curso, docente y aula asignados. | El usuario puede hacer clic en una celda para ver detalles. | 4 |
+| **RF-04** | **Visualización de Horarios:** El sistema debe mostrar una grilla interactiva (lunes a viernes, 07:00-22:00, 15 franjas de 1h) donde cada celda muestre el curso, docente y aula asignados. | El usuario puede hacer clic en una celda para ver detalles. | 4 |
 
 ### 4.2. Requerimientos No Funcionales (RNF) - Basados en ISO 25010
 
@@ -185,7 +185,7 @@ npm test -- --coverage
 | ORM | Mongoose | 8+ |
 | Autenticación | JWT + bcrypt | — |
 | Testing | Jest + Supertest | — |
-| Control de versiones | Git (Trunk-Based Development) | — |
+| Control de versiones | Git (Git Flow + Conventional Commits) | — |
 
 ---
 
@@ -318,19 +318,19 @@ npm run dev
 
 ```bash
 # Backend
-cd backend && npm run build
+cd backend && npm run dev
 
 # Frontend
-cd frontend && npm run build
+cd frontend && npm run dev
 ```
 
-> Instrucciones detalladas de despliegue en producción: [`docs/ejecucion/despliegue.md`](docs/ejecucion/despliegue.md)
+> Ver documentación de arquitectura: [`docs/planificacion/sdd/plan.md`](docs/planificacion/sdd/plan.md)
 
 ---
 
 ## Video explicativo
 
-> 🎬 [Ver video demostrativo](#) *(disponible al finalizar Sprint 7 — v1.0.0)*  
+> 🎬 [Ver video demostrativo](https://youtu.be/ENLACE_DEL_VIDEO) *(disponible en Sprint 5 — v1.0.0)*  
 > Duración máxima: 5 minutos
 
 ---
@@ -343,9 +343,9 @@ Toda la documentación del proyecto está organizada en la carpeta [`docs/`](doc
 |---|---|---|
 | Inicio | [`docs/inicio/`](docs/inicio/) | ✅ Sprint 0 |
 | Planificación | [`docs/planificacion/`](docs/planificacion/) | 🔄 Sprint 1 |
-| Ejecución | [`docs/ejecucion/`](docs/ejecucion/) | ⏳ Pendiente |
-| Seguimiento y Control | [`docs/seguimiento_control/`](docs/seguimiento_control/) | ⏳ Pendiente |
-| Cierre | [`docs/cierre/`](docs/cierre/) | ⏳ Pendiente |
+| Ejecución | [`docs/ejecucion/`](docs/ejecucion/) | ✅ Sprint 5 |
+| Seguimiento y Control | [`docs/seguimiento_control/`](docs/seguimiento_control/) | ✅ Sprint 5 |
+| Cierre | [`docs/cierre/`](docs/cierre/) | ✅ Sprint 5 |
 
 También disponible en la **[Wiki del proyecto](https://github.com/FabiVP/planner_UC/wiki)** para navegación visual.
 

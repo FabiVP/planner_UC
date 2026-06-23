@@ -18,7 +18,7 @@
 | **Subtotal Sprint 1** | | **840.00** | |
 | **Sprint 2 - Validación de Matrícula** | Semana 5-6 (Mayo 2026) | | |
 | Validación de prerrequisitos | Semana 5 | 168.00 | Verificación de cursos aprobados vs. requeridos |
-| Validación de rango de créditos (20-22) | Semana 5 | 125.00 | Validación automática de carga académica |
+| Validación de rango de créditos (12-25 configurable) | Semana 5 | 125.00 | Validación automática de carga académica |
 | Frontend selector de cursos para estudiante | Semana 5 | 168.00 | Interfaz para que el estudiante elija sus cursos |
 | Integración de validaciones en API | Semana 6 | 126.00 | Conexión de validaciones con el backend |
 | Pruebas unitarias de validación | Semana 6 | 85.00 | Tests automatizados para validaciones |
@@ -32,7 +32,7 @@
 | Pruebas de integración del CSP | Semana 9 | 107.00 | Validación del motor con diferentes escenarios |
 | **Subtotal Sprint 3** | | **1,260.00** | |
 | **Sprint 4 - Visualización y Pruebas** | Semana 10-11 (Junio 2026) | | |
-| Grilla semanal interactiva (React) | Semana 10 | 236.00 | Tabla dinámica lunes-sábado, turnos mañana/tarde/noche |
+| Grilla semanal interactiva (React) | Semana 10 | 236.00 | Tabla dinámica lunes-viernes, 07:00-22:00, 15 franjas |
 | Conexión frontend con endpoint de generación | Semana 10 | 142.00 | Integración del motor CSP con la interfaz de usuario |
 | Pruebas unitarias backend (Jest) | Semana 10 | 142.00 | Tests automatizados para el backend |
 | Pruebas de integración y cobertura ≥70% | Semana 11 | 141.00 | Validación completa del sistema y métricas de cobertura |

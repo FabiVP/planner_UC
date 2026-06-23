@@ -50,7 +50,7 @@ A continuación, se mapea cada punto de la rúbrica de la nueva consigna con la 
 
 | Punto de la Rúbrica | Ubicación en el Repositorio | Evidencia |
 |---------------------|-----------------------------|------------|
-| Definición clara de la finalidad de la GUI | `README.md` → sección "Visión General del Proyecto" + RF-04 | "visualización interactiva", "grilla interactiva (lunes a sábado, turnos mañana/tarde/noche)". |
+| Definición clara de la finalidad de la GUI | `README.md` → sección "Visión General del Proyecto" + RF-04 | "visualización interactiva", "grilla interactiva (lunes a viernes, 07:00-22:00, 15 franjas)". |
 | Justificación de decisiones de interfaz | `README.md` → sección "🏗️ Arquitectura y Enfoque" + RF-04 | Arquitectura SPA con React, componentes funcionales, y criterio de aceptación: "El usuario puede hacer clic en una celda para ver detalles". |
 | Relación entre GUI, experiencia de usuario y requerimientos | `README.md` → sección "4.2. RNFs" (RNF-03 Usabilidad) | Exige cumplimiento WCAG 2.1 nivel AA, contraste mínimo 4.5:1, navegación por teclado y etiquetas ARIA. |
 

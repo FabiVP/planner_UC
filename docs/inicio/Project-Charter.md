@@ -62,10 +62,13 @@ Diseñar e implementar una aplicación web (PMV v1.0.0) que genere horarios acad
 
 ### 4.1. Dentro del alcance (IN SCOPE)
 
-- Módulo de registro y gestión de entidades: estudiantes, docentes, cursos, aulas.
+- Módulo de registro y gestión de entidades: estudiantes, docentes, cursos, aulas, carreras, generaciones, campus y secciones.
 - Módulo de validación de matrícula (créditos 12–25 configurables vía InstitutionalPolicy, verificación de prerrequisitos, corequisitos, análisis de sobrecarga).
 - Motor de generación automática de horarios institucionales (CSP con backtracking+MRV+FC) y horarios personalizados del estudiante (matching bipartito Kuhn).
 - Módulo de visualización de horarios generados (grilla semanal interactiva).
+- Módulo de reportes y estadísticas (PDF con tablas y gráficos).
+- Módulo de simulaciones y proyecciones de escenarios.
+- Módulo de notificaciones y preferencias de usuario.
 - Autenticación y autorización básica por roles (coordinador, estudiante, docente).
 - Documentación técnica y de gestión en el repositorio GitHub.
 - Pruebas unitarias e integración del backend y frontend.
@@ -74,11 +77,11 @@ Diseñar e implementar una aplicación web (PMV v1.0.0) que genere horarios acad
 ### 4.2. Fuera del alcance (OUT OF SCOPE)
 
 - Integración con sistemas existentes de la universidad (SIS, ERP).
-- Módulo de reportes estadísticos avanzados.
-- Notificaciones automáticas por correo o SMS.
 - Aplicación móvil nativa (iOS/Android).
 - Implementación en producción en infraestructura real de la universidad.
 - Módulo de pagos o finanzas académicas.
+- Despliegue multi-idioma.
+- Sistema de notificaciones push en tiempo real.
 
 ---
 

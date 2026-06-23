@@ -24,7 +24,7 @@
 | 2.5 Frontend básico (React + login + listado) | 15 | 8.00 | 5.00 | 0 | 3.00 | 128.00 |
 | **Sprint 2 - Validación de Matrícula** | 80 | 8.00 | 20.00 | 0 | 12.00 | 672.00 |
 | 3.1 Validación de prerrequisitos | 20 | 8.00 | 5.00 | 0 | 3.00 | 168.00 |
-| 3.2 Validación de rango de créditos (20-22) | 15 | 8.00 | 3.00 | 0 | 2.00 | 125.00 |
+| 3.2 Validación de rango de créditos (12-25 configurable) | 15 | 8.00 | 3.00 | 0 | 2.00 | 125.00 |
 | 3.3 Frontend selector de cursos para estudiante | 20 | 8.00 | 5.00 | 0 | 3.00 | 168.00 |
 | 3.4 Integración de validaciones en API | 15 | 8.00 | 4.00 | 0 | 2.00 | 126.00 |
 | 3.5 Pruebas unitarias de validación | 10 | 8.00 | 3.00 | 0 | 2.00 | 85.00 |

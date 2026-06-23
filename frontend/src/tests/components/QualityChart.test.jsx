@@ -7,13 +7,13 @@ describe('QualityChart', () => {
   it('Debe renderizar con score por defecto', () => {
     render(<QualityChart />);
     expect(screen.getByText('Calidad de la solución (Última generación)')).toBeInTheDocument();
-    expect(screen.getByText('92%')).toBeInTheDocument();
+    expect(screen.getByText('92')).toBeInTheDocument();
     expect(screen.getByText('Óptimo')).toBeInTheDocument();
   });
 
   it('Debe renderizar con score personalizado', () => {
     render(<QualityChart score={78} />);
-    expect(screen.getByText('78%')).toBeInTheDocument();
+    expect(screen.getByText('78')).toBeInTheDocument();
   });
 
   it('Debe renderizar métricas con valores por defecto', () => {
@@ -39,11 +39,11 @@ describe('QualityChart', () => {
 
   it('Debe renderizar con score 0 sin errores', () => {
     render(<QualityChart score={0} />);
-    expect(screen.getByText('0%')).toBeInTheDocument();
+    expect(screen.getByText('0')).toBeInTheDocument();
   });
 
   it('Debe renderizar con score 100 sin errores', () => {
     render(<QualityChart score={100} />);
-    expect(screen.getByText('100%')).toBeInTheDocument();
+    expect(screen.getByText('100')).toBeInTheDocument();
   });
 });

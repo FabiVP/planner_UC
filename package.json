@@ -2,19 +2,24 @@
   "name": "unischeduler",
   "version": "1.0.0",
   "private": true,
-  "description": "Sistema de Generación Óptima de Horarios Académicos",
+  "description": "UniScheduler - Sistema de Generación Óptima de Horarios Académicos",
   "scripts": {
-    "test:all": "cd backend && npm test && cd ../frontend && npm test",
+    "install:all": "cd backend && npm install && cd ../frontend && npm install",
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && npm run dev",
     "test:backend": "cd backend && npm test",
     "test:frontend": "cd frontend && npm test",
-    "test:acceptance": "cd frontend && npx cypress run",
-    "backend:start": "cd backend && node server.js",
-    "frontend:dev": "cd frontend && npx vite",
-    "e2e:prepare": "start-server-and-test 'cd backend && node server.js' http://localhost:5000/api/health 'cd frontend && npx vite'",
-    "e2e:persistence": "start-server-and-test 'cd backend && node server.js' http://localhost:5000/api/health 'cd frontend && start-server-and-test dev http://localhost:5173 \"npx playwright test e2e/persistence.spec.js\"'"
+    "test:all": "cd backend && npm test && cd ../frontend && npm test",
+    "lint": "eslint backend/ frontend/src/",
+    "lint:fix": "eslint backend/ frontend/src/ --fix",
+    "format": "prettier --write \"**/*.{js,jsx,json,css,md}\"",
+    "format:check": "prettier --check \"**/*.{js,jsx,json,css,md}\"",
+    "seed": "cd backend && npm run seed",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down"
   },
   "devDependencies": {
-    "@playwright/test": "^1.60.0",
-    "start-server-and-test": "^2.1.5"
+    "eslint": "^10.5.0",
+    "prettier": "^3.8.4"
   }
 }

@@ -26,7 +26,7 @@
 | **Subtotal Planificación 2** | | **262.00** | |
 | **Desarrollo (Sprints 1 al 4)** | | | |
 | Sprint 1 - Gestión de Entidades | Semana 3-4 (Abril-Mayo 2026) | 840.00 | CRUD de cursos, docentes, aulas, estudiantes + autenticación |
-| Sprint 2 - Validación de Matrícula | Semana 5-6 (Mayo 2026) | 672.00 | Prerrequisitos, créditos 20-22, selector de cursos |
+| Sprint 2 - Validación de Matrícula | Semana 5-6 (Mayo 2026) | 672.00 | Prerrequisitos, créditos 12-25, selector de cursos |
 | Sprint 3 - Motor CSP | Semana 7-9 (Mayo-Junio 2026) | 1,260.00 | Backtracking + MRV + Forward Checking + Restricciones RD-01 a RD-11 (base) |
 | Sprint 4 - Visualización y Pruebas | Semana 10-11 (Junio 2026) | 755.00 | Grilla interactiva, integración frontend/backend, pruebas unitarias |
 | **Subtotal Desarrollo** | | **3,527.00** | |

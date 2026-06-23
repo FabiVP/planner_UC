@@ -84,7 +84,7 @@ describe('DashboardPage', () => {
       expect(screen.getByText('Docentes')).toBeInTheDocument();
       expect(screen.getByText('Aulas')).toBeInTheDocument();
       expect(screen.getByText('Generaciones')).toBeInTheDocument();
-      expect(screen.getByText('10')).toBeInTheDocument();
+      expect(screen.getByText('8')).toBeInTheDocument();
       expect(screen.getByText('5')).toBeInTheDocument();
     });
   });

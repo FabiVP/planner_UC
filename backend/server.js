@@ -9,6 +9,9 @@ const connectDB = require('./config/db');
 const { co2Monitor, getMetrics } = require('./middleware/co2Monitor');
 // OWASP Top 10 2025: Custom security middleware
 const { securityHeaders, sanitizeInputs } = require('./middleware/security');
+// API Documentation
+const swaggerUi = require('swagger-ui-express');
+const swaggerSpec = require('./swagger');
 
 dotenv.config();
 
@@ -32,6 +35,12 @@ app.use(express.urlencoded({ extended: true, limit: '2mb' }));
 app.use(sanitizeInputs); // OWASP A03: Global input sanitization
 app.use(co2Monitor);
 
+
+// API Documentation
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, {
+  customCss: '.swagger-ui .topbar { display: none }',
+  customSiteTitle: 'UniScheduler API Docs',
+}));
 
 // Routes
 app.use('/api/auth', require('./routes/auth.routes'));
@@ -108,6 +117,7 @@ const startServer = async () => {
       console.log(`📡 Environment: ${process.env.NODE_ENV || 'development'}`);
       console.log(`🌐 API: http://localhost:${PORT}/api`);
       console.log(`💚 Health: http://localhost:${PORT}/api/health`);
+      console.log(`📚 API Docs: http://localhost:${PORT}/api-docs`);
       console.log('══════════════════════════════════════════');
       console.log('');
     });
