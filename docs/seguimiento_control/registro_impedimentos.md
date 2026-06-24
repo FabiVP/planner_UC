@@ -71,4 +71,4 @@ Este registro documenta los obstáculos que frenaron el progreso del equipo dura
 
 ---
 
-*Documento elaborado por el equipo SGOHA — Sprint 5 | Julio 2026*
+*Documento elaborado por el equipo UniScheduler — Sprint 5 | Julio 2026*

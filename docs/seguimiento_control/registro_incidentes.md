@@ -74,4 +74,4 @@ Este registro documenta los problemas reales que surgieron durante la ejecución
 
 ---
 
-*Documento elaborado por el equipo SGOHA — Sprint 5 | Julio 2026*
+*Documento elaborado por el equipo UniScheduler — Sprint 5 | Julio 2026*

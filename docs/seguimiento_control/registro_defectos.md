@@ -119,4 +119,4 @@ Este registro documenta los defectos detectados durante el desarrollo del proyec
 
 ---
 
-*Documento elaborado por el equipo SGOHA — Sprint 5 | Julio 2026*
+*Documento elaborado por el equipo UniScheduler — Sprint 5 | Julio 2026*

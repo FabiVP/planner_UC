@@ -29,7 +29,7 @@ A continuación, se mapea cada punto de la rúbrica de la nueva consigna con la 
 
 | Punto de la Rúbrica | Ubicación en el Repositorio | Evidencia |
 |---------------------|-----------------------------|------------|
-| Explicación clara del proceso mayor | `README.md` → sección "🎯 Visión General del Proyecto" (Declaración FOR) | "PARA coordinadores académicos, estudiantes y docentes... EL Sistema SGOHA ES una aplicación web SPA con motor CSP QUE genera horarios válidos..." |
+| Explicación clara del proceso mayor | `README.md` → sección "🎯 Visión General del Proyecto" (Declaración FOR) | "PARA coordinadores académicos, estudiantes y docentes... EL Sistema UniScheduler ES una aplicación web SPA con motor CSP QUE genera horarios válidos..." |
 | Relación entre optimización y planificación académica | `README.md` → sección "Problemática abordada" + "Justificación de la Complejidad" | Explica cómo la optimización reduce el tiempo de planificación de días a minutos, eliminando solapamientos y validando prerrequisitos. |
 | Impacto en la toma de decisiones | `README.md` → sección "Visión General del Proyecto" (Propósito) | "Reducir el tiempo de planificación de días a minutos, eliminando solapamientos... y validando automáticamente prerrequisitos y carga crediticia (20-22 créditos)." |
 | Justificación técnica mediante ejemplos o métricas | `docs/antigravity/evidencia.md` → sección "Métricas de rendimiento" | Tabla con resultados concretos: tiempo de generación 0.597s, calidad del horario 89%, cobertura 84.26%. |

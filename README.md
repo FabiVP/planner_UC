@@ -41,7 +41,7 @@
 ## 🎯 Visión General del Proyecto
 
 **Declaración FOR:**
-> *"PARA coordinadores académicos, estudiantes y docentes de universidades con currículo flexible, QUIENES enfrentan dificultades en la planificación manual de horarios, EL Sistema SGOHA ES una aplicación web SPA con motor CSP QUE genera horarios válidos, libres de conflictos y optimizados. A DIFERENCIA de hojas de cálculo o sistemas rígidos, NUESTRO PRODUCTO ofrece automatización, equidad y visualización interactiva."*
+> *"PARA coordinadores académicos, estudiantes y docentes de universidades con currículo flexible, QUIENES enfrentan dificultades en la planificación manual de horarios, EL Sistema UniScheduler ES una aplicación web SPA con motor CSP QUE genera horarios válidos, libres de conflictos y optimizados. A DIFERENCIA de hojas de cálculo o sistemas rígidos, NUESTRO PRODUCTO ofrece automatización, equidad y visualización interactiva."*
 
 **Propósito:** Reducir el tiempo de planificación de días a minutos, eliminando solapamientos de aulas/docentes/estudiantes y validando automáticamente prerrequisitos y carga crediticia (12-25 créditos, configurable).
 

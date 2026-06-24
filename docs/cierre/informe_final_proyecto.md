@@ -258,4 +258,4 @@ No se presentó desviación presupuestal. La contingencia del 12% no fue requeri
 
 ---
 
-*Documento elaborado por el equipo SGOHA — Sprint 5 | Universidad Continental | Julio 2026*
+*Documento elaborado por el equipo UniScheduler — Sprint 5 | Universidad Continental | Julio 2026*

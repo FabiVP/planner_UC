@@ -2,7 +2,7 @@
 
 **Proyecto:** UniScheduler — Sistema de Generación Óptima de Horarios Académicos
 **Cliente:** Universidad Continental — Facultad de Ingeniería
-**Equipo Ejecutor:** SGOHA (Villaverde Pacheco, Chavez Apaza, Baldeon Martinez)
+**Equipo Ejecutor:** UniScheduler (Villaverde Pacheco, Chavez Apaza, Baldeon Martinez)
 **Período:** Abril - Julio 2026
 **Versión:** 1.0.0
 
@@ -113,4 +113,4 @@ Por la presente declaramos que:
 
 ---
 
-*Documento elaborado por el equipo SGOHA — Sprint 5 | Universidad Continental | Julio 2026*
+*Documento elaborado por el equipo UniScheduler — Sprint 5 | Universidad Continental | Julio 2026*

@@ -15,7 +15,7 @@
 
 | Campo | Descripción |
 |---|---|
-| **Nombre del Proyecto** | Sistema de Generación Óptima de Horarios Académicos (SGOHA) |
+| **Nombre del Proyecto** | Sistema de Generación Óptima de Horarios Académicos (UniScheduler) |
 | **Patrocinador** | Universidad Continental – Facultad de Ingeniería |
 | **Docente responsable** | Docente de Taller de Proyectos 2 |
 | **Fecha de inicio** | Abril 2026 |

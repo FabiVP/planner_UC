@@ -15,7 +15,7 @@
 
 ### Descripción
 
-**Qué:** SGOHA es una aplicación web moderna (SPA + API REST) que automatiza la generación de horarios académicos en universidades con currículo flexible, utilizando un motor basado en algoritmos de satisfacción de restricciones (CSP).
+**Qué:** UniScheduler es una aplicación web moderna (SPA + API REST) que automatiza la generación de horarios académicos en universidades con currículo flexible, utilizando un motor basado en algoritmos de satisfacción de restricciones (CSP).
 
 **Quién:** El sistema está dirigido a coordinadores académicos (usuarios principales), estudiantes y docentes de universidades con planes de estudio flexibles.
 
@@ -74,7 +74,7 @@
 |:---|:---|:---|
 | **Patrocinador (Sponsor)** | Universidad Continental – Facultad de Ingeniería | Autoriza el proyecto en el contexto académico |
 | **Cliente / Beneficiario** | Coordinadores académicos, estudiantes y docentes | Usuarios finales del sistema |
-| **Gerente de Proyecto (PM)** | Scrum Master (equipo SGOHA) | Facilita ceremonias Scrum, elimina impedimentos, gestiona el tablero |
+| **Gerente de Proyecto (PM)** | Scrum Master (equipo UniScheduler) | Facilita ceremonias Scrum, elimina impedimentos, gestiona el tablero |
 | **Product Owner** | Integrante del equipo (rol secundario) | Mantiene y prioriza el Product Backlog, valida incrementos |
 | **Dev Lead (Backend)** | Integrante del equipo (rol principal) | Lidera diseño de API REST, arquitectura MongoDB, code reviews |
 | **Frontend Developer** | Integrante del equipo (rol principal) | Desarrolla UI React, visualización de horarios |

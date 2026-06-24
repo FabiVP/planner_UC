@@ -251,5 +251,5 @@ Para que la fase de control y cierre se considere exitosa (nivel sobresaliente),
 
 ---
 
-*Documento generado para el equipo SGOHA — Taller de Proyectos 2 | Universidad Continental | Julio 2026*
+*Documento generado para el equipo UniScheduler — Taller de Proyectos 2 | Universidad Continental | Julio 2026*
 *Objetivo: Nivel SOBRESALIENTE en todos los criterios de la rúbrica de control y cierre.*

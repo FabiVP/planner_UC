@@ -19,7 +19,7 @@
 |---|---|
 | **PARA** | Coordinadores académicos, estudiantes y docentes de universidades con currículo flexible |
 | **QUIENES** | Enfrentan dificultades significativas en la planificación manual de horarios debido a la alta variabilidad de la matrícula, restricciones académicas y limitaciones de recursos |
-| **EL** | Sistema de Generación Óptima de Horarios Académicos (SGOHA) |
+| **EL** | Sistema de Generación Óptima de Horarios Académicos (UniScheduler) |
 | **ES** | Una aplicación web moderna (SPA + API REST) con motor de generación automática de horarios basado en algoritmos de satisfacción de restricciones (CSP) |
 | **QUE** | Genera horarios académicos válidos, libres de conflictos y optimizados según restricciones reales (créditos, prerrequisitos, disponibilidad de docentes, aulas e infraestructura) |
 | **A DIFERENCIA DE** | La planificación manual en hojas de cálculo o sistemas rígidos que no consideran la flexibilidad curricular ni la optimización simultánea de múltiples restricciones |

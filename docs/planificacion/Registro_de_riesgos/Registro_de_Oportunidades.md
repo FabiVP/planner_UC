@@ -65,6 +65,6 @@ Este documento detalla las oportunidades identificadas que podrían impactar pos
 
 ---
 
-**Elaborado por:** Equipo SGOHA - Sprint 0  
+**Elaborado por:** Equipo UniScheduler - Sprint 0  
 **Fecha:** Abril 2026  
 **Estado:** Aprobado (consistente con `Matriz_Prioridades_Proyecto.md`)
