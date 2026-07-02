@@ -31,6 +31,8 @@
 
 ## Integrantes del equipo
 
+![Grupo](foto_proyecto.jpeg)
+
 | Nombre | Rol | GitHub |
 |---|---|---|
 | Villaverde Pacheco Fabiola Karina | Scrum Master / Backend| https://github.com/FabiVP |
