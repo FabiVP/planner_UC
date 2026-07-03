@@ -332,7 +332,7 @@ cd frontend && npm run dev
 
 ## Video explicativo
 
-> 🎬 [Ver video demostrativo](https://continentaledupe-my.sharepoint.com/:v:/g/personal/72947169_continental_edu_pe/IQBPxROH44BbS5frQJYWYyEPAXuHIzCbbfPJ0n1VGK9eGZUnav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=KMOKFZ) *(disponible en Sprint 5 — v1.0.0)*  
+> 🎬 [Ver video demostrativo](https://continentaledupe-my.sharepoint.com/:v:/g/personal/72947169_continental_edu_pe/IQBPxROH44BbS5frQJYWYyEPAXuHIzCbbfPJ0n1VGK9eGZU?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=D2ck2b) *(disponible en Sprint 5 — v1.0.0)*  
 > Duración máxima: 26 minutos
 
 ---
