@@ -1,0 +1,27 @@
+[
+  {
+    "_id": "6a47d59c11faa519349b6faf",
+    "name": "Horario ISI — Semestre_2026_v1",
+    "semester": "Semestre_2026_v1",
+    "status": "completada",
+    "executedAt": "2026-07-03T15:30:36.049Z",
+    "completedAt": "2026-07-03T15:30:36.049Z",
+    "executionTimeMs": 49604,
+    "qualityScore": 88.8,
+    "constraintsFulfilled": 0,
+    "preferencesScore": 0,
+    "resourceUsage": 0,
+    "loadDistribution": 0,
+    "career": "6a47c695ca51db23dfa06b32",
+    "sectionsGenerated": 60,
+    "sectionWarnings": [],
+    "createdBy": "6a47c694ca51db23dfa06b1c",
+    "conflicts": [],
+    "alternatives": [],
+    "unsatisfiedConditions": [],
+    "createdAt": "2026-07-03T15:30:36.225Z",
+    "updatedAt": "2026-07-03T15:30:36.450Z",
+    "__v": 0,
+    "scheduleId": "6a47d59c11faa519349b6fb1"
+  }
+]

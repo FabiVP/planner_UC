@@ -1,0 +1,1977 @@
+[
+  {
+    "_id": "6a47d59c11faa519349b7043",
+    "courseId": "6a47ce5d7c6934b3c0c5042b",
+    "sectionCode": "A",
+    "teacherId": "6a47ce5e7c6934b3c0c504f8",
+    "classroomId": "6a47ce7d19798a345baa4a76",
+    "scheduleSlots": [
+      {
+        "day": "viernes",
+        "startTime": "20:00",
+        "endTime": "21:00"
+      },
+      {
+        "day": "miercoles",
+        "startTime": "17:00",
+        "endTime": "18:00"
+      },
+      {
+        "day": "jueves",
+        "startTime": "16:00",
+        "endTime": "17:00"
+      }
+    ],
+    "enrolledStudents": [],
+    "maxCapacity": 46,
+    "minStudents": 15,
+    "currentEnrolled": 0,
+    "status": "activa",
+    "generationId": "6a47d59c11faa519349b6faf",
+    "semester": "Semestre_2026_v1",
+    "career": "6a47c695ca51db23dfa06b32",
+    "courseSemester": 1,
+    "createdAt": "2026-07-03T15:30:36.489Z",
+    "updatedAt": "2026-07-03T15:30:36.489Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47d59c11faa519349b7045",
+    "courseId": "6a47ce5d7c6934b3c0c5042d",
+    "sectionCode": "A",
+    "teacherId": "6a47ce5e7c6934b3c0c504eb",
+    "classroomId": "6a47ce7d19798a345baa4a79",
+    "scheduleSlots": [
+      {
+        "day": "jueves",
+        "startTime": "07:00",
+        "endTime": "08:00"
+      },
+      {
+        "day": "miercoles",
+        "startTime": "08:00",
+        "endTime": "09:00"
+      }
+    ],
+    "enrolledStudents": [],
+    "maxCapacity": 46,
+    "minStudents": 15,
+    "currentEnrolled": 0,
+    "status": "activa",
+    "generationId": "6a47d59c11faa519349b6faf",
+    "semester": "Semestre_2026_v1",
+    "career": "6a47c695ca51db23dfa06b32",
+    "courseSemester": 1,
+    "createdAt": "2026-07-03T15:30:36.497Z",
+    "updatedAt": "2026-07-03T15:30:36.497Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47d59c11faa519349b7047",
+    "courseId": "6a47ce5d7c6934b3c0c5042f",
+    "sectionCode": "A",
+    "teacherId": "6a47ce5e7c6934b3c0c504ea",
+    "classroomId": "6a47ce7d19798a345baa4a76",
+    "scheduleSlots": [
+      {
+        "day": "viernes",
+        "startTime": "14:00",
+        "endTime": "15:00"
+      },
+      {
+        "day": "lunes",
+        "startTime": "18:00",
+        "endTime": "19:00"
+      },
+      {
+        "day": "martes",
+        "startTime": "11:00",
+        "endTime": "12:00"
+      }
+    ],
+    "enrolledStudents": [],
+    "maxCapacity": 27,
+    "minStudents": 15,
+    "currentEnrolled": 0,
+    "status": "activa",
+    "generationId": "6a47d59c11faa519349b6faf",
+    "semester": "Semestre_2026_v1",
+    "career": "6a47c695ca51db23dfa06b32",
+    "courseSemester": 1,
+    "createdAt": "2026-07-03T15:30:36.503Z",
+    "updatedAt": "2026-07-03T15:30:36.503Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47d59c11faa519349b7049",
+    "courseId": "6a47ce5d7c6934b3c0c50431",
+    "sectionCode": "A",
+    "teacherId": "6a47ce5e7c6934b3c0c504e9",
+    "classroomId": "6a47ce7d19798a345baa4a7c",
+    "scheduleSlots": [
+      {
+        "day": "miercoles",
+        "startTime": "15:00",
+        "endTime": "16:00"
+      }
+    ],
+    "enrolledStudents": [],
+    "maxCapacity": 34,
+    "minStudents": 15,
+    "currentEnrolled": 0,
+    "status": "activa",
+    "generationId": "6a47d59c11faa519349b6faf",
+    "semester": "Semestre_2026_v1",
+    "career": "6a47c695ca51db23dfa06b32",
+    "courseSemester": 1,
+    "createdAt": "2026-07-03T15:30:36.507Z",
+    "updatedAt": "2026-07-03T15:30:36.507Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47d59c11faa519349b704b",
+    "courseId": "6a47ce5d7c6934b3c0c50433",
+    "sectionCode": "A",
+    "teacherId": "6a47ce5e7c6934b3c0c50508",
+    "classroomId": "6a47ce7d19798a345baa4a64",
+    "scheduleSlots": [
+      {
+        "day": "lunes",
+        "startTime": "20:00",
+        "endTime": "21:00"
+      },
+      {
+        "day": "sabado",
+        "startTime": "20:00",
+        "endTime": "21:00"
+      },
+      {
+        "day": "viernes",
+        "startTime": "17:00",
+        "endTime": "18:00"
+      }
+    ],
+    "enrolledStudents": [],
+    "maxCapacity": 27,
+    "minStudents": 15,
+    "currentEnrolled": 0,
+    "status": "activa",
+    "generationId": "6a47d59c11faa519349b6faf",
+    "semester": "Semestre_2026_v1",
+    "career": "6a47c695ca51db23dfa06b32",
+    "courseSemester": 1,
+    "createdAt": "2026-07-03T15:30:36.511Z",
+    "updatedAt": "2026-07-03T15:30:36.511Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47d59c11faa519349b704d",
+    "courseId": "6a47ce5d7c6934b3c0c50435",
+    "sectionCode": "A",
+    "teacherId": "6a47ce5e7c6934b3c0c504f4",
+    "classroomId": "6a47ce7d19798a345baa4a5e",
+    "scheduleSlots": [
+      {
+        "day": "jueves",
+        "startTime": "09:00",
+        "endTime": "10:00"
+      }
+    ],
+    "enrolledStudents": [],
+    "maxCapacity": 38,
+    "minStudents": 15,
+    "currentEnrolled": 0,
+    "status": "activa",
+    "generationId": "6a47d59c11faa519349b6faf",
+    "semester": "Semestre_2026_v1",
+    "career": "6a47c695ca51db23dfa06b32",
+    "courseSemester": 1,
+    "createdAt": "2026-07-03T15:30:36.519Z",
+    "updatedAt": "2026-07-03T15:30:36.519Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47d59c11faa519349b704f",
+    "courseId": "6a47ce5d7c6934b3c0c50437",
+    "sectionCode": "A",
+    "teacherId": "6a47ce5e7c6934b3c0c504e1",
+    "classroomId": "6a47d0fb9ba9736b0579ad08",
+    "scheduleSlots": [
+      {
+        "day": "jueves",
+        "startTime": "20:00",
+        "endTime": "21:00"
+      },
+      {
+        "day": "martes",
+        "startTime": "20:00",
+        "endTime": "21:00"
+      },
+      {
+        "day": "viernes",
+        "startTime": "20:00",
+        "endTime": "21:00"
+      }
+    ],
+    "enrolledStudents": [],
+    "maxCapacity": 50,
+    "minStudents": 15,
+    "currentEnrolled": 0,
+    "status": "activa",
+    "generationId": "6a47d59c11faa519349b6faf",
+    "semester": "Semestre_2026_v1",
+    "career": "6a47c695ca51db23dfa06b32",
+    "courseSemester": 2,
+    "createdAt": "2026-07-03T15:30:36.525Z",
+    "updatedAt": "2026-07-03T15:30:36.525Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47d59c11faa519349b7051",
+    "courseId": "6a47ce5d7c6934b3c0c50439",
+    "sectionCode": "A",
+    "teacherId": "6a47ce5e7c6934b3c0c504e5",
+    "classroomId": "6a47ce7d19798a345baa4a79",
+    "scheduleSlots": [
+      {
+        "day": "lunes",
+        "startTime": "10:00",
+        "endTime": "11:00"
+      },
+      {
+        "day": "martes",
+        "startTime": "08:00",
+        "endTime": "09:00"
+      },
+      {
+        "day": "jueves",
+        "startTime": "09:00",
+        "endTime": "10:00"
+      },
+      {
+        "day": "miercoles",
+        "startTime": "10:00",
+        "endTime": "11:00"
+      }
+    ],
+    "enrolledStudents": [],
+    "maxCapacity": 49,
+    "minStudents": 15,
+    "currentEnrolled": 0,
+    "status": "activa",
+    "generationId": "6a47d59c11faa519349b6faf",
+    "semester": "Semestre_2026_v1",
+    "career": "6a47c695ca51db23dfa06b32",
+    "courseSemester": 2,
+    "createdAt": "2026-07-03T15:30:36.533Z",
+    "updatedAt": "2026-07-03T15:30:36.533Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47d59c11faa519349b7053",
+    "courseId": "6a47ce5d7c6934b3c0c5043b",
+    "sectionCode": "A",
+    "teacherId": "6a47ce5e7c6934b3c0c504dc",
+    "classroomId": "6a47c695ca51db23dfa06b7c",
+    "scheduleSlots": [
+      {
+        "day": "lunes",
+        "startTime": "10:00",
+        "endTime": "11:00"
+      },
+      {
+        "day": "viernes",
+        "startTime": "12:00",
+        "endTime": "13:00"
+      },
+      {
+        "day": "martes",
+        "startTime": "10:00",
+        "endTime": "11:00"
+      }
+    ],
+    "enrolledStudents": [],
+    "maxCapacity": 30,
+    "minStudents": 15,
+    "currentEnrolled": 0,
+    "status": "activa",
+    "generationId": "6a47d59c11faa519349b6faf",
+    "semester": "Semestre_2026_v1",
+    "career": "6a47c695ca51db23dfa06b32",
+    "courseSemester": 2,
+    "createdAt": "2026-07-03T15:30:36.539Z",
+    "updatedAt": "2026-07-03T15:30:36.539Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47d59c11faa519349b7055",
+    "courseId": "6a47ce5d7c6934b3c0c5043d",
+    "sectionCode": "A",
+    "teacherId": "6a47ce5e7c6934b3c0c504d3",
+    "classroomId": "6a47ce7d19798a345baa4a7c",
+    "scheduleSlots": [
+      {
+        "day": "martes",
+        "startTime": "09:00",
+        "endTime": "10:00"
+      },
+      {
+        "day": "jueves",
+        "startTime": "09:00",
+        "endTime": "10:00"
+      }
+    ],
+    "enrolledStudents": [],
+    "maxCapacity": 44,
+    "minStudents": 15,
+    "currentEnrolled": 0,
+    "status": "activa",
+    "generationId": "6a47d59c11faa519349b6faf",
+    "semester": "Semestre_2026_v1",
+    "career": "6a47c695ca51db23dfa06b32",
+    "courseSemester": 2,
+    "createdAt": "2026-07-03T15:30:36.544Z",
+    "updatedAt": "2026-07-03T15:30:36.544Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47d59c11faa519349b7057",
+    "courseId": "6a47ce5d7c6934b3c0c5043f",
+    "sectionCode": "A",
+    "teacherId": "6a47ce5e7c6934b3c0c504d8",
+    "classroomId": "6a47ce7d19798a345baa4a55",
+    "scheduleSlots": [
+      {
+        "day": "martes",
+        "startTime": "07:00",
+        "endTime": "08:00"
+      },
+      {
+        "day": "viernes",
+        "startTime": "08:00",
+        "endTime": "09:00"
+      },
+      {
+        "day": "domingo",
+        "startTime": "16:00",
+        "endTime": "17:00"
+      }
+    ],
+    "enrolledStudents": [],
+    "maxCapacity": 40,
+    "minStudents": 15,
+    "currentEnrolled": 0,
+    "status": "activa",
+    "generationId": "6a47d59c11faa519349b6faf",
+    "semester": "Semestre_2026_v1",
+    "career": "6a47c695ca51db23dfa06b32",
+    "courseSemester": 2,
+    "createdAt": "2026-07-03T15:30:36.552Z",
+    "updatedAt": "2026-07-03T15:30:36.552Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47d59c11faa519349b7059",
+    "courseId": "6a47ce5d7c6934b3c0c50441",
+    "sectionCode": "A",
+    "teacherId": "6a47ce5e7c6934b3c0c504f6",
+    "classroomId": "6a47ce7d19798a345baa4a64",
+    "scheduleSlots": [
+      {
+        "day": "viernes",
+        "startTime": "17:00",
+        "endTime": "18:00"
+      },
+      {
+        "day": "jueves",
+        "startTime": "11:00",
+        "endTime": "12:00"
+      }
+    ],
+    "enrolledStudents": [],
+    "maxCapacity": 38,
+    "minStudents": 15,
+    "currentEnrolled": 0,
+    "status": "activa",
+    "generationId": "6a47d59c11faa519349b6faf",
+    "semester": "Semestre_2026_v1",
+    "career": "6a47c695ca51db23dfa06b32",
+    "courseSemester": 2,
+    "createdAt": "2026-07-03T15:30:36.557Z",
+    "updatedAt": "2026-07-03T15:30:36.557Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47d59c11faa519349b705b",
+    "courseId": "6a47ce5d7c6934b3c0c50443",
+    "sectionCode": "A",
+    "teacherId": "6a47ce5e7c6934b3c0c504d9",
+    "classroomId": "6a47d0fb9ba9736b0579ad0a",
+    "scheduleSlots": [
+      {
+        "day": "miercoles",
+        "startTime": "09:00",
+        "endTime": "10:00"
+      },
+      {
+        "day": "lunes",
+        "startTime": "11:00",
+        "endTime": "12:00"
+      },
+      {
+        "day": "jueves",
+        "startTime": "09:00",
+        "endTime": "10:00"
+      }
+    ],
+    "enrolledStudents": [],
+    "maxCapacity": 33,
+    "minStudents": 15,
+    "currentEnrolled": 0,
+    "status": "activa",
+    "generationId": "6a47d59c11faa519349b6faf",
+    "semester": "Semestre_2026_v1",
+    "career": "6a47c695ca51db23dfa06b32",
+    "courseSemester": 3,
+    "createdAt": "2026-07-03T15:30:36.562Z",
+    "updatedAt": "2026-07-03T15:30:36.562Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47d59c11faa519349b705d",
+    "courseId": "6a47ce5d7c6934b3c0c50445",
+    "sectionCode": "A",
+    "teacherId": "6a47ce5e7c6934b3c0c504de",
+    "classroomId": "6a47ce7d19798a345baa4a97",
+    "scheduleSlots": [
+      {
+        "day": "jueves",
+        "startTime": "09:00",
+        "endTime": "10:00"
+      },
+      {
+        "day": "martes",
+        "startTime": "11:00",
+        "endTime": "12:00"
+      },
+      {
+        "day": "domingo",
+        "startTime": "12:00",
+        "endTime": "13:00"
+      }
+    ],
+    "enrolledStudents": [],
+    "maxCapacity": 36,
+    "minStudents": 15,
+    "currentEnrolled": 0,
+    "status": "activa",
+    "generationId": "6a47d59c11faa519349b6faf",
+    "semester": "Semestre_2026_v1",
+    "career": "6a47c695ca51db23dfa06b32",
+    "courseSemester": 3,
+    "createdAt": "2026-07-03T15:30:36.568Z",
+    "updatedAt": "2026-07-03T15:30:36.568Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47d59c11faa519349b705f",
+    "courseId": "6a47ce5d7c6934b3c0c50447",
+    "sectionCode": "A",
+    "teacherId": "6a47ce5e7c6934b3c0c504f2",
+    "classroomId": "6a47c695ca51db23dfa06b7e",
+    "scheduleSlots": [
+      {
+        "day": "viernes",
+        "startTime": "19:00",
+        "endTime": "20:00"
+      },
+      {
+        "day": "martes",
+        "startTime": "18:00",
+        "endTime": "19:00"
+      },
+      {
+        "day": "miercoles",
+        "startTime": "18:00",
+        "endTime": "19:00"
+      }
+    ],
+    "enrolledStudents": [],
+    "maxCapacity": 39,
+    "minStudents": 15,
+    "currentEnrolled": 0,
+    "status": "activa",
+    "generationId": "6a47d59c11faa519349b6faf",
+    "semester": "Semestre_2026_v1",
+    "career": "6a47c695ca51db23dfa06b32",
+    "courseSemester": 3,
+    "createdAt": "2026-07-03T15:30:36.573Z",
+    "updatedAt": "2026-07-03T15:30:36.573Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47d59c11faa519349b7061",
+    "courseId": "6a47ce5d7c6934b3c0c50449",
+    "sectionCode": "A",
+    "teacherId": "6a47ce5e7c6934b3c0c504e3",
+    "classroomId": "6a47ce7d19798a345baa4a5e",
+    "scheduleSlots": [
+      {
+        "day": "lunes",
+        "startTime": "15:00",
+        "endTime": "16:00"
+      },
+      {
+        "day": "miercoles",
+        "startTime": "17:00",
+        "endTime": "18:00"
+      },
+      {
+        "day": "martes",
+        "startTime": "20:00",
+        "endTime": "21:00"
+      }
+    ],
+    "enrolledStudents": [],
+    "maxCapacity": 46,
+    "minStudents": 15,
+    "currentEnrolled": 0,
+    "status": "activa",
+    "generationId": "6a47d59c11faa519349b6faf",
+    "semester": "Semestre_2026_v1",
+    "career": "6a47c695ca51db23dfa06b32",
+    "courseSemester": 3,
+    "createdAt": "2026-07-03T15:30:36.582Z",
+    "updatedAt": "2026-07-03T15:30:36.582Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47d59c11faa519349b7063",
+    "courseId": "6a47ce5d7c6934b3c0c5044b",
+    "sectionCode": "A",
+    "teacherId": "6a47ce5e7c6934b3c0c504d4",
+    "classroomId": "6a47ce7d19798a345baa4a6d",
+    "scheduleSlots": [
+      {
+        "day": "lunes",
+        "startTime": "14:00",
+        "endTime": "15:00"
+      },
+      {
+        "day": "martes",
+        "startTime": "16:00",
+        "endTime": "17:00"
+      }
+    ],
+    "enrolledStudents": [],
+    "maxCapacity": 36,
+    "minStudents": 15,
+    "currentEnrolled": 0,
+    "status": "activa",
+    "generationId": "6a47d59c11faa519349b6faf",
+    "semester": "Semestre_2026_v1",
+    "career": "6a47c695ca51db23dfa06b32",
+    "courseSemester": 3,
+    "createdAt": "2026-07-03T15:30:36.589Z",
+    "updatedAt": "2026-07-03T15:30:36.589Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47d59c11faa519349b7065",
+    "courseId": "6a47ce5d7c6934b3c0c5044d",
+    "sectionCode": "A",
+    "teacherId": "6a47ce5e7c6934b3c0c504f5",
+    "classroomId": "6a47ce7d19798a345baa4a6d",
+    "scheduleSlots": [
+      {
+        "day": "lunes",
+        "startTime": "15:00",
+        "endTime": "16:00"
+      },
+      {
+        "day": "martes",
+        "startTime": "18:00",
+        "endTime": "19:00"
+      }
+    ],
+    "enrolledStudents": [],
+    "maxCapacity": 40,
+    "minStudents": 15,
+    "currentEnrolled": 0,
+    "status": "activa",
+    "generationId": "6a47d59c11faa519349b6faf",
+    "semester": "Semestre_2026_v1",
+    "career": "6a47c695ca51db23dfa06b32",
+    "courseSemester": 3,
+    "createdAt": "2026-07-03T15:30:36.594Z",
+    "updatedAt": "2026-07-03T15:30:36.594Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47d59c11faa519349b7067",
+    "courseId": "6a47ce5d7c6934b3c0c5044f",
+    "sectionCode": "A",
+    "teacherId": "6a47ce5e7c6934b3c0c504dd",
+    "classroomId": "6a47d0fb9ba9736b0579ad08",
+    "scheduleSlots": [
+      {
+        "day": "viernes",
+        "startTime": "16:00",
+        "endTime": "17:00"
+      },
+      {
+        "day": "miercoles",
+        "startTime": "16:00",
+        "endTime": "17:00"
+      },
+      {
+        "day": "martes",
+        "startTime": "15:00",
+        "endTime": "16:00"
+      }
+    ],
+    "enrolledStudents": [],
+    "maxCapacity": 48,
+    "minStudents": 15,
+    "currentEnrolled": 0,
+    "status": "activa",
+    "generationId": "6a47d59c11faa519349b6faf",
+    "semester": "Semestre_2026_v1",
+    "career": "6a47c695ca51db23dfa06b32",
+    "courseSemester": 4,
+    "createdAt": "2026-07-03T15:30:36.602Z",
+    "updatedAt": "2026-07-03T15:30:36.602Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47d59c11faa519349b7069",
+    "courseId": "6a47ce5d7c6934b3c0c50451",
+    "sectionCode": "A",
+    "teacherId": "6a47ce5e7c6934b3c0c504d7",
+    "classroomId": "6a47ce7d19798a345baa4a88",
+    "scheduleSlots": [
+      {
+        "day": "miercoles",
+        "startTime": "17:00",
+        "endTime": "18:00"
+      },
+      {
+        "day": "jueves",
+        "startTime": "14:00",
+        "endTime": "15:00"
+      },
+      {
+        "day": "viernes",
+        "startTime": "14:00",
+        "endTime": "15:00"
+      }
+    ],
+    "enrolledStudents": [],
+    "maxCapacity": 32,
+    "minStudents": 15,
+    "currentEnrolled": 0,
+    "status": "activa",
+    "generationId": "6a47d59c11faa519349b6faf",
+    "semester": "Semestre_2026_v1",
+    "career": "6a47c695ca51db23dfa06b32",
+    "courseSemester": 4,
+    "createdAt": "2026-07-03T15:30:36.606Z",
+    "updatedAt": "2026-07-03T15:30:36.606Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47d59c11faa519349b706b",
+    "courseId": "6a47ce5d7c6934b3c0c50453",
+    "sectionCode": "A",
+    "teacherId": "6a47ce5e7c6934b3c0c504eb",
+    "classroomId": "6a47ce7d19798a345baa4a58",
+    "scheduleSlots": [
+      {
+        "day": "martes",
+        "startTime": "10:00",
+        "endTime": "11:00"
+      },
+      {
+        "day": "miercoles",
+        "startTime": "08:00",
+        "endTime": "09:00"
+      },
+      {
+        "day": "viernes",
+        "startTime": "09:00",
+        "endTime": "10:00"
+      }
+    ],
+    "enrolledStudents": [],
+    "maxCapacity": 36,
+    "minStudents": 15,
+    "currentEnrolled": 0,
+    "status": "activa",
+    "generationId": "6a47d59c11faa519349b6faf",
+    "semester": "Semestre_2026_v1",
+    "career": "6a47c695ca51db23dfa06b32",
+    "courseSemester": 4,
+    "createdAt": "2026-07-03T15:30:36.611Z",
+    "updatedAt": "2026-07-03T15:30:36.611Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47d59c11faa519349b706d",
+    "courseId": "6a47ce5d7c6934b3c0c50455",
+    "sectionCode": "A",
+    "teacherId": "6a47ce5e7c6934b3c0c504ea",
+    "classroomId": "6a47c695ca51db23dfa06b78",
+    "scheduleSlots": [
+      {
+        "day": "domingo",
+        "startTime": "10:00",
+        "endTime": "11:00"
+      },
+      {
+        "day": "miercoles",
+        "startTime": "11:00",
+        "endTime": "12:00"
+      }
+    ],
+    "enrolledStudents": [],
+    "maxCapacity": 27,
+    "minStudents": 15,
+    "currentEnrolled": 0,
+    "status": "activa",
+    "generationId": "6a47d59c11faa519349b6faf",
+    "semester": "Semestre_2026_v1",
+    "career": "6a47c695ca51db23dfa06b32",
+    "courseSemester": 4,
+    "createdAt": "2026-07-03T15:30:36.621Z",
+    "updatedAt": "2026-07-03T15:30:36.621Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47d59c11faa519349b706f",
+    "courseId": "6a47ce5d7c6934b3c0c50457",
+    "sectionCode": "A",
+    "teacherId": "6a47ce5e7c6934b3c0c504e0",
+    "classroomId": "6a47d0fb9ba9736b0579ad08",
+    "scheduleSlots": [
+      {
+        "day": "viernes",
+        "startTime": "19:00",
+        "endTime": "20:00"
+      },
+      {
+        "day": "jueves",
+        "startTime": "16:00",
+        "endTime": "17:00"
+      },
+      {
+        "day": "martes",
+        "startTime": "16:00",
+        "endTime": "17:00"
+      }
+    ],
+    "enrolledStudents": [],
+    "maxCapacity": 42,
+    "minStudents": 15,
+    "currentEnrolled": 0,
+    "status": "activa",
+    "generationId": "6a47d59c11faa519349b6faf",
+    "semester": "Semestre_2026_v1",
+    "career": "6a47c695ca51db23dfa06b32",
+    "courseSemester": 4,
+    "createdAt": "2026-07-03T15:30:36.626Z",
+    "updatedAt": "2026-07-03T15:30:36.626Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47d59c11faa519349b7071",
+    "courseId": "6a47ce5d7c6934b3c0c50459",
+    "sectionCode": "A",
+    "teacherId": "6a47ce5e7c6934b3c0c50508",
+    "classroomId": "6a47c695ca51db23dfa06b7b",
+    "scheduleSlots": [
+      {
+        "day": "martes",
+        "startTime": "15:00",
+        "endTime": "16:00"
+      },
+      {
+        "day": "sabado",
+        "startTime": "19:00",
+        "endTime": "20:00"
+      }
+    ],
+    "enrolledStudents": [],
+    "maxCapacity": 47,
+    "minStudents": 15,
+    "currentEnrolled": 0,
+    "status": "activa",
+    "generationId": "6a47d59c11faa519349b6faf",
+    "semester": "Semestre_2026_v1",
+    "career": "6a47c695ca51db23dfa06b32",
+    "courseSemester": 4,
+    "createdAt": "2026-07-03T15:30:36.637Z",
+    "updatedAt": "2026-07-03T15:30:36.637Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47d59c11faa519349b7073",
+    "courseId": "6a47ce5d7c6934b3c0c5045b",
+    "sectionCode": "A",
+    "teacherId": "6a47ce5e7c6934b3c0c504f4",
+    "classroomId": "6a47ce7d19798a345baa4a67",
+    "scheduleSlots": [
+      {
+        "day": "viernes",
+        "startTime": "09:00",
+        "endTime": "10:00"
+      },
+      {
+        "day": "martes",
+        "startTime": "11:00",
+        "endTime": "12:00"
+      },
+      {
+        "day": "jueves",
+        "startTime": "11:00",
+        "endTime": "12:00"
+      }
+    ],
+    "enrolledStudents": [],
+    "maxCapacity": 31,
+    "minStudents": 15,
+    "currentEnrolled": 0,
+    "status": "activa",
+    "generationId": "6a47d59c11faa519349b6faf",
+    "semester": "Semestre_2026_v1",
+    "career": "6a47c695ca51db23dfa06b32",
+    "courseSemester": 5,
+    "createdAt": "2026-07-03T15:30:36.640Z",
+    "updatedAt": "2026-07-03T15:30:36.640Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47d59c11faa519349b7075",
+    "courseId": "6a47ce5d7c6934b3c0c5045d",
+    "sectionCode": "A",
+    "teacherId": "6a47ce5e7c6934b3c0c504e8",
+    "classroomId": "6a47d0fb9ba9736b0579ad09",
+    "scheduleSlots": [
+      {
+        "day": "viernes",
+        "startTime": "09:00",
+        "endTime": "10:00"
+      },
+      {
+        "day": "jueves",
+        "startTime": "11:00",
+        "endTime": "12:00"
+      },
+      {
+        "day": "miercoles",
+        "startTime": "11:00",
+        "endTime": "12:00"
+      }
+    ],
+    "enrolledStudents": [],
+    "maxCapacity": 31,
+    "minStudents": 15,
+    "currentEnrolled": 0,
+    "status": "activa",
+    "generationId": "6a47d59c11faa519349b6faf",
+    "semester": "Semestre_2026_v1",
+    "career": "6a47c695ca51db23dfa06b32",
+    "courseSemester": 5,
+    "createdAt": "2026-07-03T15:30:36.649Z",
+    "updatedAt": "2026-07-03T15:30:36.649Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47d59c11faa519349b7077",
+    "courseId": "6a47ce5d7c6934b3c0c5045f",
+    "sectionCode": "A",
+    "teacherId": "6a47ce5e7c6934b3c0c504e5",
+    "classroomId": "6a47c695ca51db23dfa06b7f",
+    "scheduleSlots": [
+      {
+        "day": "lunes",
+        "startTime": "12:00",
+        "endTime": "13:00"
+      },
+      {
+        "day": "viernes",
+        "startTime": "11:00",
+        "endTime": "12:00"
+      },
+      {
+        "day": "martes",
+        "startTime": "07:00",
+        "endTime": "08:00"
+      }
+    ],
+    "enrolledStudents": [],
+    "maxCapacity": 30,
+    "minStudents": 15,
+    "currentEnrolled": 0,
+    "status": "activa",
+    "generationId": "6a47d59c11faa519349b6faf",
+    "semester": "Semestre_2026_v1",
+    "career": "6a47c695ca51db23dfa06b32",
+    "courseSemester": 5,
+    "createdAt": "2026-07-03T15:30:36.655Z",
+    "updatedAt": "2026-07-03T15:30:36.655Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47d59c11faa519349b7079",
+    "courseId": "6a47ce5d7c6934b3c0c50461",
+    "sectionCode": "A",
+    "teacherId": "6a47ce5e7c6934b3c0c504dc",
+    "classroomId": "6a47ce7d19798a345baa4a8e",
+    "scheduleSlots": [
+      {
+        "day": "martes",
+        "startTime": "09:00",
+        "endTime": "10:00"
+      },
+      {
+        "day": "miercoles",
+        "startTime": "09:00",
+        "endTime": "10:00"
+      }
+    ],
+    "enrolledStudents": [],
+    "maxCapacity": 27,
+    "minStudents": 15,
+    "currentEnrolled": 0,
+    "status": "activa",
+    "generationId": "6a47d59c11faa519349b6faf",
+    "semester": "Semestre_2026_v1",
+    "career": "6a47c695ca51db23dfa06b32",
+    "courseSemester": 5,
+    "createdAt": "2026-07-03T15:30:36.663Z",
+    "updatedAt": "2026-07-03T15:30:36.663Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47d59c11faa519349b707b",
+    "courseId": "6a47ce5d7c6934b3c0c50463",
+    "sectionCode": "A",
+    "teacherId": "6a47ce5e7c6934b3c0c50504",
+    "classroomId": "6a47ce7d19798a345baa4a55",
+    "scheduleSlots": [
+      {
+        "day": "miercoles",
+        "startTime": "20:00",
+        "endTime": "21:00"
+      },
+      {
+        "day": "jueves",
+        "startTime": "18:00",
+        "endTime": "19:00"
+      }
+    ],
+    "enrolledStudents": [],
+    "maxCapacity": 26,
+    "minStudents": 15,
+    "currentEnrolled": 0,
+    "status": "activa",
+    "generationId": "6a47d59c11faa519349b6faf",
+    "semester": "Semestre_2026_v1",
+    "career": "6a47c695ca51db23dfa06b32",
+    "courseSemester": 5,
+    "createdAt": "2026-07-03T15:30:36.671Z",
+    "updatedAt": "2026-07-03T15:30:36.671Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47d59c11faa519349b707d",
+    "courseId": "6a47ce5d7c6934b3c0c50465",
+    "sectionCode": "A",
+    "teacherId": "6a47ce5e7c6934b3c0c504f0",
+    "classroomId": "6a47ce7d19798a345baa4a7f",
+    "scheduleSlots": [
+      {
+        "day": "jueves",
+        "startTime": "07:00",
+        "endTime": "08:00"
+      },
+      {
+        "day": "viernes",
+        "startTime": "07:00",
+        "endTime": "08:00"
+      }
+    ],
+    "enrolledStudents": [],
+    "maxCapacity": 26,
+    "minStudents": 15,
+    "currentEnrolled": 0,
+    "status": "activa",
+    "generationId": "6a47d59c11faa519349b6faf",
+    "semester": "Semestre_2026_v1",
+    "career": "6a47c695ca51db23dfa06b32",
+    "courseSemester": 5,
+    "createdAt": "2026-07-03T15:30:36.675Z",
+    "updatedAt": "2026-07-03T15:30:36.675Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47d59c11faa519349b707f",
+    "courseId": "6a47ce5d7c6934b3c0c50467",
+    "sectionCode": "A",
+    "teacherId": "6a47ce5e7c6934b3c0c504d8",
+    "classroomId": "6a47c695ca51db23dfa06b78",
+    "scheduleSlots": [
+      {
+        "day": "domingo",
+        "startTime": "10:00",
+        "endTime": "11:00"
+      },
+      {
+        "day": "miercoles",
+        "startTime": "11:00",
+        "endTime": "12:00"
+      },
+      {
+        "day": "lunes",
+        "startTime": "20:00",
+        "endTime": "21:00"
+      }
+    ],
+    "enrolledStudents": [],
+    "maxCapacity": 29,
+    "minStudents": 15,
+    "currentEnrolled": 0,
+    "status": "activa",
+    "generationId": "6a47d59c11faa519349b6faf",
+    "semester": "Semestre_2026_v1",
+    "career": "6a47c695ca51db23dfa06b32",
+    "courseSemester": 6,
+    "createdAt": "2026-07-03T15:30:36.684Z",
+    "updatedAt": "2026-07-03T15:30:36.684Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47d59c11faa519349b7081",
+    "courseId": "6a47ce5d7c6934b3c0c50469",
+    "sectionCode": "A",
+    "teacherId": "6a47ce5e7c6934b3c0c504fc",
+    "classroomId": "6a47d0fb9ba9736b0579ad08",
+    "scheduleSlots": [
+      {
+        "day": "lunes",
+        "startTime": "18:00",
+        "endTime": "19:00"
+      },
+      {
+        "day": "miercoles",
+        "startTime": "18:00",
+        "endTime": "19:00"
+      },
+      {
+        "day": "viernes",
+        "startTime": "14:00",
+        "endTime": "15:00"
+      }
+    ],
+    "enrolledStudents": [],
+    "maxCapacity": 46,
+    "minStudents": 15,
+    "currentEnrolled": 0,
+    "status": "activa",
+    "generationId": "6a47d59c11faa519349b6faf",
+    "semester": "Semestre_2026_v1",
+    "career": "6a47c695ca51db23dfa06b32",
+    "courseSemester": 6,
+    "createdAt": "2026-07-03T15:30:36.690Z",
+    "updatedAt": "2026-07-03T15:30:36.690Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47d59c11faa519349b7083",
+    "courseId": "6a47ce5d7c6934b3c0c5046b",
+    "sectionCode": "A",
+    "teacherId": "6a47ce5e7c6934b3c0c504d9",
+    "classroomId": "6a47d0fb9ba9736b0579ad0a",
+    "scheduleSlots": [
+      {
+        "day": "miercoles",
+        "startTime": "09:00",
+        "endTime": "10:00"
+      },
+      {
+        "day": "lunes",
+        "startTime": "11:00",
+        "endTime": "12:00"
+      },
+      {
+        "day": "jueves",
+        "startTime": "09:00",
+        "endTime": "10:00"
+      }
+    ],
+    "enrolledStudents": [],
+    "maxCapacity": 35,
+    "minStudents": 15,
+    "currentEnrolled": 0,
+    "status": "activa",
+    "generationId": "6a47d59c11faa519349b6faf",
+    "semester": "Semestre_2026_v1",
+    "career": "6a47c695ca51db23dfa06b32",
+    "courseSemester": 6,
+    "createdAt": "2026-07-03T15:30:36.693Z",
+    "updatedAt": "2026-07-03T15:30:36.693Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47d59c11faa519349b7085",
+    "courseId": "6a47ce5d7c6934b3c0c5046d",
+    "sectionCode": "A",
+    "teacherId": "6a47ce5e7c6934b3c0c504de",
+    "classroomId": "6a47d0fb9ba9736b0579ad0a",
+    "scheduleSlots": [
+      {
+        "day": "miercoles",
+        "startTime": "11:00",
+        "endTime": "12:00"
+      },
+      {
+        "day": "martes",
+        "startTime": "21:00",
+        "endTime": "22:00"
+      }
+    ],
+    "enrolledStudents": [],
+    "maxCapacity": 25,
+    "minStudents": 15,
+    "currentEnrolled": 0,
+    "status": "activa",
+    "generationId": "6a47d59c11faa519349b6faf",
+    "semester": "Semestre_2026_v1",
+    "career": "6a47c695ca51db23dfa06b32",
+    "courseSemester": 6,
+    "createdAt": "2026-07-03T15:30:36.700Z",
+    "updatedAt": "2026-07-03T15:30:36.700Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47d59c11faa519349b7087",
+    "courseId": "6a47ce5d7c6934b3c0c5046f",
+    "sectionCode": "A",
+    "teacherId": "6a47ce5e7c6934b3c0c504e4",
+    "classroomId": "6a47ce7d19798a345baa4a55",
+    "scheduleSlots": [
+      {
+        "day": "jueves",
+        "startTime": "20:00",
+        "endTime": "21:00"
+      },
+      {
+        "day": "miercoles",
+        "startTime": "09:00",
+        "endTime": "10:00"
+      }
+    ],
+    "enrolledStudents": [],
+    "maxCapacity": 42,
+    "minStudents": 15,
+    "currentEnrolled": 0,
+    "status": "activa",
+    "generationId": "6a47d59c11faa519349b6faf",
+    "semester": "Semestre_2026_v1",
+    "career": "6a47c695ca51db23dfa06b32",
+    "courseSemester": 6,
+    "createdAt": "2026-07-03T15:30:36.706Z",
+    "updatedAt": "2026-07-03T15:30:36.706Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47d59c11faa519349b7089",
+    "courseId": "6a47ce5d7c6934b3c0c50471",
+    "sectionCode": "A",
+    "teacherId": "6a47ce5e7c6934b3c0c504d4",
+    "classroomId": "6a47ce7d19798a345baa4a97",
+    "scheduleSlots": [
+      {
+        "day": "lunes",
+        "startTime": "15:00",
+        "endTime": "16:00"
+      },
+      {
+        "day": "jueves",
+        "startTime": "16:00",
+        "endTime": "17:00"
+      }
+    ],
+    "enrolledStudents": [],
+    "maxCapacity": 47,
+    "minStudents": 15,
+    "currentEnrolled": 0,
+    "status": "activa",
+    "generationId": "6a47d59c11faa519349b6faf",
+    "semester": "Semestre_2026_v1",
+    "career": "6a47c695ca51db23dfa06b32",
+    "courseSemester": 6,
+    "createdAt": "2026-07-03T15:30:36.712Z",
+    "updatedAt": "2026-07-03T15:30:36.712Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47d59c11faa519349b708b",
+    "courseId": "6a47ce5d7c6934b3c0c50473",
+    "sectionCode": "A",
+    "teacherId": "6a47ce5e7c6934b3c0c504f1",
+    "classroomId": "6a47c695ca51db23dfa06b7e",
+    "scheduleSlots": [
+      {
+        "day": "viernes",
+        "startTime": "12:00",
+        "endTime": "13:00"
+      },
+      {
+        "day": "martes",
+        "startTime": "12:00",
+        "endTime": "13:00"
+      },
+      {
+        "day": "miercoles",
+        "startTime": "08:00",
+        "endTime": "09:00"
+      }
+    ],
+    "enrolledStudents": [],
+    "maxCapacity": 39,
+    "minStudents": 15,
+    "currentEnrolled": 0,
+    "status": "activa",
+    "generationId": "6a47d59c11faa519349b6faf",
+    "semester": "Semestre_2026_v1",
+    "career": "6a47c695ca51db23dfa06b32",
+    "courseSemester": 7,
+    "createdAt": "2026-07-03T15:30:36.723Z",
+    "updatedAt": "2026-07-03T15:30:36.723Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47d59c11faa519349b708d",
+    "courseId": "6a47ce5e7c6934b3c0c50475",
+    "sectionCode": "A",
+    "teacherId": "6a47ce5e7c6934b3c0c504db",
+    "classroomId": "6a47ce7d19798a345baa4a8e",
+    "scheduleSlots": [
+      {
+        "day": "viernes",
+        "startTime": "18:00",
+        "endTime": "19:00"
+      },
+      {
+        "day": "martes",
+        "startTime": "20:00",
+        "endTime": "21:00"
+      },
+      {
+        "day": "miercoles",
+        "startTime": "17:00",
+        "endTime": "18:00"
+      }
+    ],
+    "enrolledStudents": [],
+    "maxCapacity": 30,
+    "minStudents": 15,
+    "currentEnrolled": 0,
+    "status": "activa",
+    "generationId": "6a47d59c11faa519349b6faf",
+    "semester": "Semestre_2026_v1",
+    "career": "6a47c695ca51db23dfa06b32",
+    "courseSemester": 7,
+    "createdAt": "2026-07-03T15:30:36.726Z",
+    "updatedAt": "2026-07-03T15:30:36.726Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47d59c11faa519349b708f",
+    "courseId": "6a47ce5e7c6934b3c0c50477",
+    "sectionCode": "A",
+    "teacherId": "6a47ce5e7c6934b3c0c504d6",
+    "classroomId": "6a47d0fb9ba9736b0579ad08",
+    "scheduleSlots": [
+      {
+        "day": "jueves",
+        "startTime": "12:00",
+        "endTime": "13:00"
+      },
+      {
+        "day": "lunes",
+        "startTime": "10:00",
+        "endTime": "11:00"
+      }
+    ],
+    "enrolledStudents": [],
+    "maxCapacity": 46,
+    "minStudents": 15,
+    "currentEnrolled": 0,
+    "status": "activa",
+    "generationId": "6a47d59c11faa519349b6faf",
+    "semester": "Semestre_2026_v1",
+    "career": "6a47c695ca51db23dfa06b32",
+    "courseSemester": 7,
+    "createdAt": "2026-07-03T15:30:36.733Z",
+    "updatedAt": "2026-07-03T15:30:36.733Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47d59c11faa519349b7091",
+    "courseId": "6a47ce5e7c6934b3c0c50479",
+    "sectionCode": "A",
+    "teacherId": "6a47ce5e7c6934b3c0c504f8",
+    "classroomId": "6a47c695ca51db23dfa06b7f",
+    "scheduleSlots": [
+      {
+        "day": "lunes",
+        "startTime": "18:00",
+        "endTime": "19:00"
+      },
+      {
+        "day": "viernes",
+        "startTime": "17:00",
+        "endTime": "18:00"
+      }
+    ],
+    "enrolledStudents": [],
+    "maxCapacity": 35,
+    "minStudents": 15,
+    "currentEnrolled": 0,
+    "status": "activa",
+    "generationId": "6a47d59c11faa519349b6faf",
+    "semester": "Semestre_2026_v1",
+    "career": "6a47c695ca51db23dfa06b32",
+    "courseSemester": 7,
+    "createdAt": "2026-07-03T15:30:36.737Z",
+    "updatedAt": "2026-07-03T15:30:36.737Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47d59c11faa519349b7093",
+    "courseId": "6a47ce5e7c6934b3c0c5047b",
+    "sectionCode": "A",
+    "teacherId": "6a47ce5e7c6934b3c0c504ea",
+    "classroomId": "6a47c695ca51db23dfa06b78",
+    "scheduleSlots": [
+      {
+        "day": "domingo",
+        "startTime": "10:00",
+        "endTime": "11:00"
+      },
+      {
+        "day": "miercoles",
+        "startTime": "11:00",
+        "endTime": "12:00"
+      }
+    ],
+    "enrolledStudents": [],
+    "maxCapacity": 25,
+    "minStudents": 15,
+    "currentEnrolled": 0,
+    "status": "activa",
+    "generationId": "6a47d59c11faa519349b6faf",
+    "semester": "Semestre_2026_v1",
+    "career": "6a47c695ca51db23dfa06b32",
+    "courseSemester": 7,
+    "createdAt": "2026-07-03T15:30:36.740Z",
+    "updatedAt": "2026-07-03T15:30:36.740Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47d59c11faa519349b7095",
+    "courseId": "6a47ce5e7c6934b3c0c5047d",
+    "sectionCode": "A",
+    "teacherId": "6a47ce5e7c6934b3c0c504e0",
+    "classroomId": "6a47ce7d19798a345baa4a73",
+    "scheduleSlots": [
+      {
+        "day": "viernes",
+        "startTime": "19:00",
+        "endTime": "20:00"
+      },
+      {
+        "day": "martes",
+        "startTime": "17:00",
+        "endTime": "18:00"
+      }
+    ],
+    "enrolledStudents": [],
+    "maxCapacity": 50,
+    "minStudents": 15,
+    "currentEnrolled": 0,
+    "status": "activa",
+    "generationId": "6a47d59c11faa519349b6faf",
+    "semester": "Semestre_2026_v1",
+    "career": "6a47c695ca51db23dfa06b32",
+    "courseSemester": 7,
+    "createdAt": "2026-07-03T15:30:36.743Z",
+    "updatedAt": "2026-07-03T15:30:36.743Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47d59c11faa519349b7097",
+    "courseId": "6a47ce5e7c6934b3c0c5047f",
+    "sectionCode": "A",
+    "teacherId": "6a47ce5e7c6934b3c0c504df",
+    "classroomId": "6a47ce7d19798a345baa4a8e",
+    "scheduleSlots": [
+      {
+        "day": "martes",
+        "startTime": "10:00",
+        "endTime": "11:00"
+      },
+      {
+        "day": "miercoles",
+        "startTime": "11:00",
+        "endTime": "12:00"
+      },
+      {
+        "day": "lunes",
+        "startTime": "09:00",
+        "endTime": "10:00"
+      }
+    ],
+    "enrolledStudents": [],
+    "maxCapacity": 27,
+    "minStudents": 15,
+    "currentEnrolled": 0,
+    "status": "activa",
+    "generationId": "6a47d59c11faa519349b6faf",
+    "semester": "Semestre_2026_v1",
+    "career": "6a47c695ca51db23dfa06b32",
+    "courseSemester": 8,
+    "createdAt": "2026-07-03T15:30:36.752Z",
+    "updatedAt": "2026-07-03T15:30:36.752Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47d59c11faa519349b7099",
+    "courseId": "6a47ce5e7c6934b3c0c50481",
+    "sectionCode": "A",
+    "teacherId": "6a47ce5e7c6934b3c0c50508",
+    "classroomId": "6a47d0fb9ba9736b0579ad08",
+    "scheduleSlots": [
+      {
+        "day": "lunes",
+        "startTime": "18:00",
+        "endTime": "19:00"
+      },
+      {
+        "day": "miercoles",
+        "startTime": "18:00",
+        "endTime": "19:00"
+      },
+      {
+        "day": "viernes",
+        "startTime": "14:00",
+        "endTime": "15:00"
+      }
+    ],
+    "enrolledStudents": [],
+    "maxCapacity": 48,
+    "minStudents": 15,
+    "currentEnrolled": 0,
+    "status": "activa",
+    "generationId": "6a47d59c11faa519349b6faf",
+    "semester": "Semestre_2026_v1",
+    "career": "6a47c695ca51db23dfa06b32",
+    "courseSemester": 8,
+    "createdAt": "2026-07-03T15:30:36.756Z",
+    "updatedAt": "2026-07-03T15:30:36.756Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47d59c11faa519349b709b",
+    "courseId": "6a47ce5e7c6934b3c0c50483",
+    "sectionCode": "A",
+    "teacherId": "6a47ce5e7c6934b3c0c504e2",
+    "classroomId": "6a47ce7d19798a345baa4a88",
+    "scheduleSlots": [
+      {
+        "day": "martes",
+        "startTime": "08:00",
+        "endTime": "09:00"
+      },
+      {
+        "day": "jueves",
+        "startTime": "10:00",
+        "endTime": "11:00"
+      },
+      {
+        "day": "miercoles",
+        "startTime": "11:00",
+        "endTime": "12:00"
+      }
+    ],
+    "enrolledStudents": [],
+    "maxCapacity": 29,
+    "minStudents": 15,
+    "currentEnrolled": 0,
+    "status": "activa",
+    "generationId": "6a47d59c11faa519349b6faf",
+    "semester": "Semestre_2026_v1",
+    "career": "6a47c695ca51db23dfa06b32",
+    "courseSemester": 8,
+    "createdAt": "2026-07-03T15:30:36.759Z",
+    "updatedAt": "2026-07-03T15:30:36.759Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47d59c11faa519349b709d",
+    "courseId": "6a47ce5e7c6934b3c0c50485",
+    "sectionCode": "A",
+    "teacherId": "6a47ce5e7c6934b3c0c504e1",
+    "classroomId": "6a47d0fb9ba9736b0579ad09",
+    "scheduleSlots": [
+      {
+        "day": "martes",
+        "startTime": "19:00",
+        "endTime": "20:00"
+      },
+      {
+        "day": "miercoles",
+        "startTime": "18:00",
+        "endTime": "19:00"
+      }
+    ],
+    "enrolledStudents": [],
+    "maxCapacity": 33,
+    "minStudents": 15,
+    "currentEnrolled": 0,
+    "status": "activa",
+    "generationId": "6a47d59c11faa519349b6faf",
+    "semester": "Semestre_2026_v1",
+    "career": "6a47c695ca51db23dfa06b32",
+    "courseSemester": 8,
+    "createdAt": "2026-07-03T15:30:36.761Z",
+    "updatedAt": "2026-07-03T15:30:36.761Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47d59c11faa519349b709f",
+    "courseId": "6a47ce5e7c6934b3c0c50487",
+    "sectionCode": "A",
+    "teacherId": "6a47ce5e7c6934b3c0c504e6",
+    "classroomId": "6a47ce7d19798a345baa4a6d",
+    "scheduleSlots": [
+      {
+        "day": "lunes",
+        "startTime": "16:00",
+        "endTime": "17:00"
+      },
+      {
+        "day": "martes",
+        "startTime": "15:00",
+        "endTime": "16:00"
+      }
+    ],
+    "enrolledStudents": [],
+    "maxCapacity": 29,
+    "minStudents": 15,
+    "currentEnrolled": 0,
+    "status": "activa",
+    "generationId": "6a47d59c11faa519349b6faf",
+    "semester": "Semestre_2026_v1",
+    "career": "6a47c695ca51db23dfa06b32",
+    "courseSemester": 8,
+    "createdAt": "2026-07-03T15:30:36.769Z",
+    "updatedAt": "2026-07-03T15:30:36.769Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47d59c11faa519349b70a1",
+    "courseId": "6a47ce5e7c6934b3c0c50489",
+    "sectionCode": "A",
+    "teacherId": "6a47ce5e7c6934b3c0c504ec",
+    "classroomId": "6a47ce7d19798a345baa4a55",
+    "scheduleSlots": [
+      {
+        "day": "jueves",
+        "startTime": "16:00",
+        "endTime": "17:00"
+      }
+    ],
+    "enrolledStudents": [],
+    "maxCapacity": 30,
+    "minStudents": 15,
+    "currentEnrolled": 0,
+    "status": "activa",
+    "generationId": "6a47d59c11faa519349b6faf",
+    "semester": "Semestre_2026_v1",
+    "career": "6a47c695ca51db23dfa06b32",
+    "courseSemester": 8,
+    "createdAt": "2026-07-03T15:30:36.773Z",
+    "updatedAt": "2026-07-03T15:30:36.773Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47d59c11faa519349b70a3",
+    "courseId": "6a47ce5e7c6934b3c0c5048b",
+    "sectionCode": "A",
+    "teacherId": "6a47ce5e7c6934b3c0c504f0",
+    "classroomId": "6a47d0fb9ba9736b0579ad08",
+    "scheduleSlots": [
+      {
+        "day": "lunes",
+        "startTime": "18:00",
+        "endTime": "19:00"
+      },
+      {
+        "day": "miercoles",
+        "startTime": "18:00",
+        "endTime": "19:00"
+      },
+      {
+        "day": "viernes",
+        "startTime": "14:00",
+        "endTime": "15:00"
+      }
+    ],
+    "enrolledStudents": [],
+    "maxCapacity": 50,
+    "minStudents": 15,
+    "currentEnrolled": 0,
+    "status": "activa",
+    "generationId": "6a47d59c11faa519349b6faf",
+    "semester": "Semestre_2026_v1",
+    "career": "6a47c695ca51db23dfa06b32",
+    "courseSemester": 9,
+    "createdAt": "2026-07-03T15:30:36.778Z",
+    "updatedAt": "2026-07-03T15:30:36.778Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47d59c11faa519349b70a5",
+    "courseId": "6a47ce5e7c6934b3c0c5048d",
+    "sectionCode": "A",
+    "teacherId": "6a47ce5e7c6934b3c0c504d8",
+    "classroomId": "6a47c695ca51db23dfa06b7b",
+    "scheduleSlots": [
+      {
+        "day": "martes",
+        "startTime": "15:00",
+        "endTime": "16:00"
+      },
+      {
+        "day": "sabado",
+        "startTime": "19:00",
+        "endTime": "20:00"
+      }
+    ],
+    "enrolledStudents": [],
+    "maxCapacity": 49,
+    "minStudents": 15,
+    "currentEnrolled": 0,
+    "status": "activa",
+    "generationId": "6a47d59c11faa519349b6faf",
+    "semester": "Semestre_2026_v1",
+    "career": "6a47c695ca51db23dfa06b32",
+    "courseSemester": 9,
+    "createdAt": "2026-07-03T15:30:36.785Z",
+    "updatedAt": "2026-07-03T15:30:36.785Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47d59c11faa519349b70a7",
+    "courseId": "6a47ce5e7c6934b3c0c5048f",
+    "sectionCode": "A",
+    "teacherId": "6a47ce5e7c6934b3c0c504f6",
+    "classroomId": "6a47d0fb9ba9736b0579ad0a",
+    "scheduleSlots": [
+      {
+        "day": "viernes",
+        "startTime": "16:00",
+        "endTime": "17:00"
+      },
+      {
+        "day": "miercoles",
+        "startTime": "11:00",
+        "endTime": "12:00"
+      }
+    ],
+    "enrolledStudents": [],
+    "maxCapacity": 40,
+    "minStudents": 15,
+    "currentEnrolled": 0,
+    "status": "activa",
+    "generationId": "6a47d59c11faa519349b6faf",
+    "semester": "Semestre_2026_v1",
+    "career": "6a47c695ca51db23dfa06b32",
+    "courseSemester": 9,
+    "createdAt": "2026-07-03T15:30:36.791Z",
+    "updatedAt": "2026-07-03T15:30:36.791Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47d59c11faa519349b70a9",
+    "courseId": "6a47ce5e7c6934b3c0c50491",
+    "sectionCode": "A",
+    "teacherId": "6a47ce5e7c6934b3c0c504d9",
+    "classroomId": "6a47d0fb9ba9736b0579ad08",
+    "scheduleSlots": [
+      {
+        "day": "martes",
+        "startTime": "10:00",
+        "endTime": "11:00"
+      },
+      {
+        "day": "jueves",
+        "startTime": "07:00",
+        "endTime": "08:00"
+      }
+    ],
+    "enrolledStudents": [],
+    "maxCapacity": 38,
+    "minStudents": 15,
+    "currentEnrolled": 0,
+    "status": "activa",
+    "generationId": "6a47d59c11faa519349b6faf",
+    "semester": "Semestre_2026_v1",
+    "career": "6a47c695ca51db23dfa06b32",
+    "courseSemester": 9,
+    "createdAt": "2026-07-03T15:30:36.795Z",
+    "updatedAt": "2026-07-03T15:30:36.795Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47d59c11faa519349b70ab",
+    "courseId": "6a47ce5e7c6934b3c0c50493",
+    "sectionCode": "A",
+    "teacherId": "6a47ce5e7c6934b3c0c504de",
+    "classroomId": "6a47c695ca51db23dfa06b7f",
+    "scheduleSlots": [
+      {
+        "day": "viernes",
+        "startTime": "08:00",
+        "endTime": "09:00"
+      },
+      {
+        "day": "sabado",
+        "startTime": "12:00",
+        "endTime": "13:00"
+      },
+      {
+        "day": "miercoles",
+        "startTime": "14:00",
+        "endTime": "15:00"
+      }
+    ],
+    "enrolledStudents": [],
+    "maxCapacity": 35,
+    "minStudents": 15,
+    "currentEnrolled": 0,
+    "status": "activa",
+    "generationId": "6a47d59c11faa519349b6faf",
+    "semester": "Semestre_2026_v1",
+    "career": "6a47c695ca51db23dfa06b32",
+    "courseSemester": 9,
+    "createdAt": "2026-07-03T15:30:36.800Z",
+    "updatedAt": "2026-07-03T15:30:36.800Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47d59c11faa519349b70ad",
+    "courseId": "6a47ce5e7c6934b3c0c50495",
+    "sectionCode": "A",
+    "teacherId": "6a47ce5e7c6934b3c0c504e4",
+    "classroomId": "6a47ce7d19798a345baa4a9a",
+    "scheduleSlots": [
+      {
+        "day": "miercoles",
+        "startTime": "09:00",
+        "endTime": "10:00"
+      }
+    ],
+    "enrolledStudents": [],
+    "maxCapacity": 34,
+    "minStudents": 15,
+    "currentEnrolled": 0,
+    "status": "activa",
+    "generationId": "6a47d59c11faa519349b6faf",
+    "semester": "Semestre_2026_v1",
+    "career": "6a47c695ca51db23dfa06b32",
+    "courseSemester": 9,
+    "createdAt": "2026-07-03T15:30:36.803Z",
+    "updatedAt": "2026-07-03T15:30:36.803Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47d59c11faa519349b70af",
+    "courseId": "6a47ce5e7c6934b3c0c50497",
+    "sectionCode": "A",
+    "teacherId": "6a47ce5e7c6934b3c0c504d4",
+    "classroomId": "6a47ce7d19798a345baa4a6d",
+    "scheduleSlots": [
+      {
+        "day": "lunes",
+        "startTime": "14:00",
+        "endTime": "15:00"
+      },
+      {
+        "day": "martes",
+        "startTime": "16:00",
+        "endTime": "17:00"
+      }
+    ],
+    "enrolledStudents": [],
+    "maxCapacity": 40,
+    "minStudents": 15,
+    "currentEnrolled": 0,
+    "status": "activa",
+    "generationId": "6a47d59c11faa519349b6faf",
+    "semester": "Semestre_2026_v1",
+    "career": "6a47c695ca51db23dfa06b32",
+    "courseSemester": 10,
+    "createdAt": "2026-07-03T15:30:36.807Z",
+    "updatedAt": "2026-07-03T15:30:36.807Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47d59c11faa519349b70b1",
+    "courseId": "6a47ce5e7c6934b3c0c50499",
+    "sectionCode": "A",
+    "teacherId": "6a47ce5e7c6934b3c0c504ed",
+    "classroomId": "6a47c695ca51db23dfa06b7b",
+    "scheduleSlots": [
+      {
+        "day": "martes",
+        "startTime": "20:00",
+        "endTime": "21:00"
+      },
+      {
+        "day": "viernes",
+        "startTime": "19:00",
+        "endTime": "20:00"
+      }
+    ],
+    "enrolledStudents": [],
+    "maxCapacity": 29,
+    "minStudents": 15,
+    "currentEnrolled": 0,
+    "status": "activa",
+    "generationId": "6a47d59c11faa519349b6faf",
+    "semester": "Semestre_2026_v1",
+    "career": "6a47c695ca51db23dfa06b32",
+    "courseSemester": 10,
+    "createdAt": "2026-07-03T15:30:36.811Z",
+    "updatedAt": "2026-07-03T15:30:36.811Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47d59c11faa519349b70b3",
+    "courseId": "6a47ce5e7c6934b3c0c5049b",
+    "sectionCode": "A",
+    "teacherId": "6a47ce5e7c6934b3c0c504db",
+    "classroomId": "6a47ce7d19798a345baa4a79",
+    "scheduleSlots": [
+      {
+        "day": "miercoles",
+        "startTime": "20:00",
+        "endTime": "21:00"
+      }
+    ],
+    "enrolledStudents": [],
+    "maxCapacity": 49,
+    "minStudents": 15,
+    "currentEnrolled": 0,
+    "status": "activa",
+    "generationId": "6a47d59c11faa519349b6faf",
+    "semester": "Semestre_2026_v1",
+    "career": "6a47c695ca51db23dfa06b32",
+    "courseSemester": 10,
+    "createdAt": "2026-07-03T15:30:36.819Z",
+    "updatedAt": "2026-07-03T15:30:36.819Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47d59c11faa519349b70b5",
+    "courseId": "6a47ce5e7c6934b3c0c5049d",
+    "sectionCode": "A",
+    "teacherId": "6a47ce5e7c6934b3c0c504d6",
+    "classroomId": "6a47ce7d19798a345baa4a58",
+    "scheduleSlots": [
+      {
+        "day": "martes",
+        "startTime": "09:00",
+        "endTime": "10:00"
+      },
+      {
+        "day": "miercoles",
+        "startTime": "07:00",
+        "endTime": "08:00"
+      }
+    ],
+    "enrolledStudents": [],
+    "maxCapacity": 40,
+    "minStudents": 15,
+    "currentEnrolled": 0,
+    "status": "activa",
+    "generationId": "6a47d59c11faa519349b6faf",
+    "semester": "Semestre_2026_v1",
+    "career": "6a47c695ca51db23dfa06b32",
+    "courseSemester": 10,
+    "createdAt": "2026-07-03T15:30:36.823Z",
+    "updatedAt": "2026-07-03T15:30:36.823Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47d59c11faa519349b70b7",
+    "courseId": "6a47ce5e7c6934b3c0c5049f",
+    "sectionCode": "A",
+    "teacherId": "6a47ce5e7c6934b3c0c504f8",
+    "classroomId": "6a47ce7d19798a345baa4a97",
+    "scheduleSlots": [
+      {
+        "day": "viernes",
+        "startTime": "16:00",
+        "endTime": "17:00"
+      }
+    ],
+    "enrolledStudents": [],
+    "maxCapacity": 45,
+    "minStudents": 15,
+    "currentEnrolled": 0,
+    "status": "activa",
+    "generationId": "6a47d59c11faa519349b6faf",
+    "semester": "Semestre_2026_v1",
+    "career": "6a47c695ca51db23dfa06b32",
+    "courseSemester": 10,
+    "createdAt": "2026-07-03T15:30:36.828Z",
+    "updatedAt": "2026-07-03T15:30:36.828Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47d59c11faa519349b70b9",
+    "courseId": "6a47ce5e7c6934b3c0c504a1",
+    "sectionCode": "A",
+    "teacherId": "6a47ce5e7c6934b3c0c504eb",
+    "classroomId": "6a47ce7d19798a345baa4a9a",
+    "scheduleSlots": [
+      {
+        "day": "miercoles",
+        "startTime": "08:00",
+        "endTime": "09:00"
+      },
+      {
+        "day": "martes",
+        "startTime": "11:00",
+        "endTime": "12:00"
+      }
+    ],
+    "enrolledStudents": [],
+    "maxCapacity": 45,
+    "minStudents": 15,
+    "currentEnrolled": 0,
+    "status": "activa",
+    "generationId": "6a47d59c11faa519349b6faf",
+    "semester": "Semestre_2026_v1",
+    "career": "6a47c695ca51db23dfa06b32",
+    "courseSemester": 10,
+    "createdAt": "2026-07-03T15:30:36.834Z",
+    "updatedAt": "2026-07-03T15:30:36.834Z",
+    "__v": 0
+  }
+]

@@ -332,8 +332,8 @@ cd frontend && npm run dev
 
 ## Video explicativo
 
-> 🎬 [Ver video demostrativo](https://youtu.be/ENLACE_DEL_VIDEO) *(disponible en Sprint 5 — v1.0.0)*  
-> Duración máxima: 5 minutos
+> 🎬 [Ver video demostrativo](https://continentaledupe-my.sharepoint.com/:v:/g/personal/72947169_continental_edu_pe/IQBPxROH44BbS5frQJYWYyEPAXuHIzCbbfPJ0n1VGK9eGZUnav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=KMOKFZ) *(disponible en Sprint 5 — v1.0.0)*  
+> Duración máxima: 26 minutos
 
 ---
 
@@ -349,7 +349,6 @@ Toda la documentación del proyecto está organizada en la carpeta [`docs/`](doc
 | Seguimiento y Control | [`docs/seguimiento_control/`](docs/seguimiento_control/) | ✅ Sprint 5 |
 | Cierre | [`docs/cierre/`](docs/cierre/) | ✅ Sprint 5 |
 
-También disponible en la **[Wiki del proyecto](https://github.com/FabiVP/planner_UC/wiki)** para navegación visual.
 
 ---
 

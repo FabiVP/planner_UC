@@ -1,0 +1,1300 @@
+[
+  {
+    "_id": "6a47d59c11faa519349b6fb1",
+    "generationId": "6a47d59c11faa519349b6faf",
+    "semester": "Semestre_2026_v1",
+    "assignments": [
+      {
+        "courseId": "6a47ce5d7c6934b3c0c5042b",
+        "teacherId": "6a47ce5e7c6934b3c0c504f8",
+        "classroomId": "6a47ce7d19798a345baa4a76",
+        "day": "viernes",
+        "startTime": "20:00",
+        "endTime": "21:00",
+        "_id": "6a47d59c11faa519349b6fb2"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c5042b",
+        "teacherId": "6a47ce5e7c6934b3c0c504f8",
+        "classroomId": "6a47ce7d19798a345baa4a76",
+        "day": "miercoles",
+        "startTime": "17:00",
+        "endTime": "18:00",
+        "_id": "6a47d59c11faa519349b6fb3"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c5042b",
+        "teacherId": "6a47ce5e7c6934b3c0c504f8",
+        "classroomId": "6a47ce7d19798a345baa4a76",
+        "day": "jueves",
+        "startTime": "16:00",
+        "endTime": "17:00",
+        "_id": "6a47d59c11faa519349b6fb4"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c5042d",
+        "teacherId": "6a47ce5e7c6934b3c0c504eb",
+        "classroomId": "6a47ce7d19798a345baa4a79",
+        "day": "jueves",
+        "startTime": "07:00",
+        "endTime": "08:00",
+        "_id": "6a47d59c11faa519349b6fb5"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c5042d",
+        "teacherId": "6a47ce5e7c6934b3c0c504eb",
+        "classroomId": "6a47ce7d19798a345baa4a67",
+        "day": "miercoles",
+        "startTime": "08:00",
+        "endTime": "09:00",
+        "_id": "6a47d59c11faa519349b6fb6"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c50435",
+        "teacherId": "6a47ce5e7c6934b3c0c504f4",
+        "classroomId": "6a47ce7d19798a345baa4a5e",
+        "day": "jueves",
+        "startTime": "09:00",
+        "endTime": "10:00",
+        "_id": "6a47d59c11faa519349b6fb7"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c50431",
+        "teacherId": "6a47ce5e7c6934b3c0c504e9",
+        "classroomId": "6a47ce7d19798a345baa4a7c",
+        "day": "miercoles",
+        "startTime": "15:00",
+        "endTime": "16:00",
+        "_id": "6a47d59c11faa519349b6fb8"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c5042f",
+        "teacherId": "6a47ce5e7c6934b3c0c504ea",
+        "classroomId": "6a47ce7d19798a345baa4a76",
+        "day": "viernes",
+        "startTime": "14:00",
+        "endTime": "15:00",
+        "_id": "6a47d59c11faa519349b6fb9"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c5042f",
+        "teacherId": "6a47ce5e7c6934b3c0c504ea",
+        "classroomId": "6a47ce7d19798a345baa4a70",
+        "day": "lunes",
+        "startTime": "18:00",
+        "endTime": "19:00",
+        "_id": "6a47d59c11faa519349b6fba"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c5042f",
+        "teacherId": "6a47ce5e7c6934b3c0c504ea",
+        "classroomId": "6a47ce7d19798a345baa4a4f",
+        "day": "martes",
+        "startTime": "11:00",
+        "endTime": "12:00",
+        "_id": "6a47d59c11faa519349b6fbb"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c50433",
+        "teacherId": "6a47ce5e7c6934b3c0c50508",
+        "classroomId": "6a47ce7d19798a345baa4a64",
+        "day": "lunes",
+        "startTime": "20:00",
+        "endTime": "21:00",
+        "_id": "6a47d59c11faa519349b6fbc"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c50433",
+        "teacherId": "6a47ce5e7c6934b3c0c50508",
+        "classroomId": "6a47c695ca51db23dfa06b7a",
+        "day": "sabado",
+        "startTime": "20:00",
+        "endTime": "21:00",
+        "_id": "6a47d59c11faa519349b6fbd"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c50433",
+        "teacherId": "6a47ce5e7c6934b3c0c50508",
+        "classroomId": "6a47ce7d19798a345baa4a52",
+        "day": "viernes",
+        "startTime": "17:00",
+        "endTime": "18:00",
+        "_id": "6a47d59c11faa519349b6fbe"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c50437",
+        "teacherId": "6a47ce5e7c6934b3c0c504e1",
+        "classroomId": "6a47d0fb9ba9736b0579ad08",
+        "day": "jueves",
+        "startTime": "20:00",
+        "endTime": "21:00",
+        "_id": "6a47d59c11faa519349b6fbf"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c50437",
+        "teacherId": "6a47ce5e7c6934b3c0c504e1",
+        "classroomId": "6a47d0fb9ba9736b0579ad08",
+        "day": "martes",
+        "startTime": "20:00",
+        "endTime": "21:00",
+        "_id": "6a47d59c11faa519349b6fc0"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c50437",
+        "teacherId": "6a47ce5e7c6934b3c0c504e1",
+        "classroomId": "6a47d0fb9ba9736b0579ad08",
+        "day": "viernes",
+        "startTime": "20:00",
+        "endTime": "21:00",
+        "_id": "6a47d59c11faa519349b6fc1"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c50439",
+        "teacherId": "6a47ce5e7c6934b3c0c504e5",
+        "classroomId": "6a47ce7d19798a345baa4a79",
+        "day": "lunes",
+        "startTime": "10:00",
+        "endTime": "11:00",
+        "_id": "6a47d59c11faa519349b6fc2"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c50439",
+        "teacherId": "6a47ce5e7c6934b3c0c504e5",
+        "classroomId": "6a47ce7d19798a345baa4a73",
+        "day": "martes",
+        "startTime": "08:00",
+        "endTime": "09:00",
+        "_id": "6a47d59c11faa519349b6fc3"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c50439",
+        "teacherId": "6a47ce5e7c6934b3c0c504e5",
+        "classroomId": "6a47ce7d19798a345baa4a76",
+        "day": "jueves",
+        "startTime": "09:00",
+        "endTime": "10:00",
+        "_id": "6a47d59c11faa519349b6fc4"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c50439",
+        "teacherId": "6a47ce5e7c6934b3c0c504e5",
+        "classroomId": "6a47ce7d19798a345baa4a73",
+        "day": "miercoles",
+        "startTime": "10:00",
+        "endTime": "11:00",
+        "_id": "6a47d59c11faa519349b6fc5"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c5043d",
+        "teacherId": "6a47ce5e7c6934b3c0c504d3",
+        "classroomId": "6a47ce7d19798a345baa4a7c",
+        "day": "martes",
+        "startTime": "09:00",
+        "endTime": "10:00",
+        "_id": "6a47d59c11faa519349b6fc6"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c5043d",
+        "teacherId": "6a47ce5e7c6934b3c0c504d3",
+        "classroomId": "6a47ce7d19798a345baa4a6a",
+        "day": "jueves",
+        "startTime": "09:00",
+        "endTime": "10:00",
+        "_id": "6a47d59c11faa519349b6fc7"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c5043b",
+        "teacherId": "6a47ce5e7c6934b3c0c504dc",
+        "classroomId": "6a47c695ca51db23dfa06b7c",
+        "day": "lunes",
+        "startTime": "10:00",
+        "endTime": "11:00",
+        "_id": "6a47d59c11faa519349b6fc8"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c5043b",
+        "teacherId": "6a47ce5e7c6934b3c0c504dc",
+        "classroomId": "6a47ce7d19798a345baa4a64",
+        "day": "viernes",
+        "startTime": "12:00",
+        "endTime": "13:00",
+        "_id": "6a47d59c11faa519349b6fc9"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c5043b",
+        "teacherId": "6a47ce5e7c6934b3c0c504dc",
+        "classroomId": "6a47ce7d19798a345baa4a5b",
+        "day": "martes",
+        "startTime": "10:00",
+        "endTime": "11:00",
+        "_id": "6a47d59c11faa519349b6fca"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c5043f",
+        "teacherId": "6a47ce5e7c6934b3c0c504d8",
+        "classroomId": "6a47ce7d19798a345baa4a55",
+        "day": "martes",
+        "startTime": "07:00",
+        "endTime": "08:00",
+        "_id": "6a47d59c11faa519349b6fcb"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c5043f",
+        "teacherId": "6a47ce5e7c6934b3c0c504d8",
+        "classroomId": "6a47c695ca51db23dfa06b7b",
+        "day": "viernes",
+        "startTime": "08:00",
+        "endTime": "09:00",
+        "_id": "6a47d59c11faa519349b6fcc"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c5043f",
+        "teacherId": "6a47ce5e7c6934b3c0c504d8",
+        "classroomId": "6a47ce7d19798a345baa4a5e",
+        "day": "domingo",
+        "startTime": "16:00",
+        "endTime": "17:00",
+        "_id": "6a47d59c11faa519349b6fcd"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c50441",
+        "teacherId": "6a47ce5e7c6934b3c0c504f6",
+        "classroomId": "6a47ce7d19798a345baa4a64",
+        "day": "viernes",
+        "startTime": "17:00",
+        "endTime": "18:00",
+        "_id": "6a47d59c11faa519349b6fce"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c50441",
+        "teacherId": "6a47ce5e7c6934b3c0c504f6",
+        "classroomId": "6a47c695ca51db23dfa06b79",
+        "day": "jueves",
+        "startTime": "11:00",
+        "endTime": "12:00",
+        "_id": "6a47d59c11faa519349b6fcf"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c50447",
+        "teacherId": "6a47ce5e7c6934b3c0c504f2",
+        "classroomId": "6a47c695ca51db23dfa06b7e",
+        "day": "viernes",
+        "startTime": "19:00",
+        "endTime": "20:00",
+        "_id": "6a47d59c11faa519349b6fd0"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c50447",
+        "teacherId": "6a47ce5e7c6934b3c0c504f2",
+        "classroomId": "6a47c695ca51db23dfa06b7f",
+        "day": "martes",
+        "startTime": "18:00",
+        "endTime": "19:00",
+        "_id": "6a47d59c11faa519349b6fd1"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c50447",
+        "teacherId": "6a47ce5e7c6934b3c0c504f2",
+        "classroomId": "6a47d0fb9ba9736b0579ad09",
+        "day": "miercoles",
+        "startTime": "18:00",
+        "endTime": "19:00",
+        "_id": "6a47d59c11faa519349b6fd2"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c50443",
+        "teacherId": "6a47ce5e7c6934b3c0c504d9",
+        "classroomId": "6a47d0fb9ba9736b0579ad0a",
+        "day": "miercoles",
+        "startTime": "09:00",
+        "endTime": "10:00",
+        "_id": "6a47d59c11faa519349b6fd3"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c50443",
+        "teacherId": "6a47ce5e7c6934b3c0c504d9",
+        "classroomId": "6a47d0fb9ba9736b0579ad08",
+        "day": "lunes",
+        "startTime": "11:00",
+        "endTime": "12:00",
+        "_id": "6a47d59c11faa519349b6fd4"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c50443",
+        "teacherId": "6a47ce5e7c6934b3c0c504d9",
+        "classroomId": "6a47d0fb9ba9736b0579ad08",
+        "day": "jueves",
+        "startTime": "09:00",
+        "endTime": "10:00",
+        "_id": "6a47d59c11faa519349b6fd5"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c50449",
+        "teacherId": "6a47ce5e7c6934b3c0c504e3",
+        "classroomId": "6a47ce7d19798a345baa4a5e",
+        "day": "lunes",
+        "startTime": "15:00",
+        "endTime": "16:00",
+        "_id": "6a47d59c11faa519349b6fd6"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c50449",
+        "teacherId": "6a47ce5e7c6934b3c0c504e3",
+        "classroomId": "6a47ce7d19798a345baa4a5e",
+        "day": "miercoles",
+        "startTime": "17:00",
+        "endTime": "18:00",
+        "_id": "6a47d59c11faa519349b6fd7"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c50449",
+        "teacherId": "6a47ce5e7c6934b3c0c504e3",
+        "classroomId": "6a47ce7d19798a345baa4a5e",
+        "day": "martes",
+        "startTime": "20:00",
+        "endTime": "21:00",
+        "_id": "6a47d59c11faa519349b6fd8"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c5044b",
+        "teacherId": "6a47ce5e7c6934b3c0c504d4",
+        "classroomId": "6a47ce7d19798a345baa4a6d",
+        "day": "lunes",
+        "startTime": "14:00",
+        "endTime": "15:00",
+        "_id": "6a47d59c11faa519349b6fd9"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c5044b",
+        "teacherId": "6a47ce5e7c6934b3c0c504d4",
+        "classroomId": "6a47ce7d19798a345baa4a76",
+        "day": "martes",
+        "startTime": "16:00",
+        "endTime": "17:00",
+        "_id": "6a47d59c11faa519349b6fda"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c5044d",
+        "teacherId": "6a47ce5e7c6934b3c0c504f5",
+        "classroomId": "6a47ce7d19798a345baa4a6d",
+        "day": "lunes",
+        "startTime": "15:00",
+        "endTime": "16:00",
+        "_id": "6a47d59c11faa519349b6fdb"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c5044d",
+        "teacherId": "6a47ce5e7c6934b3c0c504f5",
+        "classroomId": "6a47ce7d19798a345baa4a76",
+        "day": "martes",
+        "startTime": "18:00",
+        "endTime": "19:00",
+        "_id": "6a47d59c11faa519349b6fdc"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c50445",
+        "teacherId": "6a47ce5e7c6934b3c0c504de",
+        "classroomId": "6a47ce7d19798a345baa4a97",
+        "day": "jueves",
+        "startTime": "09:00",
+        "endTime": "10:00",
+        "_id": "6a47d59c11faa519349b6fdd"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c50445",
+        "teacherId": "6a47ce5e7c6934b3c0c504de",
+        "classroomId": "6a47ce7d19798a345baa4a9a",
+        "day": "martes",
+        "startTime": "11:00",
+        "endTime": "12:00",
+        "_id": "6a47d59c11faa519349b6fde"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c50445",
+        "teacherId": "6a47ce5e7c6934b3c0c504de",
+        "classroomId": "6a47ce7d19798a345baa4a9a",
+        "day": "domingo",
+        "startTime": "12:00",
+        "endTime": "13:00",
+        "_id": "6a47d59c11faa519349b6fdf"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c5044f",
+        "teacherId": "6a47ce5e7c6934b3c0c504dd",
+        "classroomId": "6a47d0fb9ba9736b0579ad08",
+        "day": "viernes",
+        "startTime": "16:00",
+        "endTime": "17:00",
+        "_id": "6a47d59c11faa519349b6fe0"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c5044f",
+        "teacherId": "6a47ce5e7c6934b3c0c504dd",
+        "classroomId": "6a47d0fb9ba9736b0579ad08",
+        "day": "miercoles",
+        "startTime": "16:00",
+        "endTime": "17:00",
+        "_id": "6a47d59c11faa519349b6fe1"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c5044f",
+        "teacherId": "6a47ce5e7c6934b3c0c504dd",
+        "classroomId": "6a47d0fb9ba9736b0579ad08",
+        "day": "martes",
+        "startTime": "15:00",
+        "endTime": "16:00",
+        "_id": "6a47d59c11faa519349b6fe2"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c50457",
+        "teacherId": "6a47ce5e7c6934b3c0c504e0",
+        "classroomId": "6a47d0fb9ba9736b0579ad08",
+        "day": "viernes",
+        "startTime": "19:00",
+        "endTime": "20:00",
+        "_id": "6a47d59c11faa519349b6fe3"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c50457",
+        "teacherId": "6a47ce5e7c6934b3c0c504e0",
+        "classroomId": "6a47d0fb9ba9736b0579ad08",
+        "day": "jueves",
+        "startTime": "16:00",
+        "endTime": "17:00",
+        "_id": "6a47d59c11faa519349b6fe4"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c50457",
+        "teacherId": "6a47ce5e7c6934b3c0c504e0",
+        "classroomId": "6a47d0fb9ba9736b0579ad08",
+        "day": "martes",
+        "startTime": "16:00",
+        "endTime": "17:00",
+        "_id": "6a47d59c11faa519349b6fe5"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c50451",
+        "teacherId": "6a47ce5e7c6934b3c0c504d7",
+        "classroomId": "6a47ce7d19798a345baa4a88",
+        "day": "miercoles",
+        "startTime": "17:00",
+        "endTime": "18:00",
+        "_id": "6a47d59c11faa519349b6fe6"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c50451",
+        "teacherId": "6a47ce5e7c6934b3c0c504d7",
+        "classroomId": "6a47d0fb9ba9736b0579ad09",
+        "day": "jueves",
+        "startTime": "14:00",
+        "endTime": "15:00",
+        "_id": "6a47d59c11faa519349b6fe7"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c50451",
+        "teacherId": "6a47ce5e7c6934b3c0c504d7",
+        "classroomId": "6a47d0fb9ba9736b0579ad0b",
+        "day": "viernes",
+        "startTime": "14:00",
+        "endTime": "15:00",
+        "_id": "6a47d59c11faa519349b6fe8"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c50453",
+        "teacherId": "6a47ce5e7c6934b3c0c504eb",
+        "classroomId": "6a47ce7d19798a345baa4a58",
+        "day": "martes",
+        "startTime": "10:00",
+        "endTime": "11:00",
+        "_id": "6a47d59c11faa519349b6fe9"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c50453",
+        "teacherId": "6a47ce5e7c6934b3c0c504eb",
+        "classroomId": "6a47c695ca51db23dfa06b79",
+        "day": "miercoles",
+        "startTime": "08:00",
+        "endTime": "09:00",
+        "_id": "6a47d59c11faa519349b6fea"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c50453",
+        "teacherId": "6a47ce5e7c6934b3c0c504eb",
+        "classroomId": "6a47ce7d19798a345baa4a64",
+        "day": "viernes",
+        "startTime": "09:00",
+        "endTime": "10:00",
+        "_id": "6a47d59c11faa519349b6feb"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c50459",
+        "teacherId": "6a47ce5e7c6934b3c0c50508",
+        "classroomId": "6a47c695ca51db23dfa06b7b",
+        "day": "martes",
+        "startTime": "15:00",
+        "endTime": "16:00",
+        "_id": "6a47d59c11faa519349b6fec"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c50459",
+        "teacherId": "6a47ce5e7c6934b3c0c50508",
+        "classroomId": "6a47ce7d19798a345baa4a97",
+        "day": "sabado",
+        "startTime": "19:00",
+        "endTime": "20:00",
+        "_id": "6a47d59c11faa519349b6fed"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c50455",
+        "teacherId": "6a47ce5e7c6934b3c0c504ea",
+        "classroomId": "6a47c695ca51db23dfa06b78",
+        "day": "domingo",
+        "startTime": "10:00",
+        "endTime": "11:00",
+        "_id": "6a47d59c11faa519349b6fee"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c50455",
+        "teacherId": "6a47ce5e7c6934b3c0c504ea",
+        "classroomId": "6a47ce7d19798a345baa4a58",
+        "day": "miercoles",
+        "startTime": "11:00",
+        "endTime": "12:00",
+        "_id": "6a47d59c11faa519349b6fef"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c5045d",
+        "teacherId": "6a47ce5e7c6934b3c0c504e8",
+        "classroomId": "6a47d0fb9ba9736b0579ad09",
+        "day": "viernes",
+        "startTime": "09:00",
+        "endTime": "10:00",
+        "_id": "6a47d59c11faa519349b6ff0"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c5045d",
+        "teacherId": "6a47ce5e7c6934b3c0c504e8",
+        "classroomId": "6a47c695ca51db23dfa06b7e",
+        "day": "jueves",
+        "startTime": "11:00",
+        "endTime": "12:00",
+        "_id": "6a47d59c11faa519349b6ff1"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c5045d",
+        "teacherId": "6a47ce5e7c6934b3c0c504e8",
+        "classroomId": "6a47ce7d19798a345baa4a88",
+        "day": "miercoles",
+        "startTime": "11:00",
+        "endTime": "12:00",
+        "_id": "6a47d59c11faa519349b6ff2"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c5045f",
+        "teacherId": "6a47ce5e7c6934b3c0c504e5",
+        "classroomId": "6a47c695ca51db23dfa06b7f",
+        "day": "lunes",
+        "startTime": "12:00",
+        "endTime": "13:00",
+        "_id": "6a47d59c11faa519349b6ff3"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c5045f",
+        "teacherId": "6a47ce5e7c6934b3c0c504e5",
+        "classroomId": "6a47c695ca51db23dfa06b7e",
+        "day": "viernes",
+        "startTime": "11:00",
+        "endTime": "12:00",
+        "_id": "6a47d59c11faa519349b6ff4"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c5045f",
+        "teacherId": "6a47ce5e7c6934b3c0c504e5",
+        "classroomId": "6a47ce7d19798a345baa4a88",
+        "day": "martes",
+        "startTime": "07:00",
+        "endTime": "08:00",
+        "_id": "6a47d59c11faa519349b6ff5"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c50461",
+        "teacherId": "6a47ce5e7c6934b3c0c504dc",
+        "classroomId": "6a47ce7d19798a345baa4a8e",
+        "day": "martes",
+        "startTime": "09:00",
+        "endTime": "10:00",
+        "_id": "6a47d59c11faa519349b6ff6"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c50461",
+        "teacherId": "6a47ce5e7c6934b3c0c504dc",
+        "classroomId": "6a47c695ca51db23dfa06b7f",
+        "day": "miercoles",
+        "startTime": "09:00",
+        "endTime": "10:00",
+        "_id": "6a47d59c11faa519349b6ff7"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c5045b",
+        "teacherId": "6a47ce5e7c6934b3c0c504f4",
+        "classroomId": "6a47ce7d19798a345baa4a67",
+        "day": "viernes",
+        "startTime": "09:00",
+        "endTime": "10:00",
+        "_id": "6a47d59c11faa519349b6ff8"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c5045b",
+        "teacherId": "6a47ce5e7c6934b3c0c504f4",
+        "classroomId": "6a47ce7d19798a345baa4a52",
+        "day": "martes",
+        "startTime": "11:00",
+        "endTime": "12:00",
+        "_id": "6a47d59c11faa519349b6ff9"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c5045b",
+        "teacherId": "6a47ce5e7c6934b3c0c504f4",
+        "classroomId": "6a47ce7d19798a345baa4a70",
+        "day": "jueves",
+        "startTime": "11:00",
+        "endTime": "12:00",
+        "_id": "6a47d59c11faa519349b6ffa"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c50463",
+        "teacherId": "6a47ce5e7c6934b3c0c50504",
+        "classroomId": "6a47ce7d19798a345baa4a55",
+        "day": "miercoles",
+        "startTime": "20:00",
+        "endTime": "21:00",
+        "_id": "6a47d59c11faa519349b6ffb"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c50463",
+        "teacherId": "6a47ce5e7c6934b3c0c50504",
+        "classroomId": "6a47ce7d19798a345baa4a6a",
+        "day": "jueves",
+        "startTime": "18:00",
+        "endTime": "19:00",
+        "_id": "6a47d59c11faa519349b6ffc"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c50465",
+        "teacherId": "6a47ce5e7c6934b3c0c504f0",
+        "classroomId": "6a47ce7d19798a345baa4a7f",
+        "day": "jueves",
+        "startTime": "07:00",
+        "endTime": "08:00",
+        "_id": "6a47d59c11faa519349b6ffd"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c50465",
+        "teacherId": "6a47ce5e7c6934b3c0c504f0",
+        "classroomId": "6a47c695ca51db23dfa06b7e",
+        "day": "viernes",
+        "startTime": "07:00",
+        "endTime": "08:00",
+        "_id": "6a47d59c11faa519349b6ffe"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c50469",
+        "teacherId": "6a47ce5e7c6934b3c0c504fc",
+        "classroomId": "6a47d0fb9ba9736b0579ad08",
+        "day": "lunes",
+        "startTime": "18:00",
+        "endTime": "19:00",
+        "_id": "6a47d59c11faa519349b6fff"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c50469",
+        "teacherId": "6a47ce5e7c6934b3c0c504fc",
+        "classroomId": "6a47d0fb9ba9736b0579ad08",
+        "day": "miercoles",
+        "startTime": "18:00",
+        "endTime": "19:00",
+        "_id": "6a47d59c11faa519349b7000"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c50469",
+        "teacherId": "6a47ce5e7c6934b3c0c504fc",
+        "classroomId": "6a47d0fb9ba9736b0579ad08",
+        "day": "viernes",
+        "startTime": "14:00",
+        "endTime": "15:00",
+        "_id": "6a47d59c11faa519349b7001"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c5046b",
+        "teacherId": "6a47ce5e7c6934b3c0c504d9",
+        "classroomId": "6a47d0fb9ba9736b0579ad0a",
+        "day": "miercoles",
+        "startTime": "09:00",
+        "endTime": "10:00",
+        "_id": "6a47d59c11faa519349b7002"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c5046b",
+        "teacherId": "6a47ce5e7c6934b3c0c504d9",
+        "classroomId": "6a47d0fb9ba9736b0579ad08",
+        "day": "lunes",
+        "startTime": "11:00",
+        "endTime": "12:00",
+        "_id": "6a47d59c11faa519349b7003"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c5046b",
+        "teacherId": "6a47ce5e7c6934b3c0c504d9",
+        "classroomId": "6a47d0fb9ba9736b0579ad08",
+        "day": "jueves",
+        "startTime": "09:00",
+        "endTime": "10:00",
+        "_id": "6a47d59c11faa519349b7004"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c50471",
+        "teacherId": "6a47ce5e7c6934b3c0c504d4",
+        "classroomId": "6a47ce7d19798a345baa4a97",
+        "day": "lunes",
+        "startTime": "15:00",
+        "endTime": "16:00",
+        "_id": "6a47d59c11faa519349b7005"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c50471",
+        "teacherId": "6a47ce5e7c6934b3c0c504d4",
+        "classroomId": "6a47ce7d19798a345baa4a73",
+        "day": "jueves",
+        "startTime": "16:00",
+        "endTime": "17:00",
+        "_id": "6a47d59c11faa519349b7006"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c5046f",
+        "teacherId": "6a47ce5e7c6934b3c0c504e4",
+        "classroomId": "6a47ce7d19798a345baa4a55",
+        "day": "jueves",
+        "startTime": "20:00",
+        "endTime": "21:00",
+        "_id": "6a47d59c11faa519349b7007"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c5046f",
+        "teacherId": "6a47ce5e7c6934b3c0c504e4",
+        "classroomId": "6a47ce7d19798a345baa4a79",
+        "day": "miercoles",
+        "startTime": "09:00",
+        "endTime": "10:00",
+        "_id": "6a47d59c11faa519349b7008"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c5046d",
+        "teacherId": "6a47ce5e7c6934b3c0c504de",
+        "classroomId": "6a47d0fb9ba9736b0579ad0a",
+        "day": "miercoles",
+        "startTime": "11:00",
+        "endTime": "12:00",
+        "_id": "6a47d59c11faa519349b7009"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c5046d",
+        "teacherId": "6a47ce5e7c6934b3c0c504de",
+        "classroomId": "6a47ce7d19798a345baa4a8b",
+        "day": "martes",
+        "startTime": "21:00",
+        "endTime": "22:00",
+        "_id": "6a47d59c11faa519349b700a"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c50467",
+        "teacherId": "6a47ce5e7c6934b3c0c504d8",
+        "classroomId": "6a47c695ca51db23dfa06b78",
+        "day": "domingo",
+        "startTime": "10:00",
+        "endTime": "11:00",
+        "_id": "6a47d59c11faa519349b700b"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c50467",
+        "teacherId": "6a47ce5e7c6934b3c0c504d8",
+        "classroomId": "6a47ce7d19798a345baa4a58",
+        "day": "miercoles",
+        "startTime": "11:00",
+        "endTime": "12:00",
+        "_id": "6a47d59c11faa519349b700c"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c50467",
+        "teacherId": "6a47ce5e7c6934b3c0c504d8",
+        "classroomId": "6a47c695ca51db23dfa06b78",
+        "day": "lunes",
+        "startTime": "20:00",
+        "endTime": "21:00",
+        "_id": "6a47d59c11faa519349b700d"
+      },
+      {
+        "courseId": "6a47ce5e7c6934b3c0c50477",
+        "teacherId": "6a47ce5e7c6934b3c0c504d6",
+        "classroomId": "6a47d0fb9ba9736b0579ad08",
+        "day": "jueves",
+        "startTime": "12:00",
+        "endTime": "13:00",
+        "_id": "6a47d59c11faa519349b700e"
+      },
+      {
+        "courseId": "6a47ce5e7c6934b3c0c50477",
+        "teacherId": "6a47ce5e7c6934b3c0c504d6",
+        "classroomId": "6a47d0fb9ba9736b0579ad08",
+        "day": "lunes",
+        "startTime": "10:00",
+        "endTime": "11:00",
+        "_id": "6a47d59c11faa519349b700f"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c50473",
+        "teacherId": "6a47ce5e7c6934b3c0c504f1",
+        "classroomId": "6a47c695ca51db23dfa06b7e",
+        "day": "viernes",
+        "startTime": "12:00",
+        "endTime": "13:00",
+        "_id": "6a47d59c11faa519349b7010"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c50473",
+        "teacherId": "6a47ce5e7c6934b3c0c504f1",
+        "classroomId": "6a47c695ca51db23dfa06b7f",
+        "day": "martes",
+        "startTime": "12:00",
+        "endTime": "13:00",
+        "_id": "6a47d59c11faa519349b7011"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c50473",
+        "teacherId": "6a47ce5e7c6934b3c0c504f1",
+        "classroomId": "6a47d0fb9ba9736b0579ad0a",
+        "day": "miercoles",
+        "startTime": "08:00",
+        "endTime": "09:00",
+        "_id": "6a47d59c11faa519349b7012"
+      },
+      {
+        "courseId": "6a47ce5e7c6934b3c0c50479",
+        "teacherId": "6a47ce5e7c6934b3c0c504f8",
+        "classroomId": "6a47c695ca51db23dfa06b7f",
+        "day": "lunes",
+        "startTime": "18:00",
+        "endTime": "19:00",
+        "_id": "6a47d59c11faa519349b7013"
+      },
+      {
+        "courseId": "6a47ce5e7c6934b3c0c50479",
+        "teacherId": "6a47ce5e7c6934b3c0c504f8",
+        "classroomId": "6a47d0fb9ba9736b0579ad0a",
+        "day": "viernes",
+        "startTime": "17:00",
+        "endTime": "18:00",
+        "_id": "6a47d59c11faa519349b7014"
+      },
+      {
+        "courseId": "6a47ce5e7c6934b3c0c50475",
+        "teacherId": "6a47ce5e7c6934b3c0c504db",
+        "classroomId": "6a47ce7d19798a345baa4a8e",
+        "day": "viernes",
+        "startTime": "18:00",
+        "endTime": "19:00",
+        "_id": "6a47d59c11faa519349b7015"
+      },
+      {
+        "courseId": "6a47ce5e7c6934b3c0c50475",
+        "teacherId": "6a47ce5e7c6934b3c0c504db",
+        "classroomId": "6a47c695ca51db23dfa06b7e",
+        "day": "martes",
+        "startTime": "20:00",
+        "endTime": "21:00",
+        "_id": "6a47d59c11faa519349b7016"
+      },
+      {
+        "courseId": "6a47ce5e7c6934b3c0c50475",
+        "teacherId": "6a47ce5e7c6934b3c0c504db",
+        "classroomId": "6a47ce7d19798a345baa4a88",
+        "day": "miercoles",
+        "startTime": "17:00",
+        "endTime": "18:00",
+        "_id": "6a47d59c11faa519349b7017"
+      },
+      {
+        "courseId": "6a47ce5e7c6934b3c0c5047d",
+        "teacherId": "6a47ce5e7c6934b3c0c504e0",
+        "classroomId": "6a47ce7d19798a345baa4a73",
+        "day": "viernes",
+        "startTime": "19:00",
+        "endTime": "20:00",
+        "_id": "6a47d59c11faa519349b7018"
+      },
+      {
+        "courseId": "6a47ce5e7c6934b3c0c5047d",
+        "teacherId": "6a47ce5e7c6934b3c0c504e0",
+        "classroomId": "6a47c695ca51db23dfa06b7b",
+        "day": "martes",
+        "startTime": "17:00",
+        "endTime": "18:00",
+        "_id": "6a47d59c11faa519349b7019"
+      },
+      {
+        "courseId": "6a47ce5e7c6934b3c0c5047b",
+        "teacherId": "6a47ce5e7c6934b3c0c504ea",
+        "classroomId": "6a47c695ca51db23dfa06b78",
+        "day": "domingo",
+        "startTime": "10:00",
+        "endTime": "11:00",
+        "_id": "6a47d59c11faa519349b701a"
+      },
+      {
+        "courseId": "6a47ce5e7c6934b3c0c5047b",
+        "teacherId": "6a47ce5e7c6934b3c0c504ea",
+        "classroomId": "6a47ce7d19798a345baa4a58",
+        "day": "miercoles",
+        "startTime": "11:00",
+        "endTime": "12:00",
+        "_id": "6a47d59c11faa519349b701b"
+      },
+      {
+        "courseId": "6a47ce5e7c6934b3c0c50481",
+        "teacherId": "6a47ce5e7c6934b3c0c50508",
+        "classroomId": "6a47d0fb9ba9736b0579ad08",
+        "day": "lunes",
+        "startTime": "18:00",
+        "endTime": "19:00",
+        "_id": "6a47d59c11faa519349b701c"
+      },
+      {
+        "courseId": "6a47ce5e7c6934b3c0c50481",
+        "teacherId": "6a47ce5e7c6934b3c0c50508",
+        "classroomId": "6a47d0fb9ba9736b0579ad08",
+        "day": "miercoles",
+        "startTime": "18:00",
+        "endTime": "19:00",
+        "_id": "6a47d59c11faa519349b701d"
+      },
+      {
+        "courseId": "6a47ce5e7c6934b3c0c50481",
+        "teacherId": "6a47ce5e7c6934b3c0c50508",
+        "classroomId": "6a47d0fb9ba9736b0579ad08",
+        "day": "viernes",
+        "startTime": "14:00",
+        "endTime": "15:00",
+        "_id": "6a47d59c11faa519349b701e"
+      },
+      {
+        "courseId": "6a47ce5e7c6934b3c0c50485",
+        "teacherId": "6a47ce5e7c6934b3c0c504e1",
+        "classroomId": "6a47d0fb9ba9736b0579ad09",
+        "day": "martes",
+        "startTime": "19:00",
+        "endTime": "20:00",
+        "_id": "6a47d59c11faa519349b701f"
+      },
+      {
+        "courseId": "6a47ce5e7c6934b3c0c50485",
+        "teacherId": "6a47ce5e7c6934b3c0c504e1",
+        "classroomId": "6a47d0fb9ba9736b0579ad09",
+        "day": "miercoles",
+        "startTime": "18:00",
+        "endTime": "19:00",
+        "_id": "6a47d59c11faa519349b7020"
+      },
+      {
+        "courseId": "6a47ce5e7c6934b3c0c50483",
+        "teacherId": "6a47ce5e7c6934b3c0c504e2",
+        "classroomId": "6a47ce7d19798a345baa4a88",
+        "day": "martes",
+        "startTime": "08:00",
+        "endTime": "09:00",
+        "_id": "6a47d59c11faa519349b7021"
+      },
+      {
+        "courseId": "6a47ce5e7c6934b3c0c50483",
+        "teacherId": "6a47ce5e7c6934b3c0c504e2",
+        "classroomId": "6a47ce7d19798a345baa4a88",
+        "day": "jueves",
+        "startTime": "10:00",
+        "endTime": "11:00",
+        "_id": "6a47d59c11faa519349b7022"
+      },
+      {
+        "courseId": "6a47ce5e7c6934b3c0c50483",
+        "teacherId": "6a47ce5e7c6934b3c0c504e2",
+        "classroomId": "6a47ce7d19798a345baa4a94",
+        "day": "miercoles",
+        "startTime": "11:00",
+        "endTime": "12:00",
+        "_id": "6a47d59c11faa519349b7023"
+      },
+      {
+        "courseId": "6a47ce5e7c6934b3c0c5047f",
+        "teacherId": "6a47ce5e7c6934b3c0c504df",
+        "classroomId": "6a47ce7d19798a345baa4a8e",
+        "day": "martes",
+        "startTime": "10:00",
+        "endTime": "11:00",
+        "_id": "6a47d59c11faa519349b7024"
+      },
+      {
+        "courseId": "6a47ce5e7c6934b3c0c5047f",
+        "teacherId": "6a47ce5e7c6934b3c0c504df",
+        "classroomId": "6a47c695ca51db23dfa06b7f",
+        "day": "miercoles",
+        "startTime": "11:00",
+        "endTime": "12:00",
+        "_id": "6a47d59c11faa519349b7025"
+      },
+      {
+        "courseId": "6a47ce5e7c6934b3c0c5047f",
+        "teacherId": "6a47ce5e7c6934b3c0c504df",
+        "classroomId": "6a47d0fb9ba9736b0579ad09",
+        "day": "lunes",
+        "startTime": "09:00",
+        "endTime": "10:00",
+        "_id": "6a47d59c11faa519349b7026"
+      },
+      {
+        "courseId": "6a47ce5e7c6934b3c0c50489",
+        "teacherId": "6a47ce5e7c6934b3c0c504ec",
+        "classroomId": "6a47ce7d19798a345baa4a55",
+        "day": "jueves",
+        "startTime": "16:00",
+        "endTime": "17:00",
+        "_id": "6a47d59c11faa519349b7027"
+      },
+      {
+        "courseId": "6a47ce5e7c6934b3c0c50487",
+        "teacherId": "6a47ce5e7c6934b3c0c504e6",
+        "classroomId": "6a47ce7d19798a345baa4a6d",
+        "day": "lunes",
+        "startTime": "16:00",
+        "endTime": "17:00",
+        "_id": "6a47d59c11faa519349b7028"
+      },
+      {
+        "courseId": "6a47ce5e7c6934b3c0c50487",
+        "teacherId": "6a47ce5e7c6934b3c0c504e6",
+        "classroomId": "6a47ce7d19798a345baa4a6d",
+        "day": "martes",
+        "startTime": "15:00",
+        "endTime": "16:00",
+        "_id": "6a47d59c11faa519349b7029"
+      },
+      {
+        "courseId": "6a47ce5e7c6934b3c0c5048b",
+        "teacherId": "6a47ce5e7c6934b3c0c504f0",
+        "classroomId": "6a47d0fb9ba9736b0579ad08",
+        "day": "lunes",
+        "startTime": "18:00",
+        "endTime": "19:00",
+        "_id": "6a47d59c11faa519349b702a"
+      },
+      {
+        "courseId": "6a47ce5e7c6934b3c0c5048b",
+        "teacherId": "6a47ce5e7c6934b3c0c504f0",
+        "classroomId": "6a47d0fb9ba9736b0579ad08",
+        "day": "miercoles",
+        "startTime": "18:00",
+        "endTime": "19:00",
+        "_id": "6a47d59c11faa519349b702b"
+      },
+      {
+        "courseId": "6a47ce5e7c6934b3c0c5048b",
+        "teacherId": "6a47ce5e7c6934b3c0c504f0",
+        "classroomId": "6a47d0fb9ba9736b0579ad08",
+        "day": "viernes",
+        "startTime": "14:00",
+        "endTime": "15:00",
+        "_id": "6a47d59c11faa519349b702c"
+      },
+      {
+        "courseId": "6a47ce5e7c6934b3c0c50491",
+        "teacherId": "6a47ce5e7c6934b3c0c504d9",
+        "classroomId": "6a47d0fb9ba9736b0579ad08",
+        "day": "martes",
+        "startTime": "10:00",
+        "endTime": "11:00",
+        "_id": "6a47d59c11faa519349b702d"
+      },
+      {
+        "courseId": "6a47ce5e7c6934b3c0c50491",
+        "teacherId": "6a47ce5e7c6934b3c0c504d9",
+        "classroomId": "6a47c695ca51db23dfa06b7e",
+        "day": "jueves",
+        "startTime": "07:00",
+        "endTime": "08:00",
+        "_id": "6a47d59c11faa519349b702e"
+      },
+      {
+        "courseId": "6a47ce5e7c6934b3c0c5048f",
+        "teacherId": "6a47ce5e7c6934b3c0c504f6",
+        "classroomId": "6a47d0fb9ba9736b0579ad0a",
+        "day": "viernes",
+        "startTime": "16:00",
+        "endTime": "17:00",
+        "_id": "6a47d59c11faa519349b702f"
+      },
+      {
+        "courseId": "6a47ce5e7c6934b3c0c5048f",
+        "teacherId": "6a47ce5e7c6934b3c0c504f6",
+        "classroomId": "6a47c695ca51db23dfa06b7f",
+        "day": "miercoles",
+        "startTime": "11:00",
+        "endTime": "12:00",
+        "_id": "6a47d59c11faa519349b7030"
+      },
+      {
+        "courseId": "6a47ce5e7c6934b3c0c50493",
+        "teacherId": "6a47ce5e7c6934b3c0c504de",
+        "classroomId": "6a47c695ca51db23dfa06b7f",
+        "day": "viernes",
+        "startTime": "08:00",
+        "endTime": "09:00",
+        "_id": "6a47d59c11faa519349b7031"
+      },
+      {
+        "courseId": "6a47ce5e7c6934b3c0c50493",
+        "teacherId": "6a47ce5e7c6934b3c0c504de",
+        "classroomId": "6a47d0fb9ba9736b0579ad0a",
+        "day": "sabado",
+        "startTime": "12:00",
+        "endTime": "13:00",
+        "_id": "6a47d59c11faa519349b7032"
+      },
+      {
+        "courseId": "6a47ce5e7c6934b3c0c50493",
+        "teacherId": "6a47ce5e7c6934b3c0c504de",
+        "classroomId": "6a47c695ca51db23dfa06b7e",
+        "day": "miercoles",
+        "startTime": "14:00",
+        "endTime": "15:00",
+        "_id": "6a47d59c11faa519349b7033"
+      },
+      {
+        "courseId": "6a47ce5e7c6934b3c0c5048d",
+        "teacherId": "6a47ce5e7c6934b3c0c504d8",
+        "classroomId": "6a47c695ca51db23dfa06b7b",
+        "day": "martes",
+        "startTime": "15:00",
+        "endTime": "16:00",
+        "_id": "6a47d59c11faa519349b7034"
+      },
+      {
+        "courseId": "6a47ce5e7c6934b3c0c5048d",
+        "teacherId": "6a47ce5e7c6934b3c0c504d8",
+        "classroomId": "6a47ce7d19798a345baa4a97",
+        "day": "sabado",
+        "startTime": "19:00",
+        "endTime": "20:00",
+        "_id": "6a47d59c11faa519349b7035"
+      },
+      {
+        "courseId": "6a47ce5e7c6934b3c0c50495",
+        "teacherId": "6a47ce5e7c6934b3c0c504e4",
+        "classroomId": "6a47ce7d19798a345baa4a9a",
+        "day": "miercoles",
+        "startTime": "09:00",
+        "endTime": "10:00",
+        "_id": "6a47d59c11faa519349b7036"
+      },
+      {
+        "courseId": "6a47ce5e7c6934b3c0c5049b",
+        "teacherId": "6a47ce5e7c6934b3c0c504db",
+        "classroomId": "6a47ce7d19798a345baa4a79",
+        "day": "miercoles",
+        "startTime": "20:00",
+        "endTime": "21:00",
+        "_id": "6a47d59c11faa519349b7037"
+      },
+      {
+        "courseId": "6a47ce5e7c6934b3c0c5049f",
+        "teacherId": "6a47ce5e7c6934b3c0c504f8",
+        "classroomId": "6a47ce7d19798a345baa4a97",
+        "day": "viernes",
+        "startTime": "16:00",
+        "endTime": "17:00",
+        "_id": "6a47d59c11faa519349b7038"
+      },
+      {
+        "courseId": "6a47ce5e7c6934b3c0c504a1",
+        "teacherId": "6a47ce5e7c6934b3c0c504eb",
+        "classroomId": "6a47ce7d19798a345baa4a9a",
+        "day": "miercoles",
+        "startTime": "08:00",
+        "endTime": "09:00",
+        "_id": "6a47d59c11faa519349b7039"
+      },
+      {
+        "courseId": "6a47ce5e7c6934b3c0c504a1",
+        "teacherId": "6a47ce5e7c6934b3c0c504eb",
+        "classroomId": "6a47ce7d19798a345baa4a73",
+        "day": "martes",
+        "startTime": "11:00",
+        "endTime": "12:00",
+        "_id": "6a47d59c11faa519349b703a"
+      },
+      {
+        "courseId": "6a47ce5e7c6934b3c0c5049d",
+        "teacherId": "6a47ce5e7c6934b3c0c504d6",
+        "classroomId": "6a47ce7d19798a345baa4a58",
+        "day": "martes",
+        "startTime": "09:00",
+        "endTime": "10:00",
+        "_id": "6a47d59c11faa519349b703b"
+      },
+      {
+        "courseId": "6a47ce5e7c6934b3c0c5049d",
+        "teacherId": "6a47ce5e7c6934b3c0c504d6",
+        "classroomId": "6a47c695ca51db23dfa06b79",
+        "day": "miercoles",
+        "startTime": "07:00",
+        "endTime": "08:00",
+        "_id": "6a47d59c11faa519349b703c"
+      },
+      {
+        "courseId": "6a47ce5e7c6934b3c0c50497",
+        "teacherId": "6a47ce5e7c6934b3c0c504d4",
+        "classroomId": "6a47ce7d19798a345baa4a6d",
+        "day": "lunes",
+        "startTime": "14:00",
+        "endTime": "15:00",
+        "_id": "6a47d59c11faa519349b703d"
+      },
+      {
+        "courseId": "6a47ce5e7c6934b3c0c50497",
+        "teacherId": "6a47ce5e7c6934b3c0c504d4",
+        "classroomId": "6a47ce7d19798a345baa4a76",
+        "day": "martes",
+        "startTime": "16:00",
+        "endTime": "17:00",
+        "_id": "6a47d59c11faa519349b703e"
+      },
+      {
+        "courseId": "6a47ce5e7c6934b3c0c50499",
+        "teacherId": "6a47ce5e7c6934b3c0c504ed",
+        "classroomId": "6a47c695ca51db23dfa06b7b",
+        "day": "martes",
+        "startTime": "20:00",
+        "endTime": "21:00",
+        "_id": "6a47d59c11faa519349b703f"
+      },
+      {
+        "courseId": "6a47ce5e7c6934b3c0c50499",
+        "teacherId": "6a47ce5e7c6934b3c0c504ed",
+        "classroomId": "6a47ce7d19798a345baa4a61",
+        "day": "viernes",
+        "startTime": "19:00",
+        "endTime": "20:00",
+        "_id": "6a47d59c11faa519349b7040"
+      }
+    ],
+    "totalAssignments": 143,
+    "createdAt": "2026-07-03T15:30:36.411Z",
+    "updatedAt": "2026-07-03T15:30:36.411Z",
+    "__v": 0
+  }
+]

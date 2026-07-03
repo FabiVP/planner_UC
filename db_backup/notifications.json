@@ -1,0 +1,86 @@
+[
+  {
+    "_id": "6a47c695ca51db23dfa06bb1",
+    "userId": "6a47c694ca51db23dfa06b1e",
+    "title": "Cupo disponible",
+    "message": "Hay cupo disponible en \"Inteligencia Artificial\" sección B4077.",
+    "type": "cupo",
+    "category": "aviso",
+    "read": false,
+    "createdAt": "2026-07-03T14:26:29.644Z",
+    "updatedAt": "2026-07-03T14:26:29.644Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47c695ca51db23dfa06bb4",
+    "userId": "6a47c694ca51db23dfa06b1e",
+    "title": "Actualización de restricciones",
+    "message": "Se han actualizado las restricciones institucionales para el período 2026-1.",
+    "type": "restriccion",
+    "category": "aviso",
+    "read": true,
+    "createdAt": "2026-07-03T14:26:29.644Z",
+    "updatedAt": "2026-07-03T14:26:29.644Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47c695ca51db23dfa06bb0",
+    "userId": "6a47c694ca51db23dfa06b1e",
+    "title": "Horario generado",
+    "message": "Tu horario \"Horario óptimo\" ha sido generado correctamente.",
+    "type": "horario",
+    "category": "info",
+    "read": false,
+    "createdAt": "2026-07-03T14:26:29.644Z",
+    "updatedAt": "2026-07-03T14:26:29.644Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47c695ca51db23dfa06bb2",
+    "userId": "6a47c694ca51db23dfa06b1e",
+    "title": "Recordatorio",
+    "message": "Tienes hasta el 20/05/2026 de matrícula habilitada hasta el período 2026-1.",
+    "type": "sistema",
+    "category": "info",
+    "read": true,
+    "createdAt": "2026-07-03T14:26:29.644Z",
+    "updatedAt": "2026-07-03T14:26:29.644Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47c695ca51db23dfa06bb3",
+    "userId": "6a47c694ca51db23dfa06b1e",
+    "title": "Conflictos detectados",
+    "message": "No fue posible generar un horario que cumpla todas tus preferencias.",
+    "type": "conflicto",
+    "category": "alerta",
+    "read": false,
+    "createdAt": "2026-07-03T14:26:29.644Z",
+    "updatedAt": "2026-07-03T14:26:29.644Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47c695ca51db23dfa06bb6",
+    "userId": "6a47c694ca51db23dfa06b1c",
+    "title": "Generación completada",
+    "message": "La generación de horarios para el semestre 2026-1 se completó exitosamente. Puntaje: 92/100",
+    "type": "horario",
+    "category": "info",
+    "read": false,
+    "createdAt": "2026-07-03T14:26:29.644Z",
+    "updatedAt": "2026-07-03T14:26:29.644Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47c695ca51db23dfa06bb5",
+    "userId": "6a47c694ca51db23dfa06b1d",
+    "title": "Horario actualizado",
+    "message": "Se ha actualizado tu horario de clases para el semestre 2026-1.",
+    "type": "horario",
+    "category": "info",
+    "read": false,
+    "createdAt": "2026-07-03T14:26:29.644Z",
+    "updatedAt": "2026-07-03T14:26:29.644Z",
+    "__v": 0
+  }
+]

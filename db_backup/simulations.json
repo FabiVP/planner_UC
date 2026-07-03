@@ -1,0 +1,100 @@
+[
+  {
+    "_id": "6a47d84a11faa519349b7815",
+    "userId": "6a47c694ca51db23dfa06b20",
+    "role": "estudiante",
+    "name": "horario_2026_alumno",
+    "label": "ideal",
+    "semester": "2026-1",
+    "assignments": [
+      {
+        "courseId": "6a47ce5d7c6934b3c0c50435",
+        "courseName": "Metodología del Estudio",
+        "courseCode": "SI106",
+        "teacherId": "6a47ce5e7c6934b3c0c504f4",
+        "teacherName": "Pedro Romero Rodríguez",
+        "classroomId": "6a47ce7d19798a345baa4a5e",
+        "classroomCode": "D203",
+        "day": "jueves",
+        "startTime": "09:00",
+        "endTime": "10:00"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c50431",
+        "courseName": "Introducción a la Ingeniería de Sistemas",
+        "courseCode": "SI104",
+        "teacherId": "6a47ce5e7c6934b3c0c504e9",
+        "teacherName": "Hugo Mendoza Sánchez",
+        "classroomId": "6a47ce7d19798a345baa4a7c",
+        "classroomCode": "F202",
+        "day": "miercoles",
+        "startTime": "15:00",
+        "endTime": "16:00"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c5042d",
+        "courseName": "Comunicación Integral",
+        "courseCode": "SI102",
+        "teacherId": "6a47ce5e7c6934b3c0c504eb",
+        "teacherName": "Sebastián Córdova Salazar",
+        "classroomId": "6a47ce7d19798a345baa4a79",
+        "classroomCode": "F201",
+        "day": "jueves",
+        "startTime": "07:00",
+        "endTime": "08:00"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c5042b",
+        "courseName": "Matemática Básica",
+        "courseCode": "SI101",
+        "teacherId": "6a47ce5e7c6934b3c0c504f8",
+        "teacherName": "Nicolás Aguilar Salazar",
+        "classroomId": "6a47ce7d19798a345baa4a76",
+        "classroomCode": "F102",
+        "day": "miercoles",
+        "startTime": "17:00",
+        "endTime": "18:00"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c5042f",
+        "courseName": "Introducción a la Programación",
+        "courseCode": "SI103",
+        "teacherId": "6a47ce5e7c6934b3c0c504ea",
+        "teacherName": "Cristian Moreno Castellanos",
+        "classroomId": "6a47ce7d19798a345baa4a76",
+        "classroomCode": "F102",
+        "day": "viernes",
+        "startTime": "14:00",
+        "endTime": "15:00"
+      },
+      {
+        "courseId": "6a47ce5d7c6934b3c0c50433",
+        "courseName": "Física General",
+        "courseCode": "SI105",
+        "teacherId": "6a47ce5e7c6934b3c0c50508",
+        "teacherName": "Iván Acosta Acosta",
+        "classroomId": "6a47ce7d19798a345baa4a52",
+        "classroomCode": "D102",
+        "day": "viernes",
+        "startTime": "17:00",
+        "endTime": "18:00"
+      }
+    ],
+    "stats": {
+      "totalCourses": 6,
+      "totalCredits": 19,
+      "totalSessions": 6,
+      "totalGaps": 4,
+      "shiftMatchPercent": 67,
+      "daysWithClasses": 0,
+      "averageDailyHours": 0,
+      "score": 0
+    },
+    "starred": false,
+    "active": true,
+    "comparedWith": [],
+    "createdAt": "2026-07-03T15:42:02.160Z",
+    "updatedAt": "2026-07-03T15:42:02.160Z",
+    "__v": 0
+  }
+]

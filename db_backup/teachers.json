@@ -1,0 +1,2944 @@
+[
+  {
+    "_id": "6a47c695ca51db23dfa06b62",
+    "name": "Carlos López",
+    "email": "carlos.lopez@uni.edu",
+    "contractType": "tiempo_completo",
+    "administrativeLoad": false,
+    "teachingHours": 36,
+    "performanceLevel": "regular",
+    "performanceScore": 80,
+    "specializations": [
+      "6a47c695ca51db23dfa06b3c",
+      "6a47c695ca51db23dfa06b42"
+    ],
+    "maxCourses": 3,
+    "maxWeeklyHours": 40,
+    "availability": [
+      {
+        "day": "lunes",
+        "startTime": "08:00",
+        "endTime": "13:00"
+      },
+      {
+        "day": "martes",
+        "startTime": "08:00",
+        "endTime": "13:00"
+      },
+      {
+        "day": "miercoles",
+        "startTime": "08:00",
+        "endTime": "13:00"
+      },
+      {
+        "day": "jueves",
+        "startTime": "08:00",
+        "endTime": "13:00"
+      },
+      {
+        "day": "viernes",
+        "startTime": "08:00",
+        "endTime": "13:00"
+      }
+    ],
+    "freeDays": [],
+    "preferredShift": "manana",
+    "department": "Matemáticas",
+    "active": true,
+    "createdAt": "2026-07-03T14:26:29.367Z",
+    "updatedAt": "2026-07-03T14:26:29.367Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47c695ca51db23dfa06b64",
+    "name": "Jorge Ramírez",
+    "email": "jorge.ramirez@uni.edu",
+    "contractType": "por_horas",
+    "administrativeLoad": false,
+    "performanceLevel": "regular",
+    "performanceScore": 80,
+    "specializations": [
+      "6a47c695ca51db23dfa06b3f",
+      "6a47c695ca51db23dfa06b40",
+      "6a47ce5d7c6934b3c0c5044b",
+      "6a47ce5d7c6934b3c0c5046b"
+    ],
+    "maxCourses": 3,
+    "maxWeeklyHours": 20,
+    "availability": [
+      {
+        "day": "lunes",
+        "startTime": "14:00",
+        "endTime": "22:00"
+      },
+      {
+        "day": "martes",
+        "startTime": "14:00",
+        "endTime": "22:00"
+      },
+      {
+        "day": "miercoles",
+        "startTime": "14:00",
+        "endTime": "22:00"
+      },
+      {
+        "day": "jueves",
+        "startTime": "14:00",
+        "endTime": "22:00"
+      },
+      {
+        "day": "viernes",
+        "startTime": "14:00",
+        "endTime": "22:00"
+      }
+    ],
+    "freeDays": [],
+    "preferredShift": "indiferente",
+    "department": "Redes y Comunicaciones",
+    "active": true,
+    "teachingHours": 24,
+    "createdAt": "2026-07-03T14:26:29.367Z",
+    "updatedAt": "2026-07-03T15:05:46.079Z",
+    "__v": 2
+  },
+  {
+    "_id": "6a47c695ca51db23dfa06b65",
+    "name": "Lucía Mendoza",
+    "email": "lucia.mendoza@uni.edu",
+    "contractType": "por_horas",
+    "administrativeLoad": false,
+    "performanceLevel": "regular",
+    "performanceScore": 80,
+    "specializations": [
+      "6a47c695ca51db23dfa06b43",
+      "6a47c695ca51db23dfa06b42",
+      "6a47ce5d7c6934b3c0c5043f",
+      "6a47ce5d7c6934b3c0c5044b",
+      "6a47ce5e7c6934b3c0c50483"
+    ],
+    "maxCourses": 3,
+    "maxWeeklyHours": 20,
+    "availability": [
+      {
+        "day": "lunes",
+        "startTime": "17:00",
+        "endTime": "22:00"
+      },
+      {
+        "day": "miercoles",
+        "startTime": "17:00",
+        "endTime": "22:00"
+      },
+      {
+        "day": "viernes",
+        "startTime": "17:00",
+        "endTime": "22:00"
+      }
+    ],
+    "freeDays": [],
+    "preferredShift": "indiferente",
+    "department": "Emprendimiento",
+    "active": true,
+    "teachingHours": 24,
+    "createdAt": "2026-07-03T14:26:29.367Z",
+    "updatedAt": "2026-07-03T15:05:46.102Z",
+    "__v": 3
+  },
+  {
+    "_id": "6a47c695ca51db23dfa06b63",
+    "userId": "6a47c694ca51db23dfa06b1f",
+    "name": "María Torres",
+    "email": "maria.torres@uni.edu",
+    "contractType": "tiempo_completo",
+    "administrativeLoad": true,
+    "teachingHours": 24,
+    "performanceLevel": "regular",
+    "performanceScore": 80,
+    "specializations": [
+      "6a47c695ca51db23dfa06b3b",
+      "6a47c695ca51db23dfa06b3e",
+      "6a47ce5d7c6934b3c0c5043b",
+      "6a47ce5d7c6934b3c0c50459",
+      "6a47ce5d7c6934b3c0c50465",
+      "6a47ce5e7c6934b3c0c50495"
+    ],
+    "maxCourses": 4,
+    "maxWeeklyHours": 40,
+    "availability": [
+      {
+        "day": "lunes",
+        "startTime": "14:00",
+        "endTime": "19:00"
+      },
+      {
+        "day": "martes",
+        "startTime": "14:00",
+        "endTime": "19:00"
+      },
+      {
+        "day": "miercoles",
+        "startTime": "14:00",
+        "endTime": "19:00"
+      },
+      {
+        "day": "jueves",
+        "startTime": "14:00",
+        "endTime": "19:00"
+      },
+      {
+        "day": "viernes",
+        "startTime": "14:00",
+        "endTime": "19:00"
+      }
+    ],
+    "freeDays": [],
+    "preferredShift": "tarde",
+    "department": "Base de Datos",
+    "active": true,
+    "createdAt": "2026-07-03T14:26:29.367Z",
+    "updatedAt": "2026-07-03T15:05:46.142Z",
+    "__v": 4
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c504ea",
+    "name": "Cristian Moreno Castellanos",
+    "email": "cristian.morenocastellanos@uni.edu",
+    "contractType": "tiempo_completo",
+    "administrativeLoad": false,
+    "performanceLevel": "alto",
+    "performanceScore": 96,
+    "specializations": [
+      "6a47ce5d7c6934b3c0c5046b"
+    ],
+    "maxCourses": 3,
+    "maxWeeklyHours": 40,
+    "availability": [],
+    "freeDays": [],
+    "preferredShift": "noche",
+    "department": "Ingeniería de Sistemas",
+    "active": true,
+    "teachingHours": 36,
+    "createdAt": "2026-07-03T14:59:42.336Z",
+    "updatedAt": "2026-07-03T14:59:42.336Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c504de",
+    "name": "Daniel Rojas Espinoza",
+    "email": "daniel.rojasespinoza@uni.edu",
+    "contractType": "tiempo_completo",
+    "administrativeLoad": false,
+    "performanceLevel": "regular",
+    "performanceScore": 82,
+    "specializations": [
+      "6a47ce5e7c6934b3c0c504a1",
+      "6a47ce5e7c6934b3c0c50487",
+      "6a47ce5d7c6934b3c0c50449",
+      "6a47ce5d7c6934b3c0c5043b",
+      "6a47ce5e7c6934b3c0c5047f"
+    ],
+    "maxCourses": 4,
+    "maxWeeklyHours": 40,
+    "availability": [],
+    "freeDays": [],
+    "preferredShift": "noche",
+    "department": "Ingeniería de Sistemas",
+    "active": true,
+    "teachingHours": 36,
+    "createdAt": "2026-07-03T14:59:42.336Z",
+    "updatedAt": "2026-07-03T15:05:46.100Z",
+    "__v": 2
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c504e4",
+    "name": "Iván Guzmán Chávez",
+    "email": "iván.guzmánchávez@uni.edu",
+    "contractType": "tiempo_completo",
+    "administrativeLoad": false,
+    "performanceLevel": "regular",
+    "performanceScore": 79,
+    "specializations": [
+      "6a47ce5d7c6934b3c0c50469",
+      "6a47ce5e7c6934b3c0c50477",
+      "6a47ce5d7c6934b3c0c50459",
+      "6a47ce5d7c6934b3c0c50433"
+    ],
+    "maxCourses": 4,
+    "maxWeeklyHours": 40,
+    "availability": [],
+    "freeDays": [],
+    "preferredShift": "noche",
+    "department": "Ingeniería de Sistemas",
+    "active": true,
+    "teachingHours": 36,
+    "createdAt": "2026-07-03T14:59:42.336Z",
+    "updatedAt": "2026-07-03T15:05:45.908Z",
+    "__v": 1
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c504f0",
+    "name": "Pedro Guzmán Vilca",
+    "email": "pedro.guzmánvilca@uni.edu",
+    "contractType": "tiempo_completo",
+    "administrativeLoad": false,
+    "performanceLevel": "bajo",
+    "performanceScore": 60,
+    "specializations": [
+      "6a47ce5d7c6934b3c0c50463",
+      "6a47ce5d7c6934b3c0c5045d"
+    ],
+    "maxCourses": 5,
+    "maxWeeklyHours": 40,
+    "availability": [],
+    "freeDays": [],
+    "preferredShift": "noche",
+    "department": "Ingeniería de Sistemas",
+    "active": true,
+    "teachingHours": 36,
+    "createdAt": "2026-07-03T14:59:42.336Z",
+    "updatedAt": "2026-07-03T14:59:42.336Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c504f6",
+    "name": "Alejandro Torres Huamán",
+    "email": "alejandro.torreshuamán@uni.edu",
+    "contractType": "por_horas",
+    "administrativeLoad": false,
+    "performanceLevel": "regular",
+    "performanceScore": 72,
+    "specializations": [
+      "6a47ce5e7c6934b3c0c50477",
+      "6a47ce5d7c6934b3c0c5042f",
+      "6a47ce5e7c6934b3c0c50491",
+      "6a47ce5e7c6934b3c0c5048d"
+    ],
+    "maxCourses": 3,
+    "maxWeeklyHours": 20,
+    "availability": [],
+    "freeDays": [],
+    "preferredShift": "indiferente",
+    "department": "Ingeniería de Sistemas",
+    "active": true,
+    "teachingHours": 24,
+    "createdAt": "2026-07-03T14:59:42.336Z",
+    "updatedAt": "2026-07-03T15:05:46.124Z",
+    "__v": 1
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c504d8",
+    "name": "Fernando Sánchez López",
+    "email": "fernando.sánchezlópez@uni.edu",
+    "contractType": "tiempo_completo",
+    "administrativeLoad": false,
+    "performanceLevel": "bajo",
+    "performanceScore": 91,
+    "specializations": [
+      "6a47ce5e7c6934b3c0c50479",
+      "6a47ce5e7c6934b3c0c504a1",
+      "6a47ce5e7c6934b3c0c5048b",
+      "6a47ce5d7c6934b3c0c50457"
+    ],
+    "maxCourses": 4,
+    "maxWeeklyHours": 40,
+    "availability": [],
+    "freeDays": [],
+    "preferredShift": "noche",
+    "department": "Ingeniería de Sistemas",
+    "active": true,
+    "teachingHours": 36,
+    "createdAt": "2026-07-03T14:59:42.336Z",
+    "updatedAt": "2026-07-03T15:05:46.027Z",
+    "__v": 1
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c50508",
+    "name": "Iván Acosta Acosta",
+    "email": "iván.acostaacosta@uni.edu",
+    "contractType": "por_horas",
+    "administrativeLoad": false,
+    "performanceLevel": "bajo",
+    "performanceScore": 83,
+    "specializations": [
+      "6a47ce5d7c6934b3c0c5045f",
+      "6a47ce5d7c6934b3c0c50437",
+      "6a47ce5d7c6934b3c0c5043f"
+    ],
+    "maxCourses": 3,
+    "maxWeeklyHours": 20,
+    "availability": [],
+    "freeDays": [],
+    "preferredShift": "indiferente",
+    "department": "Ingeniería de Sistemas",
+    "active": true,
+    "teachingHours": 24,
+    "createdAt": "2026-07-03T14:59:42.336Z",
+    "updatedAt": "2026-07-03T15:05:45.962Z",
+    "__v": 2
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c504d3",
+    "name": "Carlos Córdova Sulca",
+    "email": "carlos.córdovasulca@uni.edu",
+    "contractType": "tiempo_completo",
+    "administrativeLoad": false,
+    "performanceLevel": "alto",
+    "performanceScore": 89,
+    "specializations": [
+      "6a47ce5d7c6934b3c0c5042d",
+      "6a47ce5e7c6934b3c0c5048f"
+    ],
+    "maxCourses": 4,
+    "maxWeeklyHours": 40,
+    "availability": [
+      {
+        "day": "lunes",
+        "startTime": "07:00",
+        "endTime": "13:00"
+      },
+      {
+        "day": "martes",
+        "startTime": "08:00",
+        "endTime": "13:00"
+      },
+      {
+        "day": "miercoles",
+        "startTime": "09:00",
+        "endTime": "12:00"
+      },
+      {
+        "day": "jueves",
+        "startTime": "09:00",
+        "endTime": "12:00"
+      },
+      {
+        "day": "viernes",
+        "startTime": "09:00",
+        "endTime": "12:00"
+      }
+    ],
+    "freeDays": [],
+    "preferredShift": "manana",
+    "department": "Ingeniería de Sistemas",
+    "active": true,
+    "teachingHours": 36,
+    "createdAt": "2026-07-03T14:59:42.344Z",
+    "updatedAt": "2026-07-03T15:05:46.131Z",
+    "__v": 1
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c504d4",
+    "name": "Luis Espinoza Acosta",
+    "email": "luis.espinozaacosta@uni.edu",
+    "contractType": "tiempo_completo",
+    "administrativeLoad": false,
+    "performanceLevel": "regular",
+    "performanceScore": 82,
+    "specializations": [
+      "6a47ce5d7c6934b3c0c5042b",
+      "6a47ce5d7c6934b3c0c5045f",
+      "6a47ce5d7c6934b3c0c5044d",
+      "6a47ce5d7c6934b3c0c50433"
+    ],
+    "maxCourses": 4,
+    "maxWeeklyHours": 40,
+    "availability": [
+      {
+        "day": "lunes",
+        "startTime": "14:00",
+        "endTime": "21:00"
+      },
+      {
+        "day": "martes",
+        "startTime": "14:00",
+        "endTime": "21:00"
+      },
+      {
+        "day": "miercoles",
+        "startTime": "16:00",
+        "endTime": "20:00"
+      },
+      {
+        "day": "jueves",
+        "startTime": "14:00",
+        "endTime": "19:00"
+      },
+      {
+        "day": "viernes",
+        "startTime": "15:00",
+        "endTime": "20:00"
+      }
+    ],
+    "freeDays": [],
+    "preferredShift": "tarde",
+    "department": "Ingeniería de Sistemas",
+    "active": true,
+    "teachingHours": 36,
+    "createdAt": "2026-07-03T14:59:42.345Z",
+    "updatedAt": "2026-07-03T15:05:45.916Z",
+    "__v": 1
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c504d5",
+    "name": "Hugo López Álvarez",
+    "email": "hugo.lópezálvarez@uni.edu",
+    "contractType": "tiempo_completo",
+    "administrativeLoad": false,
+    "performanceLevel": "alto",
+    "performanceScore": 97,
+    "specializations": [
+      "6a47ce5e7c6934b3c0c5047b",
+      "6a47ce5d7c6934b3c0c50445",
+      "6a47ce5d7c6934b3c0c50441",
+      "6a47ce5d7c6934b3c0c5046f",
+      "6a47ce5e7c6934b3c0c50487"
+    ],
+    "maxCourses": 4,
+    "maxWeeklyHours": 40,
+    "availability": [
+      {
+        "day": "lunes",
+        "startTime": "17:00",
+        "endTime": "22:00"
+      },
+      {
+        "day": "martes",
+        "startTime": "17:00",
+        "endTime": "21:00"
+      },
+      {
+        "day": "miercoles",
+        "startTime": "17:00",
+        "endTime": "22:00"
+      },
+      {
+        "day": "jueves",
+        "startTime": "18:00",
+        "endTime": "22:00"
+      },
+      {
+        "day": "viernes",
+        "startTime": "17:00",
+        "endTime": "22:00"
+      }
+    ],
+    "freeDays": [],
+    "preferredShift": "noche",
+    "department": "Ingeniería de Sistemas",
+    "active": true,
+    "teachingHours": 36,
+    "createdAt": "2026-07-03T14:59:42.345Z",
+    "updatedAt": "2026-07-03T15:05:46.110Z",
+    "__v": 3
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c504d6",
+    "name": "Daniel Paredes Acosta",
+    "email": "daniel.paredesacosta@uni.edu",
+    "contractType": "tiempo_completo",
+    "administrativeLoad": false,
+    "performanceLevel": "bajo",
+    "performanceScore": 58,
+    "specializations": [
+      "6a47ce5e7c6934b3c0c50497",
+      "6a47ce5d7c6934b3c0c50457"
+    ],
+    "maxCourses": 4,
+    "maxWeeklyHours": 40,
+    "availability": [
+      {
+        "day": "lunes",
+        "startTime": "07:00",
+        "endTime": "12:00"
+      },
+      {
+        "day": "martes",
+        "startTime": "07:00",
+        "endTime": "12:00"
+      },
+      {
+        "day": "miercoles",
+        "startTime": "07:00",
+        "endTime": "13:00"
+      },
+      {
+        "day": "jueves",
+        "startTime": "09:00",
+        "endTime": "13:00"
+      },
+      {
+        "day": "viernes",
+        "startTime": "07:00",
+        "endTime": "13:00"
+      }
+    ],
+    "freeDays": [],
+    "preferredShift": "manana",
+    "department": "Ingeniería de Sistemas",
+    "active": true,
+    "teachingHours": 36,
+    "createdAt": "2026-07-03T14:59:42.345Z",
+    "updatedAt": "2026-07-03T15:05:46.032Z",
+    "__v": 1
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c504d7",
+    "name": "Sebastián Peña Rodríguez",
+    "email": "sebastián.peñarodríguez@uni.edu",
+    "contractType": "tiempo_completo",
+    "administrativeLoad": false,
+    "performanceLevel": "alto",
+    "performanceScore": 72,
+    "specializations": [
+      "6a47ce5d7c6934b3c0c50467",
+      "6a47ce5e7c6934b3c0c504a1",
+      "6a47ce5d7c6934b3c0c5042b"
+    ],
+    "maxCourses": 4,
+    "maxWeeklyHours": 40,
+    "availability": [
+      {
+        "day": "lunes",
+        "startTime": "16:00",
+        "endTime": "20:00"
+      },
+      {
+        "day": "martes",
+        "startTime": "16:00",
+        "endTime": "20:00"
+      },
+      {
+        "day": "miercoles",
+        "startTime": "14:00",
+        "endTime": "22:00"
+      },
+      {
+        "day": "jueves",
+        "startTime": "14:00",
+        "endTime": "19:00"
+      },
+      {
+        "day": "viernes",
+        "startTime": "14:00",
+        "endTime": "21:00"
+      }
+    ],
+    "freeDays": [],
+    "preferredShift": "tarde",
+    "department": "Ingeniería de Sistemas",
+    "active": true,
+    "teachingHours": 36,
+    "createdAt": "2026-07-03T14:59:42.345Z",
+    "updatedAt": "2026-07-03T14:59:42.345Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c504d9",
+    "name": "Hugo Guzmán Castillo",
+    "email": "hugo.guzmáncastillo@uni.edu",
+    "contractType": "tiempo_completo",
+    "administrativeLoad": false,
+    "performanceLevel": "bajo",
+    "performanceScore": 87,
+    "specializations": [
+      "6a47ce5d7c6934b3c0c50463",
+      "6a47ce5e7c6934b3c0c50489",
+      "6a47ce5e7c6934b3c0c5047b"
+    ],
+    "maxCourses": 5,
+    "maxWeeklyHours": 40,
+    "availability": [
+      {
+        "day": "lunes",
+        "startTime": "08:00",
+        "endTime": "12:00"
+      },
+      {
+        "day": "martes",
+        "startTime": "09:00",
+        "endTime": "12:00"
+      },
+      {
+        "day": "miercoles",
+        "startTime": "08:00",
+        "endTime": "14:00"
+      },
+      {
+        "day": "jueves",
+        "startTime": "07:00",
+        "endTime": "12:00"
+      },
+      {
+        "day": "viernes",
+        "startTime": "07:00",
+        "endTime": "12:00"
+      }
+    ],
+    "freeDays": [],
+    "preferredShift": "manana",
+    "department": "Ingeniería de Sistemas",
+    "active": true,
+    "teachingHours": 36,
+    "createdAt": "2026-07-03T14:59:42.345Z",
+    "updatedAt": "2026-07-03T14:59:42.345Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c504fc",
+    "name": "Óscar Córdova Herrera",
+    "email": "óscar.córdovaherrera@uni.edu",
+    "contractType": "por_horas",
+    "administrativeLoad": false,
+    "performanceLevel": "bajo",
+    "performanceScore": 90,
+    "specializations": [
+      "6a47ce5d7c6934b3c0c50449",
+      "6a47ce5e7c6934b3c0c50493"
+    ],
+    "maxCourses": 3,
+    "maxWeeklyHours": 20,
+    "availability": [],
+    "freeDays": [],
+    "preferredShift": "indiferente",
+    "department": "Ingeniería de Sistemas",
+    "active": true,
+    "teachingHours": 24,
+    "createdAt": "2026-07-03T14:59:42.336Z",
+    "updatedAt": "2026-07-03T14:59:42.336Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c504db",
+    "name": "Raúl Ramírez Paredes",
+    "email": "raúl.ramírezparedes@uni.edu",
+    "contractType": "tiempo_completo",
+    "administrativeLoad": false,
+    "performanceLevel": "alto",
+    "performanceScore": 98,
+    "specializations": [
+      "6a47ce5d7c6934b3c0c50439",
+      "6a47ce5d7c6934b3c0c5046f",
+      "6a47ce5e7c6934b3c0c5048d"
+    ],
+    "maxCourses": 4,
+    "maxWeeklyHours": 40,
+    "availability": [
+      {
+        "day": "lunes",
+        "startTime": "18:00",
+        "endTime": "21:00"
+      },
+      {
+        "day": "martes",
+        "startTime": "17:00",
+        "endTime": "21:00"
+      },
+      {
+        "day": "miercoles",
+        "startTime": "17:00",
+        "endTime": "22:00"
+      },
+      {
+        "day": "jueves",
+        "startTime": "18:00",
+        "endTime": "22:00"
+      },
+      {
+        "day": "viernes",
+        "startTime": "17:00",
+        "endTime": "21:00"
+      }
+    ],
+    "freeDays": [],
+    "preferredShift": "noche",
+    "department": "Ingeniería de Sistemas",
+    "active": true,
+    "teachingHours": 36,
+    "createdAt": "2026-07-03T14:59:42.345Z",
+    "updatedAt": "2026-07-03T15:05:46.127Z",
+    "__v": 2
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c504dc",
+    "name": "Carlos Tapia Vega",
+    "email": "carlos.tapiavega@uni.edu",
+    "contractType": "tiempo_completo",
+    "administrativeLoad": false,
+    "performanceLevel": "alto",
+    "performanceScore": 60,
+    "specializations": [
+      "6a47ce5d7c6934b3c0c50447",
+      "6a47ce5e7c6934b3c0c5047b"
+    ],
+    "maxCourses": 5,
+    "maxWeeklyHours": 40,
+    "availability": [
+      {
+        "day": "lunes",
+        "startTime": "08:00",
+        "endTime": "13:00"
+      },
+      {
+        "day": "martes",
+        "startTime": "09:00",
+        "endTime": "14:00"
+      },
+      {
+        "day": "miercoles",
+        "startTime": "09:00",
+        "endTime": "12:00"
+      },
+      {
+        "day": "jueves",
+        "startTime": "08:00",
+        "endTime": "14:00"
+      },
+      {
+        "day": "viernes",
+        "startTime": "08:00",
+        "endTime": "13:00"
+      }
+    ],
+    "freeDays": [],
+    "preferredShift": "manana",
+    "department": "Ingeniería de Sistemas",
+    "active": true,
+    "teachingHours": 36,
+    "createdAt": "2026-07-03T14:59:42.345Z",
+    "updatedAt": "2026-07-03T14:59:42.345Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c504dd",
+    "name": "Carlos Moreno Pachas",
+    "email": "carlos.morenopachas@uni.edu",
+    "contractType": "tiempo_completo",
+    "administrativeLoad": false,
+    "performanceLevel": "alto",
+    "performanceScore": 95,
+    "specializations": [
+      "6a47ce5d7c6934b3c0c5043b"
+    ],
+    "maxCourses": 5,
+    "maxWeeklyHours": 40,
+    "availability": [
+      {
+        "day": "lunes",
+        "startTime": "15:00",
+        "endTime": "22:00"
+      },
+      {
+        "day": "martes",
+        "startTime": "14:00",
+        "endTime": "22:00"
+      },
+      {
+        "day": "miercoles",
+        "startTime": "14:00",
+        "endTime": "20:00"
+      },
+      {
+        "day": "jueves",
+        "startTime": "14:00",
+        "endTime": "20:00"
+      },
+      {
+        "day": "viernes",
+        "startTime": "15:00",
+        "endTime": "22:00"
+      }
+    ],
+    "freeDays": [],
+    "preferredShift": "tarde",
+    "department": "Ingeniería de Sistemas",
+    "active": true,
+    "teachingHours": 36,
+    "createdAt": "2026-07-03T14:59:42.345Z",
+    "updatedAt": "2026-07-03T14:59:42.345Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c504df",
+    "name": "Hugo Poma Espinoza",
+    "email": "hugo.pomaespinoza@uni.edu",
+    "contractType": "tiempo_completo",
+    "administrativeLoad": false,
+    "performanceLevel": "bajo",
+    "performanceScore": 94,
+    "specializations": [
+      "6a47ce5e7c6934b3c0c5049b",
+      "6a47ce5d7c6934b3c0c50473",
+      "6a47ce5d7c6934b3c0c5042b",
+      "6a47ce5d7c6934b3c0c5043d",
+      "6a47ce5d7c6934b3c0c50465"
+    ],
+    "maxCourses": 4,
+    "maxWeeklyHours": 40,
+    "availability": [
+      {
+        "day": "lunes",
+        "startTime": "09:00",
+        "endTime": "12:00"
+      },
+      {
+        "day": "martes",
+        "startTime": "08:00",
+        "endTime": "12:00"
+      },
+      {
+        "day": "miercoles",
+        "startTime": "09:00",
+        "endTime": "13:00"
+      },
+      {
+        "day": "jueves",
+        "startTime": "07:00",
+        "endTime": "14:00"
+      },
+      {
+        "day": "viernes",
+        "startTime": "08:00",
+        "endTime": "14:00"
+      }
+    ],
+    "freeDays": [],
+    "preferredShift": "manana",
+    "department": "Ingeniería de Sistemas",
+    "active": true,
+    "teachingHours": 36,
+    "createdAt": "2026-07-03T14:59:42.345Z",
+    "updatedAt": "2026-07-03T15:05:46.059Z",
+    "__v": 2
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c504e0",
+    "name": "Daniel Núñez Campos",
+    "email": "daniel.núñezcampos@uni.edu",
+    "contractType": "tiempo_completo",
+    "administrativeLoad": false,
+    "performanceLevel": "alto",
+    "performanceScore": 70,
+    "specializations": [
+      "6a47ce5e7c6934b3c0c5047d",
+      "6a47ce5d7c6934b3c0c50439"
+    ],
+    "maxCourses": 4,
+    "maxWeeklyHours": 40,
+    "availability": [
+      {
+        "day": "lunes",
+        "startTime": "15:00",
+        "endTime": "20:00"
+      },
+      {
+        "day": "martes",
+        "startTime": "16:00",
+        "endTime": "19:00"
+      },
+      {
+        "day": "miercoles",
+        "startTime": "16:00",
+        "endTime": "20:00"
+      },
+      {
+        "day": "jueves",
+        "startTime": "16:00",
+        "endTime": "21:00"
+      },
+      {
+        "day": "viernes",
+        "startTime": "14:00",
+        "endTime": "22:00"
+      }
+    ],
+    "freeDays": [],
+    "preferredShift": "tarde",
+    "department": "Ingeniería de Sistemas",
+    "active": true,
+    "teachingHours": 36,
+    "createdAt": "2026-07-03T14:59:42.345Z",
+    "updatedAt": "2026-07-03T14:59:42.345Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c504e1",
+    "name": "Sebastián Rodríguez Rodríguez",
+    "email": "sebastián.rodríguezrodríguez@uni.edu",
+    "contractType": "tiempo_completo",
+    "administrativeLoad": false,
+    "performanceLevel": "alto",
+    "performanceScore": 64,
+    "specializations": [
+      "6a47ce5d7c6934b3c0c5044d",
+      "6a47ce5e7c6934b3c0c50495",
+      "6a47ce5d7c6934b3c0c5043f",
+      "6a47ce5d7c6934b3c0c50441",
+      "6a47ce5d7c6934b3c0c5044f",
+      "6a47ce5d7c6934b3c0c50467",
+      "6a47ce5e7c6934b3c0c50487"
+    ],
+    "maxCourses": 4,
+    "maxWeeklyHours": 40,
+    "availability": [
+      {
+        "day": "lunes",
+        "startTime": "18:00",
+        "endTime": "22:00"
+      },
+      {
+        "day": "martes",
+        "startTime": "18:00",
+        "endTime": "21:00"
+      },
+      {
+        "day": "miercoles",
+        "startTime": "18:00",
+        "endTime": "21:00"
+      },
+      {
+        "day": "jueves",
+        "startTime": "18:00",
+        "endTime": "21:00"
+      },
+      {
+        "day": "viernes",
+        "startTime": "17:00",
+        "endTime": "21:00"
+      }
+    ],
+    "freeDays": [],
+    "preferredShift": "noche",
+    "department": "Ingeniería de Sistemas",
+    "active": true,
+    "teachingHours": 36,
+    "createdAt": "2026-07-03T14:59:42.345Z",
+    "updatedAt": "2026-07-03T15:05:46.115Z",
+    "__v": 5
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c50502",
+    "name": "Iván Martínez Díaz",
+    "email": "iván.martínezdíaz@uni.edu",
+    "contractType": "por_horas",
+    "administrativeLoad": false,
+    "performanceLevel": "bajo",
+    "performanceScore": 93,
+    "specializations": [
+      "6a47ce5d7c6934b3c0c50445",
+      "6a47ce5d7c6934b3c0c50437",
+      "6a47ce5d7c6934b3c0c50447"
+    ],
+    "maxCourses": 3,
+    "maxWeeklyHours": 20,
+    "availability": [],
+    "freeDays": [],
+    "preferredShift": "indiferente",
+    "department": "Ingeniería de Sistemas",
+    "active": true,
+    "teachingHours": 24,
+    "createdAt": "2026-07-03T14:59:42.336Z",
+    "updatedAt": "2026-07-03T15:05:45.995Z",
+    "__v": 2
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c504e3",
+    "name": "Miguel Herrera Miranda",
+    "email": "miguel.herreramiranda@uni.edu",
+    "contractType": "tiempo_completo",
+    "administrativeLoad": false,
+    "performanceLevel": "regular",
+    "performanceScore": 95,
+    "specializations": [
+      "6a47ce5d7c6934b3c0c50471",
+      "6a47ce5e7c6934b3c0c5048b",
+      "6a47ce5d7c6934b3c0c5045b"
+    ],
+    "maxCourses": 4,
+    "maxWeeklyHours": 40,
+    "availability": [
+      {
+        "day": "lunes",
+        "startTime": "14:00",
+        "endTime": "21:00"
+      },
+      {
+        "day": "martes",
+        "startTime": "15:00",
+        "endTime": "22:00"
+      },
+      {
+        "day": "miercoles",
+        "startTime": "15:00",
+        "endTime": "21:00"
+      },
+      {
+        "day": "jueves",
+        "startTime": "14:00",
+        "endTime": "19:00"
+      },
+      {
+        "day": "viernes",
+        "startTime": "16:00",
+        "endTime": "22:00"
+      }
+    ],
+    "freeDays": [],
+    "preferredShift": "tarde",
+    "department": "Ingeniería de Sistemas",
+    "active": true,
+    "teachingHours": 36,
+    "createdAt": "2026-07-03T14:59:42.345Z",
+    "updatedAt": "2026-07-03T15:05:46.044Z",
+    "__v": 1
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c504e5",
+    "name": "Diego Paredes Núñez",
+    "email": "diego.paredesnúñez@uni.edu",
+    "contractType": "tiempo_completo",
+    "administrativeLoad": false,
+    "performanceLevel": "alto",
+    "performanceScore": 58,
+    "specializations": [
+      "6a47ce5d7c6934b3c0c50455",
+      "6a47ce5e7c6934b3c0c5049d"
+    ],
+    "maxCourses": 4,
+    "maxWeeklyHours": 40,
+    "availability": [
+      {
+        "day": "lunes",
+        "startTime": "09:00",
+        "endTime": "13:00"
+      },
+      {
+        "day": "martes",
+        "startTime": "07:00",
+        "endTime": "13:00"
+      },
+      {
+        "day": "miercoles",
+        "startTime": "09:00",
+        "endTime": "12:00"
+      },
+      {
+        "day": "jueves",
+        "startTime": "08:00",
+        "endTime": "13:00"
+      },
+      {
+        "day": "viernes",
+        "startTime": "07:00",
+        "endTime": "12:00"
+      }
+    ],
+    "freeDays": [],
+    "preferredShift": "manana",
+    "department": "Ingeniería de Sistemas",
+    "active": true,
+    "teachingHours": 36,
+    "createdAt": "2026-07-03T14:59:42.345Z",
+    "updatedAt": "2026-07-03T14:59:42.345Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c504e6",
+    "name": "Óscar Paredes Díaz",
+    "email": "óscar.paredesdíaz@uni.edu",
+    "contractType": "tiempo_completo",
+    "administrativeLoad": false,
+    "performanceLevel": "bajo",
+    "performanceScore": 80,
+    "specializations": [
+      "6a47ce5d7c6934b3c0c50435",
+      "6a47ce5d7c6934b3c0c50461",
+      "6a47ce5d7c6934b3c0c5045d",
+      "6a47ce5d7c6934b3c0c50431",
+      "6a47ce5d7c6934b3c0c5045b"
+    ],
+    "maxCourses": 4,
+    "maxWeeklyHours": 40,
+    "availability": [
+      {
+        "day": "lunes",
+        "startTime": "16:00",
+        "endTime": "22:00"
+      },
+      {
+        "day": "martes",
+        "startTime": "14:00",
+        "endTime": "21:00"
+      },
+      {
+        "day": "miercoles",
+        "startTime": "14:00",
+        "endTime": "21:00"
+      },
+      {
+        "day": "jueves",
+        "startTime": "16:00",
+        "endTime": "19:00"
+      },
+      {
+        "day": "viernes",
+        "startTime": "16:00",
+        "endTime": "21:00"
+      }
+    ],
+    "freeDays": [],
+    "preferredShift": "tarde",
+    "department": "Ingeniería de Sistemas",
+    "active": true,
+    "teachingHours": 36,
+    "createdAt": "2026-07-03T14:59:42.345Z",
+    "updatedAt": "2026-07-03T15:05:46.048Z",
+    "__v": 2
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c504e7",
+    "name": "Pablo Rivas Ríos",
+    "email": "pablo.rivasríos@uni.edu",
+    "contractType": "tiempo_completo",
+    "administrativeLoad": false,
+    "performanceLevel": "alto",
+    "performanceScore": 88,
+    "specializations": [
+      "6a47ce5d7c6934b3c0c50435",
+      "6a47ce5e7c6934b3c0c504a1",
+      "6a47ce5e7c6934b3c0c50483"
+    ],
+    "maxCourses": 4,
+    "maxWeeklyHours": 40,
+    "availability": [
+      {
+        "day": "lunes",
+        "startTime": "17:00",
+        "endTime": "22:00"
+      },
+      {
+        "day": "martes",
+        "startTime": "17:00",
+        "endTime": "21:00"
+      },
+      {
+        "day": "miercoles",
+        "startTime": "18:00",
+        "endTime": "22:00"
+      },
+      {
+        "day": "jueves",
+        "startTime": "18:00",
+        "endTime": "22:00"
+      },
+      {
+        "day": "viernes",
+        "startTime": "17:00",
+        "endTime": "21:00"
+      }
+    ],
+    "freeDays": [],
+    "preferredShift": "noche",
+    "department": "Ingeniería de Sistemas",
+    "active": true,
+    "teachingHours": 36,
+    "createdAt": "2026-07-03T14:59:42.345Z",
+    "updatedAt": "2026-07-03T15:05:46.107Z",
+    "__v": 1
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c504e8",
+    "name": "Víctor Ortega Herrera",
+    "email": "víctor.ortegaherrera@uni.edu",
+    "contractType": "tiempo_completo",
+    "administrativeLoad": false,
+    "performanceLevel": "regular",
+    "performanceScore": 80,
+    "specializations": [
+      "6a47ce5d7c6934b3c0c50445",
+      "6a47ce5d7c6934b3c0c5046d"
+    ],
+    "maxCourses": 4,
+    "maxWeeklyHours": 40,
+    "availability": [
+      {
+        "day": "lunes",
+        "startTime": "08:00",
+        "endTime": "13:00"
+      },
+      {
+        "day": "martes",
+        "startTime": "08:00",
+        "endTime": "12:00"
+      },
+      {
+        "day": "miercoles",
+        "startTime": "08:00",
+        "endTime": "13:00"
+      },
+      {
+        "day": "jueves",
+        "startTime": "09:00",
+        "endTime": "13:00"
+      },
+      {
+        "day": "viernes",
+        "startTime": "08:00",
+        "endTime": "14:00"
+      }
+    ],
+    "freeDays": [],
+    "preferredShift": "manana",
+    "department": "Ingeniería de Sistemas",
+    "active": true,
+    "teachingHours": 36,
+    "createdAt": "2026-07-03T14:59:42.345Z",
+    "updatedAt": "2026-07-03T14:59:42.345Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c504e9",
+    "name": "Hugo Mendoza Sánchez",
+    "email": "hugo.mendozasánchez@uni.edu",
+    "contractType": "tiempo_completo",
+    "administrativeLoad": false,
+    "performanceLevel": "alto",
+    "performanceScore": 90,
+    "specializations": [
+      "6a47ce5d7c6934b3c0c50433",
+      "6a47ce5e7c6934b3c0c5049f"
+    ],
+    "maxCourses": 4,
+    "maxWeeklyHours": 40,
+    "availability": [
+      {
+        "day": "lunes",
+        "startTime": "16:00",
+        "endTime": "20:00"
+      },
+      {
+        "day": "martes",
+        "startTime": "15:00",
+        "endTime": "21:00"
+      },
+      {
+        "day": "miercoles",
+        "startTime": "14:00",
+        "endTime": "21:00"
+      },
+      {
+        "day": "jueves",
+        "startTime": "16:00",
+        "endTime": "22:00"
+      },
+      {
+        "day": "viernes",
+        "startTime": "16:00",
+        "endTime": "21:00"
+      }
+    ],
+    "freeDays": [],
+    "preferredShift": "tarde",
+    "department": "Ingeniería de Sistemas",
+    "active": true,
+    "teachingHours": 36,
+    "createdAt": "2026-07-03T14:59:42.345Z",
+    "updatedAt": "2026-07-03T15:05:46.146Z",
+    "__v": 1
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c504eb",
+    "name": "Sebastián Córdova Salazar",
+    "email": "sebastián.córdovasalazar@uni.edu",
+    "contractType": "tiempo_completo",
+    "administrativeLoad": false,
+    "performanceLevel": "bajo",
+    "performanceScore": 74,
+    "specializations": [
+      "6a47ce5d7c6934b3c0c5044d",
+      "6a47ce5e7c6934b3c0c5049f",
+      "6a47ce5d7c6934b3c0c5044f"
+    ],
+    "maxCourses": 4,
+    "maxWeeklyHours": 40,
+    "availability": [
+      {
+        "day": "lunes",
+        "startTime": "08:00",
+        "endTime": "12:00"
+      },
+      {
+        "day": "martes",
+        "startTime": "07:00",
+        "endTime": "12:00"
+      },
+      {
+        "day": "miercoles",
+        "startTime": "07:00",
+        "endTime": "14:00"
+      },
+      {
+        "day": "jueves",
+        "startTime": "07:00",
+        "endTime": "14:00"
+      },
+      {
+        "day": "viernes",
+        "startTime": "08:00",
+        "endTime": "13:00"
+      }
+    ],
+    "freeDays": [],
+    "preferredShift": "manana",
+    "department": "Ingeniería de Sistemas",
+    "active": true,
+    "teachingHours": 36,
+    "createdAt": "2026-07-03T14:59:42.345Z",
+    "updatedAt": "2026-07-03T15:05:46.010Z",
+    "__v": 1
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c504ec",
+    "name": "Cristian Castro Medina",
+    "email": "cristian.castromedina@uni.edu",
+    "contractType": "tiempo_completo",
+    "administrativeLoad": false,
+    "performanceLevel": "bajo",
+    "performanceScore": 77,
+    "specializations": [
+      "6a47ce5d7c6934b3c0c50451",
+      "6a47ce5e7c6934b3c0c50497"
+    ],
+    "maxCourses": 3,
+    "maxWeeklyHours": 40,
+    "availability": [
+      {
+        "day": "lunes",
+        "startTime": "16:00",
+        "endTime": "19:00"
+      },
+      {
+        "day": "martes",
+        "startTime": "14:00",
+        "endTime": "19:00"
+      },
+      {
+        "day": "miercoles",
+        "startTime": "15:00",
+        "endTime": "22:00"
+      },
+      {
+        "day": "jueves",
+        "startTime": "14:00",
+        "endTime": "19:00"
+      },
+      {
+        "day": "viernes",
+        "startTime": "15:00",
+        "endTime": "22:00"
+      }
+    ],
+    "freeDays": [],
+    "preferredShift": "tarde",
+    "department": "Ingeniería de Sistemas",
+    "active": true,
+    "teachingHours": 36,
+    "createdAt": "2026-07-03T14:59:42.345Z",
+    "updatedAt": "2026-07-03T14:59:42.345Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c504ed",
+    "name": "Marco Castillo Romero",
+    "email": "marco.castilloromero@uni.edu",
+    "contractType": "tiempo_completo",
+    "administrativeLoad": false,
+    "performanceLevel": "bajo",
+    "performanceScore": 87,
+    "specializations": [
+      "6a47ce5e7c6934b3c0c50475",
+      "6a47ce5e7c6934b3c0c5049d",
+      "6a47ce5e7c6934b3c0c50481"
+    ],
+    "maxCourses": 4,
+    "maxWeeklyHours": 40,
+    "availability": [
+      {
+        "day": "lunes",
+        "startTime": "17:00",
+        "endTime": "21:00"
+      },
+      {
+        "day": "martes",
+        "startTime": "17:00",
+        "endTime": "22:00"
+      },
+      {
+        "day": "miercoles",
+        "startTime": "17:00",
+        "endTime": "22:00"
+      },
+      {
+        "day": "jueves",
+        "startTime": "17:00",
+        "endTime": "21:00"
+      },
+      {
+        "day": "viernes",
+        "startTime": "17:00",
+        "endTime": "21:00"
+      }
+    ],
+    "freeDays": [],
+    "preferredShift": "noche",
+    "department": "Ingeniería de Sistemas",
+    "active": true,
+    "teachingHours": 36,
+    "createdAt": "2026-07-03T14:59:42.345Z",
+    "updatedAt": "2026-07-03T14:59:42.345Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c504ee",
+    "name": "Miguel Díaz Castellanos",
+    "email": "miguel.díazcastellanos@uni.edu",
+    "contractType": "tiempo_completo",
+    "administrativeLoad": false,
+    "performanceLevel": "bajo",
+    "performanceScore": 86,
+    "specializations": [
+      "6a47ce5d7c6934b3c0c50473",
+      "6a47ce5e7c6934b3c0c5048f"
+    ],
+    "maxCourses": 4,
+    "maxWeeklyHours": 40,
+    "availability": [
+      {
+        "day": "lunes",
+        "startTime": "07:00",
+        "endTime": "14:00"
+      },
+      {
+        "day": "martes",
+        "startTime": "08:00",
+        "endTime": "13:00"
+      },
+      {
+        "day": "miercoles",
+        "startTime": "08:00",
+        "endTime": "12:00"
+      },
+      {
+        "day": "jueves",
+        "startTime": "09:00",
+        "endTime": "12:00"
+      },
+      {
+        "day": "viernes",
+        "startTime": "08:00",
+        "endTime": "14:00"
+      }
+    ],
+    "freeDays": [],
+    "preferredShift": "manana",
+    "department": "Ingeniería de Sistemas",
+    "active": true,
+    "teachingHours": 36,
+    "createdAt": "2026-07-03T14:59:42.345Z",
+    "updatedAt": "2026-07-03T15:05:46.134Z",
+    "__v": 1
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c504ef",
+    "name": "Nicolás Mendoza Campos",
+    "email": "nicolás.mendozacampos@uni.edu",
+    "contractType": "tiempo_completo",
+    "administrativeLoad": false,
+    "performanceLevel": "alto",
+    "performanceScore": 72,
+    "specializations": [
+      "6a47ce5d7c6934b3c0c5042f",
+      "6a47ce5e7c6934b3c0c5047f"
+    ],
+    "maxCourses": 3,
+    "maxWeeklyHours": 40,
+    "availability": [
+      {
+        "day": "lunes",
+        "startTime": "14:00",
+        "endTime": "19:00"
+      },
+      {
+        "day": "martes",
+        "startTime": "15:00",
+        "endTime": "20:00"
+      },
+      {
+        "day": "miercoles",
+        "startTime": "14:00",
+        "endTime": "21:00"
+      },
+      {
+        "day": "jueves",
+        "startTime": "14:00",
+        "endTime": "21:00"
+      },
+      {
+        "day": "viernes",
+        "startTime": "14:00",
+        "endTime": "20:00"
+      }
+    ],
+    "freeDays": [],
+    "preferredShift": "tarde",
+    "department": "Ingeniería de Sistemas",
+    "active": true,
+    "teachingHours": 36,
+    "createdAt": "2026-07-03T14:59:42.345Z",
+    "updatedAt": "2026-07-03T14:59:42.345Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c504f1",
+    "name": "Raúl Díaz Díaz",
+    "email": "raúl.díazdíaz@uni.edu",
+    "contractType": "tiempo_completo",
+    "administrativeLoad": false,
+    "performanceLevel": "alto",
+    "performanceScore": 65,
+    "specializations": [
+      "6a47ce5d7c6934b3c0c50457",
+      "6a47ce5e7c6934b3c0c50475"
+    ],
+    "maxCourses": 5,
+    "maxWeeklyHours": 40,
+    "availability": [
+      {
+        "day": "lunes",
+        "startTime": "08:00",
+        "endTime": "12:00"
+      },
+      {
+        "day": "martes",
+        "startTime": "08:00",
+        "endTime": "13:00"
+      },
+      {
+        "day": "miercoles",
+        "startTime": "08:00",
+        "endTime": "12:00"
+      },
+      {
+        "day": "jueves",
+        "startTime": "07:00",
+        "endTime": "12:00"
+      },
+      {
+        "day": "viernes",
+        "startTime": "07:00",
+        "endTime": "14:00"
+      }
+    ],
+    "freeDays": [],
+    "preferredShift": "manana",
+    "department": "Ingeniería de Sistemas",
+    "active": true,
+    "teachingHours": 36,
+    "createdAt": "2026-07-03T14:59:42.345Z",
+    "updatedAt": "2026-07-03T14:59:42.345Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c504f2",
+    "name": "Raúl Cárdenas Sánchez",
+    "email": "raúl.cárdenassánchez@uni.edu",
+    "contractType": "tiempo_completo",
+    "administrativeLoad": false,
+    "performanceLevel": "bajo",
+    "performanceScore": 61,
+    "specializations": [
+      "6a47ce5d7c6934b3c0c50469",
+      "6a47ce5d7c6934b3c0c5045f",
+      "6a47ce5d7c6934b3c0c50459"
+    ],
+    "maxCourses": 4,
+    "maxWeeklyHours": 40,
+    "availability": [
+      {
+        "day": "lunes",
+        "startTime": "14:00",
+        "endTime": "20:00"
+      },
+      {
+        "day": "martes",
+        "startTime": "16:00",
+        "endTime": "22:00"
+      },
+      {
+        "day": "miercoles",
+        "startTime": "16:00",
+        "endTime": "19:00"
+      },
+      {
+        "day": "jueves",
+        "startTime": "16:00",
+        "endTime": "19:00"
+      },
+      {
+        "day": "viernes",
+        "startTime": "14:00",
+        "endTime": "20:00"
+      }
+    ],
+    "freeDays": [],
+    "preferredShift": "tarde",
+    "department": "Ingeniería de Sistemas",
+    "active": true,
+    "teachingHours": 36,
+    "createdAt": "2026-07-03T14:59:42.345Z",
+    "updatedAt": "2026-07-03T15:05:46.039Z",
+    "__v": 1
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c504f3",
+    "name": "Juan Castro Poma",
+    "email": "juan.castropoma@uni.edu",
+    "contractType": "tiempo_completo",
+    "administrativeLoad": false,
+    "performanceLevel": "regular",
+    "performanceScore": 87,
+    "specializations": [
+      "6a47ce5e7c6934b3c0c5049b",
+      "6a47ce5d7c6934b3c0c50463",
+      "6a47ce5d7c6934b3c0c50471",
+      "6a47ce5d7c6934b3c0c50467"
+    ],
+    "maxCourses": 4,
+    "maxWeeklyHours": 40,
+    "availability": [
+      {
+        "day": "lunes",
+        "startTime": "18:00",
+        "endTime": "21:00"
+      },
+      {
+        "day": "martes",
+        "startTime": "17:00",
+        "endTime": "21:00"
+      },
+      {
+        "day": "miercoles",
+        "startTime": "17:00",
+        "endTime": "22:00"
+      },
+      {
+        "day": "jueves",
+        "startTime": "18:00",
+        "endTime": "21:00"
+      },
+      {
+        "day": "viernes",
+        "startTime": "17:00",
+        "endTime": "21:00"
+      }
+    ],
+    "freeDays": [],
+    "preferredShift": "noche",
+    "department": "Ingeniería de Sistemas",
+    "active": true,
+    "teachingHours": 36,
+    "createdAt": "2026-07-03T14:59:42.345Z",
+    "updatedAt": "2026-07-03T15:05:46.070Z",
+    "__v": 1
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c504f4",
+    "name": "Pedro Romero Rodríguez",
+    "email": "pedro.romerorodríguez@uni.edu",
+    "contractType": "tiempo_completo",
+    "administrativeLoad": false,
+    "performanceLevel": "alto",
+    "performanceScore": 86,
+    "specializations": [
+      "6a47ce5d7c6934b3c0c50451",
+      "6a47ce5e7c6934b3c0c50499"
+    ],
+    "maxCourses": 3,
+    "maxWeeklyHours": 40,
+    "availability": [
+      {
+        "day": "lunes",
+        "startTime": "09:00",
+        "endTime": "14:00"
+      },
+      {
+        "day": "martes",
+        "startTime": "07:00",
+        "endTime": "14:00"
+      },
+      {
+        "day": "miercoles",
+        "startTime": "09:00",
+        "endTime": "13:00"
+      },
+      {
+        "day": "jueves",
+        "startTime": "09:00",
+        "endTime": "12:00"
+      },
+      {
+        "day": "viernes",
+        "startTime": "09:00",
+        "endTime": "14:00"
+      }
+    ],
+    "freeDays": [],
+    "preferredShift": "manana",
+    "department": "Ingeniería de Sistemas",
+    "active": true,
+    "teachingHours": 36,
+    "createdAt": "2026-07-03T14:59:42.345Z",
+    "updatedAt": "2026-07-03T14:59:42.345Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c504f5",
+    "name": "Daniel Córdova Pachas",
+    "email": "daniel.córdovapachas@uni.edu",
+    "contractType": "tiempo_completo",
+    "administrativeLoad": false,
+    "performanceLevel": "regular",
+    "performanceScore": 68,
+    "specializations": [
+      "6a47ce5d7c6934b3c0c5042d",
+      "6a47ce5d7c6934b3c0c5042b",
+      "6a47ce5d7c6934b3c0c50431"
+    ],
+    "maxCourses": 4,
+    "maxWeeklyHours": 40,
+    "availability": [
+      {
+        "day": "lunes",
+        "startTime": "15:00",
+        "endTime": "20:00"
+      },
+      {
+        "day": "martes",
+        "startTime": "14:00",
+        "endTime": "21:00"
+      },
+      {
+        "day": "miercoles",
+        "startTime": "15:00",
+        "endTime": "19:00"
+      },
+      {
+        "day": "jueves",
+        "startTime": "15:00",
+        "endTime": "22:00"
+      },
+      {
+        "day": "viernes",
+        "startTime": "15:00",
+        "endTime": "20:00"
+      }
+    ],
+    "freeDays": [],
+    "preferredShift": "tarde",
+    "department": "Ingeniería de Sistemas",
+    "active": true,
+    "teachingHours": 36,
+    "createdAt": "2026-07-03T14:59:42.345Z",
+    "updatedAt": "2026-07-03T15:05:45.891Z",
+    "__v": 1
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c504f7",
+    "name": "Gustavo Chávez Peña",
+    "email": "gustavo.chávezpeña@uni.edu",
+    "contractType": "por_horas",
+    "administrativeLoad": false,
+    "performanceLevel": "alto",
+    "performanceScore": 85,
+    "specializations": [
+      "6a47ce5d7c6934b3c0c50473",
+      "6a47ce5d7c6934b3c0c50455"
+    ],
+    "maxCourses": 3,
+    "maxWeeklyHours": 20,
+    "availability": [
+      {
+        "day": "lunes",
+        "startTime": "08:00",
+        "endTime": "12:00"
+      },
+      {
+        "day": "martes",
+        "startTime": "07:00",
+        "endTime": "12:00"
+      },
+      {
+        "day": "miercoles",
+        "startTime": "08:00",
+        "endTime": "12:00"
+      },
+      {
+        "day": "jueves",
+        "startTime": "08:00",
+        "endTime": "13:00"
+      },
+      {
+        "day": "viernes",
+        "startTime": "07:00",
+        "endTime": "12:00"
+      }
+    ],
+    "freeDays": [],
+    "preferredShift": "indiferente",
+    "department": "Ingeniería de Sistemas",
+    "active": true,
+    "teachingHours": 24,
+    "createdAt": "2026-07-03T14:59:42.345Z",
+    "updatedAt": "2026-07-03T14:59:42.345Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c504f8",
+    "name": "Nicolás Aguilar Salazar",
+    "email": "nicolás.aguilarsalazar@uni.edu",
+    "contractType": "por_horas",
+    "administrativeLoad": false,
+    "performanceLevel": "regular",
+    "performanceScore": 69,
+    "specializations": [
+      "6a47ce5e7c6934b3c0c5049d",
+      "6a47ce5e7c6934b3c0c50489"
+    ],
+    "maxCourses": 3,
+    "maxWeeklyHours": 20,
+    "availability": [
+      {
+        "day": "lunes",
+        "startTime": "16:00",
+        "endTime": "19:00"
+      },
+      {
+        "day": "martes",
+        "startTime": "16:00",
+        "endTime": "19:00"
+      },
+      {
+        "day": "miercoles",
+        "startTime": "16:00",
+        "endTime": "19:00"
+      },
+      {
+        "day": "jueves",
+        "startTime": "16:00",
+        "endTime": "20:00"
+      },
+      {
+        "day": "viernes",
+        "startTime": "15:00",
+        "endTime": "22:00"
+      }
+    ],
+    "freeDays": [],
+    "preferredShift": "indiferente",
+    "department": "Ingeniería de Sistemas",
+    "active": true,
+    "teachingHours": 24,
+    "createdAt": "2026-07-03T14:59:42.345Z",
+    "updatedAt": "2026-07-03T14:59:42.345Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c504f9",
+    "name": "Raúl Núñez Tapia",
+    "email": "raúl.núñeztapia@uni.edu",
+    "contractType": "por_horas",
+    "administrativeLoad": false,
+    "performanceLevel": "bajo",
+    "performanceScore": 66,
+    "specializations": [
+      "6a47ce5d7c6934b3c0c5046d",
+      "6a47ce5d7c6934b3c0c50435",
+      "6a47ce5e7c6934b3c0c5049d"
+    ],
+    "maxCourses": 3,
+    "maxWeeklyHours": 20,
+    "availability": [
+      {
+        "day": "lunes",
+        "startTime": "18:00",
+        "endTime": "22:00"
+      },
+      {
+        "day": "martes",
+        "startTime": "18:00",
+        "endTime": "22:00"
+      },
+      {
+        "day": "miercoles",
+        "startTime": "17:00",
+        "endTime": "21:00"
+      },
+      {
+        "day": "jueves",
+        "startTime": "18:00",
+        "endTime": "21:00"
+      },
+      {
+        "day": "viernes",
+        "startTime": "18:00",
+        "endTime": "22:00"
+      }
+    ],
+    "freeDays": [],
+    "preferredShift": "indiferente",
+    "department": "Ingeniería de Sistemas",
+    "active": true,
+    "teachingHours": 24,
+    "createdAt": "2026-07-03T14:59:42.345Z",
+    "updatedAt": "2026-07-03T14:59:42.345Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c504fa",
+    "name": "Alejandro Rojas Tapia",
+    "email": "alejandro.rojastapia@uni.edu",
+    "contractType": "por_horas",
+    "administrativeLoad": false,
+    "performanceLevel": "bajo",
+    "performanceScore": 91,
+    "specializations": [
+      "6a47ce5e7c6934b3c0c5049b",
+      "6a47ce5d7c6934b3c0c50447",
+      "6a47ce5d7c6934b3c0c5046b"
+    ],
+    "maxCourses": 3,
+    "maxWeeklyHours": 20,
+    "availability": [
+      {
+        "day": "lunes",
+        "startTime": "09:00",
+        "endTime": "12:00"
+      },
+      {
+        "day": "martes",
+        "startTime": "07:00",
+        "endTime": "14:00"
+      },
+      {
+        "day": "miercoles",
+        "startTime": "07:00",
+        "endTime": "13:00"
+      },
+      {
+        "day": "jueves",
+        "startTime": "07:00",
+        "endTime": "14:00"
+      },
+      {
+        "day": "viernes",
+        "startTime": "09:00",
+        "endTime": "14:00"
+      }
+    ],
+    "freeDays": [],
+    "preferredShift": "indiferente",
+    "department": "Ingeniería de Sistemas",
+    "active": true,
+    "teachingHours": 24,
+    "createdAt": "2026-07-03T14:59:42.345Z",
+    "updatedAt": "2026-07-03T15:05:46.075Z",
+    "__v": 2
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c504fb",
+    "name": "Jorge Núñez Chávez",
+    "email": "jorge.núñezchávez@uni.edu",
+    "contractType": "por_horas",
+    "administrativeLoad": false,
+    "performanceLevel": "bajo",
+    "performanceScore": 91,
+    "specializations": [
+      "6a47ce5e7c6934b3c0c50491"
+    ],
+    "maxCourses": 3,
+    "maxWeeklyHours": 20,
+    "availability": [
+      {
+        "day": "lunes",
+        "startTime": "15:00",
+        "endTime": "19:00"
+      },
+      {
+        "day": "martes",
+        "startTime": "16:00",
+        "endTime": "21:00"
+      },
+      {
+        "day": "miercoles",
+        "startTime": "15:00",
+        "endTime": "21:00"
+      },
+      {
+        "day": "jueves",
+        "startTime": "14:00",
+        "endTime": "21:00"
+      },
+      {
+        "day": "viernes",
+        "startTime": "16:00",
+        "endTime": "20:00"
+      }
+    ],
+    "freeDays": [],
+    "preferredShift": "indiferente",
+    "department": "Ingeniería de Sistemas",
+    "active": true,
+    "teachingHours": 24,
+    "createdAt": "2026-07-03T14:59:42.345Z",
+    "updatedAt": "2026-07-03T14:59:42.345Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c504fd",
+    "name": "Mateo Tapia Moreno",
+    "email": "mateo.tapiamoreno@uni.edu",
+    "contractType": "por_horas",
+    "administrativeLoad": false,
+    "performanceLevel": "bajo",
+    "performanceScore": 61,
+    "specializations": [
+      "6a47ce5d7c6934b3c0c50443",
+      "6a47ce5d7c6934b3c0c50461",
+      "6a47ce5d7c6934b3c0c5046f",
+      "6a47ce5d7c6934b3c0c50465"
+    ],
+    "maxCourses": 3,
+    "maxWeeklyHours": 20,
+    "availability": [
+      {
+        "day": "lunes",
+        "startTime": "07:00",
+        "endTime": "13:00"
+      },
+      {
+        "day": "martes",
+        "startTime": "07:00",
+        "endTime": "14:00"
+      },
+      {
+        "day": "miercoles",
+        "startTime": "07:00",
+        "endTime": "13:00"
+      },
+      {
+        "day": "jueves",
+        "startTime": "09:00",
+        "endTime": "14:00"
+      },
+      {
+        "day": "viernes",
+        "startTime": "08:00",
+        "endTime": "12:00"
+      }
+    ],
+    "freeDays": [],
+    "preferredShift": "indiferente",
+    "department": "Ingeniería de Sistemas",
+    "active": true,
+    "teachingHours": 24,
+    "createdAt": "2026-07-03T14:59:42.345Z",
+    "updatedAt": "2026-07-03T15:05:46.057Z",
+    "__v": 1
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c504fe",
+    "name": "Daniel Ortiz Torres",
+    "email": "daniel.ortiztorres@uni.edu",
+    "contractType": "por_horas",
+    "administrativeLoad": false,
+    "performanceLevel": "regular",
+    "performanceScore": 95,
+    "specializations": [
+      "6a47ce5d7c6934b3c0c50439",
+      "6a47ce5d7c6934b3c0c5044b"
+    ],
+    "maxCourses": 3,
+    "maxWeeklyHours": 20,
+    "availability": [
+      {
+        "day": "lunes",
+        "startTime": "16:00",
+        "endTime": "19:00"
+      },
+      {
+        "day": "martes",
+        "startTime": "16:00",
+        "endTime": "21:00"
+      },
+      {
+        "day": "miercoles",
+        "startTime": "15:00",
+        "endTime": "20:00"
+      },
+      {
+        "day": "jueves",
+        "startTime": "14:00",
+        "endTime": "20:00"
+      },
+      {
+        "day": "viernes",
+        "startTime": "14:00",
+        "endTime": "20:00"
+      }
+    ],
+    "freeDays": [],
+    "preferredShift": "indiferente",
+    "department": "Ingeniería de Sistemas",
+    "active": true,
+    "teachingHours": 24,
+    "createdAt": "2026-07-03T14:59:42.345Z",
+    "updatedAt": "2026-07-03T15:05:46.006Z",
+    "__v": 1
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c504ff",
+    "name": "Sebastián Tapia Ramírez",
+    "email": "sebastián.tapiaramírez@uni.edu",
+    "contractType": "por_horas",
+    "administrativeLoad": false,
+    "performanceLevel": "bajo",
+    "performanceScore": 68,
+    "specializations": [
+      "6a47ce5d7c6934b3c0c5045d",
+      "6a47ce5e7c6934b3c0c50477",
+      "6a47ce5e7c6934b3c0c504a1",
+      "6a47ce5d7c6934b3c0c5044f",
+      "6a47ce5e7c6934b3c0c50495"
+    ],
+    "maxCourses": 3,
+    "maxWeeklyHours": 20,
+    "availability": [
+      {
+        "day": "lunes",
+        "startTime": "18:00",
+        "endTime": "21:00"
+      },
+      {
+        "day": "martes",
+        "startTime": "17:00",
+        "endTime": "22:00"
+      },
+      {
+        "day": "miercoles",
+        "startTime": "17:00",
+        "endTime": "21:00"
+      },
+      {
+        "day": "jueves",
+        "startTime": "17:00",
+        "endTime": "21:00"
+      },
+      {
+        "day": "viernes",
+        "startTime": "18:00",
+        "endTime": "22:00"
+      }
+    ],
+    "freeDays": [],
+    "preferredShift": "indiferente",
+    "department": "Ingeniería de Sistemas",
+    "active": true,
+    "teachingHours": 24,
+    "createdAt": "2026-07-03T14:59:42.345Z",
+    "updatedAt": "2026-07-03T15:05:46.140Z",
+    "__v": 2
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c50500",
+    "name": "Eduardo Guzmán González",
+    "email": "eduardo.guzmángonzález@uni.edu",
+    "contractType": "por_horas",
+    "administrativeLoad": false,
+    "performanceLevel": "alto",
+    "performanceScore": 91,
+    "specializations": [
+      "6a47ce5d7c6934b3c0c50455",
+      "6a47ce5d7c6934b3c0c50441",
+      "6a47ce5d7c6934b3c0c5045b"
+    ],
+    "maxCourses": 3,
+    "maxWeeklyHours": 20,
+    "availability": [
+      {
+        "day": "lunes",
+        "startTime": "08:00",
+        "endTime": "13:00"
+      },
+      {
+        "day": "martes",
+        "startTime": "09:00",
+        "endTime": "14:00"
+      },
+      {
+        "day": "miercoles",
+        "startTime": "09:00",
+        "endTime": "14:00"
+      },
+      {
+        "day": "jueves",
+        "startTime": "09:00",
+        "endTime": "14:00"
+      },
+      {
+        "day": "viernes",
+        "startTime": "08:00",
+        "endTime": "12:00"
+      }
+    ],
+    "freeDays": [],
+    "preferredShift": "indiferente",
+    "department": "Ingeniería de Sistemas",
+    "active": true,
+    "teachingHours": 24,
+    "createdAt": "2026-07-03T14:59:42.345Z",
+    "updatedAt": "2026-07-03T15:05:46.042Z",
+    "__v": 2
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c504da",
+    "name": "Hugo Castillo Córdova",
+    "email": "hugo.castillocórdova@uni.edu",
+    "contractType": "tiempo_completo",
+    "administrativeLoad": false,
+    "performanceLevel": "regular",
+    "performanceScore": 58,
+    "specializations": [
+      "6a47ce5d7c6934b3c0c5045d",
+      "6a47ce5d7c6934b3c0c50443"
+    ],
+    "maxCourses": 5,
+    "maxWeeklyHours": 40,
+    "availability": [
+      {
+        "day": "lunes",
+        "startTime": "14:00",
+        "endTime": "19:00"
+      },
+      {
+        "day": "martes",
+        "startTime": "14:00",
+        "endTime": "21:00"
+      },
+      {
+        "day": "miercoles",
+        "startTime": "14:00",
+        "endTime": "22:00"
+      },
+      {
+        "day": "jueves",
+        "startTime": "15:00",
+        "endTime": "22:00"
+      },
+      {
+        "day": "viernes",
+        "startTime": "14:00",
+        "endTime": "22:00"
+      }
+    ],
+    "freeDays": [],
+    "preferredShift": "tarde",
+    "department": "Ingeniería de Sistemas",
+    "active": true,
+    "teachingHours": 36,
+    "createdAt": "2026-07-03T14:59:42.345Z",
+    "updatedAt": "2026-07-03T14:59:42.345Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c504e2",
+    "name": "Ricardo Ramírez Herrera",
+    "email": "ricardo.ramírezherrera@uni.edu",
+    "contractType": "tiempo_completo",
+    "administrativeLoad": false,
+    "performanceLevel": "bajo",
+    "performanceScore": 91,
+    "specializations": [
+      "6a47ce5e7c6934b3c0c50485",
+      "6a47ce5e7c6934b3c0c5048d"
+    ],
+    "maxCourses": 4,
+    "maxWeeklyHours": 40,
+    "availability": [
+      {
+        "day": "lunes",
+        "startTime": "09:00",
+        "endTime": "12:00"
+      },
+      {
+        "day": "martes",
+        "startTime": "08:00",
+        "endTime": "12:00"
+      },
+      {
+        "day": "miercoles",
+        "startTime": "08:00",
+        "endTime": "13:00"
+      },
+      {
+        "day": "jueves",
+        "startTime": "09:00",
+        "endTime": "14:00"
+      },
+      {
+        "day": "viernes",
+        "startTime": "07:00",
+        "endTime": "13:00"
+      }
+    ],
+    "freeDays": [],
+    "preferredShift": "manana",
+    "department": "Ingeniería de Sistemas",
+    "active": true,
+    "teachingHours": 36,
+    "createdAt": "2026-07-03T14:59:42.345Z",
+    "updatedAt": "2026-07-03T15:05:46.122Z",
+    "__v": 1
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c50504",
+    "name": "Óscar Ortiz Flores",
+    "email": "óscar.ortizflores@uni.edu",
+    "contractType": "por_horas",
+    "administrativeLoad": false,
+    "performanceLevel": "bajo",
+    "performanceScore": 82,
+    "specializations": [
+      "6a47ce5d7c6934b3c0c50437",
+      "6a47ce5e7c6934b3c0c50499"
+    ],
+    "maxCourses": 3,
+    "maxWeeklyHours": 20,
+    "availability": [
+      {
+        "day": "lunes",
+        "startTime": "16:00",
+        "endTime": "20:00"
+      },
+      {
+        "day": "martes",
+        "startTime": "14:00",
+        "endTime": "22:00"
+      },
+      {
+        "day": "miercoles",
+        "startTime": "15:00",
+        "endTime": "22:00"
+      },
+      {
+        "day": "jueves",
+        "startTime": "16:00",
+        "endTime": "19:00"
+      },
+      {
+        "day": "viernes",
+        "startTime": "16:00",
+        "endTime": "21:00"
+      }
+    ],
+    "freeDays": [],
+    "preferredShift": "indiferente",
+    "department": "Ingeniería de Sistemas",
+    "active": true,
+    "teachingHours": 24,
+    "createdAt": "2026-07-03T14:59:42.345Z",
+    "updatedAt": "2026-07-03T14:59:42.345Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c50505",
+    "name": "Gustavo Rivas Cruz",
+    "email": "gustavo.rivascruz@uni.edu",
+    "contractType": "por_horas",
+    "administrativeLoad": false,
+    "performanceLevel": "regular",
+    "performanceScore": 75,
+    "specializations": [
+      "6a47ce5e7c6934b3c0c50481",
+      "6a47ce5e7c6934b3c0c5048f",
+      "6a47ce5e7c6934b3c0c5049f"
+    ],
+    "maxCourses": 3,
+    "maxWeeklyHours": 20,
+    "availability": [
+      {
+        "day": "lunes",
+        "startTime": "17:00",
+        "endTime": "22:00"
+      },
+      {
+        "day": "martes",
+        "startTime": "17:00",
+        "endTime": "21:00"
+      },
+      {
+        "day": "miercoles",
+        "startTime": "18:00",
+        "endTime": "21:00"
+      },
+      {
+        "day": "jueves",
+        "startTime": "18:00",
+        "endTime": "22:00"
+      },
+      {
+        "day": "viernes",
+        "startTime": "18:00",
+        "endTime": "22:00"
+      }
+    ],
+    "freeDays": [],
+    "preferredShift": "indiferente",
+    "department": "Ingeniería de Sistemas",
+    "active": true,
+    "teachingHours": 24,
+    "createdAt": "2026-07-03T14:59:42.345Z",
+    "updatedAt": "2026-07-03T15:05:46.150Z",
+    "__v": 2
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c50506",
+    "name": "Hugo Medina Herrera",
+    "email": "hugo.medinaherrera@uni.edu",
+    "contractType": "por_horas",
+    "administrativeLoad": false,
+    "performanceLevel": "alto",
+    "performanceScore": 57,
+    "specializations": [
+      "6a47ce5e7c6934b3c0c50479"
+    ],
+    "maxCourses": 3,
+    "maxWeeklyHours": 20,
+    "availability": [
+      {
+        "day": "lunes",
+        "startTime": "09:00",
+        "endTime": "13:00"
+      },
+      {
+        "day": "martes",
+        "startTime": "07:00",
+        "endTime": "14:00"
+      },
+      {
+        "day": "miercoles",
+        "startTime": "07:00",
+        "endTime": "13:00"
+      },
+      {
+        "day": "jueves",
+        "startTime": "09:00",
+        "endTime": "12:00"
+      },
+      {
+        "day": "viernes",
+        "startTime": "07:00",
+        "endTime": "12:00"
+      }
+    ],
+    "freeDays": [],
+    "preferredShift": "indiferente",
+    "department": "Ingeniería de Sistemas",
+    "active": true,
+    "teachingHours": 24,
+    "createdAt": "2026-07-03T14:59:42.345Z",
+    "updatedAt": "2026-07-03T14:59:42.345Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c50507",
+    "name": "Jorge Peña Paredes",
+    "email": "jorge.peñaparedes@uni.edu",
+    "contractType": "por_horas",
+    "administrativeLoad": false,
+    "performanceLevel": "bajo",
+    "performanceScore": 69,
+    "specializations": [
+      "6a47ce5e7c6934b3c0c50479",
+      "6a47ce5d7c6934b3c0c50461"
+    ],
+    "maxCourses": 3,
+    "maxWeeklyHours": 20,
+    "availability": [
+      {
+        "day": "lunes",
+        "startTime": "15:00",
+        "endTime": "21:00"
+      },
+      {
+        "day": "martes",
+        "startTime": "14:00",
+        "endTime": "19:00"
+      },
+      {
+        "day": "miercoles",
+        "startTime": "15:00",
+        "endTime": "20:00"
+      },
+      {
+        "day": "jueves",
+        "startTime": "15:00",
+        "endTime": "21:00"
+      },
+      {
+        "day": "viernes",
+        "startTime": "14:00",
+        "endTime": "22:00"
+      }
+    ],
+    "freeDays": [],
+    "preferredShift": "indiferente",
+    "department": "Ingeniería de Sistemas",
+    "active": true,
+    "teachingHours": 24,
+    "createdAt": "2026-07-03T14:59:42.345Z",
+    "updatedAt": "2026-07-03T14:59:42.345Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c50509",
+    "name": "Ricardo Álvarez Córdova",
+    "email": "ricardo.álvarezcórdova@uni.edu",
+    "contractType": "por_horas",
+    "administrativeLoad": false,
+    "performanceLevel": "bajo",
+    "performanceScore": 66,
+    "specializations": [
+      "6a47ce5d7c6934b3c0c50453",
+      "6a47ce5d7c6934b3c0c50431",
+      "6a47ce5e7c6934b3c0c5047f"
+    ],
+    "maxCourses": 3,
+    "maxWeeklyHours": 20,
+    "availability": [
+      {
+        "day": "lunes",
+        "startTime": "09:00",
+        "endTime": "13:00"
+      },
+      {
+        "day": "martes",
+        "startTime": "07:00",
+        "endTime": "12:00"
+      },
+      {
+        "day": "miercoles",
+        "startTime": "08:00",
+        "endTime": "13:00"
+      },
+      {
+        "day": "jueves",
+        "startTime": "09:00",
+        "endTime": "12:00"
+      },
+      {
+        "day": "viernes",
+        "startTime": "08:00",
+        "endTime": "13:00"
+      }
+    ],
+    "freeDays": [],
+    "preferredShift": "indiferente",
+    "department": "Ingeniería de Sistemas",
+    "active": true,
+    "teachingHours": 24,
+    "createdAt": "2026-07-03T14:59:42.345Z",
+    "updatedAt": "2026-07-03T15:05:46.096Z",
+    "__v": 2
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c5050a",
+    "name": "Cristian Medina García",
+    "email": "cristian.medinagarcía@uni.edu",
+    "contractType": "por_horas",
+    "administrativeLoad": false,
+    "performanceLevel": "bajo",
+    "performanceScore": 91,
+    "specializations": [
+      "6a47ce5e7c6934b3c0c5047d"
+    ],
+    "maxCourses": 3,
+    "maxWeeklyHours": 20,
+    "availability": [
+      {
+        "day": "lunes",
+        "startTime": "16:00",
+        "endTime": "19:00"
+      },
+      {
+        "day": "martes",
+        "startTime": "16:00",
+        "endTime": "20:00"
+      },
+      {
+        "day": "miercoles",
+        "startTime": "15:00",
+        "endTime": "20:00"
+      },
+      {
+        "day": "jueves",
+        "startTime": "14:00",
+        "endTime": "20:00"
+      },
+      {
+        "day": "viernes",
+        "startTime": "14:00",
+        "endTime": "19:00"
+      }
+    ],
+    "freeDays": [],
+    "preferredShift": "indiferente",
+    "department": "Ingeniería de Sistemas",
+    "active": true,
+    "teachingHours": 24,
+    "createdAt": "2026-07-03T14:59:42.345Z",
+    "updatedAt": "2026-07-03T14:59:42.345Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c5050b",
+    "name": "Víctor Ortega Ríos",
+    "email": "víctor.ortegaríos@uni.edu",
+    "contractType": "por_horas",
+    "administrativeLoad": false,
+    "performanceLevel": "bajo",
+    "performanceScore": 83,
+    "specializations": [
+      "6a47ce5d7c6934b3c0c50453",
+      "6a47ce5d7c6934b3c0c5045d"
+    ],
+    "maxCourses": 3,
+    "maxWeeklyHours": 20,
+    "availability": [
+      {
+        "day": "lunes",
+        "startTime": "18:00",
+        "endTime": "22:00"
+      },
+      {
+        "day": "martes",
+        "startTime": "17:00",
+        "endTime": "22:00"
+      },
+      {
+        "day": "miercoles",
+        "startTime": "18:00",
+        "endTime": "21:00"
+      },
+      {
+        "day": "jueves",
+        "startTime": "17:00",
+        "endTime": "22:00"
+      },
+      {
+        "day": "viernes",
+        "startTime": "17:00",
+        "endTime": "22:00"
+      }
+    ],
+    "freeDays": [],
+    "preferredShift": "indiferente",
+    "department": "Ingeniería de Sistemas",
+    "active": true,
+    "teachingHours": 24,
+    "createdAt": "2026-07-03T14:59:42.345Z",
+    "updatedAt": "2026-07-03T14:59:42.345Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c5050c",
+    "name": "David Mendoza González",
+    "email": "david.mendozagonzález@uni.edu",
+    "contractType": "por_horas",
+    "administrativeLoad": false,
+    "performanceLevel": "bajo",
+    "performanceScore": 58,
+    "specializations": [
+      "6a47ce5e7c6934b3c0c50493",
+      "6a47ce5e7c6934b3c0c50479",
+      "6a47ce5d7c6934b3c0c5043d"
+    ],
+    "maxCourses": 3,
+    "maxWeeklyHours": 20,
+    "availability": [
+      {
+        "day": "lunes",
+        "startTime": "08:00",
+        "endTime": "14:00"
+      },
+      {
+        "day": "martes",
+        "startTime": "08:00",
+        "endTime": "12:00"
+      },
+      {
+        "day": "miercoles",
+        "startTime": "07:00",
+        "endTime": "13:00"
+      },
+      {
+        "day": "jueves",
+        "startTime": "08:00",
+        "endTime": "12:00"
+      },
+      {
+        "day": "viernes",
+        "startTime": "07:00",
+        "endTime": "13:00"
+      }
+    ],
+    "freeDays": [],
+    "preferredShift": "indiferente",
+    "department": "Ingeniería de Sistemas",
+    "active": true,
+    "teachingHours": 24,
+    "createdAt": "2026-07-03T14:59:42.345Z",
+    "updatedAt": "2026-07-03T15:05:45.943Z",
+    "__v": 1
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c50501",
+    "name": "Raúl Córdova Martínez",
+    "email": "raúl.córdovamartínez@uni.edu",
+    "contractType": "por_horas",
+    "administrativeLoad": false,
+    "performanceLevel": "regular",
+    "performanceScore": 62,
+    "specializations": [
+      "6a47ce5e7c6934b3c0c50485",
+      "6a47ce5e7c6934b3c0c50483"
+    ],
+    "maxCourses": 3,
+    "maxWeeklyHours": 20,
+    "availability": [
+      {
+        "day": "lunes",
+        "startTime": "14:00",
+        "endTime": "19:00"
+      },
+      {
+        "day": "martes",
+        "startTime": "16:00",
+        "endTime": "20:00"
+      },
+      {
+        "day": "miercoles",
+        "startTime": "16:00",
+        "endTime": "21:00"
+      },
+      {
+        "day": "jueves",
+        "startTime": "14:00",
+        "endTime": "22:00"
+      },
+      {
+        "day": "viernes",
+        "startTime": "14:00",
+        "endTime": "21:00"
+      }
+    ],
+    "freeDays": [],
+    "preferredShift": "indiferente",
+    "department": "Ingeniería de Sistemas",
+    "active": true,
+    "teachingHours": 24,
+    "createdAt": "2026-07-03T14:59:42.345Z",
+    "updatedAt": "2026-07-03T15:05:46.105Z",
+    "__v": 1
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c50503",
+    "name": "Fernando Cruz Cruz",
+    "email": "fernando.cruzcruz@uni.edu",
+    "contractType": "por_horas",
+    "administrativeLoad": false,
+    "performanceLevel": "alto",
+    "performanceScore": 98,
+    "specializations": [
+      "6a47ce5d7c6934b3c0c5044d",
+      "6a47ce5d7c6934b3c0c5043d",
+      "6a47ce5d7c6934b3c0c50471"
+    ],
+    "maxCourses": 3,
+    "maxWeeklyHours": 20,
+    "availability": [
+      {
+        "day": "lunes",
+        "startTime": "09:00",
+        "endTime": "14:00"
+      },
+      {
+        "day": "martes",
+        "startTime": "09:00",
+        "endTime": "13:00"
+      },
+      {
+        "day": "miercoles",
+        "startTime": "09:00",
+        "endTime": "13:00"
+      },
+      {
+        "day": "jueves",
+        "startTime": "07:00",
+        "endTime": "12:00"
+      },
+      {
+        "day": "viernes",
+        "startTime": "09:00",
+        "endTime": "12:00"
+      }
+    ],
+    "freeDays": [],
+    "preferredShift": "indiferente",
+    "department": "Ingeniería de Sistemas",
+    "active": true,
+    "teachingHours": 24,
+    "createdAt": "2026-07-03T14:59:42.345Z",
+    "updatedAt": "2026-07-03T14:59:42.345Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47d6df11faa519349b70fa",
+    "userId": "6a47c694ca51db23dfa06b1d",
+    "name": "Ana Vargas",
+    "email": "ana.vargas@uni.edu",
+    "contractType": "tiempo_completo",
+    "administrativeLoad": false,
+    "performanceLevel": "regular",
+    "performanceScore": 80,
+    "specializations": [
+      "6a47ce5d7c6934b3c0c5043f",
+      "6a47ce5d7c6934b3c0c50447",
+      "6a47ce5d7c6934b3c0c50433",
+      "6a47ce5d7c6934b3c0c50437",
+      "6a47ce5d7c6934b3c0c50443",
+      "6a47ce5d7c6934b3c0c50445"
+    ],
+    "maxCourses": 4,
+    "maxWeeklyHours": 40,
+    "freeDays": [
+      "viernes"
+    ],
+    "preferredShift": "indiferente",
+    "department": "Ingeniería de Sistemas",
+    "active": true,
+    "teachingHours": 36,
+    "availability": [],
+    "createdAt": "2026-07-03T15:35:59.091Z",
+    "updatedAt": "2026-07-03T15:37:32.024Z",
+    "__v": 0
+  }
+]

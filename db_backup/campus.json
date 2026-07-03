@@ -1,0 +1,19 @@
+[
+  {
+    "_id": "6a47cdb6d2e9a98405b6c38e",
+    "code": "0002",
+    "name": "UC-arequipa",
+    "address": "los manzanos",
+    "city": "arequipa",
+    "operatingHours": {
+      "startTime": "07:00",
+      "endTime": "22:00"
+    },
+    "buildings": [],
+    "active": true,
+    "travelTimes": [],
+    "createdAt": "2026-07-03T14:56:54.203Z",
+    "updatedAt": "2026-07-03T14:56:54.203Z",
+    "__v": 0
+  }
+]

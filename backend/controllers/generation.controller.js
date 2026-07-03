@@ -361,55 +361,65 @@ exports.generatePublic = async (req, res) => {
 
     const startTime = Date.now();
     const preferences = await Preference.find({ role: 'docente' });
-    const result = runCSPMultiple(courses, teachers, classrooms, preferences, 3, policy);
+
+    // ── Ejecutar CSP por semestre (escalable para 60+ cursos) ──
+    const semestres = [...new Set(courses.map(c => c.semester))].sort((a, b) => a - b);
+    const allAssignments = [];
+    const semResults = [];
+
+    for (const sem of semestres) {
+      const semCourses = courses.filter(c => c.semester === sem);
+      console.log(`  Semestre ${sem}: ${semCourses.length} cursos...`);
+      const result = runCSPMultiple(semCourses, teachers, classrooms, preferences, 1, policy);
+      const semTime = ((Date.now() - startTime) / 1000).toFixed(1);
+
+      if (result.success) {
+        allAssignments.push(...result.assignments);
+        semResults.push({ semester: sem, cursos: semCourses.length, asignaciones: result.assignments.length, score: result.qualityScore, tiempo: semTime });
+      } else {
+        semResults.push({ semester: sem, cursos: semCourses.length, error: 'falló', conflicts: result.conflicts, tiempo: semTime });
+      }
+    }
+
     const executionTime = (Date.now() - startTime) / 1000;
 
-    if (result.success) {
-      // Build readable schedule — batch resolve references
-      const courseIds = [...new Set(result.assignments.map(a => a.courseId.toString()))];
-      const teacherIds = [...new Set(result.assignments.map(a => a.teacherId.toString()))];
-      const classroomIds = [...new Set(result.assignments.map(a => a.classroomId.toString()))];
-      const [courseDocs, teacherDocs, classroomDocs] = await Promise.all([
-        Course.find({ _id: { $in: courseIds } }).select('name code'),
-        Teacher.find({ _id: { $in: teacherIds } }).select('name'),
-        Classroom.find({ _id: { $in: classroomIds } }).select('name code')
-      ]);
-      const courseMap = Object.fromEntries(courseDocs.map(c => [c._id.toString(), c]));
-      const teacherMap = Object.fromEntries(teacherDocs.map(t => [t._id.toString(), t]));
-      const classroomMap = Object.fromEntries(classroomDocs.map(c => [c._id.toString(), c]));
+    // Build readable schedule
+    const courseIds = [...new Set(allAssignments.map(a => a.courseId.toString()))];
+    const teacherIds = [...new Set(allAssignments.map(a => a.teacherId.toString()))];
+    const classroomIds = [...new Set(allAssignments.map(a => a.classroomId.toString()))];
+    const [courseDocs, teacherDocs, classroomDocs] = await Promise.all([
+      Course.find({ _id: { $in: courseIds } }).select('name code'),
+      Teacher.find({ _id: { $in: teacherIds } }).select('name'),
+      Classroom.find({ _id: { $in: classroomIds } }).select('name code')
+    ]);
+    const courseMap = Object.fromEntries(courseDocs.map(c => [c._id.toString(), c]));
+    const teacherMap = Object.fromEntries(teacherDocs.map(t => [t._id.toString(), t]));
+    const classroomMap = Object.fromEntries(classroomDocs.map(c => [c._id.toString(), c]));
 
-      const horario = {};
-      for (const assignment of result.assignments) {
-        if (!horario[assignment.day]) horario[assignment.day] = [];
-        const curso = courseMap[assignment.courseId.toString()];
-        const docente = teacherMap[assignment.teacherId.toString()];
-        const aula = classroomMap[assignment.classroomId.toString()];
-        horario[assignment.day].push({
-          curso: curso?.name || 'Curso', codigo: curso?.code || 'N/A',
-          docente: docente?.name || 'Docente',
-          aula: aula?.name || 'Aula',
-          hora: `${assignment.startTime} - ${assignment.endTime}`
-        });
-      }
-
-      res.json({
-        success: true,
-        message: 'Horario generado exitosamente',
-        horario,
-        executionTime: `${executionTime} segundos`,
-        cursosAsignados: result.assignments.length,
-        qualityScore: result.qualityScore,
-        alternatives: (result.alternatives || []).length,
-        scoringBreakdown: result.scoringBreakdown
-      });
-    } else {
-      res.status(422).json({
-        success: false,
-        error: 'No se encontró una solución válida',
-        conflicts: result.conflicts,
-        executionTime: `${executionTime} segundos`
+    const horario = {};
+    for (const assignment of allAssignments) {
+      if (!horario[assignment.day]) horario[assignment.day] = [];
+      const curso = courseMap[assignment.courseId.toString()];
+      const docente = teacherMap[assignment.teacherId.toString()];
+      const aula = classroomMap[assignment.classroomId.toString()];
+      horario[assignment.day].push({
+        curso: curso?.name || 'Curso', codigo: curso?.code || 'N/A',
+        docente: docente?.name || 'Docente',
+        aula: aula?.name || 'Aula',
+        hora: `${assignment.startTime} - ${assignment.endTime}`
       });
     }
+
+    const errores = semResults.filter(r => r.error);
+    res.json({
+      success: errores.length === 0,
+      message: errores.length === 0 ? 'Horario generado exitosamente' : 'Algunos semestres fallaron',
+      horario,
+      executionTime: `${executionTime.toFixed(1)} segundos`,
+      cursosAsignados: allAssignments.length,
+      semestres: semResults,
+      errores: errores.map(r => ({ semester: r.semester, conflicts: r.conflicts }))
+    });
   } catch (error) {
     console.error('❌ Error en generatePublic:', error);
     res.status(500).json({ success: false, error: error.message });

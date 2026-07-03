@@ -1,0 +1,90 @@
+[
+  {
+    "_id": "6a47c695ca51db23dfa06b75",
+    "name": "Política Institucional 2026-1",
+    "semester": "2026-1",
+    "active": true,
+    "allowedSchedule": {
+      "startTime": "07:00",
+      "endTime": "22:00",
+      "activeDays": [
+        "lunes",
+        "martes",
+        "miercoles",
+        "jueves",
+        "viernes",
+        "sabado",
+        "domingo"
+      ],
+      "blockedTimeSlots": [
+        {
+          "start": "13:00",
+          "end": "14:00",
+          "reason": "Horario de almuerzo",
+          "_id": "6a47c695ca51db23dfa06b76"
+        }
+      ]
+    },
+    "shifts": {
+      "manana": {
+        "start": "07:00",
+        "end": "13:00"
+      },
+      "tarde": {
+        "start": "14:00",
+        "end": "19:00"
+      },
+      "noche": {
+        "start": "19:00",
+        "end": "22:00"
+      }
+    },
+    "teacherLimits": {
+      "maxWeeklyHoursFullTime": 40,
+      "maxWeeklyHoursPartTime": 20,
+      "maxCoursesFullTime": 4,
+      "maxCoursesPartTime": 2,
+      "minBreakBetweenClasses": 0,
+      "maxContinuousHours": 4
+    },
+    "partTimePreferences": {
+      "allowedShifts": [
+        "manana",
+        "tarde"
+      ],
+      "allowMultiShift": false,
+      "allowedCourseTypes": [
+        "teorico",
+        "laboratorio"
+      ],
+      "prioritizeAfterFullTime": true,
+      "maxDaysPerWeek": 5
+    },
+    "classroomRules": {
+      "maxCapacityUsagePercent": 100,
+      "strictTypeMatch": true,
+      "allowVirtualClassrooms": true
+    },
+    "courseDistribution": {
+      "preferNonConsecutiveDays": true,
+      "maxSessionsPerCoursePerDay": 1,
+      "avoidBefore": "",
+      "avoidAfter": ""
+    },
+    "enrollmentRules": {
+      "minCreditsPerSemester": 12,
+      "maxCreditsPerSemester": 25,
+      "minStudentsPerSection": 15
+    },
+    "priorityWeights": {
+      "institutional": 0.3,
+      "validity": 0.25,
+      "preferences": 0.25,
+      "optimization": 0.2
+    },
+    "additionalRules": [],
+    "createdAt": "2026-07-03T14:26:29.454Z",
+    "updatedAt": "2026-07-03T14:26:29.454Z",
+    "__v": 0
+  }
+]

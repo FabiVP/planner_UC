@@ -1,0 +1,58 @@
+[
+  {
+    "_id": "6a47c695ca51db23dfa06b32",
+    "code": "ISI",
+    "name": "Ingeniería de Sistemas e Informática",
+    "faculty": "Ingeniería",
+    "totalSemesters": 10,
+    "totalCredits": 220,
+    "director": "Dr. Carlos Mendoza",
+    "description": "Formación en desarrollo de software, redes y sistemas de información.",
+    "active": true,
+    "createdAt": "2026-07-03T14:26:29.181Z",
+    "updatedAt": "2026-07-03T14:26:29.181Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47c695ca51db23dfa06b34",
+    "code": "ADM",
+    "name": "Administración de Empresas",
+    "faculty": "Ciencias Empresariales",
+    "totalSemesters": 10,
+    "totalCredits": 200,
+    "director": "Mg. Roberto Gutiérrez",
+    "description": "Gestión empresarial, finanzas y marketing.",
+    "active": true,
+    "createdAt": "2026-07-03T14:26:29.181Z",
+    "updatedAt": "2026-07-03T14:26:29.181Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47c695ca51db23dfa06b33",
+    "code": "IC",
+    "name": "Ingeniería Civil",
+    "faculty": "Ingeniería",
+    "totalSemesters": 10,
+    "totalCredits": 230,
+    "director": "Dra. Patricia Ruiz",
+    "description": "Formación en diseño y construcción de infraestructura.",
+    "active": true,
+    "createdAt": "2026-07-03T14:26:29.181Z",
+    "updatedAt": "2026-07-03T14:26:29.181Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47c695ca51db23dfa06b35",
+    "code": "DER",
+    "name": "Derecho",
+    "faculty": "Ciencias Jurídicas",
+    "totalSemesters": 12,
+    "totalCredits": 260,
+    "director": "Dr. Miguel Ángel Torres",
+    "description": "Formación en ciencias jurídicas y práctica legal.",
+    "active": true,
+    "createdAt": "2026-07-03T14:26:29.181Z",
+    "updatedAt": "2026-07-03T14:26:29.181Z",
+    "__v": 0
+  }
+]

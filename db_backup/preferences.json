@@ -1,0 +1,262 @@
+[
+  {
+    "_id": "6a47c695ca51db23dfa06baa",
+    "userId": "6a47c694ca51db23dfa06b20",
+    "role": "estudiante",
+    "availability": {
+      "manana": {
+        "lun": false,
+        "mar": false,
+        "mie": false,
+        "jue": false,
+        "vie": false,
+        "sab": false,
+        "dom": false
+      },
+      "tarde": {
+        "lun": true,
+        "mar": true,
+        "mie": true,
+        "jue": true,
+        "vie": true,
+        "sab": false,
+        "dom": false
+      },
+      "noche": {
+        "lun": true,
+        "mar": true,
+        "mie": true,
+        "jue": true,
+        "vie": true,
+        "sab": false,
+        "dom": false
+      }
+    },
+    "additionalPreferences": {
+      "avoidBefore8am": true,
+      "avoidGaps": true,
+      "preferFewerDays": true,
+      "groupSameSubjectConsecutive": false
+    },
+    "priorityOrder": [
+      "conflicts",
+      "gaps",
+      "institutional",
+      "personal"
+    ],
+    "preferredShift": "tarde",
+    "worksWhileStudying": true,
+    "detailedAvailability": [],
+    "createdAt": "2026-07-03T14:26:29.617Z",
+    "updatedAt": "2026-07-03T15:44:03.313Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47c695ca51db23dfa06ba8",
+    "userId": "6a47c694ca51db23dfa06b1e",
+    "role": "estudiante",
+    "availability": {
+      "manana": {
+        "lun": true,
+        "mar": true,
+        "mie": true,
+        "jue": true,
+        "vie": true,
+        "sab": false,
+        "dom": false
+      },
+      "tarde": {
+        "lun": true,
+        "mar": true,
+        "mie": true,
+        "jue": true,
+        "vie": true,
+        "sab": false,
+        "dom": false
+      },
+      "noche": {
+        "lun": false,
+        "mar": false,
+        "mie": false,
+        "jue": false,
+        "vie": false,
+        "sab": false,
+        "dom": false
+      }
+    },
+    "additionalPreferences": {
+      "avoidBefore8am": true,
+      "avoidGaps": true,
+      "preferFewerDays": true,
+      "groupSameSubjectConsecutive": false
+    },
+    "priorityOrder": [
+      "conflicts",
+      "institutional",
+      "gaps",
+      "personal"
+    ],
+    "preferredShift": "manana",
+    "worksWhileStudying": false,
+    "detailedAvailability": [],
+    "createdAt": "2026-07-03T14:26:29.617Z",
+    "updatedAt": "2026-07-03T14:26:29.617Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47c695ca51db23dfa06ba9",
+    "userId": "6a47c694ca51db23dfa06b1f",
+    "role": "docente",
+    "availability": {
+      "manana": {
+        "lun": false,
+        "mar": false,
+        "mie": false,
+        "jue": false,
+        "vie": false,
+        "sab": false,
+        "dom": false
+      },
+      "tarde": {
+        "lun": true,
+        "mar": true,
+        "mie": true,
+        "jue": true,
+        "vie": true,
+        "sab": false,
+        "dom": false
+      },
+      "noche": {
+        "lun": true,
+        "mar": true,
+        "mie": true,
+        "jue": true,
+        "vie": true,
+        "sab": false,
+        "dom": false
+      }
+    },
+    "additionalPreferences": {
+      "avoidBefore8am": true,
+      "avoidGaps": false,
+      "preferFewerDays": false,
+      "groupSameSubjectConsecutive": true
+    },
+    "priorityOrder": [
+      "institutional",
+      "conflicts",
+      "personal",
+      "gaps"
+    ],
+    "preferredShift": "tarde",
+    "worksWhileStudying": false,
+    "detailedAvailability": [],
+    "createdAt": "2026-07-03T14:26:29.617Z",
+    "updatedAt": "2026-07-03T14:26:29.617Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47c695ca51db23dfa06ba6",
+    "userId": "6a47c694ca51db23dfa06b1c",
+    "role": "coordinador",
+    "availability": {
+      "manana": {
+        "lun": true,
+        "mar": true,
+        "mie": true,
+        "jue": true,
+        "vie": true,
+        "sab": false,
+        "dom": false
+      },
+      "tarde": {
+        "lun": true,
+        "mar": true,
+        "mie": true,
+        "jue": true,
+        "vie": true,
+        "sab": false,
+        "dom": false
+      },
+      "noche": {
+        "lun": false,
+        "mar": false,
+        "mie": false,
+        "jue": false,
+        "vie": false,
+        "sab": false,
+        "dom": false
+      }
+    },
+    "additionalPreferences": {
+      "avoidBefore8am": false,
+      "avoidGaps": true,
+      "preferFewerDays": false,
+      "groupSameSubjectConsecutive": false
+    },
+    "priorityOrder": [
+      "conflicts",
+      "institutional",
+      "gaps",
+      "personal"
+    ],
+    "preferredShift": "indiferente",
+    "worksWhileStudying": false,
+    "detailedAvailability": [],
+    "createdAt": "2026-07-03T14:26:29.616Z",
+    "updatedAt": "2026-07-03T14:26:29.616Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a47c695ca51db23dfa06ba7",
+    "userId": "6a47c694ca51db23dfa06b1d",
+    "role": "docente",
+    "availability": {
+      "manana": {
+        "lun": true,
+        "mar": true,
+        "mie": true,
+        "jue": true,
+        "vie": true,
+        "sab": false,
+        "dom": false
+      },
+      "tarde": {
+        "lun": true,
+        "mar": true,
+        "mie": false,
+        "jue": false,
+        "vie": true,
+        "sab": false,
+        "dom": false
+      },
+      "noche": {
+        "lun": false,
+        "mar": false,
+        "mie": false,
+        "jue": false,
+        "vie": false,
+        "sab": false,
+        "dom": false
+      }
+    },
+    "additionalPreferences": {
+      "avoidBefore8am": true,
+      "avoidGaps": true,
+      "preferFewerDays": true,
+      "groupSameSubjectConsecutive": false
+    },
+    "priorityOrder": [
+      "conflicts",
+      "institutional",
+      "gaps",
+      "personal"
+    ],
+    "preferredShift": "manana",
+    "worksWhileStudying": false,
+    "detailedAvailability": [],
+    "createdAt": "2026-07-03T14:26:29.617Z",
+    "updatedAt": "2026-07-03T14:26:29.617Z",
+    "__v": 0
+  }
+]

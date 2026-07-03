@@ -1,0 +1,1629 @@
+[
+  {
+    "_id": "6a47ce5d7c6934b3c0c5042b",
+    "code": "SI101",
+    "career": "6a47c695ca51db23dfa06b32",
+    "name": "Matemática Básica",
+    "credits": 4,
+    "type": "teorico",
+    "semester": 1,
+    "prerequisites": [],
+    "corequisites": [],
+    "difficulty": 2,
+    "sessionsPerWeek": 3,
+    "hoursPerSession": 1,
+    "mandatory": true,
+    "maxStudents": 46,
+    "minStudentsPerSection": 15,
+    "assignedTeachers": [
+      "6a47ce5e7c6934b3c0c504f9",
+      "6a47ce5e7c6934b3c0c504f8"
+    ],
+    "active": true,
+    "createdAt": "2026-07-03T14:59:41.858Z",
+    "updatedAt": "2026-07-03T14:59:42.472Z",
+    "__v": 1
+  },
+  {
+    "_id": "6a47ce5d7c6934b3c0c5042d",
+    "code": "SI102",
+    "career": "6a47c695ca51db23dfa06b32",
+    "name": "Comunicación Integral",
+    "credits": 3,
+    "type": "teorico",
+    "semester": 1,
+    "prerequisites": [],
+    "corequisites": [],
+    "difficulty": 1,
+    "sessionsPerWeek": 2,
+    "hoursPerSession": 1,
+    "mandatory": true,
+    "maxStudents": 46,
+    "minStudentsPerSection": 15,
+    "assignedTeachers": [
+      "6a47ce5e7c6934b3c0c504ef",
+      "6a47ce5e7c6934b3c0c504eb"
+    ],
+    "active": true,
+    "createdAt": "2026-07-03T14:59:41.877Z",
+    "updatedAt": "2026-07-03T14:59:42.475Z",
+    "__v": 1
+  },
+  {
+    "_id": "6a47ce5d7c6934b3c0c5042f",
+    "code": "SI103",
+    "career": "6a47c695ca51db23dfa06b32",
+    "name": "Introducción a la Programación",
+    "credits": 4,
+    "type": "teorico",
+    "semester": 1,
+    "prerequisites": [],
+    "corequisites": [],
+    "difficulty": 3,
+    "sessionsPerWeek": 3,
+    "hoursPerSession": 1,
+    "mandatory": true,
+    "maxStudents": 27,
+    "minStudentsPerSection": 15,
+    "assignedTeachers": [
+      "6a47ce5e7c6934b3c0c504ea",
+      "6a47ce5e7c6934b3c0c504da"
+    ],
+    "active": true,
+    "createdAt": "2026-07-03T14:59:41.884Z",
+    "updatedAt": "2026-07-03T14:59:42.479Z",
+    "__v": 1
+  },
+  {
+    "_id": "6a47ce5d7c6934b3c0c50431",
+    "code": "SI104",
+    "career": "6a47c695ca51db23dfa06b32",
+    "name": "Introducción a la Ingeniería de Sistemas",
+    "credits": 2,
+    "type": "teorico",
+    "semester": 1,
+    "prerequisites": [],
+    "corequisites": [],
+    "difficulty": 1,
+    "sessionsPerWeek": 1,
+    "hoursPerSession": 2,
+    "mandatory": true,
+    "maxStudents": 34,
+    "minStudentsPerSection": 15,
+    "assignedTeachers": [
+      "6a47ce5e7c6934b3c0c504e9",
+      "6a47ce5e7c6934b3c0c50503"
+    ],
+    "active": true,
+    "createdAt": "2026-07-03T14:59:41.887Z",
+    "updatedAt": "2026-07-03T14:59:42.485Z",
+    "__v": 1
+  },
+  {
+    "_id": "6a47ce5d7c6934b3c0c50433",
+    "code": "SI105",
+    "career": "6a47c695ca51db23dfa06b32",
+    "name": "Física General",
+    "credits": 4,
+    "type": "teorico",
+    "semester": 1,
+    "prerequisites": [],
+    "corequisites": [],
+    "difficulty": 3,
+    "sessionsPerWeek": 3,
+    "hoursPerSession": 1,
+    "mandatory": true,
+    "maxStudents": 27,
+    "minStudentsPerSection": 15,
+    "assignedTeachers": [
+      "6a47ce5e7c6934b3c0c504d5",
+      "6a47ce5e7c6934b3c0c50508"
+    ],
+    "active": true,
+    "createdAt": "2026-07-03T14:59:41.891Z",
+    "updatedAt": "2026-07-03T14:59:42.489Z",
+    "__v": 1
+  },
+  {
+    "_id": "6a47ce5d7c6934b3c0c50435",
+    "code": "SI106",
+    "career": "6a47c695ca51db23dfa06b32",
+    "name": "Metodología del Estudio",
+    "credits": 2,
+    "type": "teorico",
+    "semester": 1,
+    "prerequisites": [],
+    "corequisites": [],
+    "difficulty": 1,
+    "sessionsPerWeek": 1,
+    "hoursPerSession": 2,
+    "mandatory": true,
+    "maxStudents": 38,
+    "minStudentsPerSection": 15,
+    "assignedTeachers": [
+      "6a47ce5e7c6934b3c0c504f4",
+      "6a47ce5e7c6934b3c0c504e2",
+      "6a47ce5e7c6934b3c0c5050b"
+    ],
+    "active": true,
+    "createdAt": "2026-07-03T14:59:41.896Z",
+    "updatedAt": "2026-07-03T14:59:42.492Z",
+    "__v": 1
+  },
+  {
+    "_id": "6a47ce5d7c6934b3c0c50437",
+    "code": "SI201",
+    "career": "6a47c695ca51db23dfa06b32",
+    "name": "Programación I",
+    "credits": 4,
+    "type": "laboratorio",
+    "semester": 2,
+    "prerequisites": [
+      "6a47ce5d7c6934b3c0c5042f"
+    ],
+    "corequisites": [],
+    "difficulty": 3,
+    "sessionsPerWeek": 3,
+    "hoursPerSession": 1,
+    "mandatory": true,
+    "maxStudents": 50,
+    "minStudentsPerSection": 15,
+    "assignedTeachers": [
+      "6a47ce5e7c6934b3c0c504e8",
+      "6a47ce5e7c6934b3c0c504e1"
+    ],
+    "active": true,
+    "createdAt": "2026-07-03T14:59:41.899Z",
+    "updatedAt": "2026-07-03T14:59:42.498Z",
+    "__v": 2
+  },
+  {
+    "_id": "6a47ce5d7c6934b3c0c50439",
+    "code": "SI202",
+    "career": "6a47c695ca51db23dfa06b32",
+    "name": "Cálculo I",
+    "credits": 5,
+    "type": "teorico",
+    "semester": 2,
+    "prerequisites": [
+      "6a47ce5d7c6934b3c0c5042b"
+    ],
+    "corequisites": [],
+    "difficulty": 4,
+    "sessionsPerWeek": 4,
+    "hoursPerSession": 1,
+    "mandatory": true,
+    "maxStudents": 49,
+    "minStudentsPerSection": 15,
+    "assignedTeachers": [
+      "6a47ce5e7c6934b3c0c504e5",
+      "6a47ce5e7c6934b3c0c504e6",
+      "6a47ce5e7c6934b3c0c5050c"
+    ],
+    "active": true,
+    "createdAt": "2026-07-03T14:59:41.903Z",
+    "updatedAt": "2026-07-03T14:59:42.503Z",
+    "__v": 2
+  },
+  {
+    "_id": "6a47ce5d7c6934b3c0c5043b",
+    "code": "SI203",
+    "career": "6a47c695ca51db23dfa06b32",
+    "name": "Álgebra Lineal",
+    "credits": 4,
+    "type": "teorico",
+    "semester": 2,
+    "prerequisites": [
+      "6a47ce5d7c6934b3c0c5042b"
+    ],
+    "corequisites": [],
+    "difficulty": 4,
+    "sessionsPerWeek": 3,
+    "hoursPerSession": 1,
+    "mandatory": true,
+    "maxStudents": 30,
+    "minStudentsPerSection": 15,
+    "assignedTeachers": [
+      "6a47ce5e7c6934b3c0c504dc",
+      "6a47ce5e7c6934b3c0c504ec"
+    ],
+    "active": true,
+    "createdAt": "2026-07-03T14:59:41.906Z",
+    "updatedAt": "2026-07-03T14:59:42.506Z",
+    "__v": 2
+  },
+  {
+    "_id": "6a47ce5d7c6934b3c0c5043d",
+    "code": "SI204",
+    "career": "6a47c695ca51db23dfa06b32",
+    "name": "Contabilidad General",
+    "credits": 3,
+    "type": "teorico",
+    "semester": 2,
+    "prerequisites": [],
+    "corequisites": [],
+    "difficulty": 2,
+    "sessionsPerWeek": 2,
+    "hoursPerSession": 1,
+    "mandatory": true,
+    "maxStudents": 44,
+    "minStudentsPerSection": 15,
+    "assignedTeachers": [
+      "6a47ce5e7c6934b3c0c50504",
+      "6a47ce5e7c6934b3c0c504d3"
+    ],
+    "active": true,
+    "createdAt": "2026-07-03T14:59:41.911Z",
+    "updatedAt": "2026-07-03T14:59:42.509Z",
+    "__v": 1
+  },
+  {
+    "_id": "6a47ce5d7c6934b3c0c5043f",
+    "code": "SI205",
+    "career": "6a47c695ca51db23dfa06b32",
+    "name": "Física I",
+    "credits": 4,
+    "type": "teorico",
+    "semester": 2,
+    "prerequisites": [
+      "6a47ce5d7c6934b3c0c50433"
+    ],
+    "corequisites": [],
+    "difficulty": 3,
+    "sessionsPerWeek": 3,
+    "hoursPerSession": 1,
+    "mandatory": true,
+    "maxStudents": 40,
+    "minStudentsPerSection": 15,
+    "assignedTeachers": [
+      "6a47ce5e7c6934b3c0c50501",
+      "6a47ce5e7c6934b3c0c504f7",
+      "6a47ce5e7c6934b3c0c504d8"
+    ],
+    "active": true,
+    "createdAt": "2026-07-03T14:59:41.915Z",
+    "updatedAt": "2026-07-03T14:59:42.512Z",
+    "__v": 2
+  },
+  {
+    "_id": "6a47ce5d7c6934b3c0c50441",
+    "code": "SI206",
+    "career": "6a47c695ca51db23dfa06b32",
+    "name": "Estadística Descriptiva",
+    "credits": 3,
+    "type": "teorico",
+    "semester": 2,
+    "prerequisites": [],
+    "corequisites": [],
+    "difficulty": 2,
+    "sessionsPerWeek": 2,
+    "hoursPerSession": 1,
+    "mandatory": true,
+    "maxStudents": 38,
+    "minStudentsPerSection": 15,
+    "assignedTeachers": [
+      "6a47ce5e7c6934b3c0c504fb",
+      "6a47ce5e7c6934b3c0c504f6",
+      "6a47ce5e7c6934b3c0c504fc"
+    ],
+    "active": true,
+    "createdAt": "2026-07-03T14:59:41.919Z",
+    "updatedAt": "2026-07-03T14:59:42.517Z",
+    "__v": 1
+  },
+  {
+    "_id": "6a47ce5d7c6934b3c0c50443",
+    "code": "SI301",
+    "career": "6a47c695ca51db23dfa06b32",
+    "name": "Programación II",
+    "credits": 4,
+    "type": "laboratorio",
+    "semester": 3,
+    "prerequisites": [
+      "6a47ce5d7c6934b3c0c50437"
+    ],
+    "corequisites": [],
+    "difficulty": 4,
+    "sessionsPerWeek": 3,
+    "hoursPerSession": 1,
+    "mandatory": true,
+    "maxStudents": 33,
+    "minStudentsPerSection": 15,
+    "assignedTeachers": [
+      "6a47ce5e7c6934b3c0c504fd",
+      "6a47ce5e7c6934b3c0c5050a",
+      "6a47ce5e7c6934b3c0c504d9"
+    ],
+    "active": true,
+    "createdAt": "2026-07-03T14:59:41.923Z",
+    "updatedAt": "2026-07-03T14:59:42.519Z",
+    "__v": 2
+  },
+  {
+    "_id": "6a47ce5d7c6934b3c0c50445",
+    "code": "SI302",
+    "career": "6a47c695ca51db23dfa06b32",
+    "name": "Cálculo II",
+    "credits": 4,
+    "type": "teorico",
+    "semester": 3,
+    "prerequisites": [
+      "6a47ce5d7c6934b3c0c50439"
+    ],
+    "corequisites": [],
+    "difficulty": 4,
+    "sessionsPerWeek": 3,
+    "hoursPerSession": 1,
+    "mandatory": true,
+    "maxStudents": 36,
+    "minStudentsPerSection": 15,
+    "assignedTeachers": [
+      "6a47ce5e7c6934b3c0c504e7",
+      "6a47ce5e7c6934b3c0c50502",
+      "6a47ce5e7c6934b3c0c504de"
+    ],
+    "active": true,
+    "createdAt": "2026-07-03T14:59:41.925Z",
+    "updatedAt": "2026-07-03T14:59:42.521Z",
+    "__v": 2
+  },
+  {
+    "_id": "6a47ce5d7c6934b3c0c50447",
+    "code": "SI303",
+    "career": "6a47c695ca51db23dfa06b32",
+    "name": "Estructura de Datos",
+    "credits": 4,
+    "type": "laboratorio",
+    "semester": 3,
+    "prerequisites": [
+      "6a47ce5d7c6934b3c0c50437",
+      "6a47ce5d7c6934b3c0c5043b"
+    ],
+    "corequisites": [],
+    "difficulty": 4,
+    "sessionsPerWeek": 3,
+    "hoursPerSession": 1,
+    "mandatory": true,
+    "maxStudents": 39,
+    "minStudentsPerSection": 15,
+    "assignedTeachers": [
+      "6a47ce5e7c6934b3c0c504ff",
+      "6a47ce5e7c6934b3c0c504f2"
+    ],
+    "active": true,
+    "createdAt": "2026-07-03T14:59:41.928Z",
+    "updatedAt": "2026-07-03T14:59:42.522Z",
+    "__v": 2
+  },
+  {
+    "_id": "6a47ce5d7c6934b3c0c50449",
+    "code": "SI304",
+    "career": "6a47c695ca51db23dfa06b32",
+    "name": "Base de Datos I",
+    "credits": 4,
+    "type": "teorico",
+    "semester": 3,
+    "prerequisites": [
+      "6a47ce5d7c6934b3c0c5043b"
+    ],
+    "corequisites": [],
+    "difficulty": 3,
+    "sessionsPerWeek": 3,
+    "hoursPerSession": 1,
+    "mandatory": true,
+    "maxStudents": 46,
+    "minStudentsPerSection": 15,
+    "assignedTeachers": [
+      "6a47ce5e7c6934b3c0c50505",
+      "6a47ce5e7c6934b3c0c504e3",
+      "6a47ce5e7c6934b3c0c50500"
+    ],
+    "active": true,
+    "createdAt": "2026-07-03T14:59:41.933Z",
+    "updatedAt": "2026-07-03T14:59:42.524Z",
+    "__v": 2
+  },
+  {
+    "_id": "6a47ce5d7c6934b3c0c5044b",
+    "code": "SI305",
+    "career": "6a47c695ca51db23dfa06b32",
+    "name": "Matemáticas Discretas",
+    "credits": 3,
+    "type": "teorico",
+    "semester": 3,
+    "prerequisites": [
+      "6a47ce5d7c6934b3c0c5043b"
+    ],
+    "corequisites": [],
+    "difficulty": 4,
+    "sessionsPerWeek": 2,
+    "hoursPerSession": 1,
+    "mandatory": true,
+    "maxStudents": 36,
+    "minStudentsPerSection": 15,
+    "assignedTeachers": [
+      "6a47ce5e7c6934b3c0c504d4",
+      "6a47ce5e7c6934b3c0c504ed",
+      "6a47ce5e7c6934b3c0c504f1"
+    ],
+    "active": true,
+    "createdAt": "2026-07-03T14:59:41.935Z",
+    "updatedAt": "2026-07-03T14:59:42.526Z",
+    "__v": 2
+  },
+  {
+    "_id": "6a47ce5d7c6934b3c0c5044d",
+    "code": "SI306",
+    "career": "6a47c695ca51db23dfa06b32",
+    "name": "Estadística Inferencial",
+    "credits": 3,
+    "type": "teorico",
+    "semester": 3,
+    "prerequisites": [
+      "6a47ce5d7c6934b3c0c50441"
+    ],
+    "corequisites": [],
+    "difficulty": 3,
+    "sessionsPerWeek": 2,
+    "hoursPerSession": 1,
+    "mandatory": true,
+    "maxStudents": 40,
+    "minStudentsPerSection": 15,
+    "assignedTeachers": [
+      "6a47ce5e7c6934b3c0c504f5",
+      "6a47ce5e7c6934b3c0c504fa"
+    ],
+    "active": true,
+    "createdAt": "2026-07-03T14:59:41.938Z",
+    "updatedAt": "2026-07-03T14:59:42.529Z",
+    "__v": 2
+  },
+  {
+    "_id": "6a47ce5d7c6934b3c0c5044f",
+    "code": "SI401",
+    "career": "6a47c695ca51db23dfa06b32",
+    "name": "Programación III",
+    "credits": 4,
+    "type": "laboratorio",
+    "semester": 4,
+    "prerequisites": [
+      "6a47ce5d7c6934b3c0c50443"
+    ],
+    "corequisites": [],
+    "difficulty": 4,
+    "sessionsPerWeek": 3,
+    "hoursPerSession": 1,
+    "mandatory": true,
+    "maxStudents": 48,
+    "minStudentsPerSection": 15,
+    "assignedTeachers": [
+      "6a47ce5e7c6934b3c0c504dd",
+      "6a47ce5e7c6934b3c0c504f3"
+    ],
+    "active": true,
+    "createdAt": "2026-07-03T14:59:41.942Z",
+    "updatedAt": "2026-07-03T14:59:42.532Z",
+    "__v": 2
+  },
+  {
+    "_id": "6a47ce5d7c6934b3c0c50451",
+    "code": "SI402",
+    "career": "6a47c695ca51db23dfa06b32",
+    "name": "Base de Datos II",
+    "credits": 4,
+    "type": "laboratorio",
+    "semester": 4,
+    "prerequisites": [
+      "6a47ce5d7c6934b3c0c50449"
+    ],
+    "corequisites": [],
+    "difficulty": 4,
+    "sessionsPerWeek": 3,
+    "hoursPerSession": 1,
+    "mandatory": true,
+    "maxStudents": 32,
+    "minStudentsPerSection": 15,
+    "assignedTeachers": [
+      "6a47ce5e7c6934b3c0c504d7",
+      "6a47ce5e7c6934b3c0c504f9"
+    ],
+    "active": true,
+    "createdAt": "2026-07-03T14:59:41.944Z",
+    "updatedAt": "2026-07-03T14:59:42.534Z",
+    "__v": 2
+  },
+  {
+    "_id": "6a47ce5d7c6934b3c0c50453",
+    "code": "SI403",
+    "career": "6a47c695ca51db23dfa06b32",
+    "name": "Análisis de Sistemas",
+    "credits": 4,
+    "type": "teorico",
+    "semester": 4,
+    "prerequisites": [
+      "6a47ce5d7c6934b3c0c50443",
+      "6a47ce5d7c6934b3c0c50449"
+    ],
+    "corequisites": [],
+    "difficulty": 3,
+    "sessionsPerWeek": 3,
+    "hoursPerSession": 1,
+    "mandatory": true,
+    "maxStudents": 36,
+    "minStudentsPerSection": 15,
+    "assignedTeachers": [
+      "6a47ce5e7c6934b3c0c504fe",
+      "6a47ce5e7c6934b3c0c504ef",
+      "6a47ce5e7c6934b3c0c504eb"
+    ],
+    "active": true,
+    "createdAt": "2026-07-03T14:59:41.949Z",
+    "updatedAt": "2026-07-03T14:59:42.535Z",
+    "__v": 2
+  },
+  {
+    "_id": "6a47ce5d7c6934b3c0c50455",
+    "code": "SI404",
+    "career": "6a47c695ca51db23dfa06b32",
+    "name": "Arquitectura de Computadoras",
+    "credits": 3,
+    "type": "teorico",
+    "semester": 4,
+    "prerequisites": [
+      "6a47ce5d7c6934b3c0c50447"
+    ],
+    "corequisites": [],
+    "difficulty": 3,
+    "sessionsPerWeek": 2,
+    "hoursPerSession": 1,
+    "mandatory": true,
+    "maxStudents": 27,
+    "minStudentsPerSection": 15,
+    "assignedTeachers": [
+      "6a47ce5e7c6934b3c0c504ee",
+      "6a47ce5e7c6934b3c0c504ea",
+      "6a47ce5e7c6934b3c0c504da"
+    ],
+    "active": true,
+    "createdAt": "2026-07-03T14:59:41.952Z",
+    "updatedAt": "2026-07-03T14:59:42.537Z",
+    "__v": 2
+  },
+  {
+    "_id": "6a47ce5d7c6934b3c0c50457",
+    "code": "SI405",
+    "career": "6a47c695ca51db23dfa06b32",
+    "name": "Sistemas Operativos",
+    "credits": 4,
+    "type": "laboratorio",
+    "semester": 4,
+    "prerequisites": [
+      "6a47ce5d7c6934b3c0c50447"
+    ],
+    "corequisites": [],
+    "difficulty": 4,
+    "sessionsPerWeek": 3,
+    "hoursPerSession": 1,
+    "mandatory": true,
+    "maxStudents": 42,
+    "minStudentsPerSection": 15,
+    "assignedTeachers": [
+      "6a47ce5e7c6934b3c0c504e0",
+      "6a47ce5e7c6934b3c0c504e9",
+      "6a47ce5e7c6934b3c0c50503"
+    ],
+    "active": true,
+    "createdAt": "2026-07-03T14:59:41.955Z",
+    "updatedAt": "2026-07-03T14:59:42.540Z",
+    "__v": 2
+  },
+  {
+    "_id": "6a47ce5d7c6934b3c0c50459",
+    "code": "SI406",
+    "career": "6a47c695ca51db23dfa06b32",
+    "name": "Investigación de Operaciones",
+    "credits": 3,
+    "type": "teorico",
+    "semester": 4,
+    "prerequisites": [
+      "6a47ce5d7c6934b3c0c5044d"
+    ],
+    "corequisites": [],
+    "difficulty": 4,
+    "sessionsPerWeek": 2,
+    "hoursPerSession": 1,
+    "mandatory": true,
+    "maxStudents": 47,
+    "minStudentsPerSection": 15,
+    "assignedTeachers": [
+      "6a47ce5e7c6934b3c0c504df",
+      "6a47ce5e7c6934b3c0c504d5",
+      "6a47ce5e7c6934b3c0c50508"
+    ],
+    "active": true,
+    "createdAt": "2026-07-03T14:59:41.957Z",
+    "updatedAt": "2026-07-03T14:59:42.542Z",
+    "__v": 2
+  },
+  {
+    "_id": "6a47ce5d7c6934b3c0c5045b",
+    "code": "SI501",
+    "career": "6a47c695ca51db23dfa06b32",
+    "name": "Ingeniería de Software I",
+    "credits": 4,
+    "type": "teorico",
+    "semester": 5,
+    "prerequisites": [
+      "6a47ce5d7c6934b3c0c50453"
+    ],
+    "corequisites": [],
+    "difficulty": 3,
+    "sessionsPerWeek": 3,
+    "hoursPerSession": 1,
+    "mandatory": true,
+    "maxStudents": 31,
+    "minStudentsPerSection": 15,
+    "assignedTeachers": [
+      "6a47ce5e7c6934b3c0c50507",
+      "6a47ce5e7c6934b3c0c504f4"
+    ],
+    "active": true,
+    "createdAt": "2026-07-03T14:59:41.959Z",
+    "updatedAt": "2026-07-03T14:59:42.544Z",
+    "__v": 2
+  },
+  {
+    "_id": "6a47ce5d7c6934b3c0c5045d",
+    "code": "SI502",
+    "career": "6a47c695ca51db23dfa06b32",
+    "name": "Redes I",
+    "credits": 4,
+    "type": "laboratorio",
+    "semester": 5,
+    "prerequisites": [
+      "6a47ce5d7c6934b3c0c50455"
+    ],
+    "corequisites": [],
+    "difficulty": 3,
+    "sessionsPerWeek": 3,
+    "hoursPerSession": 1,
+    "mandatory": true,
+    "maxStudents": 31,
+    "minStudentsPerSection": 15,
+    "assignedTeachers": [
+      "6a47ce5e7c6934b3c0c5050b",
+      "6a47ce5e7c6934b3c0c504e8"
+    ],
+    "active": true,
+    "createdAt": "2026-07-03T14:59:41.961Z",
+    "updatedAt": "2026-07-03T14:59:42.547Z",
+    "__v": 2
+  },
+  {
+    "_id": "6a47ce5d7c6934b3c0c5045f",
+    "code": "SI503",
+    "career": "6a47c695ca51db23dfa06b32",
+    "name": "Programación Web",
+    "credits": 4,
+    "type": "laboratorio",
+    "semester": 5,
+    "prerequisites": [
+      "6a47ce5d7c6934b3c0c5044f"
+    ],
+    "corequisites": [],
+    "difficulty": 3,
+    "sessionsPerWeek": 3,
+    "hoursPerSession": 1,
+    "mandatory": true,
+    "maxStudents": 30,
+    "minStudentsPerSection": 15,
+    "assignedTeachers": [
+      "6a47ce5e7c6934b3c0c50506",
+      "6a47ce5e7c6934b3c0c504e5"
+    ],
+    "active": true,
+    "createdAt": "2026-07-03T14:59:41.965Z",
+    "updatedAt": "2026-07-03T14:59:42.550Z",
+    "__v": 2
+  },
+  {
+    "_id": "6a47ce5d7c6934b3c0c50461",
+    "code": "SI504",
+    "career": "6a47c695ca51db23dfa06b32",
+    "name": "Diseño de Interfaces UX/UI",
+    "credits": 3,
+    "type": "laboratorio",
+    "semester": 5,
+    "prerequisites": [
+      "6a47ce5d7c6934b3c0c50443"
+    ],
+    "corequisites": [],
+    "difficulty": 2,
+    "sessionsPerWeek": 2,
+    "hoursPerSession": 1,
+    "mandatory": true,
+    "maxStudents": 27,
+    "minStudentsPerSection": 15,
+    "assignedTeachers": [
+      "6a47ce5e7c6934b3c0c5050c",
+      "6a47ce5e7c6934b3c0c504dc"
+    ],
+    "active": true,
+    "createdAt": "2026-07-03T14:59:41.969Z",
+    "updatedAt": "2026-07-03T14:59:42.552Z",
+    "__v": 2
+  },
+  {
+    "_id": "6a47ce5d7c6934b3c0c50463",
+    "code": "SI505",
+    "career": "6a47c695ca51db23dfa06b32",
+    "name": "Administración de Empresas",
+    "credits": 3,
+    "type": "teorico",
+    "semester": 5,
+    "prerequisites": [],
+    "corequisites": [],
+    "difficulty": 2,
+    "sessionsPerWeek": 2,
+    "hoursPerSession": 1,
+    "mandatory": true,
+    "maxStudents": 26,
+    "minStudentsPerSection": 15,
+    "assignedTeachers": [
+      "6a47ce5e7c6934b3c0c50509",
+      "6a47ce5e7c6934b3c0c50504"
+    ],
+    "active": true,
+    "createdAt": "2026-07-03T14:59:41.973Z",
+    "updatedAt": "2026-07-03T14:59:42.554Z",
+    "__v": 1
+  },
+  {
+    "_id": "6a47ce5d7c6934b3c0c50465",
+    "code": "SI506",
+    "career": "6a47c695ca51db23dfa06b32",
+    "name": "Taller de Base de Datos",
+    "credits": 3,
+    "type": "laboratorio",
+    "semester": 5,
+    "prerequisites": [
+      "6a47ce5d7c6934b3c0c50451"
+    ],
+    "corequisites": [],
+    "difficulty": 3,
+    "sessionsPerWeek": 2,
+    "hoursPerSession": 2,
+    "mandatory": true,
+    "maxStudents": 26,
+    "minStudentsPerSection": 15,
+    "assignedTeachers": [
+      "6a47ce5e7c6934b3c0c504f0",
+      "6a47ce5e7c6934b3c0c50501"
+    ],
+    "active": true,
+    "createdAt": "2026-07-03T14:59:41.976Z",
+    "updatedAt": "2026-07-03T14:59:42.555Z",
+    "__v": 2
+  },
+  {
+    "_id": "6a47ce5d7c6934b3c0c50467",
+    "code": "SI601",
+    "career": "6a47c695ca51db23dfa06b32",
+    "name": "Ingeniería de Software II",
+    "credits": 4,
+    "type": "teorico",
+    "semester": 6,
+    "prerequisites": [
+      "6a47ce5d7c6934b3c0c5045b"
+    ],
+    "corequisites": [],
+    "difficulty": 3,
+    "sessionsPerWeek": 3,
+    "hoursPerSession": 1,
+    "mandatory": true,
+    "maxStudents": 29,
+    "minStudentsPerSection": 15,
+    "assignedTeachers": [
+      "6a47ce5e7c6934b3c0c504d8",
+      "6a47ce5e7c6934b3c0c504fb"
+    ],
+    "active": true,
+    "createdAt": "2026-07-03T14:59:41.978Z",
+    "updatedAt": "2026-07-03T14:59:42.557Z",
+    "__v": 2
+  },
+  {
+    "_id": "6a47ce5d7c6934b3c0c50469",
+    "code": "SI602",
+    "career": "6a47c695ca51db23dfa06b32",
+    "name": "Redes II",
+    "credits": 4,
+    "type": "laboratorio",
+    "semester": 6,
+    "prerequisites": [
+      "6a47ce5d7c6934b3c0c5045d"
+    ],
+    "corequisites": [],
+    "difficulty": 4,
+    "sessionsPerWeek": 3,
+    "hoursPerSession": 1,
+    "mandatory": true,
+    "maxStudents": 46,
+    "minStudentsPerSection": 15,
+    "assignedTeachers": [
+      "6a47ce5e7c6934b3c0c504fc",
+      "6a47ce5e7c6934b3c0c504fd"
+    ],
+    "active": true,
+    "createdAt": "2026-07-03T14:59:41.984Z",
+    "updatedAt": "2026-07-03T14:59:42.559Z",
+    "__v": 2
+  },
+  {
+    "_id": "6a47ce5d7c6934b3c0c5046b",
+    "code": "SI603",
+    "career": "6a47c695ca51db23dfa06b32",
+    "name": "Programación Móvil",
+    "credits": 4,
+    "type": "laboratorio",
+    "semester": 6,
+    "prerequisites": [
+      "6a47ce5d7c6934b3c0c5045f"
+    ],
+    "corequisites": [],
+    "difficulty": 4,
+    "sessionsPerWeek": 3,
+    "hoursPerSession": 1,
+    "mandatory": true,
+    "maxStudents": 35,
+    "minStudentsPerSection": 15,
+    "assignedTeachers": [
+      "6a47ce5e7c6934b3c0c504d9",
+      "6a47ce5e7c6934b3c0c504e7"
+    ],
+    "active": true,
+    "createdAt": "2026-07-03T14:59:41.986Z",
+    "updatedAt": "2026-07-03T14:59:42.561Z",
+    "__v": 2
+  },
+  {
+    "_id": "6a47ce5d7c6934b3c0c5046d",
+    "code": "SI604",
+    "career": "6a47c695ca51db23dfa06b32",
+    "name": "Inteligencia de Negocios",
+    "credits": 3,
+    "type": "laboratorio",
+    "semester": 6,
+    "prerequisites": [
+      "6a47ce5d7c6934b3c0c50451",
+      "6a47ce5d7c6934b3c0c5044d"
+    ],
+    "corequisites": [],
+    "difficulty": 3,
+    "sessionsPerWeek": 2,
+    "hoursPerSession": 1,
+    "mandatory": true,
+    "maxStudents": 25,
+    "minStudentsPerSection": 15,
+    "assignedTeachers": [
+      "6a47ce5e7c6934b3c0c504de",
+      "6a47ce5e7c6934b3c0c504ff",
+      "6a47ce5e7c6934b3c0c504f2"
+    ],
+    "active": true,
+    "createdAt": "2026-07-03T14:59:41.989Z",
+    "updatedAt": "2026-07-03T14:59:42.566Z",
+    "__v": 2
+  },
+  {
+    "_id": "6a47ce5d7c6934b3c0c5046f",
+    "code": "SI605",
+    "career": "6a47c695ca51db23dfa06b32",
+    "name": "Gestión de TI",
+    "credits": 3,
+    "type": "teorico",
+    "semester": 6,
+    "prerequisites": [
+      "6a47ce5d7c6934b3c0c5045b"
+    ],
+    "corequisites": [],
+    "difficulty": 2,
+    "sessionsPerWeek": 2,
+    "hoursPerSession": 1,
+    "mandatory": true,
+    "maxStudents": 42,
+    "minStudentsPerSection": 15,
+    "assignedTeachers": [
+      "6a47ce5e7c6934b3c0c504e4",
+      "6a47ce5e7c6934b3c0c50505",
+      "6a47ce5e7c6934b3c0c504e3"
+    ],
+    "active": true,
+    "createdAt": "2026-07-03T14:59:41.991Z",
+    "updatedAt": "2026-07-03T14:59:42.570Z",
+    "__v": 2
+  },
+  {
+    "_id": "6a47ce5d7c6934b3c0c50471",
+    "code": "SI606",
+    "career": "6a47c695ca51db23dfa06b32",
+    "name": "Seguridad Informática I",
+    "credits": 3,
+    "type": "teorico",
+    "semester": 6,
+    "prerequisites": [
+      "6a47ce5d7c6934b3c0c50457"
+    ],
+    "corequisites": [],
+    "difficulty": 3,
+    "sessionsPerWeek": 2,
+    "hoursPerSession": 1,
+    "mandatory": true,
+    "maxStudents": 47,
+    "minStudentsPerSection": 15,
+    "assignedTeachers": [
+      "6a47ce5e7c6934b3c0c50500",
+      "6a47ce5e7c6934b3c0c504d4",
+      "6a47ce5e7c6934b3c0c504ed"
+    ],
+    "active": true,
+    "createdAt": "2026-07-03T14:59:41.993Z",
+    "updatedAt": "2026-07-03T14:59:42.573Z",
+    "__v": 2
+  },
+  {
+    "_id": "6a47ce5d7c6934b3c0c50473",
+    "code": "SI701",
+    "career": "6a47c695ca51db23dfa06b32",
+    "name": "Ingeniería de Software III",
+    "credits": 4,
+    "type": "laboratorio",
+    "semester": 7,
+    "prerequisites": [
+      "6a47ce5d7c6934b3c0c50467"
+    ],
+    "corequisites": [],
+    "difficulty": 4,
+    "sessionsPerWeek": 3,
+    "hoursPerSession": 1,
+    "mandatory": true,
+    "maxStudents": 39,
+    "minStudentsPerSection": 15,
+    "assignedTeachers": [
+      "6a47ce5e7c6934b3c0c504f1",
+      "6a47ce5e7c6934b3c0c504f5"
+    ],
+    "active": true,
+    "createdAt": "2026-07-03T14:59:41.995Z",
+    "updatedAt": "2026-07-03T14:59:42.575Z",
+    "__v": 2
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c50475",
+    "code": "SI702",
+    "career": "6a47c695ca51db23dfa06b32",
+    "name": "Inteligencia Artificial",
+    "credits": 4,
+    "type": "laboratorio",
+    "semester": 7,
+    "prerequisites": [
+      "6a47ce5d7c6934b3c0c50447",
+      "6a47ce5d7c6934b3c0c5044d"
+    ],
+    "corequisites": [],
+    "difficulty": 5,
+    "sessionsPerWeek": 3,
+    "hoursPerSession": 1,
+    "mandatory": true,
+    "maxStudents": 30,
+    "minStudentsPerSection": 15,
+    "assignedTeachers": [
+      "6a47ce5e7c6934b3c0c504db",
+      "6a47ce5e7c6934b3c0c504dd",
+      "6a47ce5e7c6934b3c0c504f3"
+    ],
+    "active": true,
+    "createdAt": "2026-07-03T14:59:42.001Z",
+    "updatedAt": "2026-07-03T14:59:42.580Z",
+    "__v": 2
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c50477",
+    "code": "SI703",
+    "career": "6a47c695ca51db23dfa06b32",
+    "name": "Seguridad Informática II",
+    "credits": 3,
+    "type": "laboratorio",
+    "semester": 7,
+    "prerequisites": [
+      "6a47ce5d7c6934b3c0c50471"
+    ],
+    "corequisites": [],
+    "difficulty": 4,
+    "sessionsPerWeek": 2,
+    "hoursPerSession": 2,
+    "mandatory": true,
+    "maxStudents": 46,
+    "minStudentsPerSection": 15,
+    "assignedTeachers": [
+      "6a47ce5e7c6934b3c0c504d6",
+      "6a47ce5e7c6934b3c0c504d7"
+    ],
+    "active": true,
+    "createdAt": "2026-07-03T14:59:42.004Z",
+    "updatedAt": "2026-07-03T14:59:42.586Z",
+    "__v": 2
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c50479",
+    "code": "SI704",
+    "career": "6a47c695ca51db23dfa06b32",
+    "name": "Computación en la Nube",
+    "credits": 3,
+    "type": "laboratorio",
+    "semester": 7,
+    "prerequisites": [
+      "6a47ce5d7c6934b3c0c50457",
+      "6a47ce5d7c6934b3c0c5045d"
+    ],
+    "corequisites": [],
+    "difficulty": 3,
+    "sessionsPerWeek": 2,
+    "hoursPerSession": 1,
+    "mandatory": true,
+    "maxStudents": 35,
+    "minStudentsPerSection": 15,
+    "assignedTeachers": [
+      "6a47ce5e7c6934b3c0c504f8",
+      "6a47ce5e7c6934b3c0c504fe"
+    ],
+    "active": true,
+    "createdAt": "2026-07-03T14:59:42.007Z",
+    "updatedAt": "2026-07-03T14:59:42.589Z",
+    "__v": 2
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c5047b",
+    "code": "SI705",
+    "career": "6a47c695ca51db23dfa06b32",
+    "name": "Gestión de Proyectos TI",
+    "credits": 3,
+    "type": "teorico",
+    "semester": 7,
+    "prerequisites": [
+      "6a47ce5d7c6934b3c0c50467"
+    ],
+    "corequisites": [],
+    "difficulty": 3,
+    "sessionsPerWeek": 2,
+    "hoursPerSession": 1,
+    "mandatory": true,
+    "maxStudents": 25,
+    "minStudentsPerSection": 15,
+    "assignedTeachers": [
+      "6a47ce5e7c6934b3c0c504eb",
+      "6a47ce5e7c6934b3c0c504ee",
+      "6a47ce5e7c6934b3c0c504ea"
+    ],
+    "active": true,
+    "createdAt": "2026-07-03T14:59:42.010Z",
+    "updatedAt": "2026-07-03T14:59:42.591Z",
+    "__v": 2
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c5047d",
+    "code": "SI706",
+    "career": "6a47c695ca51db23dfa06b32",
+    "name": "Auditoría de Sistemas",
+    "credits": 3,
+    "type": "teorico",
+    "semester": 7,
+    "prerequisites": [
+      "6a47ce5d7c6934b3c0c50467",
+      "6a47ce5d7c6934b3c0c50471"
+    ],
+    "corequisites": [],
+    "difficulty": 3,
+    "sessionsPerWeek": 2,
+    "hoursPerSession": 1,
+    "mandatory": true,
+    "maxStudents": 50,
+    "minStudentsPerSection": 15,
+    "assignedTeachers": [
+      "6a47ce5e7c6934b3c0c504da",
+      "6a47ce5e7c6934b3c0c504e0",
+      "6a47ce5e7c6934b3c0c504e9"
+    ],
+    "active": true,
+    "createdAt": "2026-07-03T14:59:42.013Z",
+    "updatedAt": "2026-07-03T14:59:42.593Z",
+    "__v": 2
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c5047f",
+    "code": "SI801",
+    "career": "6a47c695ca51db23dfa06b32",
+    "name": "Sistemas Distribuidos",
+    "credits": 4,
+    "type": "laboratorio",
+    "semester": 8,
+    "prerequisites": [
+      "6a47ce5e7c6934b3c0c50479"
+    ],
+    "corequisites": [],
+    "difficulty": 4,
+    "sessionsPerWeek": 3,
+    "hoursPerSession": 1,
+    "mandatory": true,
+    "maxStudents": 27,
+    "minStudentsPerSection": 15,
+    "assignedTeachers": [
+      "6a47ce5e7c6934b3c0c50503",
+      "6a47ce5e7c6934b3c0c504df"
+    ],
+    "active": true,
+    "createdAt": "2026-07-03T14:59:42.018Z",
+    "updatedAt": "2026-07-03T14:59:42.596Z",
+    "__v": 2
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c50481",
+    "code": "SI802",
+    "career": "6a47c695ca51db23dfa06b32",
+    "name": "Ciencia de Datos",
+    "credits": 4,
+    "type": "laboratorio",
+    "semester": 8,
+    "prerequisites": [
+      "6a47ce5d7c6934b3c0c5046d",
+      "6a47ce5e7c6934b3c0c50475"
+    ],
+    "corequisites": [],
+    "difficulty": 4,
+    "sessionsPerWeek": 3,
+    "hoursPerSession": 1,
+    "mandatory": true,
+    "maxStudents": 48,
+    "minStudentsPerSection": 15,
+    "assignedTeachers": [
+      "6a47ce5e7c6934b3c0c50508",
+      "6a47ce5e7c6934b3c0c50507"
+    ],
+    "active": true,
+    "createdAt": "2026-07-03T14:59:42.020Z",
+    "updatedAt": "2026-07-03T14:59:42.599Z",
+    "__v": 2
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c50483",
+    "code": "SI803",
+    "career": "6a47c695ca51db23dfa06b32",
+    "name": "Machine Learning",
+    "credits": 4,
+    "type": "laboratorio",
+    "semester": 8,
+    "prerequisites": [
+      "6a47ce5e7c6934b3c0c50475"
+    ],
+    "corequisites": [],
+    "difficulty": 5,
+    "sessionsPerWeek": 3,
+    "hoursPerSession": 1,
+    "mandatory": true,
+    "maxStudents": 29,
+    "minStudentsPerSection": 15,
+    "assignedTeachers": [
+      "6a47ce5e7c6934b3c0c504e2",
+      "6a47ce5e7c6934b3c0c5050b"
+    ],
+    "active": true,
+    "createdAt": "2026-07-03T14:59:42.022Z",
+    "updatedAt": "2026-07-03T14:59:42.602Z",
+    "__v": 2
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c50485",
+    "code": "SI804",
+    "career": "6a47c695ca51db23dfa06b32",
+    "name": "Robótica Educativa",
+    "credits": 3,
+    "type": "laboratorio",
+    "semester": 8,
+    "prerequisites": [
+      "6a47ce5d7c6934b3c0c50457"
+    ],
+    "corequisites": [],
+    "difficulty": 4,
+    "sessionsPerWeek": 2,
+    "hoursPerSession": 2,
+    "mandatory": true,
+    "maxStudents": 33,
+    "minStudentsPerSection": 15,
+    "assignedTeachers": [
+      "6a47ce5e7c6934b3c0c504e1",
+      "6a47ce5e7c6934b3c0c50506",
+      "6a47ce5e7c6934b3c0c504e5"
+    ],
+    "active": true,
+    "createdAt": "2026-07-03T14:59:42.025Z",
+    "updatedAt": "2026-07-03T14:59:42.604Z",
+    "__v": 2
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c50487",
+    "code": "SI805",
+    "career": "6a47c695ca51db23dfa06b32",
+    "name": "Emprendimiento Digital",
+    "credits": 3,
+    "type": "teorico",
+    "semester": 8,
+    "prerequisites": [],
+    "corequisites": [],
+    "difficulty": 2,
+    "sessionsPerWeek": 2,
+    "hoursPerSession": 1,
+    "mandatory": true,
+    "maxStudents": 29,
+    "minStudentsPerSection": 15,
+    "assignedTeachers": [
+      "6a47ce5e7c6934b3c0c504e6",
+      "6a47ce5e7c6934b3c0c5050c"
+    ],
+    "active": true,
+    "createdAt": "2026-07-03T14:59:42.026Z",
+    "updatedAt": "2026-07-03T14:59:42.605Z",
+    "__v": 1
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c50489",
+    "code": "SI806",
+    "career": "6a47c695ca51db23dfa06b32",
+    "name": "Legislación Informática",
+    "credits": 2,
+    "type": "teorico",
+    "semester": 8,
+    "prerequisites": [],
+    "corequisites": [],
+    "difficulty": 1,
+    "sessionsPerWeek": 1,
+    "hoursPerSession": 2,
+    "mandatory": true,
+    "maxStudents": 30,
+    "minStudentsPerSection": 15,
+    "assignedTeachers": [
+      "6a47ce5e7c6934b3c0c504ec",
+      "6a47ce5e7c6934b3c0c50509",
+      "6a47ce5e7c6934b3c0c50504"
+    ],
+    "active": true,
+    "createdAt": "2026-07-03T14:59:42.030Z",
+    "updatedAt": "2026-07-03T14:59:42.608Z",
+    "__v": 1
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c5048b",
+    "code": "SI901",
+    "career": "6a47c695ca51db23dfa06b32",
+    "name": "Desarrollo de Videojuegos",
+    "credits": 4,
+    "type": "laboratorio",
+    "semester": 9,
+    "prerequisites": [
+      "6a47ce5d7c6934b3c0c50473",
+      "6a47ce5d7c6934b3c0c5046b"
+    ],
+    "corequisites": [],
+    "difficulty": 4,
+    "sessionsPerWeek": 3,
+    "hoursPerSession": 1,
+    "mandatory": false,
+    "maxStudents": 50,
+    "minStudentsPerSection": 15,
+    "assignedTeachers": [
+      "6a47ce5e7c6934b3c0c504d3",
+      "6a47ce5e7c6934b3c0c504f0"
+    ],
+    "active": true,
+    "createdAt": "2026-07-03T14:59:42.035Z",
+    "updatedAt": "2026-07-03T14:59:42.612Z",
+    "__v": 2
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c5048d",
+    "code": "SI902",
+    "career": "6a47c695ca51db23dfa06b32",
+    "name": "Criptografía y Seguridad",
+    "credits": 3,
+    "type": "teorico",
+    "semester": 9,
+    "prerequisites": [
+      "6a47ce5e7c6934b3c0c50477"
+    ],
+    "corequisites": [],
+    "difficulty": 5,
+    "sessionsPerWeek": 2,
+    "hoursPerSession": 1,
+    "mandatory": false,
+    "maxStudents": 49,
+    "minStudentsPerSection": 15,
+    "assignedTeachers": [
+      "6a47ce5e7c6934b3c0c504f7",
+      "6a47ce5e7c6934b3c0c504d8"
+    ],
+    "active": true,
+    "createdAt": "2026-07-03T14:59:42.038Z",
+    "updatedAt": "2026-07-03T14:59:42.615Z",
+    "__v": 2
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c5048f",
+    "code": "SI903",
+    "career": "6a47c695ca51db23dfa06b32",
+    "name": "Internet de las Cosas",
+    "credits": 3,
+    "type": "laboratorio",
+    "semester": 9,
+    "prerequisites": [
+      "6a47ce5e7c6934b3c0c50479"
+    ],
+    "corequisites": [],
+    "difficulty": 4,
+    "sessionsPerWeek": 2,
+    "hoursPerSession": 2,
+    "mandatory": false,
+    "maxStudents": 40,
+    "minStudentsPerSection": 15,
+    "assignedTeachers": [
+      "6a47ce5e7c6934b3c0c504f6",
+      "6a47ce5e7c6934b3c0c504fc",
+      "6a47ce5e7c6934b3c0c504fd"
+    ],
+    "active": true,
+    "createdAt": "2026-07-03T14:59:42.042Z",
+    "updatedAt": "2026-07-03T14:59:42.618Z",
+    "__v": 2
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c50491",
+    "code": "SI904",
+    "career": "6a47c695ca51db23dfa06b32",
+    "name": "Realidad Virtual y Aumentada",
+    "credits": 3,
+    "type": "laboratorio",
+    "semester": 9,
+    "prerequisites": [
+      "6a47ce5d7c6934b3c0c50473"
+    ],
+    "corequisites": [],
+    "difficulty": 4,
+    "sessionsPerWeek": 2,
+    "hoursPerSession": 2,
+    "mandatory": false,
+    "maxStudents": 38,
+    "minStudentsPerSection": 15,
+    "assignedTeachers": [
+      "6a47ce5e7c6934b3c0c5050a",
+      "6a47ce5e7c6934b3c0c504d9",
+      "6a47ce5e7c6934b3c0c504e7"
+    ],
+    "active": true,
+    "createdAt": "2026-07-03T14:59:42.044Z",
+    "updatedAt": "2026-07-03T14:59:42.621Z",
+    "__v": 2
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c50493",
+    "code": "SI905",
+    "career": "6a47c695ca51db23dfa06b32",
+    "name": "Big Data",
+    "credits": 4,
+    "type": "laboratorio",
+    "semester": 9,
+    "prerequisites": [
+      "6a47ce5e7c6934b3c0c50481"
+    ],
+    "corequisites": [],
+    "difficulty": 5,
+    "sessionsPerWeek": 3,
+    "hoursPerSession": 1,
+    "mandatory": false,
+    "maxStudents": 35,
+    "minStudentsPerSection": 15,
+    "assignedTeachers": [
+      "6a47ce5e7c6934b3c0c50502",
+      "6a47ce5e7c6934b3c0c504de",
+      "6a47ce5e7c6934b3c0c504ff"
+    ],
+    "active": true,
+    "createdAt": "2026-07-03T14:59:42.052Z",
+    "updatedAt": "2026-07-03T14:59:42.624Z",
+    "__v": 2
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c50495",
+    "code": "SI906",
+    "career": "6a47c695ca51db23dfa06b32",
+    "name": "Ética Profesional",
+    "credits": 2,
+    "type": "teorico",
+    "semester": 9,
+    "prerequisites": [],
+    "corequisites": [],
+    "difficulty": 1,
+    "sessionsPerWeek": 1,
+    "hoursPerSession": 2,
+    "mandatory": false,
+    "maxStudents": 34,
+    "minStudentsPerSection": 15,
+    "assignedTeachers": [
+      "6a47ce5e7c6934b3c0c504f2",
+      "6a47ce5e7c6934b3c0c504e4",
+      "6a47ce5e7c6934b3c0c50505"
+    ],
+    "active": true,
+    "createdAt": "2026-07-03T14:59:42.055Z",
+    "updatedAt": "2026-07-03T14:59:42.627Z",
+    "__v": 1
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c50497",
+    "code": "SI1001",
+    "career": "6a47c695ca51db23dfa06b32",
+    "name": "Proyecto de Tesis I",
+    "credits": 4,
+    "type": "teorico",
+    "semester": 10,
+    "prerequisites": [
+      "6a47ce5e7c6934b3c0c5047b"
+    ],
+    "corequisites": [],
+    "difficulty": 4,
+    "sessionsPerWeek": 2,
+    "hoursPerSession": 2,
+    "mandatory": false,
+    "maxStudents": 40,
+    "minStudentsPerSection": 15,
+    "assignedTeachers": [
+      "6a47ce5e7c6934b3c0c504e3",
+      "6a47ce5e7c6934b3c0c50500",
+      "6a47ce5e7c6934b3c0c504d4"
+    ],
+    "active": true,
+    "createdAt": "2026-07-03T14:59:42.057Z",
+    "updatedAt": "2026-07-03T14:59:42.630Z",
+    "__v": 2
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c50499",
+    "code": "SI1002",
+    "career": "6a47c695ca51db23dfa06b32",
+    "name": "Proyecto de Tesis II",
+    "credits": 4,
+    "type": "teorico",
+    "semester": 10,
+    "prerequisites": [
+      "6a47ce5e7c6934b3c0c50497"
+    ],
+    "corequisites": [],
+    "difficulty": 4,
+    "sessionsPerWeek": 2,
+    "hoursPerSession": 2,
+    "mandatory": false,
+    "maxStudents": 29,
+    "minStudentsPerSection": 15,
+    "assignedTeachers": [
+      "6a47ce5e7c6934b3c0c504ed",
+      "6a47ce5e7c6934b3c0c504f1"
+    ],
+    "active": true,
+    "createdAt": "2026-07-03T14:59:42.059Z",
+    "updatedAt": "2026-07-03T14:59:42.632Z",
+    "__v": 2
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c5049b",
+    "code": "SI1003",
+    "career": "6a47c695ca51db23dfa06b32",
+    "name": "Prácticas Pre-Profesionales",
+    "credits": 6,
+    "type": "teorico",
+    "semester": 10,
+    "prerequisites": [],
+    "corequisites": [],
+    "difficulty": 1,
+    "sessionsPerWeek": 1,
+    "hoursPerSession": 1,
+    "mandatory": false,
+    "maxStudents": 49,
+    "minStudentsPerSection": 15,
+    "assignedTeachers": [
+      "6a47ce5e7c6934b3c0c504fa",
+      "6a47ce5e7c6934b3c0c504db"
+    ],
+    "active": true,
+    "createdAt": "2026-07-03T14:59:42.061Z",
+    "updatedAt": "2026-07-03T14:59:42.634Z",
+    "__v": 1
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c5049d",
+    "code": "SI1004",
+    "career": "6a47c695ca51db23dfa06b32",
+    "name": "Taller de Emprendimiento",
+    "credits": 3,
+    "type": "teorico",
+    "semester": 10,
+    "prerequisites": [
+      "6a47ce5e7c6934b3c0c50487"
+    ],
+    "corequisites": [],
+    "difficulty": 2,
+    "sessionsPerWeek": 2,
+    "hoursPerSession": 1,
+    "mandatory": false,
+    "maxStudents": 40,
+    "minStudentsPerSection": 15,
+    "assignedTeachers": [
+      "6a47ce5e7c6934b3c0c504f3",
+      "6a47ce5e7c6934b3c0c504d6"
+    ],
+    "active": true,
+    "createdAt": "2026-07-03T14:59:42.064Z",
+    "updatedAt": "2026-07-03T14:59:42.636Z",
+    "__v": 2
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c5049f",
+    "code": "SI1005",
+    "career": "6a47c695ca51db23dfa06b32",
+    "name": "Seminario de Actualización",
+    "credits": 2,
+    "type": "teorico",
+    "semester": 10,
+    "prerequisites": [],
+    "corequisites": [],
+    "difficulty": 1,
+    "sessionsPerWeek": 1,
+    "hoursPerSession": 2,
+    "mandatory": false,
+    "maxStudents": 45,
+    "minStudentsPerSection": 15,
+    "assignedTeachers": [
+      "6a47ce5e7c6934b3c0c504f9",
+      "6a47ce5e7c6934b3c0c504f8",
+      "6a47ce5e7c6934b3c0c504fe"
+    ],
+    "active": true,
+    "createdAt": "2026-07-03T14:59:42.068Z",
+    "updatedAt": "2026-07-03T14:59:42.638Z",
+    "__v": 1
+  },
+  {
+    "_id": "6a47ce5e7c6934b3c0c504a1",
+    "code": "SI1006",
+    "career": "6a47c695ca51db23dfa06b32",
+    "name": "Calidad de Software",
+    "credits": 3,
+    "type": "teorico",
+    "semester": 10,
+    "prerequisites": [
+      "6a47ce5d7c6934b3c0c50473"
+    ],
+    "corequisites": [],
+    "difficulty": 3,
+    "sessionsPerWeek": 2,
+    "hoursPerSession": 1,
+    "mandatory": false,
+    "maxStudents": 45,
+    "minStudentsPerSection": 15,
+    "assignedTeachers": [
+      "6a47ce5e7c6934b3c0c504ef",
+      "6a47ce5e7c6934b3c0c504eb",
+      "6a47ce5e7c6934b3c0c504ee"
+    ],
+    "active": true,
+    "createdAt": "2026-07-03T14:59:42.070Z",
+    "updatedAt": "2026-07-03T14:59:42.641Z",
+    "__v": 2
+  }
+]
